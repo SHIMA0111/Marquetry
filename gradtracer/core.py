@@ -112,33 +112,33 @@ class Variable(object):
 
     @property
     def T(self):
-        return matrixml.functions.transpose(self)
+        return gradtracer.functions.transpose(self)
 
     def copy(self):
         return copy.deepcopy(self)
 
     def dot(self, other):
-        return matrixml.functions.matmul(self, other)
+        return gradtracer.functions.matmul(self, other)
 
     def max(self, axis=None, keepdims=False):
-        return matrixml.functions.max(self, axis, keepdims)
+        return gradtracer.functions.max(self, axis, keepdims)
 
     def mean(self, axis=None, keepdims=False):
-        return matrixml.functions.mean(self, axis, keepdims)
+        return gradtracer.functions.mean(self, axis, keepdims)
 
     def repeat(self, repeats, axis=None):
-        return matrixml.functions.repeat(self, repeats, axis)
+        return gradtracer.functions.repeat(self, repeats, axis)
 
     def reshape(self, *shape):
         if len(shape) == 1 and isinstance(shape[0], (tuple, list)):
             shape = shape[0]
-        return matrixml.functions.reshape(self, shape)
+        return gradtracer.functions.reshape(self, shape)
 
     def sum(self, axis=None, keepdims=False):
-        return matrixml.functions.sum(self, axis, keepdims)
+        return gradtracer.functions.sum(self, axis, keepdims)
 
     def squeeze(self, axis):
-        return matrixml.functions.squeeze(self, axis)
+        return gradtracer.functions.squeeze(self, axis)
 
     def to_numpy(self):
         if self.grad is not None:
@@ -152,13 +152,13 @@ class Variable(object):
             if isinstance(axes[0], (tuple, list)) or axes[0] is None:
                 axes = axes[0]
 
-        return matrixml.functions.transpose(self, axes)
+        return gradtracer.functions.transpose(self, axes)
 
     def unsqueeze(self, axis):
-        return matrixml.functions.unsqueeze(self, axis)
+        return gradtracer.functions.unsqueeze(self, axis)
 
     def __matmul__(self, other):
-        return matrixml.functions.matmul(self, other)
+        return gradtracer.functions.matmul(self, other)
 
     def __len__(self):
         return len(self.data)
@@ -212,7 +212,7 @@ class Variable(object):
         return pow(self, power)
 
     def __getitem__(self, item):
-        return matrixml.functions.get_item(self, item)
+        return gradtracer.functions.get_item(self, item)
 
     def __eq__(self, other):
         other = as_variable(as_array(other))
@@ -305,8 +305,8 @@ class Add(Function):
     def backward(self, grad_y):
         grad_x0, grad_x1 = grad_y, grad_y
         if self.x0_shape != self.x1_shape:
-            grad_x0 = matrixml.functions.sum_to(grad_x0, self.x0_shape)
-            grad_x1 = matrixml.functions.sum_to(grad_x1, self.x1_shape)
+            grad_x0 = gradtracer.functions.sum_to(grad_x0, self.x0_shape)
+            grad_x1 = gradtracer.functions.sum_to(grad_x1, self.x1_shape)
 
         return grad_x0, grad_x1
 
@@ -326,8 +326,8 @@ class Mul(Function):
         grad_x0 = grad_y * x1
         grad_x1 = grad_y * x0
         if x0.shape != x1.shape:
-            grad_x0 = matrixml.functions.sum_to(grad_x0, x0.shape)
-            grad_x1 = matrixml.functions.sum_to(grad_x1, x1.shape)
+            grad_x0 = gradtracer.functions.sum_to(grad_x0, x0.shape)
+            grad_x1 = gradtracer.functions.sum_to(grad_x1, x1.shape)
 
         return grad_x0, grad_x1
 
@@ -364,8 +364,8 @@ class Sub(Function):
         grad_x0 = grad_x
         grad_x1 = -grad_x
         if self.x0_shape != self.x1_shape:
-            grad_x0 = matrixml.functions.sum_to(grad_x0, self.x0_shape)
-            grad_x1 = matrixml.functions.sum_to(grad_x1, self.x1_shape)
+            grad_x0 = gradtracer.functions.sum_to(grad_x0, self.x0_shape)
+            grad_x1 = gradtracer.functions.sum_to(grad_x1, self.x1_shape)
 
         return grad_x0, grad_x1
 
@@ -390,8 +390,8 @@ class Div(Function):
         grad_x0 = grad_y / x1
         grad_x1 = grad_y * (-x0 / x1 ** 2)
         if x0.shape != x1.shape:
-            grad_x0 = matrixml.functions.sum_to(grad_x0, x0.shape)
-            grad_x1 = matrixml.functions.sum_to(grad_x1, x1.shape)
+            grad_x0 = gradtracer.functions.sum_to(grad_x0, x0.shape)
+            grad_x1 = gradtracer.functions.sum_to(grad_x1, x1.shape)
 
         return grad_x0, grad_x1
 
