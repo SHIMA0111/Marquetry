@@ -33,6 +33,6 @@ for test script
  - [PyTorch](https://pytorch.org/)
 
 ### Reference Source
-This framework is referenced on [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
+This framework refer to [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
 Therefore, there are much similar architecture between **dezero** and this like the algorithm of the autograd and so.
 If you want to know about this framework deeply, I suggest to visit the **dezero** repository.
