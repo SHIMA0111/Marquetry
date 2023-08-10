@@ -1,0 +1,6 @@
+__pycache__/
+.idea/
+
+check_scripts/
+
+.DS_Store
