@@ -5,7 +5,7 @@ This framework is written only **Python**, so you can understand the implementat
 ### Directory
 ```
 ├── README.md
-├── matrixml
+├── gradtracer
 │   ├── __init__.py
 │   ├── core.py ... Core components
 │   ├── datasets.py ... Dataset like "MNIST"/"Titanic"
@@ -25,6 +25,12 @@ You need to fill the below version requirement and import external libraries.
  - [Python 3 | 3.6 or later](https://docs.python.org/3/)
  - [NumPy](https://numpy.org/)
  - [Pandas](https://pandas.pydata.org/)
+
+for display the calculation graph
+ - [Pillow](https://pillow.readthedocs.io/en/stable/)
+
+for test script
+ - [PyTorch](https://pytorch.org/)
 
 ### Reference Source
 This framework is referenced on [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
