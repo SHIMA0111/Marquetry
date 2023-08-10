@@ -3,8 +3,8 @@ import weakref
 
 import numpy as np
 
-import matrixml.functions as funcs
-from matrixml.core import Parameter
+import gradtracer.functions as funcs
+from gradtracer.core import Parameter
 
 
 # ===========================================================================

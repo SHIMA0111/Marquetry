@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-import matrixml.functions as funcs
-from matrixml import Variable
-from matrixml.utils import gradient_check, array_close
+import gradtracer.functions as funcs
+from gradtracer import Variable
+from gradtracer.utils import gradient_check, array_close
 
 
 class TestSum(unittest.TestCase):

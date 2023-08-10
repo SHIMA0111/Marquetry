@@ -3,10 +3,10 @@ import unittest
 import torch
 import numpy as np
 
-import matrixml.functions as funcs
-import matrixml.layers as layers
-from matrixml import Variable
-from matrixml.utils import gradient_check, array_close, array_equal
+import gradtracer.functions as funcs
+import gradtracer.layers as layers
+from gradtracer import Variable
+from gradtracer.utils import gradient_check, array_close, array_equal
 
 
 class TestMatmul(unittest.TestCase):

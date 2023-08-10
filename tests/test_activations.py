@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 import torch
 
-import matrixml.functions as funcs
-from matrixml.utils import gradient_check, array_close
+import gradtracer.functions as funcs
+from gradtracer.utils import gradient_check, array_close
 
 
 class TestSigmoid(unittest.TestCase):

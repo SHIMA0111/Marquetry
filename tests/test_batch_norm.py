@@ -3,9 +3,9 @@ import unittest
 import torch
 import numpy as np
 
-import matrixml
-import matrixml.functions as funcs
-from matrixml.utils import gradient_check, array_equal, array_close
+import gradtracer
+import gradtracer.functions as funcs
+from gradtracer.utils import gradient_check, array_equal, array_close
 
 
 def get_params(batch_size, channels, height=None, weight=None, dtype: any = "f"):
@@ -27,7 +27,7 @@ class TestFixedBatchNorm(unittest.TestCase):
     def test_type1(self):
         batch_size, channels = 8, 3
         x, gamma, beta, mean, var = get_params(batch_size, channels)
-        with matrixml.test_mode():
+        with gradtracer.test_mode():
             y = funcs.batch_norm(x, gamma, beta, mean, var, eps=2e-5)
 
         self.assertTrue(y.data.dtype == np.float32)
@@ -40,7 +40,7 @@ class TestFixedBatchNorm(unittest.TestCase):
                               running_mean=torch.tensor(mean), running_var=torch.tensor(var),
                               training=False, momentum=0.9, eps=1e-15, cudnn_enabled=False)
 
-        with matrixml.test_mode():
+        with gradtracer.test_mode():
             y = funcs.batch_norm(x, gamma, beta, mean, var)
         self.assertTrue(array_close(y.data, ty.detach().numpy()))
 
@@ -50,7 +50,7 @@ class TestFixedBatchNorm(unittest.TestCase):
         ty = torch.batch_norm(torch.tensor(x), torch.tensor(gamma), torch.tensor(beta),
                               running_mean=torch.tensor(mean), running_var=torch.tensor(var),
                               training=False, momentum=0.9, eps=1e-15, cudnn_enabled=False)
-        with matrixml.test_mode():
+        with gradtracer.test_mode():
             y = funcs.batch_norm(x, gamma, beta, mean, var)
 
         self.assertTrue(array_close(y.data, ty.detach().numpy()))
@@ -61,7 +61,7 @@ class TestFixedBatchNorm(unittest.TestCase):
         ty = torch.batch_norm(torch.tensor(x), torch.tensor(gamma), torch.tensor(beta),
                               running_mean=torch.tensor(mean), running_var=torch.tensor(var),
                               training=False, momentum=0.9, eps=1e-15, cudnn_enabled=False)
-        with matrixml.test_mode():
+        with gradtracer.test_mode():
             y = funcs.batch_norm(x, gamma, beta, mean, var)
 
         self.assertTrue(array_close(y.data, ty.detach().numpy()))
@@ -109,7 +109,7 @@ class TestBatchNorm(unittest.TestCase):
     def test_forward4(self):
         batch_size, channels = 20, 10
         tl = torch.nn.BatchNorm1d(10, 1e-15, momentum=0.1, affine=False)
-        l = matrixml.layers.BatchNorm()
+        l = gradtracer.layers.BatchNorm()
 
         for _ in range(10):
             x = np.random.randn(batch_size, channels).astype("f")
@@ -148,14 +148,14 @@ class TestBatchNormLayer(unittest.TestCase):
         batch_size, channels = 8, 3
         x, _, _, _, _ = get_params(batch_size, channels)
         ty = torch.nn.BatchNorm1d(3, eps=1e-15, affine=False)(torch.tensor(x))
-        y = matrixml.layers.BatchNorm()(x)
+        y = gradtracer.layers.BatchNorm()(x)
 
         self.assertTrue(array_close(y.data, ty.data))
 
     def test_forward2(self):
         batch_size, channels = 8, 3
         tl = torch.nn.BatchNorm1d(3, eps=1e-15, affine=False)
-        l = matrixml.layers.BatchNorm()
+        l = gradtracer.layers.BatchNorm()
 
         for _ in range(10):
             x, _, _, _, _ = get_params(batch_size, channels)

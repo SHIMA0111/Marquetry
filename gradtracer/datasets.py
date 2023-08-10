@@ -1,11 +1,9 @@
 import gzip
-import os.path
 
 import numpy as np
 import pandas as pd
 
-import matrixml
-from matrixml.utils import get_file
+from gradtracer.utils import get_file
 
 
 # ===========================================================================

@@ -6,9 +6,9 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-import matrixml
-from matrixml import as_variable
-from matrixml import Variable
+import gradtracer
+from gradtracer import as_variable
+from gradtracer import Variable
 
 
 # ===========================================================================
@@ -172,10 +172,10 @@ def get_file(url, file_name=None):
     if file_name is None:
         file_name = url[url.rfind("/") + 1:]
 
-    file_path = os.path.join(matrixml.Config.CACHE_DIR, file_name)
+    file_path = os.path.join(gradtracer.Config.CACHE_DIR, file_name)
 
-    if not os.path.exists(matrixml.Config.CACHE_DIR):
-        os.mkdir(matrixml.Config.CACHE_DIR)
+    if not os.path.exists(gradtracer.Config.CACHE_DIR):
+        os.mkdir(gradtracer.Config.CACHE_DIR)
 
     if os.path.exists(file_path):
         return file_path

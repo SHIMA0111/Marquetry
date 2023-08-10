@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-import matrixml.functions as funcs
-from matrixml import Variable
-from matrixml.utils import array_close, array_equal, gradient_check
+import gradtracer.functions as funcs
+from gradtracer import Variable
+from gradtracer.utils import array_close, array_equal, gradient_check
 
 
 class TestConcat(unittest.TestCase):

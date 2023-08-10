@@ -4,8 +4,8 @@ import unittest
 import numpy as np
 import torch
 
-import matrixml.functions as funcs
-from matrixml.utils import array_close, gradient_check
+import gradtracer.functions as funcs
+from gradtracer.utils import array_close, gradient_check
 
 
 class TestMSE(unittest.TestCase):
