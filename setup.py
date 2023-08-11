@@ -1,19 +1,29 @@
+import setuptools
 from setuptools import setup
 
+with open("README.md", "r") as f:
+    long_description = f.read()
+
 setup(
-    name="gradtracer",
+    name="marquetry",
     version="0.0.1",
     license="MIT",
     install_requires=[
         "numpy",
         "pandas",
         "pillow",
-        "torch"
     ],
     description="Simple Machine Learning Framework",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     author="SHIMA",
     author_email="shima@geeksheap.com",
-    url="",
-    packages=["gradtracer"],
-    python_requires=">=3.8"
+    url="https://github.com/GeeksHeap/Marquetry",
+    packages=setuptools.find_packages(),
+    python_requires=">=3.8",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ]
 )
