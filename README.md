@@ -2,7 +2,7 @@
 Marquetry means **Yosegi-zaiku**, a traditional Japanese woodworking technique, in Japan.  
 It is a beautiful culture craft originated in Japan, which is a box or ornament or so by small wooden pieces.  
 The design is UNIQUE, it depends on the arrangement of the wood tips.  
-I believe Deep Learning is similar with the concept. 
+I believe Deep Learning is similar with the concept.  
 Deep Learning models are constructed through the combination of the layers or functions. 
 Just as a slight variation in arrangement can result in a completely distinct model.  
 I want you can enjoy the deep/machine learning journey like 
@@ -52,7 +52,8 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 ### Reference Source
 This framework started to be developed based on [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
-Therefore, there are much similar architecture between **dezero** and this like the algorithm of the autograd and so.  
+Therefore, there are much similar architecture between **dezero** and 
+this like the algorithm of the auto-gradient and so.  
 If you want to know about this framework deeply, I suggest to visit the **dezero** repository.
 
 I respect the author because his books are very curiously and easy to understandable.  
