@@ -1,8 +1,8 @@
 import numpy as np
 
-import gradtracer
-from gradtracer import utils
-from gradtracer.core import Function, as_variable
+import marquetry
+from marquetry import utils
+from marquetry.core import Function, as_variable
 
 
 # ===========================================================================
@@ -675,7 +675,7 @@ class Dropout(Function):
         self.mask = None
 
     def forward(self, x):
-        if gradtracer.Config.train_mode:
+        if marquetry.Config.train_mode:
             mask = np.random.rand(*x.shape) > self.dropout_rate
             self.mask = mask
             scale = np.array(1.0 - self.dropout_rate).astype(x.dtype)
@@ -686,7 +686,7 @@ class Dropout(Function):
         return y
 
     def backward(self, grad_y):
-        if gradtracer.Config.train_mode:
+        if marquetry.Config.train_mode:
             grad_x = grad_y * self.mask
         else:
             raise Exception("You execute non-train mode so you can't do backward.")
@@ -710,7 +710,7 @@ class BatchNorm(Function):
     def forward(self, x, gamma, beta):
         assert x.ndim == 2
 
-        if gradtracer.Config.train_mode:
+        if marquetry.Config.train_mode:
             mean = x.mean(axis=0)
             var = x.var(axis=0)
             inv_std = 1 / np.sqrt(var + self.eps)

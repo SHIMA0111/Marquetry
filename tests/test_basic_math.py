@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-import gradtracer.core
-from gradtracer import Variable
-from gradtracer.utils import gradient_check, array_equal
+import marquetry.core
+from marquetry import Variable
+from marquetry.utils import gradient_check, array_equal
 
 
 class TestAdd(unittest.TestCase):
@@ -43,7 +43,7 @@ class TestAdd(unittest.TestCase):
         x = np.random.randn(3, 3)
         y = np.random.randn(3, 1)
 
-        self.assertTrue(gradient_check(gradtracer.core.add, x, y))
+        self.assertTrue(gradient_check(marquetry.core.add, x, y))
 
 
 class TestSub(unittest.TestCase):
@@ -75,7 +75,7 @@ class TestSub(unittest.TestCase):
         x = np.random.randn(3, 3)
         y = np.random.randn(3, 1)
 
-        self.assertTrue(gradient_check(gradtracer.core.sub, x, y))
+        self.assertTrue(gradient_check(marquetry.core.sub, x, y))
 
 
 class TestMul(unittest.TestCase):

@@ -3,7 +3,7 @@ import gzip
 import numpy as np
 import pandas as pd
 
-from gradtracer.utils import get_file
+from marquetry.utils import get_file
 
 
 # ===========================================================================

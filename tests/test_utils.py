@@ -3,9 +3,9 @@ import unittest
 import numpy as np
 import torch
 
-import gradtracer.functions as funcs
-from gradtracer import Variable
-from gradtracer.utils import array_close, gradient_check
+import marquetry.functions as funcs
+from marquetry import Variable
+from marquetry.utils import array_close, gradient_check
 
 
 class TestMax(unittest.TestCase):

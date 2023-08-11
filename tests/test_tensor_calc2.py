@@ -3,10 +3,10 @@ import unittest
 import torch
 import numpy as np
 
-import gradtracer.functions as funcs
-import gradtracer.layers as layers
-from gradtracer import Variable
-from gradtracer.utils import gradient_check, array_close, array_equal
+import marquetry.functions as funcs
+import marquetry.layers as layers
+from marquetry import Variable
+from marquetry.utils import gradient_check, array_close, array_equal
 
 
 class TestMatmul(unittest.TestCase):

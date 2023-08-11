@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-import gradtracer.functions as funcs
-from gradtracer import Variable
-from gradtracer.utils import gradient_check, array_close
+import marquetry.functions as funcs
+from marquetry import Variable
+from marquetry.utils import gradient_check, array_close
 
 
 class TestSum(unittest.TestCase):

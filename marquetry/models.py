@@ -1,7 +1,7 @@
-from gradtracer import Layer
-import gradtracer.functions as funcs
-import gradtracer.layers as layers
-from gradtracer import utils
+from marquetry import Layer
+import marquetry.functions as funcs
+import marquetry.layers as layers
+from marquetry import utils
 
 
 # ===========================================================================

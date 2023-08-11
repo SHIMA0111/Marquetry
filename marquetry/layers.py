@@ -3,8 +3,8 @@ import weakref
 
 import numpy as np
 
-import gradtracer.functions as funcs
-from gradtracer.core import Parameter
+import marquetry.functions as funcs
+from marquetry.core import Parameter
 
 
 # ===========================================================================

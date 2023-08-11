@@ -2,8 +2,8 @@ import unittest
 
 import numpy as np
 
-import gradtracer.functions as funcs
-from gradtracer.utils import array_equal, gradient_check
+import marquetry.functions as funcs
+from marquetry.utils import array_equal, gradient_check
 
 
 class TestSin(unittest.TestCase):

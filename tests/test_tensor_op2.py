@@ -2,9 +2,9 @@ import unittest
 
 import numpy as np
 
-import gradtracer.functions as funcs
-from gradtracer import Variable
-from gradtracer.utils import array_close, array_equal, gradient_check
+import marquetry.functions as funcs
+from marquetry import Variable
+from marquetry.utils import array_close, array_equal, gradient_check
 
 
 class TestConcat(unittest.TestCase):
