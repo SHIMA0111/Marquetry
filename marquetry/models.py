@@ -33,23 +33,18 @@ class Sequential(Model):
 
 
 class MLP(Model):
-    def __init__(self, fnn_hidden_sizes, out_size, activation=funcs.sigmoid):
+    def __init__(self, fnn_hidden_sizes: list[int], activation=funcs.sigmoid):
         super().__init__()
         self.activation = activation
         self.layers = []
 
-        i = None
         for i, hidden_size in enumerate(fnn_hidden_sizes):
             layer = layers.Linear(hidden_size)
             setattr(self, "l" + str(i), layer)
             self.layers.append(layer)
 
-        layer = layers.Linear(out_size)
-        setattr(self, "l" + str(i + 1), layer)
-        self.layers.append(layer)
-
     def forward(self, x):
-        for l in self.layers[:-1]:
-            x = self.activation(l(x))
+        for layer in self.layers[:-1]:
+            x = self.activation(layer(x))
 
         return self.layers[-1](x)

@@ -2,7 +2,7 @@ import numpy as np
 
 import marquetry
 from marquetry import utils
-from marquetry.core import Function, as_variable
+from marquetry.core import Function, as_variable, as_array
 
 
 # ===========================================================================
@@ -649,7 +649,7 @@ def sigmoid_cross_entropy(x, t):
     x, t = as_variable(x), as_variable(t)
     batch_size = len(x)
     p = sigmoid(x)
-    p = clip(p, 1e-15, 1.0)
+    p = clip(p, 1e-15, 0.99)
     tlog_p = t * log(p) + (1 - t) * log(1 - p)
     y = -1 * sum(tlog_p) / batch_size
     return y
@@ -668,6 +668,15 @@ def binary_cross_entropy(p, t):
 # ===========================================================================
 # dropout / batch_norm
 # ===========================================================================
+def accuracy(y, t):
+    y, t = as_variable(y), as_variable(t)
+
+    pred = y.data.argmax(axis=1).reshape(t.shape)
+    result = (pred == t.data)
+    acc = result.mean()
+    return marquetry.Variable(as_array(acc))
+
+
 class Dropout(Function):
     def __init__(self, dropout_rate):
         self.dropout_rate = dropout_rate

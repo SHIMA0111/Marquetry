@@ -103,7 +103,6 @@ class Linear(Layer):
         if self.w.data is None:
             self.in_size = x.shape[-1]
             self._init_w()
-
         y = funcs.linear(x, self.w, self.b)
         return y
 

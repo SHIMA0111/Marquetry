@@ -431,7 +431,7 @@ def pow(x, c):
 # ==================================================
 class Config(object):
     train_mode = True
-    CACHE_DIR = os.path.join(os.path.expanduser("~"), ".ml_modules")
+    CACHE_DIR = os.path.join(os.path.expanduser("~"), ".marquetry")
 
 
 @contextlib.contextmanager

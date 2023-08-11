@@ -3,7 +3,8 @@ import gzip
 import numpy as np
 import pandas as pd
 
-from marquetry.utils import get_file
+from marquetry.utils import get_file, label_encoder, data_normalizer, fill_missing
+from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 
 
 # ===========================================================================
@@ -27,6 +28,7 @@ class Dataset(object):
         self._set_data()
 
     def __getitem__(self, index):
+        assert np.isscalar(index)
         if self.target is None:
             return self.transform(self.source[index]), None
         else:
@@ -43,6 +45,10 @@ class Dataset(object):
 # MNIST / Titanic / SpaceShipTitanic
 # ===========================================================================
 class MNIST(Dataset):
+    def __init__(self, train=True,
+                 transform=Compose([Flatten(), ToFloat(), Normalize(0., 255)]), target_transform=None):
+        super().__init__(train, transform, target_transform)
+
     def _set_data(self):
         url = "http://yann.lecun.com/exdb/mnist/"
 
@@ -87,30 +93,36 @@ class Titanic(Dataset):
     """
     Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
     """
-    def __init__(self, train=True, transform=None, target_transform=None, train_rate=0.8, is_raw=False):
+    def __init__(self, train=True, transform=ToFloat(), target_transform=None,
+                 train_rate=0.8, is_raw=False, auto_fillna=True):
         self.train_rate = train_rate
         self.is_raw = is_raw
+        self.auto_fillna = auto_fillna
+        self.columns = None
         super().__init__(train, transform, target_transform)
 
     def _set_data(self):
         url = "https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3.csv"
 
         data_path = get_file(url)
-        data = self._load_data(data_path, self.is_raw)
+        data, encode_report, norm_report, fill_report = self._load_data(data_path, self.is_raw)
+        self.columns = list(data.columns)
         train_last_index = int(len(data) * self.train_rate)
 
         source = data.drop("survived", axis=1)
-        target = data.loc[:, ["index", "survived"]]
+        target = data.loc[:, ["index", "survived"]].astype(int)
+
+        source = source.to_numpy()
+        target = target.to_numpy()
+
         if self.train:
-            self.target = target[:train_last_index]
-            self.source = source[:train_last_index]
+            self.target = target[:train_last_index, 1:]
+            self.source = source[:train_last_index, 1:]
         else:
-            self.target = target[train_last_index:]
-            self.source = source[train_last_index:]
+            self.target = target[train_last_index:, 1:]
+            self.source = source[train_last_index:, 1:]
 
-
-    @staticmethod
-    def _load_data(file_path, is_raw):
+    def _load_data(self, file_path, is_raw):
         titanic_df = pd.read_csv(file_path)
         change_flg = False
 
@@ -126,11 +138,25 @@ class Titanic(Dataset):
             titanic_df = titanic_df.drop("boat", axis=1)
             change_flg = True
 
+
         if change_flg:
             titanic_df.reset_index(inplace=True)
             titanic_df.to_csv(file_path, index=False)
 
+        encode_report, norm_report, fill_report = None, None, None
         if not is_raw:
-            pass
+            titanic_df, encode_report = label_encoder(titanic_df, self.categorical_columns)
+            titanic_df, norm_report = data_normalizer(titanic_df, self.numerical_columns)
 
-        return titanic_df
+        if self.auto_fillna:
+            titanic_df, fill_report = fill_missing(titanic_df, self.categorical_columns, self.numerical_columns)
+
+        return titanic_df, encode_report, norm_report, fill_report
+
+    @property
+    def categorical_columns(self):
+        return ["pclass", "sex", "cabin", "embarked", "name", "ticket"]
+
+    @property
+    def numerical_columns(self):
+        return ["age", "sibsp", "parch", "fare"]

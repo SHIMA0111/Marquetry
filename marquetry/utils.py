@@ -308,9 +308,39 @@ def label_encoder(data: pd.DataFrame, target_columns: list):
     return data.replace(replace_dict), replace_dict
 
 
-def data_normalizer(data: pd.DataFrame, target_columns: list):
+def data_normalizer(data: pd.DataFrame, target_columns: list, axis=0):
     if len(target_columns) == 0:
         return data
 
+    data_mean: pd.DataFrame = data.mean(axis=axis)
+    data_std = data.std(axis=axis)
+
+    target_columns_map = data_mean.keys().isin(target_columns)
+    data_mean.loc[~target_columns_map] = 0.
+    data_std.loc[~target_columns_map] = 1.
+
+    data = (data - data_mean) / data_std
+
+    data_statistic = list(zip(data_mean, data_std))
+    data_statistic = dict(zip(data.keys(), data_statistic))
+
+    return data, data_statistic
 
 
+def fill_missing(data: pd.DataFrame, categorical_columns: list, numerical_columns: list):
+    missing_map = data.isna().sum()
+    categorical_missing_map = list((missing_map != 0) & missing_map.keys().isin(categorical_columns))
+    numerical_missing_map = list((missing_map != 0) & missing_map.keys().isin(numerical_columns))
+
+    data_mode_value = data.mode(axis=0).iloc[0]
+    data_median_value = data.median(axis=0)
+
+    data.fillna(data_mode_value.loc[categorical_missing_map], inplace=True)
+    data.fillna(data_median_value.loc[numerical_missing_map], inplace=True)
+
+    fill_report = {
+        **dict(data_mode_value.loc[categorical_missing_map]),
+        **dict(data_median_value.loc[numerical_missing_map])
+    }
+
+    return data, fill_report
