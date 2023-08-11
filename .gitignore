@@ -1,6 +1,48 @@
+# Python Byte and so files
 __pycache__/
-.idea/
+*.py[cod]
+*$py.class
 
+# Local test files
 check_scripts/
 
+# Depnds on env meta files
 .DS_Store
+.idea
+
+# Distributions / packages
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Py Installer
+*.manifest
+*.spec
+
+# installer log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pyenvs
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
