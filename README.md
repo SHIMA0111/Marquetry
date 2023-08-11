@@ -48,6 +48,9 @@ for test script
  - [PyTorch](https://pytorch.org/)
 
 ### Reference Source
-This framework refer to [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
+This framework started to be developed based on [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).
 Therefore, there are much similar architecture between **dezero** and this like the algorithm of the autograd and so.
 If you want to know about this framework deeply, I suggest to visit the **dezero** repository.
+
+I respect the author because his books are very curiously and easy to understandable.  
+If you want to start journey for deep learning world, I suggest to read [his books](https://www.oreilly.co.jp/books/9784873117584/).  
