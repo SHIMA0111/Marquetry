@@ -3,7 +3,7 @@ import gzip
 import numpy as np
 import pandas as pd
 
-from marquetry.utils import get_file, label_encoder, data_normalizer, fill_missing
+from marquetry.utils import get_file, LinearPreProcess
 from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 
 
@@ -94,10 +94,11 @@ class Titanic(Dataset):
     Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
     """
     def __init__(self, train=True, transform=ToFloat(), target_transform=None,
-                 train_rate=0.8, is_raw=False, auto_fillna=True):
+                 train_rate=0.8, is_raw=False, auto_fillna=True, is_one_hot=True):
         self.train_rate = train_rate
         self.is_raw = is_raw
         self.auto_fillna = auto_fillna
+        self.is_one_hot = is_one_hot
         self.columns = None
         super().__init__(train, transform, target_transform)
 
@@ -105,7 +106,7 @@ class Titanic(Dataset):
         url = "https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3.csv"
 
         data_path = get_file(url)
-        data, encode_report, norm_report, fill_report = self._load_data(data_path, self.is_raw)
+        data = self._load_data(data_path, self.is_raw)
         self.columns = list(data.columns)
         train_last_index = int(len(data) * self.train_rate)
 
@@ -138,20 +139,13 @@ class Titanic(Dataset):
             titanic_df = titanic_df.drop("boat", axis=1)
             change_flg = True
 
-
         if change_flg:
             titanic_df.reset_index(inplace=True)
             titanic_df.to_csv(file_path, index=False)
 
-        encode_report, norm_report, fill_report = None, None, None
-        if not is_raw:
-            titanic_df, encode_report = label_encoder(titanic_df, self.categorical_columns)
-            titanic_df, norm_report = data_normalizer(titanic_df, self.numerical_columns)
+        titanic_df = LinearPreProcess(self.categorical_columns, self.numerical_columns)(titanic_df, is_train=True)
 
-        if self.auto_fillna:
-            titanic_df, fill_report = fill_missing(titanic_df, self.categorical_columns, self.numerical_columns)
-
-        return titanic_df, encode_report, norm_report, fill_report
+        return titanic_df
 
     @property
     def categorical_columns(self):

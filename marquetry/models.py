@@ -21,6 +21,11 @@ class Sequential(Model):
     def __init__(self, *layers_object):
         super().__init__()
         self.layers = []
+
+        if len(layers_object) == 1:
+            if isinstance(layers_object[0], (tuple, list)):
+                layers_object = tuple(layers_object[0])
+
         for i, layer in enumerate(layers_object):
             setattr(self, "l" + str(i), layer)
             self.layers.append(layer)
@@ -33,10 +38,11 @@ class Sequential(Model):
 
 
 class MLP(Model):
-    def __init__(self, fnn_hidden_sizes: list[int], activation=funcs.sigmoid):
+    def __init__(self, fnn_hidden_sizes: list[int], activation=funcs.sigmoid, is_dropout=True):
         super().__init__()
         self.activation = activation
         self.layers = []
+        self.is_dropout = is_dropout
 
         for i, hidden_size in enumerate(fnn_hidden_sizes):
             layer = layers.Linear(hidden_size)
@@ -45,6 +51,10 @@ class MLP(Model):
 
     def forward(self, x):
         for layer in self.layers[:-1]:
-            x = self.activation(layer(x))
+            if self.is_dropout:
+                x = funcs.dropout(layer(x))
+            else:
+                x = layer(x)
+            x = self.activation(x)
 
         return self.layers[-1](x)

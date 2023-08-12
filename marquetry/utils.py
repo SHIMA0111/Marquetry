@@ -290,57 +290,137 @@ def array_close(a, b, rtol=1e-4, atol=1e-5):
 # ===========================================================================
 # data preprocess
 # ===========================================================================
-def label_encoder(data: pd.DataFrame, target_columns: list):
-    if len(target_columns) == 0:
+class LinearPreProcess(object):
+    def __init__(self, categorical_columns: list, numerical_columns: list,
+                 categorical_fill_method="mode", numerical_fill_method="median"):
+        methods = ("mode", "median", "mean")
+        if categorical_fill_method not in methods or numerical_fill_method not in methods:
+            raise Exception("Fill method needs to be chosen from {}.".format(methods))
+
+        self.categorical_fill_method = categorical_fill_method
+        self.numerical_fill_method = numerical_fill_method
+
+        self.categorical_columns = categorical_columns
+        self.numerical_columns = numerical_columns
+
+        self.labeling_report = None
+        self.normalize_report = None
+        self.imputation_report = None
+        self.one_hot_report = None
+
+    def __call__(self, data: pd.DataFrame, to_normalize: bool = True, to_one_hot: bool = True, is_train: bool = False):
+        data = self.category_labeling(data, is_train=is_train)
+        data = self.imputation_missing(data, is_train=is_train)
+        data = self.numerical_normalizing(data, is_train=is_train) if to_normalize else data
+        data = self.one_hot_encoding(data, is_train=is_train) if to_one_hot else data
+
         return data
 
-    replace_dict = {}
+    def category_labeling(self, data: pd.DataFrame, is_train: bool = False):
+        if len(self.categorical_columns) == 0:
+            return data
 
-    for target_column in target_columns:
-        tmp_series = data[target_column]
-        unique_set = list(set(tmp_series))
-        class_set = list(range(len(unique_set)))
+        if is_train:
+            replace_dict = {}
 
-        tmp_dict = dict(zip(unique_set, class_set))
+            for target_column in self.categorical_columns:
+                tmp_series = data[target_column]
+                unique_set = list(set(tmp_series))
+                class_set = list(range(len(unique_set)))
 
-        replace_dict[target_column] = tmp_dict
+                tmp_dict = dict(zip(unique_set, class_set))
 
-    return data.replace(replace_dict), replace_dict
+                replace_dict[target_column] = tmp_dict
 
+            self.labeling_report = replace_dict
 
-def data_normalizer(data: pd.DataFrame, target_columns: list, axis=0):
-    if len(target_columns) == 0:
+        if self.labeling_report is None:
+            raise Exception("Preprocess test mode needs to be executed after train mode.")
+
+        return data.replace(self.labeling_report)
+
+    def numerical_normalizing(self, data: pd.DataFrame, is_train: bool = False, axis=0):
+        if len(self.numerical_columns) == 0:
+            return data
+
+        if is_train:
+            data_mean = data.mean(axis=axis)
+            data_std = data.std(axis=axis)
+
+            norm_target_map = data.keys().isin(self.numerical_columns)
+            data_mean.loc[~norm_target_map] = 0.
+            data_std.loc[~norm_target_map] = 1.
+
+            norm_report = list(zip(data_mean, data_std))
+            norm_report = dict(zip(data.keys(), norm_report))
+
+            self.normalize_report = norm_report
+
+        else:
+            if self.normalize_report is None:
+                raise Exception("Preprocess test mode needs to be executed after train mode.")
+
+            data_header = list(self.normalize_report.keys())
+            data_mean = [statistic_tuple[0] for statistic_tuple in self.normalize_report.items()]
+            data_std = [statistic_tuple[1] for statistic_tuple in self.normalize_report.items()]
+
+            data_mean = pd.DataFrame(data_mean, index=data_header)
+            data_std = pd.DataFrame(data_std, index=data_header)
+
+        return (data - data_mean) / data_std
+
+    def imputation_missing(self, data: pd.DataFrame, is_train: bool = False):
+        if is_train:
+            data_mode = data.mode(axis=0).iloc[0]
+            data_mean = data.mean(axis=0)
+            data_median = data.median(axis=0)
+
+            imputation_report = {
+                key: {"mode": mode, "mean": mean, "median": median}
+                for key, mode, mean, median in zip(data.keys(), data_mode, data_mean, data_median)}
+
+            self.imputation_report = imputation_report
+
+        if self.imputation_report is None:
+            raise Exception("Preprocess test mode needs to be executed after train mode.")
+
+        missing_map = data.isna().sum()
+        categorical_missing_map = list((missing_map != 0) & missing_map.keys().isin(self.categorical_columns))
+        numerical_missing_map = list((missing_map != 0) & missing_map.keys().isin(self.numerical_columns))
+
+        data_header = list(self.imputation_report.keys())
+        categorical_imputation = [
+            imputation_dict[self.categorical_fill_method] for imputation_dict in self.imputation_report.values()]
+        numerical_imputation = [
+            imputation_dict[self.numerical_fill_method] for imputation_dict in self.imputation_report.values()]
+
+        categorical_imputation = pd.Series(categorical_imputation, index=data_header)
+        numerical_imputation = pd.Series(numerical_imputation, index=data_header)
+
+        data.fillna(categorical_imputation.loc[categorical_missing_map], inplace=True)
+        data.fillna(numerical_imputation.loc[numerical_missing_map], inplace=True)
+
         return data
 
-    data_mean: pd.DataFrame = data.mean(axis=axis)
-    data_std = data.std(axis=axis)
+    def one_hot_encoding(self, data: pd.DataFrame, is_train: bool = False):
+        if len(self.categorical_columns) == 0:
+            return data
 
-    target_columns_map = data_mean.keys().isin(target_columns)
-    data_mean.loc[~target_columns_map] = 0.
-    data_std.loc[~target_columns_map] = 1.
+        one_hot_report = {}
+        for key in self.categorical_columns:
+            if is_train:
+                shape = (len(data[key]), len(set(data[key])))
+                one_hot_report[key] = shape
+            else:
+                shape = self.one_hot_report[key]
 
-    data = (data - data_mean) / data_std
+            column_name = [key + "_" + str(i) for i in range(1, shape[1])]
+            one_hot_array = np.zeros(shape)
+            one_hot_array[np.arange(shape[0]), list(data[key].astype(int))] = 1.
+            one_hot_df = pd.DataFrame(one_hot_array[:, 1:], columns=column_name)
 
-    data_statistic = list(zip(data_mean, data_std))
-    data_statistic = dict(zip(data.keys(), data_statistic))
+            data = pd.concat((data, one_hot_df), axis=1)
 
-    return data, data_statistic
+        data = data.drop(self.categorical_columns, axis=1)
 
-
-def fill_missing(data: pd.DataFrame, categorical_columns: list, numerical_columns: list):
-    missing_map = data.isna().sum()
-    categorical_missing_map = list((missing_map != 0) & missing_map.keys().isin(categorical_columns))
-    numerical_missing_map = list((missing_map != 0) & missing_map.keys().isin(numerical_columns))
-
-    data_mode_value = data.mode(axis=0).iloc[0]
-    data_median_value = data.median(axis=0)
-
-    data.fillna(data_mode_value.loc[categorical_missing_map], inplace=True)
-    data.fillna(data_median_value.loc[numerical_missing_map], inplace=True)
-
-    fill_report = {
-        **dict(data_mode_value.loc[categorical_missing_map]),
-        **dict(data_median_value.loc[numerical_missing_map])
-    }
-
-    return data, fill_report
+        return data
