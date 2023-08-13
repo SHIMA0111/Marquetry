@@ -5,7 +5,8 @@ import json
 import numpy as np
 import pandas as pd
 
-from marquetry.utils import get_file, LinearPreProcess
+from marquetry.utils import get_file
+from marquetry.preprocess import LinearPreProcess
 from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 
 
@@ -96,10 +97,11 @@ class Titanic(Dataset):
     Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
     """
     def __init__(self, train=True, transform=ToFloat(), target_transform=None,
-                 train_rate=0.8, auto_fillna=True, is_one_hot=True, **kwargs):
+                 train_rate=0.8, auto_fillna=True, is_normalize=True, is_one_hot=True, **kwargs):
         self.train_rate = train_rate
         self.auto_fillna = auto_fillna
         self.is_one_hot = is_one_hot
+        self.is_normalize = is_normalize
 
         self.target_columns = None
         self.source_columns = None
@@ -183,7 +185,8 @@ class Titanic(Dataset):
 
         else:
             use_cache_params = False
-        titanic_df = preprocess(titanic_df, is_train=self.train)
+        titanic_df = preprocess(titanic_df, is_train=self.train, to_one_hot=self.is_one_hot,
+                                to_normalize=self.is_normalize, fill_na=self.auto_fillna)
 
         if not use_cache_params:
             self._save_params(preprocess, file_path)
