@@ -22,10 +22,13 @@ I hope to enjoy your journey!
 │   ├── __init__.py
 │   ├── core.py ... Core components of the marquetry
 │   ├── datasets.py ... Dataset like "MNIST"/"Titanic"
+│   ├── feature_explore.py ... feature_explore(alpha test) component (not stable)
 │   ├── functions.py ... Functions for layer/model construction
 │   ├── layers.py ... Layers conponents
 │   ├── models.py ... Example models
 │   ├── optimizers.py ... Model optimizer
+│   ├── preprocess.py ... Preprocess Script
+│   ├── transformers.py ... Data transformers
 │   └── utils.py ... other utils
 ├── setup.py
 └── tests
