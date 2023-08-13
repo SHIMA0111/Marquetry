@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+from marquetry.feature_explore import FeatureExplore
 
 # ===========================================================================
 # data preprocess
@@ -24,12 +25,28 @@ class LinearPreProcess(object):
         self.one_hot_report = None
 
     def __call__(self, data: pd.DataFrame, to_normalize: bool = True,
-                 to_one_hot: bool = True, fill_na: bool = True, is_train: bool = False):
+                 to_one_hot: bool = True, fill_na: bool = True, is_train: bool = False, **additional_args):
         data.reset_index(inplace=True, drop=True)
+
+        feature_explore = additional_args.get("feature_explore", False)
+        model_mode = additional_args.get("model_mode", "classification")
+        target_column = additional_args.get("target_column")
+
+        if feature_explore:
+            print("You want to use auto feature explore(alpha implement), so the other params will be ignored.")
+
         data = self.category_labeling(data, is_train=is_train)
         data = self.imputation_missing(data, is_train=is_train) if fill_na else data
-        data = self.numerical_normalizing(data, is_train=is_train) if to_normalize else data
-        data = self.one_hot_encoding(data, is_train=is_train) if to_one_hot else data
+        if feature_explore:
+            if target_column is None:
+                raise AttributeError(
+                    "If you want to use auto feature explore function, you need to input `target column` as args.")
+            data = (
+                FeatureExplore(model_mode, self.categorical_columns, self.numerical_columns, target_column)(data))
+
+        else:
+            data = self.numerical_normalizing(data, is_train=is_train) if to_normalize else data
+            data = self.one_hot_encoding(data, is_train=is_train) if to_one_hot else data
 
         return data
 

@@ -14,7 +14,7 @@ from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 # Dataset base class
 # ===========================================================================
 class Dataset(object):
-    def __init__(self, train=True, transform=None, target_transform=None):
+    def __init__(self, train=True, transform=None, target_transform=None, **kwargs):
         self.train = train
         self.transform = transform
         self.target_transform = target_transform
@@ -28,7 +28,7 @@ class Dataset(object):
         self.source = None
         self.target = None
 
-        self._set_data()
+        self._set_data(**kwargs)
 
     def __getitem__(self, index):
         assert np.isscalar(index)
@@ -40,7 +40,7 @@ class Dataset(object):
     def __len__(self):
         return len(self.source)
 
-    def _set_data(self, *args):
+    def _set_data(self, *args, **kwargs):
         raise NotImplementedError()
 
 
@@ -114,13 +114,13 @@ class Titanic(Dataset):
         else:
             self.new_mode = False
 
-        super().__init__(train, transform, target_transform)
+        super().__init__(train, transform, target_transform, **kwargs)
 
-    def _set_data(self):
+    def _set_data(self, **kwargs):
         url = "https://biostat.app.vumc.org/wiki/pub/Main/DataSets/titanic3.csv"
 
         data_path = get_file(url)
-        data = self._load_data(data_path)
+        data = self._load_data(data_path, **kwargs)
 
         source = data.drop("survived", axis=1)
         target = data.loc[:, ["index", "survived"]].astype(int)
@@ -133,7 +133,7 @@ class Titanic(Dataset):
         self.target = target[:, 1:]
         self.source = source[:, 1:]
 
-    def _load_data(self, file_path):
+    def _load_data(self, file_path, **kwargs):
         titanic_df = pd.read_csv(file_path)
 
         change_flg = False
@@ -186,7 +186,8 @@ class Titanic(Dataset):
         else:
             use_cache_params = False
         titanic_df = preprocess(titanic_df, is_train=self.train, to_one_hot=self.is_one_hot,
-                                to_normalize=self.is_normalize, fill_na=self.auto_fillna)
+                                to_normalize=self.is_normalize, fill_na=self.auto_fillna,
+                                target_column="survived", model_mode="classification", **kwargs)
 
         if not use_cache_params:
             self._save_params(preprocess, file_path)
