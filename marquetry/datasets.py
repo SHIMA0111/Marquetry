@@ -92,6 +92,54 @@ class MNIST(Dataset):
         return {0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9"}
 
 
+class FashionMNIST(Dataset):
+    def __init__(self, train=True,
+                 transform=Compose([Flatten(), ToFloat(), Normalize(0., 255.)]), target_transform=None):
+        super().__init__(train, transform, target_transform)
+
+    def _set_data(self):
+        url = "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/"
+
+        train_files = {
+            "source": "train-images-idx3-ubyte.gz",
+            "target": "train-labels-idx1-ubyte.gz"
+        }
+        test_files = {
+            "source": "t10k-images-idx3-ubyte.gz",
+            "target": "t10k-labels-idx1-ubyte.gz"
+        }
+
+        files = train_files if self.train else test_files
+        class_label = "train" if self.train else "test"
+        source_path = get_file(url + files["source"], "fashion_{}_data.gz".format(class_label))
+        target_path = get_file(url + files["target"], "fashion_{}_label.gz".format(class_label))
+
+        self.source = self._load_source(source_path)
+        self.target = self._load_target(target_path)
+
+    @staticmethod
+    def _load_source(file_path):
+        with gzip.open(file_path, "rb") as f:
+            data = np.frombuffer(f.read(), np.uint8, offset=16)
+
+        source = data.reshape((-1, 1, 28, 28))
+
+        return source
+
+    @staticmethod
+    def _load_target(file_path):
+        with gzip.open(file_path, "rb") as f:
+            target = np.frombuffer(f.read(), np.uint8, offset=8)
+
+        return target
+
+    @property
+    def labels(self):
+        return {
+            0: "T-shirt/top", 1: "Trouser", 2: "Pullover", 3: "Dress",
+            4: "Coat", 5: "Sandal", 6: "Shirt", 7: "Sneaker", 8: "Bag", 9: "Ankle boot"}
+
+
 class Titanic(Dataset):
     """
     Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
@@ -106,13 +154,6 @@ class Titanic(Dataset):
         self.target_columns = None
         self.source_columns = None
         self.drop_columns = kwargs.get("drop_columns", [])
-
-        if kwargs.get("new_mode", False) and not train:
-            raise Exception("`new_mode` can't use test mode, please use this mode on train mode.")
-        elif "new_mode" in kwargs:
-            self.new_mode = kwargs["new_mode"]
-        else:
-            self.new_mode = False
 
         super().__init__(train, transform, target_transform, **kwargs)
 
@@ -149,17 +190,18 @@ class Titanic(Dataset):
             titanic_df = titanic_df.drop("boat", axis=1)
             change_flg = True
 
+        if self.train:
+            param_path = file_path[:file_path.rfind(".")] + ".json"
+            if os.path.exists(param_path):
+                os.remove(param_path)
+            if change_flg:
+                titanic_df = titanic_df.sample(frac=1, random_state=2023)
+                titanic_df.reset_index(inplace=True, drop=True)
+                titanic_df.to_csv(file_path, index=False)
+
         for drop_column in self.drop_columns:
             if drop_column in titanic_df:
                 titanic_df = titanic_df.drop(drop_column, axis=1)
-                change_flg = True
-
-        if change_flg:
-            titanic_df = titanic_df.sample(frac=1, random_state=2023)
-            titanic_df.reset_index(inplace=True)
-            titanic_df.to_csv(file_path, index=False)
-
-            self.new_mode = True
 
         train_last_index = int(len(titanic_df) * self.train_rate)
         if self.train:
@@ -178,16 +220,15 @@ class Titanic(Dataset):
         ]
 
         preprocess = LinearPreProcess(categorical_columns, numerical_columns)
-        if not self.new_mode:
-            use_cache_params = self._valid_exists_params(preprocess, file_path)
-            if not use_cache_params and not self.train:
-                raise Exception("test data preprocess needs train statistic but the train statistic is not found.")
+        use_cache_params = self._valid_exists_params(preprocess, file_path)
+        if not use_cache_params and not self.train:
+            raise Exception("test data preprocess needs train statistic but the train statistic is not found.")
 
-        else:
-            use_cache_params = False
         titanic_df = preprocess(titanic_df, is_train=self.train, to_one_hot=self.is_one_hot,
                                 to_normalize=self.is_normalize, fill_na=self.auto_fillna,
                                 target_column="survived", model_mode="classification", **kwargs)
+        index_series = pd.Series(titanic_df.index, name="index")
+        titanic_df = pd.concat([index_series, titanic_df], axis=1)
 
         if not use_cache_params:
             self._save_params(preprocess, file_path)
@@ -247,3 +288,14 @@ class Titanic(Dataset):
     @property
     def numerical_columns(self):
         return ["age", "sibsp", "parch", "fare"]
+
+
+# ===========================================================================
+# CsvLoader: to use custom csv file
+# ===========================================================================
+class CsvLoader(Dataset):
+    def __init__(self):
+        super().__init__()
+
+    def _set_data(self, *args, **kwargs):
+        raise NotImplementedError()

@@ -1,4 +1,5 @@
 import itertools
+import sys
 from typing import Optional
 
 import numpy as np
@@ -7,7 +8,7 @@ import pandas as pd
 
 class FeatureExplore(object):
     def __init__(self, model_type: str, categorical_columns: list, numerical_columns: list, target_column: str,
-                 explore_num_limit=200, select_limit=500):
+                 explore_num_limit=500, select_limit=500):
         if model_type.lower() not in ("classification", "regression"):
             raise TypeError("You can use only `classification` or `regression` but you input {}.".format(model_type))
 
@@ -25,19 +26,24 @@ class FeatureExplore(object):
         self.generated_explanation = {}
         self.generated_eval = {}
         self.original_statistic = {}
+        self.feature_gen_only = False
 
         self.base_target_eval = None
         self.data_uniques = None
 
     def __call__(self, x: pd.DataFrame):
-        self.base_target_eval = x[self.target_column].values.sum() / len(x)
-        self.data_uniques = x.nunique()
-        self.categorical_feature_explore(x)
-        self.numerical_feature_explore(x)
-        self.feature_select()
+        if len(self.feature_explanation) == 0:
+            self.base_target_eval = x[self.target_column].values.sum() / len(x)
+            self.data_uniques = x.nunique()
+            self.categorical_feature_explore(x)
+            self.numerical_feature_explore(x)
+            self.feature_select()
         self.generate_features(x)
         feature_table = self.avoid_multiply_collinearity()
-        index_series = pd.Series(feature_table.index, name="index")
+        if isinstance(feature_table, pd.Series):
+            index_series = pd.Series(list(range(len(feature_table))))
+        else:
+            index_series = pd.Series(feature_table.index, name="index")
         feature_table = pd.concat((index_series, feature_table, x[self.target_column]), axis=1)
 
         return feature_table
@@ -53,6 +59,9 @@ class FeatureExplore(object):
 
                 unique_feature = explore_column[self.target_column].loc[
                     explore_column[categorical_column] == unique_value]
+
+                if len(unique_feature) < 10:
+                    continue
 
                 eval_value = unique_feature.values.sum() / len(unique_feature)
                 self.generated_explanation[feature_name] = explanation
@@ -71,7 +80,7 @@ class FeatureExplore(object):
 
             self.original_statistic[numerical_column] = {"std": column_std, "mean": column_mean}
 
-            sd_max, sd_min = column_mean + 3 * column_std, column_mean - 3 * column_std
+            sd_max, sd_min = column_mean + 2 * column_std, column_mean - 2 * column_std
             max_value, min_value = explore_column[numerical_column].max(), explore_column[numerical_column].min()
 
             min_value = max(min_value, sd_min)
@@ -134,7 +143,7 @@ class FeatureExplore(object):
     def feature_select(self):
         feature_evals = pd.Series(self.generated_eval)
         diff_feature_evals = (self.base_target_eval - feature_evals).abs()
-        features = diff_feature_evals.loc[diff_feature_evals > 0.15]
+        features = diff_feature_evals.loc[diff_feature_evals > 0.10]
         selected_feature_explanation = {key: self.generated_explanation[key] for key in features.keys()}
 
         for categorical_name in self.categorical_columns:
@@ -190,7 +199,7 @@ class FeatureExplore(object):
                         diff_evals = pre_lt_eval - eval_value
                         diff_range = range_value - pre_lt_range
 
-                        if diff_evals < 0.01 or (diff_evals < 0.05 and (column_std / 2) < diff_range):
+                        if diff_evals < 0.01 or (diff_evals < 0.05 and (column_std / 4) < diff_range):
                             pre_gt_range, pre_gt_eval = range_value, eval_value
                         else:
                             pass
@@ -212,7 +221,7 @@ class FeatureExplore(object):
                         diff_evals = pre_gt_eval - eval_value
                         diff_range = pre_gt_range - range_value
 
-                        if diff_evals < 0.01 or (diff_evals < 0.05 and (column_std / 2) < diff_range):
+                        if diff_evals < 0.01 or (diff_evals < 0.05 and (column_std / 4) < diff_range):
                             pre_gt_range, pre_gt_eval = range_value, eval_value
                         else:
                             pass
@@ -229,6 +238,9 @@ class FeatureExplore(object):
 
     def generate_features(self, data: pd.DataFrame):
         for feature_name, explanation in self.feature_explanation.items():
+            if explanation == "original_feature":
+                self.features[feature_name] = len(data[feature_name].values)
+                continue
             feature_type, column_name, condition = explanation.split(",")
 
             if feature_type == "categorical":
@@ -251,12 +263,13 @@ class FeatureExplore(object):
             tmp_calc_column = data.loc[:, (numerical_name, self.target_column)]
             corr_data = tmp_calc_column.corr().iloc[0, 1]
             self.generated_eval[numerical_name] = corr_data
-
-            if abs(corr_data) >= 0.2:
+            if abs(corr_data) >= 0.2 and (not self.feature_gen_only):
                 self.feature_explanation[numerical_name] = "original_feature"
                 self.features[numerical_name] = list(tmp_calc_column[numerical_name].values)
 
     def avoid_multiply_collinearity(self):
+        if len(self.features) == 1:
+            return pd.DataFrame(self.features)
         tmp_df = pd.DataFrame(self.features)
         corr_data = tmp_df.corr()
 
@@ -267,7 +280,8 @@ class FeatureExplore(object):
         for idx in header_index:
             corr_value = corr_data.loc[idx[0], idx[1]]
             if abs(corr_value) > 0.8:
-                drop_set.add(idx[1])
+                if idx[1] not in drop_set:
+                    drop_set.add(idx[1])
 
         drop_set = list(drop_set)
         tmp_df = tmp_df.drop(drop_set, axis=1)
@@ -276,3 +290,34 @@ class FeatureExplore(object):
         self.feature_explanation = {key: value for key, value in self.feature_explanation.items() if key not in drop_set}
 
         return tmp_df
+
+    def download_feature(self):
+        return {
+            "feature_explanation": self.feature_explanation,
+
+            "all_features": {
+                "generated_features": self.generated_explanation,
+                "generated_evals": self.generated_eval
+            }
+        }
+
+    def load_feature(self, feature_explanation: dict, use_unselected: list = None):
+        try:
+            self.feature_explanation = feature_explanation["feature_explanation"]
+            self.feature_gen_only = True
+            if use_unselected is not None:
+                if not isinstance(use_unselected, (list, tuple)):
+                    use_unselected = (use_unselected,)
+                unuse_feature_dict = feature_explanation["all_features"]["generated_features"]
+
+                for feature_name in use_unselected:
+                    selected_feature_explanation = unuse_feature_dict.get(feature_name)
+                    if selected_feature_explanation is None:
+                        print("!!!Skipped!!! {} is not found the feature pool.".format(feature_name))
+
+                    add_tmp_dict = {feature_name: selected_feature_explanation}
+
+                    self.feature_explanation.update(add_tmp_dict)
+
+        except Exception as e:
+            raise Exception("Your feature file seems to be broken, please check and fix it.")

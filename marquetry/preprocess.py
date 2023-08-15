@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-from marquetry.feature_explore import FeatureExplore
 
 # ===========================================================================
 # data preprocess
@@ -28,25 +27,10 @@ class LinearPreProcess(object):
                  to_one_hot: bool = True, fill_na: bool = True, is_train: bool = False, **additional_args):
         data.reset_index(inplace=True, drop=True)
 
-        feature_explore = additional_args.get("feature_explore", False)
-        model_mode = additional_args.get("model_mode", "classification")
-        target_column = additional_args.get("target_column")
-
-        if feature_explore:
-            print("You want to use auto feature explore(alpha implement), so the other params will be ignored.")
-
         data = self.category_labeling(data, is_train=is_train)
         data = self.imputation_missing(data, is_train=is_train) if fill_na else data
-        if feature_explore:
-            if target_column is None:
-                raise AttributeError(
-                    "If you want to use auto feature explore function, you need to input `target column` as args.")
-            data = (
-                FeatureExplore(model_mode, self.categorical_columns, self.numerical_columns, target_column)(data))
-
-        else:
-            data = self.numerical_normalizing(data, is_train=is_train) if to_normalize else data
-            data = self.one_hot_encoding(data, is_train=is_train) if to_one_hot else data
+        data = self.numerical_normalizing(data, is_train=is_train) if to_normalize else data
+        data = self.one_hot_encoding(data, is_train=is_train) if to_one_hot else data
 
         return data
 
@@ -57,15 +41,15 @@ class LinearPreProcess(object):
         if is_train:
             replace_dict = {}
 
-            for target_column in self.categorical_columns:
-                tmp_series = data[target_column]
+            for categorical_name in self.categorical_columns:
+                tmp_series = data[categorical_name]
                 unique_set = list(set(tmp_series))
                 unique_set = [unique_value for unique_value in unique_set if not pd.isna(unique_value)]
                 class_set = list(range(len(unique_set)))
 
                 tmp_dict = dict(zip(unique_set, class_set))
 
-                replace_dict[target_column] = tmp_dict
+                replace_dict[categorical_name] = tmp_dict
 
             self.labeling_report = replace_dict
             data = data.replace(self.labeling_report)
@@ -214,7 +198,7 @@ class LinearPreProcess(object):
             self.numerical_fill_method = preprocess_params["numerical_fill_method"]
 
         except KeyError as e:
-            raise KeyError("Your input column seems to be broken.")
+            raise KeyError("Your param file seems to be broken.")
 
         if categorical_fill_method is not None:
             if categorical_fill_method not in self.methods:
@@ -230,4 +214,3 @@ class LinearPreProcess(object):
                     "{} is not supported so the default value {} will be used."
                     .format(numerical_fill_method, self.numerical_fill_method)
                 )
-
