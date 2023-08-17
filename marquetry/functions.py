@@ -619,7 +619,7 @@ class MaxPooling2DGrad(Function):
         kernel_height, kernel_width = utils.pair(self.kernel_size)
 
         grad_col = np.zeros(
-            (batch_size, channels, output_height, output_width, kernel_height, kernel_width), dtype=self.dtype)
+            (batch_size * channels * output_height * output_width * kernel_height * kernel_width), dtype=self.dtype)
 
         indexes = (self.indexes.ravel() + np.arange(
             0, self.indexes.size * kernel_height * kernel_width, kernel_height * kernel_width))
