@@ -21,7 +21,7 @@ I hope to enjoy your journey!
 ├── marquetry
 │   ├── __init__.py
 │   ├── core.py ... Core components of the marquetry
-│   ├── datasets.py ... Dataset like "MNIST"/"Titanic"
+│   ├── datasets.py ... Dataset like "MNIST"/"Titanic" and so
 │   ├── feature_explore.py ... feature_explore(alpha test) component (not stable)
 │   ├── functions.py ... Functions for layer/model construction
 │   ├── layers.py ... Layers conponents

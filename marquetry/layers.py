@@ -4,6 +4,7 @@ import weakref
 import numpy as np
 
 import marquetry.functions as funcs
+import marquetry.utils as utils
 from marquetry.core import Parameter
 
 
@@ -105,6 +106,218 @@ class Linear(Layer):
             self._init_w()
         y = funcs.linear(x, self.w, self.b)
         return y
+
+
+class Conv2D(Layer):
+    def __init__(self, out_channels, kernel_size, stride=1, pad=0, nobias=False,
+                 dtype=np.float32, in_channels=None):
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.pad = pad
+        self.dtype = dtype
+
+        self.w = Parameter(None, name="w")
+        if in_channels is not None:
+            self._init_w()
+
+        if nobias:
+            self.b = None
+        else:
+            self.b = Parameter(np.zeros(out_channels, dtype=dtype), name="b")
+
+    def _init_w(self):
+        channels, output_channels = self.in_channels, self.out_channels
+        kernel_height, kernel_width = utils.pair(self.kernel_size)
+
+        scale = np.sqrt(1 / (channels * kernel_height * kernel_width))
+        w_data = np.random.randn(output_channels, channels, kernel_height, kernel_width).astype(self.dtype) * scale
+
+        self.w.data = w_data
+
+    def forward(self, x):
+        if self.w.data is None:
+            self.in_channels = x.shape[1]
+            self._init_w()
+
+        y = funcs.conv2d(x, self.w, self.b, self.stride, self.pad)
+        return y
+
+
+class Deconv2D(Layer):
+    def __init__(self, out_channels, kernel_size, stride=1, pad=0, nobias=False,
+                 dtype=np.float32, in_channels=None):
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.pad = pad
+        self.dtype = dtype
+
+        self.w = Parameter(None, name="w")
+        if in_channels is not None:
+            self._init_w()
+
+        if nobias:
+            self.b = None
+        else:
+            self.b = Parameter(np.zeros(out_channels, dtype=dtype), name="b")
+
+    def _init_w(self):
+        channels, out_channels = self.in_channels, self.out_channels
+        kernel_height, kernel_width = utils.pair(self.kernel_size)
+        scale = np.sqrt(1 / (channels * kernel_height * kernel_width))
+        w_data = np.random.randn(channels, out_channels, kernel_height, kernel_width).astype(self.dtype) * scale
+        self.w.data = w_data
+
+    def forward(self, x):
+        if self.w.data is None:
+            self.in_channels = x.shape[1]
+            self._init_w()
+
+        y = funcs.deconv2d(x, self.w, self.b, self.stride, self.pad)
+
+        return y
+
+
+# ===========================================================================
+# Natural Language Process
+# ===========================================================================
+class EmbedID(Layer):
+    def __init__(self, vocab_size, embed_size):
+        super().__init__()
+        self.w = Parameter(np.random.randn(vocab_size, embed_size))
+
+    def __call__(self, x):
+        y = self.w[x]
+
+        return y
+
+
+class RNN(Layer):
+    def __init__(self, hidden_size, in_size=None):
+        super().__init__()
+        self.x2h = Linear(hidden_size, in_size=in_size)
+        self.h2h = Linear(hidden_size, in_size=in_size, nobias=True)
+        self.h = None
+
+    def reset_state(self):
+        self.h = None
+
+    def set_state(self, h):
+        self.h = h
+
+    def forward(self, x):
+        if self.h is None:
+            new_hidden_state = funcs.tanh(self.x2h(x))
+        else:
+            new_hidden_state = funcs.tanh(self.x2h(x) + self.h2h(self.h))
+
+        self.h = new_hidden_state
+
+        return new_hidden_state
+
+
+class LSTM(Layer):
+    def __init__(self, hidden_size, in_size=None):
+        super().__init__()
+
+        self.hidden_size = hidden_size
+
+        self.x2hs = Linear(3 * hidden_size, in_size=in_size)
+        self.x2i = Linear(hidden_size, in_size=in_size)
+        self.h2hs = Linear(3 * hidden_size, in_size=hidden_size, nobias=True)
+        self.h2i = Linear(hidden_size, in_size=in_size, nobias=True)
+
+        self.h = None
+        self.c = None
+
+    def reset_state(self):
+        self.h = None
+        self.c = None
+
+    def forward(self, x):
+        if self.h is None:
+            hs = funcs.sigmoid(self.x2hs(x))
+            input_data = funcs.tanh(self.x2i(x))
+        else:
+            hs = funcs.sigmoid(self.x2hs(x) + self.h2hs(self.h))
+            input_data = funcs.tanh(self.x2i(x) + self.h2i(self.h))
+
+        forget_gate = hs[:, :self.hidden_size]
+        input_gate = hs[:, self.hidden_size:2 * self.hidden_size]
+        output_gate = hs[:, 2 * self.hidden_size:]
+
+        if self.c is None:
+            c_new = input_gate * input_data
+        else:
+            c_new = (forget_gate * self.c) + (input_gate * input_data)
+
+        h_new = output_gate * funcs.tanh(c_new)
+
+        self.h, self.c = h_new, c_new
+
+        return h_new
+
+
+class BiLSTM(Layer):
+    def __init__(self, hidden_size, in_size=None):
+        super().__init__()
+        self.forward_lstm = LSTM(hidden_size, in_size=in_size)
+        self.reverse_lstm = LSTM(hidden_size, in_size=in_size)
+
+    def reset_state(self):
+        self.forward_lstm.reset_state()
+        self.reverse_lstm.reset_state()
+
+    def forward(self, x):
+        out1 = self.forward_lstm(x)
+        out2 = self.reverse_lstm(x[:, ::-1])
+        out2 = out2[:, ::-1]
+
+        output = funcs.concat((out1, out2), axis=-1)
+
+        return output
+
+
+class GRU(Layer):
+    def __init__(self, hidden_size, in_size=None):
+        super().__init__()
+        self.hidden_size = hidden_size
+
+        self.x2h = Linear(hidden_size, in_size=in_size)
+        self.x2r = Linear(hidden_size, in_size=in_size)
+        self.x2u = Linear(hidden_size, in_size=in_size)
+
+        self.h2h = Linear(hidden_size, in_size=hidden_size, nobias=True)
+        self.h2r = Linear(hidden_size, in_size=hidden_size, nobias=True)
+        self.h2u = Linear(hidden_size, in_size=hidden_size, nobias=True)
+
+        self.h = None
+
+    def reset_state(self):
+        self.h = None
+
+    def set_state(self, h):
+        self.h = h
+
+    def forward(self, x):
+        if self.h is None:
+            new_h = funcs.tanh(self.x2h(x))
+
+        else:
+            reset_gate = funcs.sigmoid(self.x2r(x) + self.h2r(self.h))
+            new_h = funcs.tanh(self.x2h(x) + self.h2h(reset_gate * self.h))
+            update_gate = funcs.sigmoid(self.x2u(x) + self.h2u(self.h))
+
+            new_h = (1 - update_gate) * new_h + update_gate * self.h
+
+        self.h = new_h
+
+        return new_h
 
 
 # ===========================================================================

@@ -463,6 +463,207 @@ def linear(x, w, b=None):
 
 
 # ===========================================================================
+# Convolution: conv2d / deconv2d / pooling / average_pooling
+# ===========================================================================
+class Conv2D(Function):
+    def __init__(self, stride=1, pad=0):
+        super().__init__()
+        self.stride = utils.pair(stride)
+        self.pad = utils.pair(pad)
+
+    def forward(self, x, w, b):
+        kernel_height, kernel_width = w.shape[2:]
+        col = utils.im2col_array(x, (kernel_height, kernel_width), self.stride, self.pad, to_matrix=False)
+
+        y = np.tensordot(col, w, ((1, 2, 3), (1, 2, 3)))
+        if b is not None:
+            y += b
+
+        y = np.rollaxis(y, 3, 1)
+
+        return y
+
+    def backward(self, grad_y):
+        x, w, b = self.inputs
+
+        grad_x = deconv2d(grad_y, w, b=None, stride=self.stride, pad=self.pad, out_size=(x.shape[2], x.shape[3]))
+
+        grad_w = Conv2DGradW(self)(x, grad_y)
+
+        grad_b = None
+
+        if b.data is not None:
+            grad_b = grad_y.sum(axis=(0, 2, 3))
+
+        return grad_x, grad_w, grad_b
+
+
+def conv2d(x, w, b=None, stride=1, pad=0):
+    return Conv2D(stride, pad)(x, w, b)
+
+
+class Deconv2D(Function):
+    def __init__(self, stride=1, pad=0, out_size=None):
+        super().__init__()
+        self.stride = utils.pair(stride)
+        self.pad = utils.pair(pad)
+        self.out_size = out_size
+
+        self.no_bias = False
+
+    def forward(self, x, w, b):
+        stride_height, stride_width = self.stride
+        padding_height, padding_width = self.pad
+        channels, out_channels, kernel_height, kernel_width = w.shape
+
+        batch_size, channels, height, width = x.shape
+
+        if self.out_size is None:
+            out_height = utils.get_deconv_outsize(height, kernel_height, stride_height, padding_height)
+            out_width = utils.get_deconv_outsize(width, kernel_width, stride_width, padding_width)
+        else:
+            out_height, out_width = utils.pair(self.out_size)
+
+        img_shape = (batch_size, out_channels, out_height, out_width)
+        grad_col = np.tensordot(w, x, (0, 1))
+        grad_col = np.rollaxis(grad_col, 3)
+
+        y = utils.col2im_array(
+            grad_col, img_shape, (kernel_height, kernel_width), self.stride, self.pad, to_matrix=False)
+
+        if b is not None:
+            self.no_bias = True
+            y += b.reshape((1, b.size, 1, 1))
+
+        return y
+
+    def backward(self, grad_y):
+        x, w, b = self.inputs
+
+        grad_x = conv2d(grad_y, w, b=None, stride=self.stride, pad=self.pad)
+
+        grad_w = Conv2DGradW(self)(grad_y, x)
+
+        grad_b = None
+        if b.data is not None:
+            grad_b = grad_y.sum(axis=(0, 2, 3))
+
+        return grad_x, grad_w, grad_b
+
+
+def deconv2d(x, w, b=None, stride=1, pad=0, out_size=None):
+    return Deconv2D(stride, pad, out_size=out_size)(x, w, b)
+
+
+class Conv2DGradW(Function):
+    def __init__(self, conv2d_instance):
+        w = conv2d_instance.inputs[1]
+        kernel_height, kernel_width = w.shape[2:]
+        self.kernel_size = (kernel_height, kernel_width)
+        self.stride = conv2d_instance.stride
+        self.pad = conv2d_instance.pad
+
+    def forward(self, x, grad_y):
+        col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
+        grad_w = np.tensordot(grad_y, col, ((0, 2, 3), (0, 4, 5)))
+
+        return grad_w
+
+    def backward(self, grad_ys):
+        x, grad_y = self.inputs
+        grad_w, = self.outputs
+
+        x_height, x_width = x.shape[2:]
+        grad_x = deconv2d(grad_y, grad_w, stride=self.stride, pad=self.pad, out_size=(x_height, x_width))
+        grad_grad_y = conv2d(x, grad_w, stride=self.stride, pad=self.pad)
+
+        return grad_x, grad_grad_y
+
+
+class MaxPooling(Function):
+    def __init__(self, kernel_size, stride=1, pad=0):
+        super().__init__()
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.pad = pad
+
+        self.indexes = None
+
+    def forward(self, x):
+        col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
+        batch_size, channels, kernel_height, kernel_weight, out_height, out_width = col.shape
+        col = col.reshape((batch_size, channels, kernel_height * kernel_weight, out_height, out_width))
+
+        self.indexes = col.argmax(axis=2)
+        y = col.max(axis=2)
+
+        return y
+
+    def backward(self, grad_y):
+        return MaxPooling2DGrad(self)(grad_y)
+
+
+class MaxPooling2DGrad(Function):
+    def __init__(self, pooling2d):
+        self.pooling2d = pooling2d
+        self.kernel_size = pooling2d.kernel_size
+        self.stride = pooling2d.stride
+        self.pad = pooling2d.pad
+        self.input_shape = pooling2d.inputs[0].shape
+        self.dtype = pooling2d.inputs[0].dtype
+        self.indexes = pooling2d.indexes
+
+    def forward(self, grad_y):
+        batch_size, channels, output_height, output_width = grad_y.shape
+        batch_size, channels, height, width = self.input_shape
+        kernel_height, kernel_width = utils.pair(self.kernel_size)
+
+        grad_col = np.zeros(
+            (batch_size, channels, output_height, output_width, kernel_height, kernel_width), dtype=self.dtype)
+
+        indexes = (self.indexes.ravel() + np.arange(
+            0, self.indexes.size * kernel_height * kernel_width, kernel_height * kernel_width))
+        grad_col[indexes] = grad_y.ravel()
+        grad_col = grad_col.reshape((batch_size, channels, output_height, output_width, kernel_height, kernel_width))
+        grad_col = np.swapaxes(grad_col, 2, 4)
+        grad_col = np.swapaxes(grad_col, 3, 5)
+
+        grad_x = utils.col2im_array(grad_col, (batch_size, channels, height, width),
+                                    self.kernel_size, self.stride, self.pad, to_matrix=False)
+
+        return grad_x
+
+    def backward(self, grad_grad_y):
+        f = Pooling2DWithIndexes(self)
+        return f(grad_grad_y)
+
+
+class Pooling2DWithIndexes(Function):
+    def __init__(self, pooling2d):
+        self.kernel_size = pooling2d.kernel_size
+        self.stride = pooling2d.stride
+        self.pad = pooling2d.pad
+        self.input_shape = pooling2d.inputs[0].shape
+        self.dtype = pooling2d.inputs[0].dtype
+        self.indexes = pooling2d.indexes
+
+    def forward(self, x):
+        col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
+        batch_size, channels, kernel_height, kernel_width, out_height, out_width = col.shape
+
+        col = col.reshape((batch_size, channels, kernel_height * kernel_width, out_height, out_width))
+        col = col.transpose((0, 1, 3, 4, 2)).reshape(-1, kernel_height * kernel_width)
+        indexes = self.indexes.ravel()
+        col = col[np.arange(len(indexes)), indexes]
+
+        return col.reshape(batch_size, channels, out_height, out_width)
+
+
+def max_pool(x, kernel_size, stride=1, pad=0):
+    return MaxPooling(kernel_size, stride, pad)(x)
+
+
+# ===========================================================================
 # activation function: sigmoid / relu / softmax / log_softmax / leaky_relu
 # ===========================================================================
 class Sigmoid(Function):
@@ -798,6 +999,63 @@ def batch_norm(x, gamma, beta, mean, var, decay=0.9, eps=1e-15):
 
 
 # ===========================================================================
+# Im2col / Col2im
+# ===========================================================================
+class Im2col(Function):
+    def __init__(self, kernel_size, stride, pad, to_matrix):
+        super().__init__()
+
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.pad = pad
+        self.to_matrix = to_matrix
+
+        self.input_shape = None
+        self.x_shape = None
+
+    def forward(self, x):
+        self.input_shape = x.shape
+
+        y = utils.im2col_array(x, kernel_size=self.kernel_size, stride=self.stride, pad=self.pad, to_matrix=self.to_matrix)
+
+        return y
+
+    def backward(self, grad_y):
+        grad_x = col2im(grad_y, self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
+
+        return grad_x
+
+
+def im2col(img, kernel_size, stride=1, pad=0, to_matrix=True):
+    return Im2col(kernel_size, stride, pad, to_matrix)(img)
+
+
+class Col2im(Function):
+    def __init__(self, input_shape, kernel_size, stride, pad, to_matrix):
+        super().__init__()
+
+        self.input_shape = input_shape
+        self.kernel_size = kernel_size
+        self.stride = stride
+        self.pad = pad
+        self.to_matrix = to_matrix
+
+    def forward(self, x):
+        y = utils.col2im_array(x, self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
+
+        return y
+
+    def backward(self, grad_y):
+        grad_x = im2col(grad_y, self.kernel_size, self.stride, self.pad, self.to_matrix)
+
+        return grad_x
+
+
+def col2im(col, input_shape, kernel_size, stride=1, pad=0, to_matrix=True):
+    return Col2im(input_shape, kernel_size, stride, pad, to_matrix)(col)
+
+
+# ===========================================================================
 # max / min / clip
 # ===========================================================================
 class Max(Function):
@@ -858,12 +1116,3 @@ class Clip(Function):
 
 def clip(x, x_min, x_max):
     return Clip(x_min, x_max)(x)
-
-
-# ===========================================================================
-# label_encoder
-# ===========================================================================
-def label_encoder(x):
-    if x.dtype == float:
-        return x
-    unique_set = set(x)

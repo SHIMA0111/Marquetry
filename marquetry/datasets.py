@@ -45,7 +45,7 @@ class Dataset(object):
 
 
 # ===========================================================================
-# MNIST / Titanic / SpaceShipTitanic
+# MNIST / Fashion MNIST
 # ===========================================================================
 class MNIST(Dataset):
     def __init__(self, train=True,
@@ -140,6 +140,31 @@ class FashionMNIST(Dataset):
             4: "Coat", 5: "Sandal", 6: "Shirt", 7: "Sneaker", 8: "Bag", 9: "Ankle boot"}
 
 
+# ===========================================================================
+# Sequential dataset: SinCurve
+# ===========================================================================
+class SinCurve(Dataset):
+    def _set_data(self):
+        num_data = 5000
+        dtype = np.float64
+
+        x = np.linspace(0, 3 * np.pi, num_data)
+        noise_range = (-0.05, 0.05)
+        noise = np.random.uniform(noise_range[0], noise_range[1], size=x.shape)
+
+        if self.train:
+            y = np.sin(x) + noise
+        else:
+            y = np.cos(x)
+
+        y = y.astype(dtype)
+        self.target = y[1:][:, np.newaxis]
+        self.source = y[:-1][:, np.newaxis]
+
+
+# ===========================================================================
+# Titanic
+# ===========================================================================
 class Titanic(Dataset):
     """
     Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.

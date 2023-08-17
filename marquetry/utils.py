@@ -286,3 +286,87 @@ def array_close(a, b, rtol=1e-4, atol=1e-5):
     a, b = np.array(a), np.array(b)
 
     return np.allclose(a, b, rtol, atol)
+
+
+# ===========================================================================
+# im2col / col2im
+# ===========================================================================
+def im2col_array(img, kernel_size, stride, pad, to_matrix=True):
+    batch_size, channels, height, weight = img.shape
+    kernel_height, kernel_width = pair(kernel_size)
+    stride_height, stride_width = pair(stride)
+    padding_height, padding_width = pair(pad)
+
+    out_height = get_conv_outsize(height, kernel_height, stride_height, padding_height)
+    out_width = get_conv_outsize(weight, kernel_width, stride_width, padding_width)
+
+    img = np.pad(img, (
+        (0, 0), (0, 0),
+        (padding_height, padding_height + stride_height - 1),
+        (padding_width, padding_width + stride_width - 1)), mode="constant", constant_values=(0,))
+    col = np.ndarray((batch_size, channels, kernel_height, kernel_width, out_height, out_width), dtype=img.dtype)
+
+    for height in range(kernel_height):
+        height_lim = height + out_height * stride_height
+
+        for width in range(kernel_width):
+            width_lim = width + out_width * stride_width
+
+            col[:, :, height, width, :, :] = img[:, :, height:height_lim:stride_height, width:width_lim:stride_width]
+
+    if to_matrix:
+        col = col.transpose((0, 4, 5, 1, 2, 3)).reshape((batch_size * out_height * out_width, -1))
+
+    return col
+
+
+def col2im_array(col, img_shape, kernel_size, stride, pad, to_matrix=True):
+    batch_size, channels, height, width = img_shape
+    kernel_height, kernel_width = pair(kernel_size)
+    stride_height, stride_width = pair(stride)
+    padding_height, padding_width = pair(pad)
+
+    out_height = get_conv_outsize(height, kernel_height, stride_height, padding_height)
+    out_width = get_conv_outsize(width, kernel_width, stride_width, padding_width)
+
+    if to_matrix:
+        col = (col.reshape(batch_size, out_height, out_width, channels, kernel_height, kernel_width).
+               transpose(0, 3, 4, 5, 1, 2))
+
+    img = np.zeros(
+        (
+            batch_size,
+            channels,
+            height + 2 * padding_height + stride_height - 1,
+            width + 2 * padding_width + stride_width - 1), dtype=col.dtype)
+
+    for height_range in range(kernel_height):
+        height_lim = height_range + stride_height * out_height
+
+        for width_range in range(kernel_width):
+            width_lim = width_range + stride_width * out_width
+
+            img[:, :, height_range:height_lim:stride_height, width_range:width_lim:stride_width] += col[:, :, height_range, width_range, :, :]
+
+    return img[:, :, padding_height:height + padding_height, padding_width:width + padding_width]
+
+
+# ===========================================================================
+# others
+# ===========================================================================
+def get_deconv_outsize(size, kernel_size, stride_size, padding_size):
+    return stride_size * (size - 1) + kernel_size - 2 * padding_size
+
+
+def get_conv_outsize(size, kernel_size, stride_size, padding_size):
+    return (size + 2 * padding_size - kernel_size) // stride_size + 1
+
+
+def pair(x):
+    if isinstance(x, int):
+        return x, x
+    elif isinstance(x, tuple):
+        assert len(x) == 2
+        return x
+    else:
+        raise ValueError("pair can't use {}".format(x))
