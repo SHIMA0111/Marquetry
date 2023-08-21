@@ -1,4 +1,6 @@
 import numpy as np
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 
 
 class _Node(object):
@@ -152,9 +154,9 @@ class TreeFeatureImportance(object):
 
 
 class ClassificationDecisionTree(object):
-    def __init__(self, indicator="gini", max_depth=None, random_state=None):
+    def __init__(self, criterion="gini", max_depth=None, random_state=None):
         self.tree = None
-        self.indicator = indicator
+        self.criterion = criterion
         self.max_depth = max_depth
         self.random_state = random_state
 
@@ -163,7 +165,7 @@ class ClassificationDecisionTree(object):
         self.feature_importance_ = None
 
     def fit(self, x, t):
-        self.tree = _Node(self.indicator, self.max_depth, self.random_state)
+        self.tree = _Node(self.criterion, self.max_depth, self.random_state)
         self.tree.create_threshold(x, t, 0, np.unique(t))
 
         self.feature_importance_ = self.tree_features.get_feature_importance(self.tree, x.shape[1])
@@ -181,3 +183,89 @@ class ClassificationDecisionTree(object):
         score = sum(match_list) / float(len(t))
 
         return score
+
+
+class ClassificationRandomForest(object):
+    def __init__(self, criterion="gini", n_trees: int = 10, random_state=None):
+        self._n_trees = n_trees
+        self.random_state = random_state
+        self.criterion = criterion
+
+        self._forest = []
+        self._using_features = []
+
+        self._classes = None
+        self.feature_importance_ = None
+
+    def _bootstrap_sampling(self, x, t):
+        """
+        To sample the data as bootstrap(allow restoration).
+        And, sampling features axis.
+        """
+        n_features = x.shape[1]
+        n_features_forest = np.floor(np.sqrt(n_features))
+        bootstrap_x = []
+        bootstrap_t = []
+        np.random.seed(self.random_state)
+        for i in range(self._n_trees):
+            index = np.random.choice(len(t), size=len(t))
+            cols = np.random.choice(n_features, size=int(n_features_forest), replace=False)
+            bootstrap_x.append(x[np.ix_(index, cols)])
+            bootstrap_t.append(t[index])
+            self._using_features.append(cols)
+
+        return bootstrap_x, bootstrap_t
+
+    def fit(self, x, t):
+        self._classes = np.unique(t)
+
+        bootstrap_x, bootstrap_t = self._bootstrap_sampling(x, t)
+
+        for i, (x_data, t_data) in enumerate(zip(bootstrap_x, bootstrap_t)):
+            tree = ClassificationDecisionTree(criterion=self.criterion, random_state=self.random_state)
+            tree.fit(x_data, t_data)
+            self._forest.append(tree)
+
+        self.feature_importance_ = np.zeros(x.shape[1])
+        for feature, tree in zip(self._using_features, self._forest):
+            self.feature_importance_[feature] += tree.feature_importance_
+
+        self.feature_importance_ /= self._n_trees
+
+    def predict(self, x):
+        if len(self._forest) == 0:
+            raise Exception("Please create forest at first.")
+        predict = np.zeros((len(x), len(self._classes)))
+        predict_votes = [tree.predict(x[:, using_features]) for tree, using_features in zip(self._forest, self._using_features)]
+        for vote in predict_votes:
+            predict[np.arange(len(vote)), vote] += 1
+
+        predict_result = np.argmax(predict, axis=1)
+
+        return predict_result
+
+    def score(self, x, t):
+        match_list = list(np.array(self.predict(x) == t).astype("i"))
+        score = sum(match_list) / float(len(t))
+
+        return score
+
+
+if __name__ == "__main__":
+    data = load_iris()
+    x = data.data
+    t = data.target
+    x_train, x_test, t_train, t_test = train_test_split(x, t, test_size=0.33, random_state=42)
+
+    random_forest = ClassificationRandomForest(random_state=3)
+    decision_tree = ClassificationDecisionTree(random_state=3)
+    random_forest.fit(x_train, t_train)
+    decision_tree.fit(x_train, t_train)
+    score_decision = decision_tree.score(x_test, t_test)
+    print("=" * 20, "Decision Tree", "=" * 20)
+    print(score_decision)
+    print(decision_tree.feature_importance_)
+    score = random_forest.score(x_test, t_test)
+    print("=" * 20, "Random Forest", "=" * 20)
+    print(score)
+    print(random_forest.feature_importance_)
