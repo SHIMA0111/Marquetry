@@ -20,9 +20,12 @@ I hope to enjoy your journey!
 ├── README.md
 ├── marquetry
 │   ├── __init__.py
+│   ├── pre_implementation ... preview implement components
+│   │   └── decision_tree.py
+│   │
 │   ├── core.py ... Core components of the marquetry
 │   ├── datasets.py ... Dataset like "MNIST"/"Titanic" and so
-│   ├── feature_explore.py ... feature_explore(alpha test) component (not stable)
+│   ├── dataloaders.py ... Dataloader components
 │   ├── functions.py ... Functions for layer/model construction
 │   ├── layers.py ... Layers conponents
 │   ├── models.py ... Example models
