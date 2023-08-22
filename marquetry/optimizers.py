@@ -36,12 +36,16 @@ class Optimizer(object):
 # Hooks
 # ===========================================================================
 class WeightDecay(object):
-    def __init__(self, decay):
+    def __init__(self, decay, method="l2"):
         self.decay = decay
+        self.method = method
 
     def __call__(self, params):
         for param in params:
-            param.grad.data += self.decay * param.data
+            if self.method == "l1":
+                param.grad.data += self.decay * abs(param.data)
+            else:
+                param.grad.data += self.decay * param.data ** 2
 
 
 class ClipGrad(object):

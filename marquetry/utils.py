@@ -153,6 +153,96 @@ def max_backward_shape(x, axis):
 
 
 # ===========================================================================
+# Random Forest utilities
+# ===========================================================================
+def class_impurity_criterion(target, criterion="gini"):
+    classes = np.unique(target)
+    num_samples = len(target)
+
+    if criterion == "gini":
+        result = 1.
+        for class_num in classes:
+            # calc each class rate
+            rate = float(len(target[target == class_num])) / num_samples
+            result -= rate ** 2
+
+    elif criterion == "entropy":
+        result = 0.
+        for class_num in classes:
+            # calc each class rate
+            rate = float(len(target[target == class_num])) / num_samples
+            result -= rate * np.log2(rate)
+    else:
+        raise Exception("{} is not supported as criterion.".format(criterion))
+
+    return result
+
+
+def class_information_gain(target, target_left, target_right, criterion="gini"):
+    """
+    information_gain indicates how much cleansing the impurity from before splitting to after.
+    """
+    impurity_target = class_impurity_criterion(target, criterion=criterion)
+    impurity_left = class_impurity_criterion(target_left, criterion=criterion)
+    impurity_right = class_impurity_criterion(target_right, criterion=criterion)
+
+    split_mean_impurity = (float(len(target_left) / len(target)) * impurity_left +
+                           float(len(target_right) / len(target) * impurity_right))
+    info_gain = impurity_target - split_mean_impurity
+
+    return info_gain
+
+
+def split_branch(data, target, class_list, criterion="gini", seed=None, is_leaf=False):
+    """
+    return: is_leave, (label, impurity), feature, threshold
+    """
+    count_classes_datas = [len(target[target == class_num]) for class_num in class_list]
+
+    current_impurity = class_impurity_criterion(target, criterion=criterion)
+    class_counts = dict(zip(class_list, count_classes_datas))
+    label = max(class_counts.items(), key=lambda count: count[1])[0]
+
+    if len(np.unique(target)) == 1:
+        # If target labels already have only 1 label, the impurity is 0 and, the data can't split anymore.
+        return True, (label, current_impurity), None, None
+
+    class_counts = dict(zip(class_list, count_classes_datas))
+    label = max(class_counts.items(), key=lambda count: count[1])[0]
+
+    if is_leaf:
+        return True, (label, current_impurity), None, None
+
+    num_features = data.shape[1]
+    pre_info_gain = 0.0
+
+    np.random.seed(seed)
+
+    shuffle_features_list = list(np.random.permutation(num_features))
+
+    feature_candidate, threshold_candidate = None, None
+    for feature in shuffle_features_list:
+        unique_in_feature = np.unique(data[:, feature])
+        threshold_point = (unique_in_feature[:-1] + unique_in_feature[1:]) / 2.
+
+        for threshold in threshold_point:
+            target_left = target[data[:, feature] <= threshold]
+            target_right = target[data[:, feature] > threshold]
+
+            info_gain = class_information_gain(target, target_left, target_right, criterion=criterion)
+
+            if pre_info_gain < info_gain:
+                pre_info_gain = info_gain
+                feature_candidate = feature
+                threshold_candidate = threshold
+
+    if pre_info_gain == 0.:
+        return True, (label, current_impurity), None, None
+
+    return False, (label, current_impurity), feature_candidate, threshold_candidate
+
+
+# ===========================================================================
 # Download utilities
 # ===========================================================================
 def show_progress(block_num, block_size, total_size):

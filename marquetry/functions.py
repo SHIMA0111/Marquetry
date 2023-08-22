@@ -859,6 +859,13 @@ def sigmoid_cross_entropy(x, t):
     return SigmoidCrossEntropy()(x, t)
 
 
+def classification_cross_entropy(x, t):
+    if x.ndim == 1 or x.shape[1] == 1:
+        return sigmoid_cross_entropy(x, t)
+    else:
+        return softmax_cross_entropy(x, t)
+
+
 def simple_sigmoid_cross_entropy(x, t):
     if x.ndim != t.ndim:
         t = t.reshape(*x.shape)
@@ -876,7 +883,7 @@ def binary_cross_entropy(p, t):
     if p.ndim != t.ndim:
         t = t.reshape(*p.shape)
     batch_size = len(p)
-    p = clip(p, 1e-15, 1.0)
+    p = clip(p, 1e-15, 0.999)
     tlog_p = t * log(p) + (1 - t) * log(1 - p)
     y = -1 * sum(tlog_p) / batch_size
     return y
@@ -885,7 +892,7 @@ def binary_cross_entropy(p, t):
 # ===========================================================================
 # dropout / batch_norm
 # ===========================================================================
-def accuracy(y, t, threshold=0.8):
+def accuracy(y, t, threshold=0.7):
     """
     The `threshold` affects only binary prediction so if you use multiple classification, the parameter will be ignored.
     """
@@ -906,7 +913,7 @@ def accuracy(y, t, threshold=0.8):
 def binary_accuracy(y, t, threshold=0.7):
     y, t = as_variable(y), as_variable(t)
 
-    pred = (y.data > threshold).astype(np.int32).reshape(t.shape)
+    pred = (y.data >= threshold).astype(np.int32).reshape(t.shape)
     result = (pred == t.data)
     acc = result.mean()
 
