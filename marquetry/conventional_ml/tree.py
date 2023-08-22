@@ -5,9 +5,8 @@ import marquetry.utils as utils
 from marquetry import Model
 
 
-class DecisionTree(Model):
+class DecisionTree(object):
     def __init__(self, max_depth=None, min_split_samples=None, criterion="gini", seed=None):
-        super().__init__()
         self.criterion = criterion
         self.seed = seed
         self.max_depth = max_depth if max_depth is not None else float("inf")
@@ -16,18 +15,23 @@ class DecisionTree(Model):
         self.tree = None
         self.unique_list = None
 
-    def forward(self, x, t=None):
-        if marquetry.Config.train_mode:
-            if t is None:
-                raise Exception("In train mode, you need to input correct label as `t`.")
-            self.unique_list = np.unique(t).tolist()
-            self.tree = self._recurrent_create_tree(x, t, 0)
+    def fit(self, x, t):
+        self.unique_list = np.unique(t).tolist()
+        self.tree = self._recurrent_create_tree(x, t, 0)
 
-        pred = []
+    def predict(self, x):
+        predict_result = []
         for sample in x:
-            pred.append(self._recurrent_prediction(sample, self.tree))
+            predict_result.append(self._recurrent_prediction(sample, self.tree))
 
-        return np.array(pred)
+        return np.array(predict_result)
+
+    def score(self, x, t):
+        predict = self.predict(x)
+        match_list = list(np.array(predict == t).astype("i"))
+        score_data = sum(match_list) / float(len(t))
+
+        return score_data
 
     def _recurrent_create_tree(self, x, t, depth, seed=None):
         is_leaf = True if len(x) < self.min_split_samples or depth == self.max_depth else False
@@ -89,20 +93,20 @@ class RandomForest(Model):
 
         self.unique_classes = None
 
-    def forward(self, x, t=None):
-        if marquetry.Config.train_mode:
-            self.unique_classes = np.unique(t)
-            bootstrap_x, bootstrap_t = self._bootstrap_sampling(x, t)
-            predict_vote = []
-            for i, (x_data, t_data) in enumerate(zip(bootstrap_x, bootstrap_t)):
-                tree = DecisionTree(self.max_depth, self.min_split_samples, self.criterion, self.seed)
-                predict_vote.append(tree(x_data, t_data))
-                self.forest.append(tree)
-        else:
-            predict_vote = [tree(x[:, using_features]) for tree, using_features in zip(self.forest, self.using_feature)]
+    def fit(self, x, t):
+        self.unique_classes = np.unique(t)
+        bootstrap_x, bootstrap_t = self._bootstrap_sampling(x, t)
+        for i, (x_data, t_data) in enumerate(zip(bootstrap_x, bootstrap_t)):
+            tree = DecisionTree(self.max_depth, self.min_split_samples, self.criterion, self.seed)
+            tree.fit(x_data, t_data)
+            self.forest.append(tree)
 
+    def predict(self, x):
         if len(self.forest) == 0:
             raise Exception("Please create forest at first.")
+
+        predict_vote = [
+            tree.predict(x[:, using_features]) for tree, using_features in zip(self.forest, self.using_feature)]
 
         predict = np.zeros((len(x), len(self.unique_classes)))
         for vote in predict_vote:
@@ -111,6 +115,13 @@ class RandomForest(Model):
         predict_result = np.argmax(predict, axis=1)
 
         return predict_result
+
+    def score(self, x, t):
+        predict = self.predict(x)
+        match_list = list(np.array(predict == t).astype("i"))
+        score_data = sum(match_list) / float(len(t))
+
+        return score_data
 
     def _bootstrap_sampling(self, x, t):
         n_features = x.shape[1]
@@ -129,35 +140,3 @@ class RandomForest(Model):
             self.using_feature.append(features)
 
         return bootstrap_x, bootstrap_t
-
-
-def score(predict, correct):
-    match_list = list(np.array(predict == correct).astype("i"))
-    score_data = sum(match_list) / float(len(correct))
-
-    return score_data
-
-
-if __name__ == "__main__":
-    from sklearn.datasets import load_iris
-    from sklearn.model_selection import train_test_split
-
-    from marquetry.datasets import Titanic
-
-    titanic = Titanic(drop_columns=["name", "cabin", "ticket"])
-    titanic_x = titanic.source
-    titanic_t = titanic.target.reshape(-1)
-    test_titanic = Titanic(train=False, drop_columns=["name", "cabin", "ticket"])
-    test_titanic_x = test_titanic.source
-    test_titanic_t = test_titanic.target.reshape(-1)
-
-    # model = DecisionTree(min_split_samples=len(test_titanic_t) * 0.01, seed=3)
-    model = RandomForest(seed=3)
-    pred = model(titanic_x, titanic_t)
-    train_score = score(pred, titanic_t)
-    with marquetry.test_mode():
-        test_pred = model(test_titanic_x)
-    test_score = score(test_pred, test_titanic_t)
-
-    print("Train_score", train_score)
-    print("Test_score", test_score)
