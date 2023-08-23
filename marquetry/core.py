@@ -11,15 +11,22 @@ import marquetry
 # ==================================================
 # Variable / Function
 # ==================================================
+try:
+    import cupy
+    allow_array = (np.ndarray, cupy.ndarray)
+except ImportError:
+    allow_array = (np.ndarray,)
+
+
 class Variable(object):
     __array_priority__ = 200
 
     def __init__(self, data, name=None):
         if data is not None:
-            if not isinstance(data, (np.ndarray, list)):
+            if not isinstance(data, allow_array):
                 raise TypeError("{} is not supported.".format(type(data)))
 
-        self.data = np.array(data) if data is not None else data
+        self.data = data
         self.name = name
 
         self.generation = 0
@@ -59,7 +66,8 @@ class Variable(object):
 
     def backward(self):
         if self.grad is None:
-            self.grad = Variable(np.ones_like(self.data))
+            xp = marquetry.cuda_backend.get_array_module(self.data)
+            self.grad = Variable(xp.ones_like(self.data))
 
         funcs = []
         seen_set = set()
@@ -157,6 +165,14 @@ class Variable(object):
     def unsqueeze(self, axis):
         return marquetry.functions.unsqueeze(self, axis)
 
+    def to_cpu(self):
+        if self.data is not None:
+            self.data = marquetry.cuda_backend.as_numpy(self.data)
+
+    def to_gpu(self):
+        if self.data is not None:
+            self.data = marquetry.cuda_backend.as_cupy(self.data)
+
     def __matmul__(self, other):
         return marquetry.functions.matmul(self, other)
 
@@ -215,27 +231,27 @@ class Variable(object):
         return marquetry.functions.get_item(self, item)
 
     def __eq__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data == other.data
 
     def __ne__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data != other.data
 
     def __lt__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data < other.data
 
     def __gt__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data > other.data
 
     def __le__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data <= other.data
 
     def __ge__(self, other):
-        other = as_variable(as_array(other))
+        other = as_variable(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
         return self.data >= other.data
 
     def __bool__(self):
@@ -252,9 +268,9 @@ def as_variable(obj):
     return Variable(obj)
 
 
-def as_array(x):
+def as_array(x, array_type=np):
     if np.isscalar(x):
-        return np.array(x)
+        return array_type.array(x)
     return x
 
 
@@ -267,10 +283,11 @@ class Function(object):
         inputs = [as_variable(x) for x in inputs]
 
         xs = [x.data for x in inputs]
+        xp = marquetry.cuda_backend.get_array_module(xs[0])
         ys = self.forward(*xs)
         if not isinstance(ys, tuple):
             ys = (ys,)
-        outputs = [Variable(as_array(y)) for y in ys]
+        outputs = [Variable(as_array(y, xp)) for y in ys]
 
         self.generation = max([x.generation for x in inputs])
         for output in outputs:
@@ -312,7 +329,7 @@ class Add(Function):
 
 
 def add(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Add()(x0, x1)
 
 
@@ -333,7 +350,7 @@ class Mul(Function):
 
 
 def mul(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Mul()(x0, x1)
 
 
@@ -371,12 +388,12 @@ class Sub(Function):
 
 
 def sub(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Sub()(x0, x1)
 
 
 def rsub(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Sub()(x1, x0)
 
 
@@ -397,12 +414,12 @@ class Div(Function):
 
 
 def div(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Div()(x0, x1)
 
 
 def rdiv(x0, x1):
-    x1 = as_array(x1)
+    x1 = as_array(x1, marquetry.cuda_backend.get_array_module(x0.data))
     return Div()(x1, x0)
 
 

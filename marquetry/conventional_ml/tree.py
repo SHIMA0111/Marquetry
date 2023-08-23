@@ -3,6 +3,7 @@ import numpy as np
 import marquetry
 import marquetry.utils as utils
 from marquetry import Model
+from marquetry.cuda_backend import get_array_module
 
 
 class DecisionTree(object):
@@ -21,6 +22,7 @@ class DecisionTree(object):
 
     def predict(self, x):
         predict_result = []
+
         for sample in x:
             predict_result.append(self._recurrent_prediction(sample, self.tree))
 
@@ -126,6 +128,8 @@ class RandomForest(Model):
     def _bootstrap_sampling(self, x, t):
         n_features = x.shape[1]
         n_features_forest = np.floor(np.sqrt(n_features))
+
+        xp
 
         bootstrap_x = []
         bootstrap_t = []

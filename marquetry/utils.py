@@ -1,15 +1,14 @@
 import os
 import subprocess
-import sys
 import urllib.request
 
 import numpy as np
-import pandas as pd
 from PIL import Image
 
 import marquetry
 from marquetry import as_variable
 from marquetry import Variable
+from marquetry import cuda_backend
 
 
 # ===========================================================================
@@ -129,11 +128,12 @@ def reshape_sum_backward(grad_y, x_shape, axis, keepdims):
 
 
 def logsumexp(x, axis=1):
+    xp = cuda_backend.get_array_module(x)
     x_max = x.max(axis=axis, keepdims=True)
     y = x - x_max
-    np.exp(y, out=y)
+    xp.exp(y, out=y)
     sum_exp = y.sum(axis=axis, keepdims=True)
-    np.log(sum_exp, out=sum_exp)
+    xp.log(sum_exp, out=sum_exp)
     y = x_max + sum_exp
 
     return y
@@ -156,7 +156,8 @@ def max_backward_shape(x, axis):
 # Random Forest utilities
 # ===========================================================================
 def class_impurity_criterion(target, criterion="gini"):
-    classes = np.unique(target)
+    xp = cuda_backend.get_array_module(target)
+    classes = xp.unique(target)
     num_samples = len(target)
 
     if criterion == "gini":
@@ -171,7 +172,7 @@ def class_impurity_criterion(target, criterion="gini"):
         for class_num in classes:
             # calc each class rate
             rate = float(len(target[target == class_num])) / num_samples
-            result -= rate * np.log2(rate)
+            result -= rate * xp.log2(rate)
     else:
         raise Exception("{} is not supported as criterion.".format(criterion))
 
@@ -197,13 +198,15 @@ def split_branch(data, target, class_list, criterion="gini", seed=None, is_leaf=
     """
     return: is_leave, (label, impurity), feature, threshold
     """
+    xp = cuda_backend.get_array_module(data)
+
     count_classes_datas = [len(target[target == class_num]) for class_num in class_list]
 
     current_impurity = class_impurity_criterion(target, criterion=criterion)
     class_counts = dict(zip(class_list, count_classes_datas))
     label = max(class_counts.items(), key=lambda count: count[1])[0]
 
-    if len(np.unique(target)) == 1:
+    if len(xp.unique(target)) == 1:
         # If target labels already have only 1 label, the impurity is 0 and, the data can't split anymore.
         return True, (label, current_impurity), None, None
 
@@ -216,13 +219,13 @@ def split_branch(data, target, class_list, criterion="gini", seed=None, is_leaf=
     num_features = data.shape[1]
     pre_info_gain = 0.0
 
-    np.random.seed(seed)
+    xp.random.seed(seed)
 
-    shuffle_features_list = list(np.random.permutation(num_features))
+    shuffle_features_list = list(xp.random.permutation(num_features))
 
     feature_candidate, threshold_candidate = None, None
     for feature in shuffle_features_list:
-        unique_in_feature = np.unique(data[:, feature])
+        unique_in_feature = xp.unique(data[:, feature])
         threshold_point = (unique_in_feature[:-1] + unique_in_feature[1:]) / 2.
 
         for threshold in threshold_point:
@@ -291,7 +294,8 @@ def get_file(url, file_name=None):
 # ===========================================================================
 def gradient_check(f, x, *args, rtol=1e-4, atol=1e-5, **kwargs):
     x = as_variable(x)
-    x.data = x.data.astype(np.float64)
+    xp = cuda_backend.get_array_module(x)
+    x.data = x.data.astype(xp.float64)
 
     num_grad = numerical_grad(f, x, *args, **kwargs)
     y = f(x, *args, **kwargs)
@@ -301,7 +305,7 @@ def gradient_check(f, x, *args, rtol=1e-4, atol=1e-5, **kwargs):
     assert bp_grad.shape == num_grad.shape
     res = array_close(num_grad, bp_grad, rtol=rtol, atol=atol)
 
-    grad_diff = np.abs(bp_grad - num_grad).sum()
+    grad_diff = xp.abs(bp_grad - num_grad).sum()
     if not res:
         print("")
         print("========== FAILED (Gradient Check) ==========")
@@ -321,9 +325,13 @@ def numerical_grad(func, x, *args, **kwargs):
     eps = 1e-4
 
     x = x.data if isinstance(x, Variable) else x
-    np_x = x
+    xp = cuda_backend.get_array_module(x)
+    if xp is not np:
+        np_x = cuda_backend.as_numpy(x)
+    else:
+        np_x = x
 
-    grad = np.zeros_like(x)
+    grad = xp.zeros_like(x)
 
     iters = np.nditer(np_x, flags=["multi_index"], op_flags=["readwrite"])
     while not iters.finished:
@@ -366,6 +374,8 @@ def array_equal(a, b):
     a = a.data if isinstance(a, Variable) else a
     b = b.data if isinstance(b, Variable) else b
 
+    a, b = cuda_backend.as_numpy(a), cuda_backend.as_numpy(b)
+
     return np.array_equal(a, b)
 
 
@@ -373,7 +383,7 @@ def array_close(a, b, rtol=1e-4, atol=1e-5):
     a = a.data if isinstance(a, Variable) else a
     b = b.data if isinstance(b, Variable) else b
 
-    a, b = np.array(a), np.array(b)
+    a, b = cuda_backend.as_numpy(a), cuda_backend.as_numpy(b)
 
     return np.allclose(a, b, rtol, atol)
 
@@ -390,11 +400,12 @@ def im2col_array(img, kernel_size, stride, pad, to_matrix=True):
     out_height = get_conv_outsize(height, kernel_height, stride_height, padding_height)
     out_width = get_conv_outsize(weight, kernel_width, stride_width, padding_width)
 
-    img = np.pad(img, (
+    xp = cuda_backend.get_array_module(img)
+    img = xp.pad(img, (
         (0, 0), (0, 0),
         (padding_height, padding_height + stride_height - 1),
         (padding_width, padding_width + stride_width - 1)), mode="constant", constant_values=(0,))
-    col = np.ndarray((batch_size, channels, kernel_height, kernel_width, out_height, out_width), dtype=img.dtype)
+    col = xp.ndarray((batch_size, channels, kernel_height, kernel_width, out_height, out_width), dtype=img.dtype)
 
     for height in range(kernel_height):
         height_lim = height + out_height * stride_height
@@ -423,7 +434,8 @@ def col2im_array(col, img_shape, kernel_size, stride, pad, to_matrix=True):
         col = (col.reshape(batch_size, out_height, out_width, channels, kernel_height, kernel_width).
                transpose(0, 3, 4, 5, 1, 2))
 
-    img = np.zeros(
+    xp = cuda_backend.get_array_module(col)
+    img = xp.zeros(
         (
             batch_size,
             channels,

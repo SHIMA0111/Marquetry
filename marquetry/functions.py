@@ -1,7 +1,7 @@
 import numpy as np
 
 import marquetry
-from marquetry import utils
+from marquetry import utils, cuda_backend
 from marquetry.core import Function, as_variable, as_array
 
 
@@ -10,7 +10,8 @@ from marquetry.core import Function, as_variable, as_array
 # ===========================================================================
 class Sin(Function):
     def forward(self, x):
-        y = np.sin(x)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.sin(x)
 
         return y
 
@@ -27,7 +28,8 @@ def sin(x):
 
 class Cos(Function):
     def forward(self, x):
-        y = np.cos(x)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.cos(x)
 
         return y
 
@@ -44,8 +46,8 @@ def cos(x):
 
 class Tanh(Function):
     def forward(self, x):
-        y = np.tanh(x)
-
+        xp = cuda_backend.get_array_module(x)
+        y = xp.tanh(x)
         return y
 
     def backward(self, grad_y):
@@ -61,7 +63,8 @@ def tanh(x):
 
 class Exp(Function):
     def forward(self, x):
-        y = np.exp(x)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.exp(x)
 
         return y
 
@@ -78,7 +81,8 @@ def exp(x):
 
 class Log(Function):
     def forward(self, x):
-        y = np.log(x)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.log(x)
 
         return y
 
@@ -130,8 +134,10 @@ class Transpose(Function):
         if self.axes is None:
             return transpose(grad_y)
 
+        xp = cuda_backend.get_array_module(grad_y)
+
         axes_len = len(self.axes)
-        inv_axes = tuple(np.argsort([ax % axes_len for ax in self.axes]))
+        inv_axes = tuple(xp.argsort([ax % axes_len for ax in self.axes]))
         return transpose(grad_y, inv_axes)
 
 
@@ -160,8 +166,13 @@ class GetItemGrad(Function):
         self.in_shape = in_shape
 
     def forward(self, grad_y):
-        grad_x = np.zeros(self.in_shape, dtype=grad_y.dtype)
-        np.add.at(grad_x, self.slices, grad_y)
+        xp = cuda_backend.get_array_module(grad_y)
+        grad_x = xp.zeros(self.in_shape, dtype=grad_y.dtype)
+
+        if xp is np:
+            np.add.at(grad_x, self.slices, grad_y)
+        else:
+            cuda_backend.cpx.scatter_add(grad_x, self.slices, grad_y)
 
         return grad_x
 
@@ -180,7 +191,8 @@ class Repeat(Function):
         self.axis = axis
 
     def forward(self, x):
-        y = np.repeat(x, self.repeat_num, self.axis)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.repeat(x, self.repeat_num, self.axis)
 
         return y
 
@@ -200,6 +212,8 @@ class RepeatGrad(Function):
         self.axis = axis
 
     def forward(self, grad_y):
+        xp = cuda_backend.get_array_module(grad_y)
+
         original_num = self.in_shape[self.axis]
         grad_shape = list(grad_y.shape)
         grad_shape[self.axis - 1] *= original_num
@@ -207,7 +221,7 @@ class RepeatGrad(Function):
         grad_shape = tuple(grad_shape)
 
         grad_y = grad_y.reshape(grad_shape)
-        grad_y = np.sum(grad_y, axis=self.axis)
+        grad_y = xp.sum(grad_y, axis=self.axis)
         grad_x = grad_y.reshape(self.in_shape)
 
         return grad_x
@@ -230,7 +244,8 @@ class Concat(Function):
         if len(inputs) == 1 and isinstance(inputs[0], (tuple, list)):
             inputs = tuple(inputs[0])
 
-        y = np.concatenate(inputs, axis=self.axis)
+        xp = cuda_backend.get_array_module(inputs[0])
+        y = xp.concatenate(inputs, axis=self.axis)
 
         return y
 
@@ -266,7 +281,8 @@ class Split(Function):
         self.indices = indices
 
     def forward(self, x):
-        y = np.split(x, self.indices, axis=self.axis)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.split(x, self.indices, axis=self.axis)
 
         return tuple(y)
 
@@ -285,10 +301,11 @@ class Squeeze(Function):
         self.axis = axis
 
     def forward(self, x):
+        xp = cuda_backend.get_array_module(x)
         if x.shape[self.axis] != 1:
             raise ValueError("You can't squeeze non-one size axis element.")
 
-        y = np.squeeze(x, axis=self.axis)
+        y = xp.squeeze(x, axis=self.axis)
         return y
 
     def backward(self, grad_y):
@@ -312,7 +329,7 @@ class UnSqueeze(Function):
         new_shape.insert(self.axis, 1)
         new_shape = tuple(new_shape)
 
-        y = np.reshape(x, new_shape)
+        y = x.reshape(new_shape)
 
         return y
 
@@ -391,11 +408,12 @@ class BroadcastTo(Function):
         self.x_shape = None
 
     def forward(self, x):
+        xp = cuda_backend.get_array_module(x)
         if x.shape == self.shape:
             return x
 
         self.x_shape = x.shape
-        y = np.broadcast_to(x, self.shape)
+        y = xp.broadcast_to(x, self.shape)
 
         return y
 
@@ -472,14 +490,16 @@ class Conv2D(Function):
         self.pad = utils.pair(pad)
 
     def forward(self, x, w, b):
+        xp = cuda_backend.get_array_module(x)
+
         kernel_height, kernel_width = w.shape[2:]
         col = utils.im2col_array(x, (kernel_height, kernel_width), self.stride, self.pad, to_matrix=False)
 
-        y = np.tensordot(col, w, ((1, 2, 3), (1, 2, 3)))
+        y = xp.tensordot(col, w, ((1, 2, 3), (1, 2, 3)))
         if b is not None:
             y += b
 
-        y = np.rollaxis(y, 3, 1)
+        y = xp.rollaxis(y, 3, 1)
 
         return y
 
@@ -512,6 +532,8 @@ class Deconv2D(Function):
         self.no_bias = False
 
     def forward(self, x, w, b):
+        xp = cuda_backend.get_array_module(x)
+
         stride_height, stride_width = self.stride
         padding_height, padding_width = self.pad
         channels, out_channels, kernel_height, kernel_width = w.shape
@@ -525,8 +547,8 @@ class Deconv2D(Function):
             out_height, out_width = utils.pair(self.out_size)
 
         img_shape = (batch_size, out_channels, out_height, out_width)
-        grad_col = np.tensordot(w, x, (0, 1))
-        grad_col = np.rollaxis(grad_col, 3)
+        grad_col = xp.tensordot(w, x, (0, 1))
+        grad_col = xp.rollaxis(grad_col, 3)
 
         y = utils.col2im_array(
             grad_col, img_shape, (kernel_height, kernel_width), self.stride, self.pad, to_matrix=False)
@@ -564,8 +586,10 @@ class Conv2DGradW(Function):
         self.pad = conv2d_instance.pad
 
     def forward(self, x, grad_y):
+        xp = cuda_backend.get_array_module(x)
+
         col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
-        grad_w = np.tensordot(grad_y, col, ((0, 2, 3), (0, 4, 5)))
+        grad_w = xp.tensordot(grad_y, col, ((0, 2, 3), (0, 4, 5)))
 
         return grad_w
 
@@ -614,19 +638,21 @@ class MaxPooling2DGrad(Function):
         self.indexes = pooling2d.indexes
 
     def forward(self, grad_y):
+        xp = cuda_backend.get_array_module(grad_y)
+
         batch_size, channels, output_height, output_width = grad_y.shape
         batch_size, channels, height, width = self.input_shape
         kernel_height, kernel_width = utils.pair(self.kernel_size)
 
-        grad_col = np.zeros(
+        grad_col = xp.zeros(
             (batch_size * channels * output_height * output_width * kernel_height * kernel_width), dtype=self.dtype)
 
-        indexes = (self.indexes.ravel() + np.arange(
+        indexes = (self.indexes.ravel() + xp.arange(
             0, self.indexes.size * kernel_height * kernel_width, kernel_height * kernel_width))
         grad_col[indexes] = grad_y.ravel()
         grad_col = grad_col.reshape((batch_size, channels, output_height, output_width, kernel_height, kernel_width))
-        grad_col = np.swapaxes(grad_col, 2, 4)
-        grad_col = np.swapaxes(grad_col, 3, 5)
+        grad_col = xp.swapaxes(grad_col, 2, 4)
+        grad_col = xp.swapaxes(grad_col, 3, 5)
 
         grad_x = utils.col2im_array(grad_col, (batch_size, channels, height, width),
                                     self.kernel_size, self.stride, self.pad, to_matrix=False)
@@ -648,13 +674,14 @@ class Pooling2DWithIndexes(Function):
         self.indexes = pooling2d.indexes
 
     def forward(self, x):
+        xp = cuda_backend.get_array_module(x)
         col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
         batch_size, channels, kernel_height, kernel_width, out_height, out_width = col.shape
 
         col = col.reshape((batch_size, channels, kernel_height * kernel_width, out_height, out_width))
         col = col.transpose((0, 1, 3, 4, 2)).reshape(-1, kernel_height * kernel_width)
         indexes = self.indexes.ravel()
-        col = col[np.arange(len(indexes)), indexes]
+        col = col[xp.arange(len(indexes)), indexes]
 
         return col.reshape(batch_size, channels, out_height, out_width)
 
@@ -668,8 +695,9 @@ def max_pool(x, kernel_size, stride=1, pad=0):
 # ===========================================================================
 class Sigmoid(Function):
     def forward(self, x):
-        y = np.exp(np.minimum(0, x)) / (1 + np.exp(-np.abs(x)))
+        xp = cuda_backend.get_array_module(x)
 
+        y = xp.exp(xp.minimum(0, x)) / (1 + xp.exp(-xp.abs(x)))
         return y
 
     def backward(self, grad_y):
@@ -685,7 +713,8 @@ def sigmoid(x):
 
 class ReLU(Function):
     def forward(self, x):
-        y = np.maximum(x, 0.0)
+        xp = cuda_backend.get_array_module(x)
+        y = xp.maximum(x, 0.0)
 
         return y
 
@@ -706,8 +735,10 @@ class Softmax(Function):
         self.axis = axis
 
     def forward(self, x):
+        xp = cuda_backend.get_array_module(x)
+
         y = x - x.max(axis=self.axis, keepdims=True)
-        y = np.exp(y)
+        y = xp.exp(y)
         y /= y.sum(axis=self.axis, keepdims=True)
 
         return y
@@ -795,11 +826,12 @@ def mean_squared_error(x0, x1):
 
 class SoftmaxCrossEntropy(Function):
     def forward(self, x, t):
+        xp = cuda_backend.get_array_module(x)
         batch_size = x.shape[0]
         log_z = utils.logsumexp(x, axis=1)
         log_p = x - log_z
-        log_p = log_p[np.arange(batch_size), t.ravel()]
-        y = -log_p.sum() / np.float32(batch_size)
+        log_p = log_p[xp.arange(batch_size), t.ravel()]
+        y = -log_p.sum() / xp.float32(batch_size)
 
         return y
 
@@ -809,9 +841,10 @@ class SoftmaxCrossEntropy(Function):
 
         grad_y *= 1 / batch_size
         y = softmax(x)
+        xp = cuda_backend.get_array_module(t.data)
         if y.size != t.size:
             # convert class num to one-hot
-            t_onehot = np.eye(data_dim, dtype=t.dtype)[t.data]
+            t_onehot = xp.eye(data_dim, dtype=t.dtype)[t.data]
         else:
             t_onehot = t
 
@@ -831,10 +864,12 @@ class SigmoidCrossEntropy(Function):
         if x.ndim != t.ndim:
             t = t.reshape(*x.shape)
 
+        xp = cuda_backend.get_array_module(x)
+
         batch_size = x.shape[0] if x.ndim != 1 else len(x)
-        p = np.exp(np.minimum(0, x)) / (1 + np.exp(-np.abs(x)))
-        p = np.clip(p, 1e-15, .999)
-        tlog_p = t * np.log(p) + (1 - t) * np.log(1 - p)
+        p = xp.exp(xp.minimum(0, x)) / (1 + xp.exp(-xp.abs(x)))
+        p = xp.clip(p, 1e-15, .999)
+        tlog_p = t * xp.log(p) + (1 - t) * xp.log(1 - p)
         y = -1 * tlog_p.sum() / batch_size
 
         self.batch_size = batch_size
@@ -896,27 +931,19 @@ def accuracy(y, t, threshold=0.7):
     """
     The `threshold` affects only binary prediction so if you use multiple classification, the parameter will be ignored.
     """
+    xp = cuda_backend.get_array_module(y.data)
+
     y, t = as_variable(y), as_variable(t)
 
     if y.ndim == 1:
         y = y.reshape((-1, 1))
 
     if y.shape[1] == 1:
-        pred = (y.data >= threshold).astype(np.int32).reshape(t.shape)
+        pred = (y.data >= threshold).astype(xp.int32).reshape(t.shape)
     else:
         pred = y.data.argmax(axis=1).reshape(t.shape)
     result = (pred == t.data)
     acc = result.mean()
-    return marquetry.Variable(as_array(acc))
-
-
-def binary_accuracy(y, t, threshold=0.7):
-    y, t = as_variable(y), as_variable(t)
-
-    pred = (y.data >= threshold).astype(np.int32).reshape(t.shape)
-    result = (pred == t.data)
-    acc = result.mean()
-
     return marquetry.Variable(as_array(acc))
 
 
@@ -928,9 +955,10 @@ class Dropout(Function):
 
     def forward(self, x):
         if marquetry.Config.train_mode:
-            mask = np.random.rand(*x.shape) > self.dropout_rate
+            xp = cuda_backend.get_array_module(x)
+            mask = xp.random.rand(*x.shape) > self.dropout_rate
             self.mask = mask
-            scale = np.array(1.0 - self.dropout_rate).astype(x.dtype)
+            scale = xp.array(1.0 - self.dropout_rate).astype(x.dtype)
             y = x * mask / scale
         else:
             y = x
@@ -960,12 +988,20 @@ class BatchNorm(Function):
         self.inv_std = None
 
     def forward(self, x, gamma, beta):
-        assert x.ndim == 2
+        assert x.ndim in (2, 4)
+
+        x_ndim = x.ndim
+        x_shape = x.shape
+        if x_ndim == 4:
+            batch_size, channels, height, width = x_shape
+            x = x.transpose(0, 2, 3, 1).reshape(-1, channels)
+
+        xp = cuda_backend.get_array_module(x)
 
         if marquetry.Config.train_mode:
             mean = x.mean(axis=0)
             var = x.var(axis=0)
-            inv_std = 1 / np.sqrt(var + self.eps)
+            inv_std = 1 / xp.sqrt(var + self.eps)
             normed_x = (x - mean) * inv_std
 
             samples = x.size // gamma.size
@@ -979,15 +1015,30 @@ class BatchNorm(Function):
 
             self.inv_std = inv_std
         else:
-            inv_std = 1 / np.sqrt(self.avg_var + self.eps)
+            inv_std = 1 / xp.sqrt(self.avg_var + self.eps)
             normed_x = (x - self.avg_mean) * inv_std
 
         y = gamma * normed_x + beta
+
+        if x_ndim == 4:
+            batch_size, channels, height, width = x_shape
+            y = y.reshape(batch_size, height, width, channels).transpose(0, 3, 1, 2)
+
         return y
 
     def backward(self, grad_y):
+        gy_ndim = grad_y.ndim
+        gy_shape = grad_y.shape
+        if gy_ndim == 4:
+            batch_size, channels, height, width = gy_shape
+            grad_y = grad_y.transpose(0, 2, 3, 1).reshape(-1, channels)
+
         x, gamma, beta = self.inputs
         batch_size = len(x)
+
+        if x.ndim == 4:
+            batch_size, channels, height, width = x.shape
+            x = x.transpose(0, 2, 3, 1).reshape(-1, channels)
 
         mean = x.sum(axis=0) / batch_size
         xc = (x - mean) * self.inv_std
@@ -997,6 +1048,10 @@ class BatchNorm(Function):
 
         grad_x = grad_y - grad_beta / batch_size - xc * grad_gamma / batch_size
         grad_x *= gamma * self.inv_std
+
+        if gy_ndim == 4:
+            batch_size, channels, height, width = gy_shape
+            grad_x = grad_x.reshape(batch_size, height, width, channels).transpose(0, 3, 1, 2)
 
         return grad_x, grad_gamma, grad_beta
 
@@ -1079,10 +1134,12 @@ class Max(Function):
         x = self.inputs[0]
         y = self.outputs[0]()
 
+        xp = cuda_backend.get_array_module(x)
+
         shape = utils.max_backward_shape(x, self.axis)
         grad_y = reshape(grad_y, shape)
         y = reshape(y, shape)
-        cond = np.array(x.data == y.data)
+        cond = xp.array(x.data == y.data)
         grad_y = broadcast_to(grad_y, cond.shape)
 
         return grad_y * cond
@@ -1108,7 +1165,9 @@ class Clip(Function):
         self.x_max = x_max
 
     def forward(self, x):
-        y = np.clip(x, self.x_min, self.x_max)
+        xp = cuda_backend.get_array_module(x)
+
+        y = xp.clip(x, self.x_min, self.x_max)
 
         return y
 

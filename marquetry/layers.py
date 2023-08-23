@@ -4,7 +4,7 @@ import weakref
 import numpy as np
 
 import marquetry.functions as funcs
-import marquetry.utils as utils
+from marquetry import utils, cuda_backend
 from marquetry.core import Parameter
 
 
@@ -46,6 +46,14 @@ class Layer(object):
         for param in self.params():
             param.clear_grad()
 
+    def to_cpu(self):
+        for param in self.params():
+            param.to_cpu()
+
+    def to_gpu(self):
+        for param in self.params():
+            param.to_gpu()
+
     def _flatten_params(self, params_dict, parent_key=""):
         for name in self._params:
             data = self.__dict__[name]
@@ -57,6 +65,8 @@ class Layer(object):
                 params_dict[key] = data
 
     def save_weights(self, path):
+        self.to_cpu()
+
         params_dict = {}
         self._flatten_params(params_dict)
         array_dict = {key: param.data for key, param in params_dict.items() if param is not None}
@@ -86,24 +96,25 @@ class Linear(Layer):
         self.outsize = out_size
         self.dtype = dtype
 
-        self.w = Parameter(None, name="weight")
-        if self.in_size is not None:
-            self._init_w()
-
         if nobias:
             self.b = None
         else:
             self.b = Parameter(np.zeros(out_size, dtype=dtype), name="bias")
 
-    def _init_w(self):
+        self.w = Parameter(None, name="weight")
+
+    def _init_w(self, xp=np):
         in_size, out_size = self.in_size, self.outsize
-        w_data = np.random.randn(in_size, out_size).astype(self.dtype) * np.sqrt(1 / in_size)
+        w_data = xp.random.randn(in_size, out_size).astype(self.dtype) * xp.sqrt(1 / in_size)
         self.w.data = w_data
+        if self.b is not None and xp is not np:
+            self.b.to_gpu()
 
     def forward(self, x):
         if self.w.data is None:
             self.in_size = x.shape[-1]
-            self._init_w()
+            xp = cuda_backend.get_array_module(x)
+            self._init_w(xp=xp)
         y = funcs.linear(x, self.w, self.b)
         return y
 
@@ -119,28 +130,30 @@ class Conv2D(Layer):
         self.pad = pad
         self.dtype = dtype
 
-        self.w = Parameter(None, name="w")
-        if in_channels is not None:
-            self._init_w()
-
         if nobias:
             self.b = None
         else:
             self.b = Parameter(np.zeros(out_channels, dtype=dtype), name="b")
 
-    def _init_w(self):
+        self.w = Parameter(None, name="w")
+
+    def _init_w(self, xp=np):
         channels, output_channels = self.in_channels, self.out_channels
         kernel_height, kernel_width = utils.pair(self.kernel_size)
 
-        scale = np.sqrt(1 / (channels * kernel_height * kernel_width))
-        w_data = np.random.randn(output_channels, channels, kernel_height, kernel_width).astype(self.dtype) * scale
+        scale = xp.sqrt(1 / (channels * kernel_height * kernel_width))
+        w_data = xp.random.randn(output_channels, channels, kernel_height, kernel_width).astype(self.dtype) * scale
 
         self.w.data = w_data
+        if self.b is not None and xp is not np:
+            self.b.to_gpu()
+
 
     def forward(self, x):
         if self.w.data is None:
             self.in_channels = x.shape[1]
-            self._init_w()
+            xp = cuda_backend.get_array_module(x)
+            self._init_w(xp=xp)
 
         y = funcs.conv2d(x, self.w, self.b, self.stride, self.pad)
         return y
@@ -157,26 +170,28 @@ class Deconv2D(Layer):
         self.pad = pad
         self.dtype = dtype
 
-        self.w = Parameter(None, name="w")
-        if in_channels is not None:
-            self._init_w()
-
         if nobias:
             self.b = None
         else:
             self.b = Parameter(np.zeros(out_channels, dtype=dtype), name="b")
 
-    def _init_w(self):
+        self.w = Parameter(None, name="w")
+
+    def _init_w(self, xp=np):
         channels, out_channels = self.in_channels, self.out_channels
         kernel_height, kernel_width = utils.pair(self.kernel_size)
-        scale = np.sqrt(1 / (channels * kernel_height * kernel_width))
-        w_data = np.random.randn(channels, out_channels, kernel_height, kernel_width).astype(self.dtype) * scale
+        scale = xp.sqrt(1 / (channels * kernel_height * kernel_width))
+        w_data = xp.random.randn(channels, out_channels, kernel_height, kernel_width).astype(self.dtype) * scale
         self.w.data = w_data
+
+        if self.b is not None and xp is not np:
+            self.b.to_gpu()
 
     def forward(self, x):
         if self.w.data is None:
             self.in_channels = x.shape[1]
-            self._init_w()
+            xp = cuda_backend.get_array_module(x)
+            self._init_w(xp=xp)
 
         y = funcs.deconv2d(x, self.w, self.b, self.stride, self.pad)
 
@@ -230,7 +245,7 @@ class LSTM(Layer):
         self.x2hs = Linear(3 * hidden_size, in_size=in_size)
         self.x2i = Linear(hidden_size, in_size=in_size)
         self.h2hs = Linear(3 * hidden_size, in_size=hidden_size, nobias=True)
-        self.h2i = Linear(hidden_size, in_size=in_size, nobias=True)
+        self.h2i = Linear(hidden_size, in_size=hidden_size, nobias=True)
 
         self.h = None
         self.c = None
@@ -334,15 +349,16 @@ class BatchNorm(Layer):
         self.decay = decay
 
     def __call__(self, x):
+        xp = cuda_backend.get_array_module(x)
         if self.avg_mean.data is None:
             input_shape = x.shape[1]
             if self.avg_mean.data is None:
-                self.avg_mean.data = np.zeros(input_shape, dtype=x.dtype)
+                self.avg_mean.data = xp.zeros(input_shape, dtype=x.dtype)
             if self.avg_var.data is None:
-                self.avg_var.data = np.ones(input_shape, dtype=x.dtype)
+                self.avg_var.data = xp.ones(input_shape, dtype=x.dtype)
             if self.gamma.data is None:
-                self.gamma.data = np.ones(input_shape, dtype=x.dtype)
+                self.gamma.data = xp.ones(input_shape, dtype=x.dtype)
             if self.beta.data is None:
-                self.beta.data = np.zeros(input_shape, dtype=x.dtype)
+                self.beta.data = xp.zeros(input_shape, dtype=x.dtype)
 
         return funcs.batch_norm(x, self.gamma, self.beta, self.avg_mean.data, self.avg_var.data, self.decay)

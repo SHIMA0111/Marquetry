@@ -17,3 +17,5 @@ import marquetry.layers
 import marquetry.optimizers
 import marquetry.utils
 import marquetry.preprocess
+import marquetry.cuda_backend
+import marquetry.transformers

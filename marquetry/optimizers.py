@@ -2,6 +2,8 @@ import math
 
 import numpy as np
 
+from marquetry import cuda_backend
+
 
 # ===========================================================================
 # Optimizer base class
@@ -90,7 +92,8 @@ class MomentumSGD(Optimizer):
         v_key = id(param)
 
         if v_key not in self.momentum_vector:
-            self.momentum_vector[v_key] = np.zeros_like(param.data)
+            xp = cuda_backend.get_array_module(param.data)
+            self.momentum_vector[v_key] = xp.zeros_like(param.data)
 
         pre_vector = self.momentum_vector[v_key]
         pre_vector *= self.momentum
@@ -110,14 +113,15 @@ class AdaGrad(Optimizer):
     def update_one(self, param):
         h_key = id(param)
 
+        xp = cuda_backend.get_array_module(param.data)
         if h_key not in self.histories:
-            self.histories[h_key] = np.zeros_like(param.data)
+            self.histories[h_key] = xp.zeros_like(param.data)
 
         history = self.histories[h_key]
         grad = param.grad.data
 
         history += grad ** 2
-        param.data -= self.lr * grad / (np.sqrt(history) + self.eps)
+        param.data -= self.lr * grad / (xp.sqrt(history) + self.eps)
 
 
 class RMSProp(Optimizer):
@@ -132,8 +136,9 @@ class RMSProp(Optimizer):
     def update_one(self, param):
         h_key = id(param)
 
+        xp = cuda_backend.get_array_module(param.data)
         if h_key not in self.histories:
-            self.histories[h_key] = np.zeros_like(param.data)
+            self.histories[h_key] = xp.zeros_like(param.data)
 
         history = self.histories[h_key]
         grad = param.grad.data
@@ -141,7 +146,7 @@ class RMSProp(Optimizer):
         history *= self.decay
         history += (1 - self.decay) * grad ** 2
 
-        param.data -= self.lr * grad / (np.sqrt(history) + self.eps)
+        param.data -= self.lr * grad / (xp.sqrt(history) + self.eps)
 
 
 class Adam(Optimizer):
@@ -164,9 +169,10 @@ class Adam(Optimizer):
     def update_one(self, param):
         param_key = id(param)
 
+        xp = cuda_backend.get_array_module(param.data)
         if param_key not in self.momentum_vector:
-            self.momentum_vector[param_key] = np.zeros_like(param.data)
-            self.histories[param_key] = np.zeros_like(param.data)
+            self.momentum_vector[param_key] = xp.zeros_like(param.data)
+            self.histories[param_key] = xp.zeros_like(param.data)
 
         vector, history = self.momentum_vector[param_key], self.histories[param_key]
 
@@ -178,7 +184,7 @@ class Adam(Optimizer):
         history *= self.sd
         history += (1 - self.sd) * grad ** 2
 
-        param.data -= self.lr * vector / (np.sqrt(history) + self.eps)
+        param.data -= self.lr * vector / (xp.sqrt(history) + self.eps)
 
     @property
     def lr(self):

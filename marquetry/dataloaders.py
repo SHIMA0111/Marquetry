@@ -1,11 +1,14 @@
 import numpy as np
 
+from marquetry import cuda_backend
+
 
 class DataLoader(object):
-    def __init__(self, dataset, batch_size, shuffle=True):
+    def __init__(self, dataset, batch_size, shuffle=True, cuda=False):
         self.dataset = dataset
         self.batch_size = batch_size
         self.shuffle = shuffle
+        self.cuda = cuda
 
         self.data_size = len(dataset)
         self.max_iters = -(-self.data_size // batch_size)
@@ -34,8 +37,9 @@ class DataLoader(object):
         batch_index = self.index[self.iterations * self.batch_size:(self.iterations + 1) * self.batch_size]
         batch = [self.dataset[i] for i in batch_index]
 
-        x = np.array([data[0] for data in batch])
-        t = np.array([data[1] for data in batch])
+        xp = cuda_backend.cp if self.cuda else np
+        x = xp.array([data[0] for data in batch])
+        t = xp.array([data[1] for data in batch])
 
         self.iterations += 1
         return x, t
@@ -45,8 +49,8 @@ class DataLoader(object):
 
 
 class SeqDataLoader(DataLoader):
-    def __init__(self, dataset, batch_size):
-        super().__init__(dataset=dataset, batch_size=batch_size, shuffle=False)
+    def __init__(self, dataset, batch_size, cuda=False):
+        super().__init__(dataset=dataset, batch_size=batch_size, shuffle=False, cuda=cuda)
 
     def __next__(self):
         if self.iterations >= self.max_iters:
@@ -58,8 +62,9 @@ class SeqDataLoader(DataLoader):
 
         batch = [self.dataset[i] for i in batch_index]
 
-        x = np.array([example[0] for example in batch])
-        t = np.array([example[1] for example in batch])
+        xp = cuda_backend.cp if self.cuda else np
+        x = xp.array([example[0] for example in batch])
+        t = xp.array([example[1] for example in batch])
 
         self.iterations += 1
 
