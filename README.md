@@ -21,12 +21,15 @@ I hope to enjoy your journey!
 ├── marquetry
 │   ├── __init__.py
 │   ├── pre_implementation ... preview implement components
-│   │   └── decision_tree.py
+│   │   └── svm.py
+│   ├── conventional_ml ... conventional machine learning components
+│   │   └── tree.py ... DecisionTree and RandomForest
 │   │
 │   ├── core.py ... Core components of the marquetry
 │   ├── datasets.py ... Dataset like "MNIST"/"Titanic" and so
 │   ├── dataloaders.py ... Dataloader components
 │   ├── functions.py ... Functions for layer/model construction
+│   ├── cuda_backend.py ... using CuPy component and transform NumPy and CuPy component
 │   ├── layers.py ... Layers conponents
 │   ├── models.py ... Example models
 │   ├── optimizers.py ... Model optimizer
@@ -44,6 +47,9 @@ You need to fill the below version requirement and import external libraries.
  - [Python 3 | 3.6 or later](https://docs.python.org/3/)
  - [NumPy](https://numpy.org/)
  - [Pandas](https://pandas.pydata.org/)
+
+Optional
+ - [CyPy](https://cupy.dev/)
 
 for display the calculation graph
  - [Pillow](https://pillow.readthedocs.io/en/stable/)
