@@ -18,12 +18,16 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="SHIMA",
+    maintainer="SHIMA",
     author_email="shima@geeksheap.com",
+    maintainer_email="shima@geeksheap.com",
     url="https://github.com/GeeksHeap/Marquetry",
+    download_url="https://github.com/GeeksHeap/Marquetry",
     packages=setuptools.find_packages(),
     python_requires=">=3.8",
+    keywords="deeplearning ml neuralnetwork",
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ]
