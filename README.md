@@ -44,7 +44,7 @@ I hope to enjoy your journey!
 ### Dependencies
 You need to fill the below version requirement and import external libraries. 
 
- - [Python 3 | 3.6 or later](https://docs.python.org/3/)
+ - [Python 3 | 3.8 or later](https://docs.python.org/3/)
  - [NumPy](https://numpy.org/)
  - [Pandas](https://pandas.pydata.org/)
 

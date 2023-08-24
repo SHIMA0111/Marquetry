@@ -1,3 +1,5 @@
+from typing import List
+
 from marquetry import Layer
 import marquetry.functions as funcs
 import marquetry.layers as layers
@@ -38,7 +40,7 @@ class Sequential(Model):
 
 
 class MLP(Model):
-    def __init__(self, fnn_hidden_sizes: list[int], activation=funcs.sigmoid, is_dropout=True):
+    def __init__(self, fnn_hidden_sizes: List[int], activation=funcs.sigmoid, is_dropout=True):
         super().__init__()
         self.activation = activation
         self.layers = []

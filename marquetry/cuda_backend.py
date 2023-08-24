@@ -8,6 +8,7 @@ try:
     GPU_ENABLE = True
 
 except ImportError:
+    cp = np
     GPU_ENABLE = False
 
 
