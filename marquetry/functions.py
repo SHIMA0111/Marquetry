@@ -1,3 +1,5 @@
+import sys
+
 import numpy as np
 
 import marquetry
@@ -15,9 +17,8 @@ class Sin(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        grad_x = cos(x) * grad_y
+    def backward(self, x, grad_y):
+        grad_x = cos(x[0]) * grad_y[0]
 
         return grad_x
 
@@ -33,9 +34,8 @@ class Cos(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        grad_x = -sin(x) * grad_y
+    def backward(self, x, grad_y):
+        grad_x = -sin(x[0]) * grad_y[0]
 
         return grad_x
 
@@ -48,11 +48,14 @@ class Tanh(Function):
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.tanh(x)
+
+        self.retain_inputs(())
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        y = self.outputs[0]()
-        grad_x = grad_y * (1 - y ** 2)
+    def backward(self, x, grad_y):
+        y = self.output_data[0]
+        grad_x = grad_y[0] * (1 - y ** 2)
 
         return grad_x
 
@@ -66,11 +69,13 @@ class Exp(Function):
         xp = cuda_backend.get_array_module(x)
         y = xp.exp(x)
 
+        self.retain_inputs(())
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        y = self.outputs[0]()
-        grad_x = grad_y * y
+    def backward(self, x, grad_y):
+        y = self.output_data[0]
+        grad_x = grad_y[0] * y
 
         return grad_x
 
@@ -86,9 +91,8 @@ class Log(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        grad_x = grad_y / x
+    def backward(self, x, grad_y):
+        grad_x = grad_y[0] / x[0]
 
         return grad_x
 
@@ -111,10 +115,11 @@ class Reshape(Function):
         self.x_shape = x.shape
         y = x.reshape(self.shape)
 
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
-        return reshape(grad_y, self.x_shape)
+    def backward(self, x, grad_y):
+        return reshape(grad_y[0], self.x_shape)
 
 
 def reshape(x, shape):
@@ -127,18 +132,18 @@ class Transpose(Function):
 
     def forward(self, x):
         y = x.transpose(self.axes)
-
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
+    def backward(self, x, grad_y):
         if self.axes is None:
-            return transpose(grad_y)
+            return transpose(grad_y[0])
 
-        xp = cuda_backend.get_array_module(grad_y)
+        xp = cuda_backend.get_array_module(grad_y[0])
 
         axes_len = len(self.axes)
         inv_axes = tuple(xp.argsort([ax % axes_len for ax in self.axes]))
-        return transpose(grad_y, inv_axes)
+        return transpose(grad_y[0], inv_axes)
 
 
 def transpose(x, axes=None):
@@ -154,10 +159,9 @@ class GetItem(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        f = GetItemGrad(self.slices, x.shape)
-        return f(grad_y)
+    def backward(self, x, grad_y):
+        f = GetItemGrad(self.slices, x[0].shape)
+        return f(grad_y[0])
 
 
 class GetItemGrad(Function):
@@ -174,10 +178,11 @@ class GetItemGrad(Function):
         else:
             cuda_backend.cpx.scatter_add(grad_x, self.slices, grad_y)
 
+        self.retain_inputs(())
         return grad_x
 
-    def backward(self, grad_grad_y):
-        return get_item(grad_grad_y, self.slices)
+    def backward(self, x, grad_grad_y):
+        return get_item(grad_grad_y[0], self.slices)
 
 
 def get_item(x, slices):
@@ -196,11 +201,10 @@ class Repeat(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        x_shape = x.shape
+    def backward(self, x, grad_y):
+        x_shape = x[0].shape
 
-        grad_x = RepeatGrad(x_shape, self.repeat_num, self.axis)(grad_y)
+        grad_x = RepeatGrad(x_shape, self.repeat_num, self.axis)(grad_y[0])
 
         return grad_x
 
@@ -224,10 +228,11 @@ class RepeatGrad(Function):
         grad_y = xp.sum(grad_y, axis=self.axis)
         grad_x = grad_y.reshape(self.in_shape)
 
+        self.retain_inputs(())
         return grad_x
 
-    def backward(self, grad_grad_y):
-        grad_grad_x = repeat(grad_grad_y, self.repeat_num, self.axis)
+    def backward(self, x, grad_grad_y):
+        grad_grad_x = repeat(grad_grad_y[0], self.repeat_num, self.axis)
 
         return grad_grad_x
 
@@ -249,9 +254,7 @@ class Concat(Function):
 
         return y
 
-    def backward(self, grad_y):
-        inputs = self.inputs
-
+    def backward(self, inputs, grad_y):
         pre_index = 0
         indices = []
         for i, data in enumerate(inputs):
@@ -261,7 +264,7 @@ class Concat(Function):
             pre_index += index
             indices.append(pre_index)
 
-        grad_x = split(grad_y, indices, axis=self.axis)
+        grad_x = split(grad_y[0], indices, axis=self.axis)
 
         return grad_x
 
@@ -284,9 +287,10 @@ class Split(Function):
         xp = cuda_backend.get_array_module(x)
         y = xp.split(x, self.indices, axis=self.axis)
 
+        self.retain_inputs(())
         return tuple(y)
 
-    def backward(self, *grad_ys):
+    def backward(self, x, grad_ys):
         grad_x = concat(grad_ys, axis=self.axis)
 
         return grad_x
@@ -306,10 +310,12 @@ class Squeeze(Function):
             raise ValueError("You can't squeeze non-one size axis element.")
 
         y = xp.squeeze(x, axis=self.axis)
+
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
-        grad_x = unsqueeze(grad_y, self.axis)
+    def backward(self, x, grad_y):
+        grad_x = unsqueeze(grad_y[0], self.axis)
 
         return grad_x
 
@@ -331,10 +337,11 @@ class UnSqueeze(Function):
 
         y = x.reshape(new_shape)
 
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
-        grad_x = squeeze(grad_y, self.axis)
+    def backward(self, x, grad_y):
+        grad_x = squeeze(grad_y[0], self.axis)
 
         return grad_x
 
@@ -361,11 +368,13 @@ class Sum(Function):
     def forward(self, x):
         self.x_shape = x.shape
         y = x.sum(axis=self.axis, keepdims=self.keepdims)
+
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
-        grad_y = utils.reshape_sum_backward(grad_y, self.x_shape, self.axis, self.keepdims)
-        grad_x = broadcast_to(grad_y, self.x_shape)
+    def backward(self, x, grad_y):
+        grad_y = utils.reshape_sum_backward(grad_y[0], self.x_shape, self.axis, self.keepdims)
+        grad_x = broadcast_to(grad_y[0], self.x_shape)
         return grad_x
 
 
@@ -386,13 +395,14 @@ class SumTo(Function):
         self.x_shape = x.shape
         y = utils.sum_to(x, self.shape)
 
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
+    def backward(self, x, grad_y):
         if self.x_shape is None:
-            return grad_y
+            return grad_y[0]
 
-        grad_x = broadcast_to(grad_y, self.x_shape)
+        grad_x = broadcast_to(grad_y[0], self.x_shape)
 
         return grad_x
 
@@ -415,13 +425,14 @@ class BroadcastTo(Function):
         self.x_shape = x.shape
         y = xp.broadcast_to(x, self.shape)
 
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
+    def backward(self, x, grad_y):
         if self.x_shape is None:
-            return grad_y
+            return grad_y[0]
 
-        grad_x = sum_to(grad_y, self.x_shape)
+        grad_x = sum_to(grad_y[0], self.x_shape)
 
         return grad_x
 
@@ -446,8 +457,10 @@ class MatMul(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x1, x2 = self.inputs
+    def backward(self, xs, grad_y):
+        x1, x2 = xs
+        grad_y = grad_y[0]
+
         grad_x1 = matmul(grad_y, x2.T)
         grad_x2 = matmul(x1.T, grad_y)
 
@@ -463,12 +476,14 @@ class Linear(Function):
         y = x.dot(w)
         if b is not None:
             y += b
-
+        print("\n\nLinear")
         return y
 
-    def backward(self, grad_y):
-        x, w, b = self.inputs
-        grad_b = None if b.data is None else sum_to(grad_y, b.shape)
+    def backward(self, inputs, grad_y):
+        x, w, b = inputs
+        grad_y = grad_y[0]
+
+        grad_b = None if b is None else sum_to(grad_y, b.shape)
 
         grad_x = matmul(grad_y, w.T)
         grad_w = matmul(x.T, grad_y)
@@ -503,8 +518,9 @@ class Conv2D(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, w, b = self.inputs
+    def backward(self, inputs, grad_y):
+        x, w, b = inputs
+        grad_y = grad_y[0]
 
         grad_x = deconv2d(grad_y, w, b=None, stride=self.stride, pad=self.pad, out_size=(x.shape[2], x.shape[3]))
 
@@ -512,7 +528,7 @@ class Conv2D(Function):
 
         grad_b = None
 
-        if b.data is not None:
+        if b is not None:
             grad_b = grad_y.sum(axis=(0, 2, 3))
 
         return grad_x, grad_w, grad_b
@@ -559,15 +575,16 @@ class Deconv2D(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, w, b = self.inputs
+    def backward(self, inputs, grad_y):
+        x, w, b = inputs
+        grad_y = grad_y[0]
 
         grad_x = conv2d(grad_y, w, b=None, stride=self.stride, pad=self.pad)
 
         grad_w = Conv2DGradW(self)(grad_y, x)
 
         grad_b = None
-        if b.data is not None:
+        if b is not None:
             grad_b = grad_y.sum(axis=(0, 2, 3))
 
         return grad_x, grad_w, grad_b
@@ -591,11 +608,12 @@ class Conv2DGradW(Function):
         col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
         grad_w = xp.tensordot(grad_y, col, ((0, 2, 3), (0, 4, 5)))
 
+        self.retain_outputs((0,))
         return grad_w
 
-    def backward(self, grad_ys):
-        x, grad_y = self.inputs
-        grad_w, = self.outputs
+    def backward(self, inputs, grad_ys):
+        x, grad_y = inputs
+        grad_w, = self.output_data
 
         x_height, x_width = x.shape[2:]
         grad_x = deconv2d(grad_y, grad_w, stride=self.stride, pad=self.pad, out_size=(x_height, x_width))
@@ -610,10 +628,15 @@ class MaxPooling(Function):
         self.kernel_size = kernel_size
         self.stride = stride
         self.pad = pad
+        self.input_shape = None
+        self.input_dtype = None
 
         self.indexes = None
 
     def forward(self, x):
+        self.input_shape = x.shape
+        self.input_dtype = x.dtype
+
         col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
         batch_size, channels, kernel_height, kernel_weight, out_height, out_width = col.shape
         col = col.reshape((batch_size, channels, kernel_height * kernel_weight, out_height, out_width))
@@ -621,10 +644,11 @@ class MaxPooling(Function):
         self.indexes = col.argmax(axis=2)
         y = col.max(axis=2)
 
+        self.retain_inputs(())
         return y
 
-    def backward(self, grad_y):
-        return MaxPooling2DGrad(self)(grad_y)
+    def backward(self, x, grad_y):
+        return MaxPooling2DGrad(self)(grad_y[0])
 
 
 class MaxPooling2DGrad(Function):
@@ -633,11 +657,16 @@ class MaxPooling2DGrad(Function):
         self.kernel_size = pooling2d.kernel_size
         self.stride = pooling2d.stride
         self.pad = pooling2d.pad
-        self.input_shape = pooling2d.inputs[0].shape
-        self.dtype = pooling2d.inputs[0].dtype
+        self.input_shape = pooling2d.input_shape
+        self.dtype = pooling2d.input_dtype
         self.indexes = pooling2d.indexes
 
+        self.shape = None
+
     def forward(self, grad_y):
+        self.shape = grad_y.shape
+        self.dtype = grad_y.dtype
+
         xp = cuda_backend.get_array_module(grad_y)
 
         batch_size, channels, output_height, output_width = grad_y.shape
@@ -657,11 +686,12 @@ class MaxPooling2DGrad(Function):
         grad_x = utils.col2im_array(grad_col, (batch_size, channels, height, width),
                                     self.kernel_size, self.stride, self.pad, to_matrix=False)
 
+        self.retain_inputs(())
         return grad_x
 
-    def backward(self, grad_grad_y):
+    def backward(self, x, grad_grad_y):
         f = Pooling2DWithIndexes(self)
-        return f(grad_grad_y)
+        return f(grad_grad_y[0])
 
 
 class Pooling2DWithIndexes(Function):
@@ -669,8 +699,8 @@ class Pooling2DWithIndexes(Function):
         self.kernel_size = pooling2d.kernel_size
         self.stride = pooling2d.stride
         self.pad = pooling2d.pad
-        self.input_shape = pooling2d.inputs[0].shape
-        self.dtype = pooling2d.inputs[0].dtype
+        self.input_shape = pooling2d.shape
+        self.dtype = pooling2d.dtype
         self.indexes = pooling2d.indexes
 
     def forward(self, x):
@@ -683,6 +713,7 @@ class Pooling2DWithIndexes(Function):
         indexes = self.indexes.ravel()
         col = col[xp.arange(len(indexes)), indexes]
 
+        self.retain_inputs(())
         return col.reshape(batch_size, channels, out_height, out_width)
 
 
@@ -698,11 +729,14 @@ class Sigmoid(Function):
         xp = cuda_backend.get_array_module(x)
 
         y = xp.exp(xp.minimum(0, x)) / (1 + xp.exp(-xp.abs(x)))
+
+        self.retain_inputs(())
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        y = self.outputs[0]()
-        grad_x = y * (1 - y) * grad_y
+    def backward(self, x, grad_y):
+        y = self.output_data[0]
+        grad_x = y * (1 - y) * grad_y[0]
 
         return grad_x
 
@@ -718,10 +752,10 @@ class ReLU(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        mask = x.data > 0
-        grad_x = grad_y * mask
+    def backward(self, x, grad_y):
+        x, = x
+        mask = x > 0
+        grad_x = grad_y[0] * mask
 
         return grad_x
 
@@ -741,11 +775,13 @@ class Softmax(Function):
         y = xp.exp(y)
         y /= y.sum(axis=self.axis, keepdims=True)
 
+        self.retain_inputs(())
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        y = self.outputs[0]()
-        grad_x = y * grad_y
+    def backward(self, x, grad_y):
+        y = self.output_data[0]
+        grad_x = y * grad_y[0]
         sum_grad_x = grad_x.sum(axis=self.axis, keepdims=True)
         grad_x -= y * sum_grad_x
 
@@ -764,10 +800,14 @@ class LogSoftmax(Function):
         log_z = utils.logsumexp(x, self.axis)
         y = x - log_z
 
+        self.retain_inputs(())
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        y = self.outputs[0]()
+    def backward(self, x, grad_y):
+        y = self.output_data[0]
+        grad_y = grad_y[0]
+
         grad_x = grad_y - exp(y) * grad_y.sum(axis=self.axis, keepdims=True)
 
         return grad_x
@@ -787,9 +827,8 @@ class LeakyReLU(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
-        mask = (x.data > 0).astype(grad_y.dtype)
+    def backward(self, x, grad_y):
+        mask = (x[0] > 0).astype(grad_y.dtype)
         mask[mask <= 0] = self.slope
 
         grad_x = grad_y * mask
@@ -811,11 +850,11 @@ class MeanSquaredError(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x0, x1 = self.inputs
+    def backward(self, inputs, grad_y):
+        x0, x1 = inputs
         diff = x0 - x1
-        grad_x0 = 2. * diff / len(diff)
-        grad_x1 = -grad_x0
+        grad_x0 = 2. * diff / len(diff) * grad_y[0]
+        grad_x1 = -grad_x0 * grad_y[0]
 
         return grad_x0, grad_x1
 
@@ -835,16 +874,18 @@ class SoftmaxCrossEntropy(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, t = self.inputs
+    def backward(self, inputs, grad_y):
+        x, t = inputs
+        grad_y = grad_y[0]
+
         batch_size, data_dim = x.shape
 
         grad_y *= 1 / batch_size
         y = softmax(x)
-        xp = cuda_backend.get_array_module(t.data)
+        xp = cuda_backend.get_array_module(t)
         if y.size != t.size:
             # convert class num to one-hot
-            t_onehot = xp.eye(data_dim, dtype=t.dtype)[t.data]
+            t_onehot = xp.eye(data_dim, dtype=t.dtype)[t]
         else:
             t_onehot = t
 
@@ -876,8 +917,8 @@ class SigmoidCrossEntropy(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, t = self.inputs
+    def backward(self, inputs, grad_y):
+        x, t = inputs
         if x.ndim != t.ndim:
             t = t.reshape(*x.shape)
         y = sigmoid(x)
@@ -885,7 +926,7 @@ class SigmoidCrossEntropy(Function):
         batch_size = self.batch_size
 
         # grad_x = -(1 / batch_size) * ((t / y) - ((1 - t) / (1 - y))) * (y * (1 - y)) * grad_y
-        grad_x = -(1 / batch_size) * (t * (1 - y) - y * (1 - t)) * grad_y
+        grad_x = -(1 / batch_size) * (t * (1 - y) - y * (1 - t)) * grad_y[0]
 
         return grad_x
 
@@ -963,11 +1004,13 @@ class Dropout(Function):
         else:
             y = x
 
+        self.retain_inputs(())
+
         return y
 
-    def backward(self, grad_y):
+    def backward(self, x, grad_y):
         if marquetry.Config.train_mode:
-            grad_x = grad_y * self.mask
+            grad_x = grad_y[0] * self.mask
         else:
             raise Exception("You execute non-train mode so you can't do backward.")
 
@@ -1024,16 +1067,19 @@ class BatchNorm(Function):
             batch_size, channels, height, width = x_shape
             y = y.reshape(batch_size, height, width, channels).transpose(0, 3, 1, 2)
 
+        self.retain_inputs((0, 1))
         return y
 
-    def backward(self, grad_y):
+    def backward(self, inputs, grad_y):
+        grad_y = grad_y[0]
+
         gy_ndim = grad_y.ndim
         gy_shape = grad_y.shape
         if gy_ndim == 4:
             batch_size, channels, height, width = gy_shape
             grad_y = grad_y.transpose(0, 2, 3, 1).reshape(-1, channels)
 
-        x, gamma, beta = self.inputs
+        x, gamma, _ = inputs
         batch_size = len(x)
 
         if x.ndim == 4:
@@ -1080,10 +1126,11 @@ class Im2col(Function):
 
         y = utils.im2col_array(x, kernel_size=self.kernel_size, stride=self.stride, pad=self.pad, to_matrix=self.to_matrix)
 
+        self.retain_inputs(())
         return y
 
     def backward(self, grad_y):
-        grad_x = col2im(grad_y, self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
+        grad_x = col2im(grad_y[0], self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
 
         return grad_x
 
@@ -1105,10 +1152,11 @@ class Col2im(Function):
     def forward(self, x):
         y = utils.col2im_array(x, self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
 
+        self.retain_inputs(())
         return y
 
     def backward(self, grad_y):
-        grad_x = im2col(grad_y, self.kernel_size, self.stride, self.pad, self.to_matrix)
+        grad_x = im2col(grad_y[0], self.kernel_size, self.stride, self.pad, self.to_matrix)
 
         return grad_x
 
@@ -1128,18 +1176,20 @@ class Max(Function):
     def forward(self, x):
         y = x.max(axis=self.axis, keepdims=self.keepdims)
 
+        self.retain_outputs((0,))
         return y
 
-    def backward(self, grad_y):
-        x = self.inputs[0]
-        y = self.outputs[0]()
+    def backward(self, x, grad_y):
+        x = x[0]
+        y = self.output_data[0]
+        grad_y = grad_y[0]
 
         xp = cuda_backend.get_array_module(x)
 
         shape = utils.max_backward_shape(x, self.axis)
         grad_y = reshape(grad_y, shape)
         y = reshape(y, shape)
-        cond = xp.array(x.data == y.data)
+        cond = xp.array(x == y)
         grad_y = broadcast_to(grad_y, cond.shape)
 
         return grad_y * cond
@@ -1171,11 +1221,11 @@ class Clip(Function):
 
         return y
 
-    def backward(self, grad_y):
-        x, = self.inputs
+    def backward(self, x, grad_y):
+        x = x[0]
 
-        mask = (x.data >= self.x_min) * (x.data <= self.x_max)
-        grad_x = grad_y * mask
+        mask = (x >= self.x_min) * (x <= self.x_max)
+        grad_x = grad_y[0] * mask
 
         return grad_x
 

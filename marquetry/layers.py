@@ -145,9 +145,9 @@ class Conv2D(Layer):
         w_data = xp.random.randn(output_channels, channels, kernel_height, kernel_width).astype(self.dtype) * scale
 
         self.w.data = w_data
+
         if self.b is not None and xp is not np:
             self.b.to_gpu()
-
 
     def forward(self, x):
         if self.w.data is None:

@@ -18,27 +18,167 @@ except ImportError:
     allow_array = (np.ndarray,)
 
 
+class VariableNode(object):
+    def __init__(self, variable, name):
+        self._variable = weakref.ref(variable)
+        self._creator = None
+        self._data = None
+        self._generation = 0
+        self.name = name
+        self._grad = None
+        self._ndim = None
+
+    @property
+    def creator(self):
+        return self._creator
+
+    @creator.setter
+    def creator(self, func):
+        self._creator = func
+        if func is not None:
+            self._generation = func.generation + 1
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, d):
+        self._data = d
+        self._set_data_type(d)
+
+    @property
+    def grad(self):
+        return self._grad
+
+    @grad.setter
+    def grad(self, g):
+        self._grad = g
+
+    @property
+    def label(self):
+        if self.shape == ():
+            return str(self.dtype)
+
+        return "(%s), %s" % (", ".join(map(str, self.shape)), str(self.dtype))
+
+    @property
+    def generation(self):
+        return self._generation
+
+    @property
+    def ndim(self):
+        return self._ndim
+
+    @ndim.setter
+    def ndim(self, data_ndim):
+        self._ndim = data_ndim
+
+    def set_creator(self, creator):
+        self.creator = creator
+
+    def unchain(self):
+        self.creator = None
+
+    def retain_data(self):
+        variable = self._variable()
+        if variable is not None:
+            self.data = variable.data
+        else:
+            raise RuntimeError("Cannot retain variable data: the variable has been already released.")
+
+    def _set_data_type(self, d):
+        if d is None:
+            self.dtype = None
+            self.shape = None
+            self.ndim = None
+        else:
+            self.dtype = d.dtype
+            self.shape = d.shape
+            self.ndim = d.ndim
+
+    def set_grad_with_check(self, g, func, data):
+        _check_grad_type(func, data, g)
+        self._grad = g
+
+
+def _check_grad_type(func, x, grad_x):
+    def make_message(message):
+        if func:
+            detail = "Function `{0}` ({1}) has a bug.\n".format(
+                type(func).__name__, func.name
+            )
+            detail += '''
+            Please report this error to developer with the issue trace.
+            '''
+
+        else:
+            detail = ""
+
+        detail += message
+        return detail
+
+    if x.data is None or grad_x is None:
+        return
+
+    if not isinstance(grad_x.data, type(x.data)):
+        msg = ("Type of data and grad mismatch\n {} ≠ {}".format(type(x.data), type(grad_x.data)))
+
+        raise TypeError(make_message(msg))
+
+    if grad_x.dtype != x.data.dtype:
+        raise TypeError("data and grad dtype mismatch.")
+
+    if grad_x.shape != x.data.shape:
+        raise ValueError("grad and data shape mismatch.")
+
+
 class Variable(object):
     __array_priority__ = 200
 
     def __init__(self, data, name=None):
-        if data is not None:
-            if not isinstance(data, allow_array):
-                raise TypeError("{} is not supported.".format(type(data)))
+        if data is not None and not isinstance(data, allow_array):
+            raise TypeError("{} is not supported.".format(type(data)))
 
-        self.data = data
-        self.name = name
+        self._data = data
+        self._name = name
+        self._node = VariableNode(self, name)
 
         self.generation = 0
 
-        self.grad = None
-        self.creator = None
-
         self._iteration = 0
 
+    @property
+    def creator(self):
+        return self._node.creator
+
+    @creator.setter
+    def creator(self, func):
+        self._node.creator = func
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, d):
+        self._data = d
+        self._node._set_data_type(d)
+
+    @property
+    def node(self):
+        return self._node
+
+    @property
+    def grad(self):
+        return self._node.grad
+
+    @grad.setter
+    def grad(self, g):
+        self._node.set_grad_with_check(g, None, self)
+
     def set_creator(self, func):
-        self.creator = func
-        self.generation = func.generation + 1
+        self._node.set_creator(func)
 
     def unchain(self):
         self.creator = None
@@ -61,10 +201,16 @@ class Variable(object):
                     add_func(x.creator)
                     x.unchain()
 
+    def retain_data(self):
+        self._node.data = self._data
+
     def clear_grad(self):
         self.grad = None
 
     def backward(self):
+        if self.creator is None:
+            return
+
         if self.grad is None:
             xp = marquetry.cuda_backend.get_array_module(self.data)
             self.grad = Variable(xp.ones_like(self.data))
@@ -77,13 +223,25 @@ class Variable(object):
                 funcs.append(f)
                 seen_set.add(f)
                 funcs.sort(key=lambda x: x.generation)
+
         add_func(self.creator)
 
         while funcs:
             f = funcs.pop()
-            grad_ys = [output().grad for output in f.outputs]
+            outputs = [y() for y in f.outputs]
+            grad_ys = tuple(
+                [None if output is None else output.grad for output in outputs])
 
-            grad_xs = f.backward(*grad_ys)
+            in_data = tuple([x.data for x in f.inputs])
+
+            f.output_data = tuple(
+                [None if y is None else y.data for y in outputs])
+
+            grad_xs = f.backward(in_data, grad_ys)
+
+            if not getattr(f, "_output_retain_ever", False):
+                f.output_data = None
+
             if not isinstance(grad_xs, tuple):
                 if isinstance(grad_xs, list):
                     grad_xs = tuple(grad_xs)
@@ -101,6 +259,8 @@ class Variable(object):
 
             for y in f.outputs:
                 y().grad = None
+
+            del grad_xs
 
     @property
     def shape(self):
@@ -166,12 +326,22 @@ class Variable(object):
         return marquetry.functions.unsqueeze(self, axis)
 
     def to_cpu(self):
-        if self.data is not None:
-            self.data = marquetry.cuda_backend.as_numpy(self.data)
+        if self.data is None:
+            return
+
+        self._data = marquetry.cuda_backend.as_numpy(self.data)
+
+        node = self._node
+        if node._data is not None:
+            node.retain_data()
 
     def to_gpu(self):
         if self.data is not None:
-            self.data = marquetry.cuda_backend.as_cupy(self.data)
+            self._data = marquetry.cuda_backend.as_cupy(self.data)
+
+            node = self._node
+            if node._data is not None:
+                node.retain_data()
 
     def __matmul__(self, other):
         return marquetry.functions.matmul(self, other)
@@ -257,6 +427,9 @@ class Variable(object):
     def __bool__(self):
         return self.data.__bool__()
 
+    def __hash__(self):
+        return super(Variable, self).__hash__()
+
 
 class Parameter(Variable):
     pass
@@ -279,30 +452,77 @@ def array(x):
 
 
 class Function(object):
+    generation = 0
+    _input_indexes_to_retain = None
+    _output_indexes_to_retain = None
+    _output_retain_ever = None
+
+    inputs = None
+    outputs = None
+    output_data = None
+
     def __call__(self, *inputs):
         inputs = [as_variable(x) for x in inputs]
 
         xs = [x.data for x in inputs]
+
         xp = marquetry.cuda_backend.get_array_module(xs[0])
+
         ys = self.forward(*xs)
         if not isinstance(ys, tuple):
             ys = (ys,)
         outputs = [Variable(as_array(y, xp)) for y in ys]
 
-        self.generation = max([x.generation for x in inputs])
-        for output in outputs:
-            output.set_creator(self)
+        if marquetry.Config.train_mode:
+            self.generation = max([x.generation for x in inputs])
+            for output in outputs:
+                output.set_creator(self)
 
-        self.inputs = inputs
-        self.outputs = [weakref.ref(output) for output in outputs]
+            self.inputs = tuple([x.node for x in inputs])
+            self.outputs = tuple([weakref.ref(output.node) for output in outputs])
+
+            input_indexes_to_retain = self._input_indexes_to_retain
+            if input_indexes_to_retain is None:
+                input_indexes_to_retain = range(len(inputs))
+            for index in input_indexes_to_retain:
+                inputs[index].retain_data()
+
+            self._input_indexes_to_retain = None
+
+            output_indexes_to_retain = self._output_indexes_to_retain
+            if output_indexes_to_retain is not None:
+                for index in output_indexes_to_retain:
+                    outputs[index].retain_data()
+
+            self._output_indexes_to_retain = None
 
         return outputs if len(outputs) > 1 else outputs[0]
+
+    @property
+    def name(self):
+        return self.__class__.__name__
+
+    def unchain(self):
+        for y in self.outputs:
+            y_ref = y()
+            if y_ref is not None:
+                y_ref.unchain()
+
+        self.inputs = None
 
     def forward(self, *xs):
         raise NotImplementedError()
 
     def backward(self, *grad_ys):
         raise NotImplementedError()
+
+    def retain_inputs(self, indexes):
+        self._input_indexes_to_retain = indexes
+
+    def retain_outputs(self, indexes, retain_ever=False):
+        self._output_indexes_to_retain = indexes
+        if retain_ever:
+            self._output_retain_ever = retain_ever
 
 
 # ==================================================
@@ -317,10 +537,12 @@ class Add(Function):
         self.x0_shape, self.x1_shape = x0.shape, x1.shape
         y = x0 + x1
 
+        self.retain_inputs(())
+
         return y
 
-    def backward(self, grad_y):
-        grad_x0, grad_x1 = grad_y, grad_y
+    def backward(self, x, grad_y):
+        grad_x0, grad_x1 = grad_y[0], grad_y[0]
         if self.x0_shape != self.x1_shape:
             grad_x0 = marquetry.functions.sum_to(grad_x0, self.x0_shape)
             grad_x1 = marquetry.functions.sum_to(grad_x1, self.x1_shape)
@@ -338,10 +560,10 @@ class Mul(Function):
         y = x0 * x1
         return y
 
-    def backward(self, grad_y):
-        x0, x1 = self.inputs
-        grad_x0 = grad_y * x1
-        grad_x1 = grad_y * x0
+    def backward(self, inputs, grad_y):
+        x0, x1 = inputs
+        grad_x0 = grad_y[0] * x1
+        grad_x1 = grad_y[0] * x0
         if x0.shape != x1.shape:
             grad_x0 = marquetry.functions.sum_to(grad_x0, x0.shape)
             grad_x1 = marquetry.functions.sum_to(grad_x1, x1.shape)
@@ -356,10 +578,11 @@ def mul(x0, x1):
 
 class Neg(Function):
     def forward(self, x):
+        self.retain_inputs(())
         return -x
 
-    def backward(self, grad_y):
-        return -grad_y
+    def backward(self, x, grad_y):
+        return -grad_y[0]
 
 
 def neg(x):
@@ -375,11 +598,12 @@ class Sub(Function):
         self.x0_shape, self.x1_shape = x0.shape, x1.shape
         y = x0 - x1
 
+        self.retain_inputs(())
         return y
 
     def backward(self, grad_x):
-        grad_x0 = grad_x
-        grad_x1 = -grad_x
+        grad_x0 = grad_x[0]
+        grad_x1 = -grad_x[0]
         if self.x0_shape != self.x1_shape:
             grad_x0 = marquetry.functions.sum_to(grad_x0, self.x0_shape)
             grad_x1 = marquetry.functions.sum_to(grad_x1, self.x1_shape)
@@ -402,10 +626,10 @@ class Div(Function):
         y = x0 / x1
         return y
 
-    def backward(self, grad_y):
-        x0, x1 = self.inputs
-        grad_x0 = grad_y / x1
-        grad_x1 = grad_y * (-x0 / x1 ** 2)
+    def backward(self, inputs, grad_y):
+        x0, x1 = inputs
+        grad_x0 = grad_y[0] / x1
+        grad_x1 = grad_y[0] * (-x0 / x1 ** 2)
         if x0.shape != x1.shape:
             grad_x0 = marquetry.functions.sum_to(grad_x0, x0.shape)
             grad_x1 = marquetry.functions.sum_to(grad_x1, x1.shape)
@@ -431,10 +655,9 @@ class Pow(Function):
         y = x ** self.c
         return y
 
-    def backward(self, grad_y):
-        x,  = self.inputs
+    def backward(self, x, grad_y):
         c = self.c
-        grad_x = c * x ** (c - 1) * grad_y
+        grad_x = c * x[0] ** (c - 1) * grad_y[0]
 
         return grad_x
 
