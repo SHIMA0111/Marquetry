@@ -19,3 +19,4 @@ import marquetry.utils
 import marquetry.preprocess
 import marquetry.cuda_backend
 import marquetry.transformers
+import marquetry.conventional_ml

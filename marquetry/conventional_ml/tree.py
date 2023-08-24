@@ -129,8 +129,6 @@ class RandomForest(Model):
         n_features = x.shape[1]
         n_features_forest = np.floor(np.sqrt(n_features))
 
-        xp
-
         bootstrap_x = []
         bootstrap_t = []
 
