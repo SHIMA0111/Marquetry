@@ -476,7 +476,6 @@ class Linear(Function):
         y = x.dot(w)
         if b is not None:
             y += b
-        print("\n\nLinear")
         return y
 
     def backward(self, inputs, grad_y):

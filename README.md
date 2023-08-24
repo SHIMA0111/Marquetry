@@ -64,9 +64,12 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 ### Reference Source
 This framework started to be developed based on [dezero](https://github.com/oreilly-japan/deep-learning-from-scratch-3).  
-Therefore, there are much similar architecture between **dezero** and 
+Originally, the dezero was developed based on **[Chainer](https://tutorials.chainer.org/ja/)**
+(and **[PyTorch](https://pytorch.org/)**) architecture.   
+Therefore, there are much similar architecture between **dezero**(**Chainer**) and 
 this like the algorithm of the auto-gradient and so.  
-If you want to know about this framework deeply, I suggest to visit the **dezero** repository.
+If you want to know about this framework deeply, I suggest to visit the **dezero** and **Chainer** repository. 
+(PyTorch is more complex but beautiful.)
 
-I respect the author and his books are very curiously and easy to understandable.  
+And, I respect the **dezero** author and his books are very curiously and easy to understandable.  
 If you want to start journey for deep learning world, I suggest to read [his books](https://www.oreilly.co.jp/books/9784873117584/).  
