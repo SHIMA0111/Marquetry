@@ -16,11 +16,11 @@ You can use this framework for help your learning **Machine/Deep Learning**.
 This framework is written only **Python**, so you can understand the implementation easily if you are python engineer.  
 For simplify the construct, there are un-efficiency implementation.  
 I develop this framework to enjoy learning the construction of the machine/machine learning not **Practical Usage**.  
-I hope to enjoy your journey! """
+I hope to enjoy your journey!"""
 
 setup(
     name="marquetry",
-    version="0.0.3",
+    version="0.0.2",
     license="MIT",
     install_requires=[
         "numpy",
