@@ -33,5 +33,5 @@ jobs:
       GH_TOKEN: ${{ secret.GITHUB_TOKEN }}
       PR_NUMBER: ${{ github.events.number }}
     steps:
-      - uses: Approve PR
+      - name: Approve PR
         run: gh pr review $PR_NUMBER --approve
