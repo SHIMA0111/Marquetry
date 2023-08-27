@@ -143,8 +143,6 @@ class Variable(object):
         self._name = name
         self._node = VariableNode(self, name)
 
-        self.generation = 0
-
         self._iteration = 0
 
     @property
@@ -175,6 +173,10 @@ class Variable(object):
     @grad.setter
     def grad(self, g):
         self._node.set_grad_with_check(g, None, self)
+
+    @property
+    def generation(self):
+        return self._node.generation
 
     def set_creator(self, func):
         self._node.set_creator(func)

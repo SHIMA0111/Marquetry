@@ -75,7 +75,7 @@ class Sub(Function):
         self.retain_inputs(())
         return y
 
-    def backward(self, grad_x):
+    def backward(self, inputs, grad_x):
         grad_x0 = grad_x[0]
         grad_x1 = -grad_x[0]
         if self.x0_shape != self.x1_shape:

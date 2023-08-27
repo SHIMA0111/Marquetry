@@ -12,10 +12,10 @@ class LeakyReLU(Function):
         return y
 
     def backward(self, x, grad_y):
-        mask = (x[0] > 0).astype(grad_y.dtype)
+        mask = (x[0] > 0).astype(grad_y[0].dtype)
         mask[mask <= 0] = self.slope
 
-        grad_x = grad_y * mask
+        grad_x = grad_y[0] * mask
 
         return grad_x
 

@@ -17,7 +17,7 @@ class Sum(Function):
 
     def backward(self, x, grad_y):
         grad_y = utils.reshape_sum_backward(grad_y[0], self.x_shape, self.axis, self.keepdims)
-        grad_x = functions.broadcast_to(grad_y[0], self.x_shape)
+        grad_x = functions.broadcast_to(grad_y, self.x_shape)
         return grad_x
 
 

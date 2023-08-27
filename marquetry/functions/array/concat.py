@@ -7,7 +7,7 @@ class Concat(Function):
 
     def forward(self, *inputs):
         if len(inputs) == 1 and isinstance(inputs[0], (tuple, list)):
-            inputs = tuple(inputs[0])
+            inputs = inputs[0]
 
         xp = cuda_backend.get_array_module(inputs[0])
         y = xp.concatenate(inputs, axis=self.axis)

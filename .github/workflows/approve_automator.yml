@@ -1,0 +1,37 @@
+name: approve-automator
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+
+jobs:
+  unittest:
+    name: Test function correctness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Test functions
+        run: python -m unittest discover tests
+
+  approve:
+    needs: [unittest]
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secret.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.events.number }}
+    steps:
+      - uses: Approve PR
+        run: gh pr review $PR_NUMBER --approve
