@@ -41,5 +41,5 @@ def as_cupy(x):
 
     print(type(x))
     if not GPU_ENABLE:
-        raise Exception("CuPy cannot be loaded. Install CuPy at first.")
+        raise Exception("CuPy cannot be loaded. Install CuPy at first if your machine installed Cuda GPU.")
     return cp.asarray(x)

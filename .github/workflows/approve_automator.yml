@@ -27,11 +27,13 @@ jobs:
         run: python -m unittest discover tests
 
   approve:
+    if: |
+      github.event.pull_request.draft == false
     needs: [unittest]
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secret.GITHUB_TOKEN }}
-      PR_NUMBER: ${{ github.events.number }}
+      PR_URL: ${{ github.events.pull_request.html_url }}
     steps:
       - name: Approve PR
-        run: gh pr review $PR_NUMBER --approve
+        run: gh pr review "$PR_URL" --approve
