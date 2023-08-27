@@ -1,4 +1,4 @@
-name: approve-automator
+name: Approve Automator
 on:
   pull_request:
     types:
