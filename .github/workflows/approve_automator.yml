@@ -5,7 +5,8 @@ on:
       - opened
       - reopened
       - edited
-
+    paths:
+      - "marquetry/**"
 jobs:
   unittest:
     name: Test function correctness

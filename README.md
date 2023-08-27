@@ -17,25 +17,32 @@ I hope to enjoy your journey!
 
 ### Directory
 ```
+├── LICENSE.md
 ├── README.md
 ├── marquetry
-│   ├── __init__.py
-│   ├── pre_implementation ... preview implement components
-│   │   └── svm.py
-│   ├── conventional_ml ... conventional machine learning components
-│   │   └── tree.py ... DecisionTree and RandomForest
-│   │
-│   ├── core.py ... Core components of the marquetry
-│   ├── datasets.py ... Dataset like "MNIST"/"Titanic" and so
-│   ├── dataloaders.py ... Dataloader components
-│   ├── functions.py ... Functions for layer/model construction
-│   ├── cuda_backend.py ... using CuPy component and transform NumPy and CuPy component
-│   ├── layers.py ... Layers conponents
-│   ├── models.py ... Example models
-│   ├── optimizers.py ... Model optimizer
-│   ├── preprocess.py ... Preprocess Script
-│   ├── transformers.py ... Data transformers
-│   └── utils.py ... other utils
+│     ├── conventional_ml
+│     │     └── tree.py ... Tree models
+│     ├── pre_implemetation ... pre impulimentation funcs
+│     │     └── svm.py
+│     ├── dataloaders ... dataloader components
+│     ├── datasets ... dataset load components
+│     ├── functions ... marquetry function components that have auto-grad mechanism
+│     ├── layers ... layer components
+│     ├── models ... pre constructed models
+│     ├── optimizers ... optimizer components
+│     ├── preprocesses ... preprocess for tables components
+│     ├── transformers ... data transformer for data loading
+│     ├── __init__.py
+│     ├── configuration.py ... configuration manager components
+│     ├── cuda_backend.py ... cuda functions using cupy
+│     ├── dataset.py ...  dataset base class
+│     ├── function.py ... marquetry function base class 
+│     ├── utils.py ... utils
+│     ├── layer.py ... layer base class
+│     ├── model.py ... model base class
+│     ├── optimizer.py ... optimizer base class
+│     ├── preprocess.py ... preprocess base class
+│     └── variable.py ... variable components
 ├── setup.py
 └── tests
 
