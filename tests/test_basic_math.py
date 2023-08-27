@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-import marquetry.core
+import marquetry.variable
 from marquetry import Variable
 from marquetry.utils import gradient_check, array_equal
 

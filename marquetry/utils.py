@@ -9,6 +9,7 @@ import marquetry
 from marquetry import as_variable
 from marquetry import Variable
 from marquetry import cuda_backend
+from marquetry.configuration import config
 
 
 # ===========================================================================
@@ -266,10 +267,10 @@ def get_file(url, file_name=None):
     if file_name is None:
         file_name = url[url.rfind("/") + 1:]
 
-    file_path = os.path.join(marquetry.Config.CACHE_DIR, file_name)
+    file_path = os.path.join(config.CACHE_DIR, file_name)
 
-    if not os.path.exists(marquetry.Config.CACHE_DIR):
-        os.mkdir(marquetry.Config.CACHE_DIR)
+    if not os.path.exists(config.CACHE_DIR):
+        os.mkdir(config.CACHE_DIR)
 
     if os.path.exists(file_path):
         return file_path
