@@ -20,7 +20,7 @@ I hope to enjoy your journey!"""
 
 setup(
     name="marquetry",
-    version="0.0.2",
+    version="0.1.0",
     license="MIT",
     install_requires=[
         "numpy",
