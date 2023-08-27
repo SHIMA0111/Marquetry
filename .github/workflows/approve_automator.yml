@@ -36,9 +36,6 @@ jobs:
       github.event.pull_request.draft == false
     needs: [unittest]
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PR_NUMBER: ${{ github.event.number }}
