@@ -8,7 +8,6 @@ try:
     GPU_ENABLE = True
 
 except ImportError:
-    cp = np
     GPU_ENABLE = False
 
 
@@ -40,6 +39,7 @@ def as_cupy(x):
     if isinstance(x, Variable):
         x = x.data
 
+    print(type(x))
     if not GPU_ENABLE:
-        raise Exception("CuPy cannot be loaded. Install CuPy at first.")
+        raise Exception("CuPy cannot be loaded. Install CuPy at first if your machine installed Cuda GPU.")
     return cp.asarray(x)

@@ -68,6 +68,37 @@ class TestCos(unittest.TestCase):
         self.assertTrue(gradient_check(funcs.cos, x))
 
 
+class TestTan(unittest.TestCase):
+
+    def test_forward1(self):
+        x = np.array([1, 2, 3])
+        y = funcs.tan(x)
+
+        res = y.data
+        expected = np.tan(x)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_forward2(self):
+        x = np.array(4)
+        y = funcs.tan(x)
+
+        res = y.data
+        expected = np.tan(x)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_backward1(self):
+        x = np.random.rand(10, 30)
+
+        self.assertTrue(gradient_check(funcs.tan, x))
+
+    def test_backward2(self):
+        x = np.random.randn(1)
+
+        self.assertTrue(gradient_check(funcs.tan, x))
+
+
 class TestTanh(unittest.TestCase):
 
     def test_forward1(self):
@@ -89,7 +120,7 @@ class TestTanh(unittest.TestCase):
         self.assertTrue(array_equal(res, expected))
 
     def test_backward1(self):
-        x = np.random.randn(3, 4)
+        x = np.random.randn(10, 20)
         self.assertTrue(gradient_check(funcs.tanh, x))
 
     def test_backward2(self):

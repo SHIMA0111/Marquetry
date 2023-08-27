@@ -23,7 +23,7 @@ class TestReshape(unittest.TestCase):
 
         y.backward()
 
-        self.assertTrue(array_equal(x.grad.shape, x.shape))
+        self.assertEqual(x.grad.shape, x.shape)
 
 
 class TestTranspose(unittest.TestCase):

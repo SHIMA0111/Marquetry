@@ -18,7 +18,7 @@ class TestConv2d(unittest.TestCase):
         b = None
         tb = torch.Tensor(b) if b is not None else b
         excepted = torch.conv2d(torch.Tensor(x), torch.Tensor(w), tb, stride, padding)
-        y = funcs.conv2d(x, w, b, stride, padding)
+        y = funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(array_close(excepted.data.numpy(), y.data))
 
@@ -30,7 +30,7 @@ class TestConv2d(unittest.TestCase):
         b = None
         tb = torch.Tensor(b) if b is not None else b
         expected = torch.conv2d(torch.Tensor(x), torch.Tensor(w), tb, stride, padding)
-        y = funcs.conv2d(x, w, b, stride, padding)
+        y = funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(array_close(expected.data.numpy(), y.data))
 
@@ -42,7 +42,7 @@ class TestConv2d(unittest.TestCase):
         b = None
         tb = torch.Tensor(b) if b is not None else b
         expected = torch.conv2d(torch.Tensor(x), torch.Tensor(w), tb, stride, padding)
-        y = funcs.conv2d(x, w, b, stride, padding)
+        y = funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(array_close(expected.data.numpy(), y.data))
 
@@ -54,7 +54,7 @@ class TestConv2d(unittest.TestCase):
         b = np.random.randn(output_channels).astype("f")
         tb = torch.Tensor(b) if b is not None else b
         expected = torch.conv2d(torch.Tensor(x), torch.Tensor(w), tb, stride, padding)
-        y = funcs.conv2d(x, w, b, stride, padding)
+        y = funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(array_close(expected.data.numpy(), y.data))
 
@@ -65,7 +65,7 @@ class TestConv2d(unittest.TestCase):
         w = np.random.randn(output_channels, channels, kernel_size[0], kernel_size[1]).astype("f")
         b = np.random.randn(output_channels)
 
-        f = lambda x: funcs.conv2d(x, w, b, stride, padding)
+        f = lambda x: funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(gradient_check(f, x))
 
@@ -76,7 +76,7 @@ class TestConv2d(unittest.TestCase):
         w = np.random.randn(output_channels, channels, kernel_size[0], kernel_size[1]).astype("f")
         b = np.random.randn(output_channels)
 
-        f = lambda b: funcs.conv2d(x, w, b, stride, padding)
+        f = lambda b: funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(gradient_check(f, b))
 
@@ -87,7 +87,7 @@ class TestConv2d(unittest.TestCase):
         w = np.random.randn(output_channels, channels, kernel_size[0], kernel_size[1])
         b = np.random.randn(output_channels)
 
-        f = lambda w: funcs.conv2d(x, w, b, stride, padding)
+        f = lambda w: funcs.convolution_2d(x, w, b, stride, padding)
 
         self.assertTrue(gradient_check(f, w))
 
@@ -106,7 +106,7 @@ class TestDeconv2d(unittest.TestCase):
         b = np.random.uniform(0, 1, channel_output).astype("f")
 
         expected = torch.conv_transpose2d(torch.Tensor(x), torch.Tensor(w), torch.Tensor(b), (stride_y, stride_x), (height_padding, width_padding))
-        y = funcs.deconv2d(x, w, b, (stride_y, stride_x), (height_padding, width_padding))
+        y = funcs.deconvolution_2d(x, w, b, (stride_y, stride_x), (height_padding, width_padding))
 
         self.assertTrue(array_close(expected.data.numpy(), y.data))
 
@@ -123,7 +123,7 @@ class TestDeconv2d(unittest.TestCase):
 
         expected = torch.conv_transpose2d(torch.Tensor(x), torch.Tensor(w), b, (stride_y, stride_x),
                                           (height_padding, width_padding))
-        y = funcs.deconv2d(x, w, b, (stride_y, stride_x), (height_padding, width_padding))
+        y = funcs.deconvolution_2d(x, w, b, (stride_y, stride_x), (height_padding, width_padding))
 
         self.assertTrue(array_close(expected.data.numpy(), y.data))
 
@@ -138,7 +138,7 @@ class TestDeconv2d(unittest.TestCase):
         w = np.random.uniform(0, 1, (channel_input, channel_output, height_padding, width_kernel))
         b = None
 
-        f = lambda x: funcs.deconv2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
+        f = lambda x: funcs.deconvolution_2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
 
         self.assertTrue(gradient_check(f, x))
 
@@ -153,7 +153,7 @@ class TestDeconv2d(unittest.TestCase):
         w = np.random.uniform(0, 1, (channel_input, channel_output, height_padding, width_kernel))
         b = np.random.uniform(0, 1, channel_output)
 
-        f = lambda w: funcs.deconv2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
+        f = lambda w: funcs.deconvolution_2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
 
         self.assertTrue(gradient_check(f, w))
 
@@ -168,6 +168,6 @@ class TestDeconv2d(unittest.TestCase):
         w = np.random.uniform(0, 1, (channel_input, channel_output, height_padding, width_kernel))
         b = np.random.uniform(0, 1, channel_output)
 
-        f = lambda b: funcs.deconv2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
+        f = lambda b: funcs.deconvolution_2d(x, w, b, stride=(stride_y, stride_x), pad=(height_padding, width_padding))
 
         self.assertTrue(gradient_check(f, b))

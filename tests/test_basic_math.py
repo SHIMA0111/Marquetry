@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-import marquetry.core
+import marquetry.variable
 from marquetry import Variable
 from marquetry.utils import gradient_check, array_equal
 
@@ -43,7 +43,7 @@ class TestAdd(unittest.TestCase):
         x = np.random.randn(3, 3)
         y = np.random.randn(3, 1)
 
-        self.assertTrue(gradient_check(marquetry.core.add, x, y))
+        self.assertTrue(gradient_check(marquetry.functions.add, x, y))
 
 
 class TestSub(unittest.TestCase):
@@ -75,7 +75,7 @@ class TestSub(unittest.TestCase):
         x = np.random.randn(3, 3)
         y = np.random.randn(3, 1)
 
-        self.assertTrue(gradient_check(marquetry.core.sub, x, y))
+        self.assertTrue(gradient_check(marquetry.functions.sub, x, y))
 
 
 class TestMul(unittest.TestCase):
@@ -116,7 +116,7 @@ class TestDiv(unittest.TestCase):
 
     def test_forward1(self):
         x0 = np.array([1, 2, 3])
-        x1 = Variable([1, 2, 3])
+        x1 = Variable(x0)
         y = x0 / x1
 
         res = y.data
