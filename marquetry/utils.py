@@ -5,7 +5,6 @@ import urllib.request
 import numpy as np
 from PIL import Image
 
-import marquetry
 from marquetry import as_variable
 from marquetry import Variable
 from marquetry import cuda_backend
