@@ -11,6 +11,9 @@ def test_mode():
     return marquetry.using_config("train", False)
 
 
+# ===========================================================================
+# Function
+# ===========================================================================
 class Function(object):
     generation = 0
     _input_indexes_to_retain = None

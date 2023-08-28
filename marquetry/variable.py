@@ -7,7 +7,7 @@ import marquetry
 
 
 # ==================================================
-# Variable / Function 23
+# VariableNode / Variable
 # ==================================================
 try:
     import cupy
