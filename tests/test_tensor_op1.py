@@ -4,7 +4,7 @@ import numpy as np
 
 import marquetry.functions as funcs
 from marquetry import Variable
-from marquetry.utils import array_close, array_equal, gradient_check
+from marquetry.utils import array_close, gradient_check
 
 
 class TestReshape(unittest.TestCase):
