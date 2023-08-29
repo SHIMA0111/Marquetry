@@ -1,9 +1,7 @@
 import numpy as np
 
-import marquetry
 import marquetry.utils as utils
 from marquetry import Model
-from marquetry.cuda_backend import get_array_module
 
 
 class DecisionTree(object):
