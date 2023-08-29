@@ -1,7 +1,8 @@
-from marquetry import optimizer, cuda_backend
+from marquetry import cuda_backend
+from marquetry.optimizer import Optimizer
 
 
-class MomentumSGD(optimizer.Optimizer):
+class MomentumSGD(Optimizer):
     def __init__(self, learning_rate=0.01, decay=0.9):
         super().__init__()
         self.lr = learning_rate

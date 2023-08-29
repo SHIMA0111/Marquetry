@@ -1,5 +1,5 @@
 import marquetry
-import marquetry.functions as funcs
+from marquetry import functions
 from marquetry import Layer
 
 
@@ -18,6 +18,6 @@ class BiLSTM(Layer):
         out2 = self.reverse_lstm(x[:, ::-1])
         out2 = out2[:, ::-1]
 
-        output = funcs.concat((out1, out2), axis=-1)
+        output = functions.concat((out1, out2), axis=-1)
 
         return output

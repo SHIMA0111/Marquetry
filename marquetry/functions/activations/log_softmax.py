@@ -1,4 +1,6 @@
-from marquetry import Function, utils, functions
+from marquetry import Function
+from marquetry import utils
+from marquetry import functions
 
 
 class LogSoftmax(Function):

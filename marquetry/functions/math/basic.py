@@ -1,5 +1,6 @@
 import marquetry
-from marquetry import Function, as_array
+from marquetry import as_array
+from marquetry import Function
 
 
 class Add(Function):

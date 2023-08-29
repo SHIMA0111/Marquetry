@@ -1,5 +1,7 @@
 import marquetry
-from marquetry import as_variable, as_array, cuda_backend
+from marquetry import as_variable
+from marquetry import as_array
+from marquetry import cuda_backend
 
 
 def accuracy(y, t, threshold=0.7):

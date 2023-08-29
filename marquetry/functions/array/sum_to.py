@@ -1,4 +1,6 @@
-from marquetry import Function, utils, functions
+from marquetry import Function
+from marquetry import functions
+from marquetry import utils
 
 
 class SumTo(Function):

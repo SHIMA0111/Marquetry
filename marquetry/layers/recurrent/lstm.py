@@ -1,4 +1,4 @@
-import marquetry.functions as funcs
+from marquetry import functions
 from marquetry import Layer
 from marquetry.layers import Linear
 
@@ -23,11 +23,11 @@ class LSTM(Layer):
 
     def forward(self, x):
         if self.h is None:
-            hs = funcs.sigmoid(self.x2hs(x))
-            input_data = funcs.tanh(self.x2i(x))
+            hs = functions.sigmoid(self.x2hs(x))
+            input_data = functions.tanh(self.x2i(x))
         else:
-            hs = funcs.sigmoid(self.x2hs(x) + self.h2hs(self.h))
-            input_data = funcs.tanh(self.x2i(x) + self.h2i(self.h))
+            hs = functions.sigmoid(self.x2hs(x) + self.h2hs(self.h))
+            input_data = functions.tanh(self.x2i(x) + self.h2i(self.h))
 
         forget_gate = hs[:, :self.hidden_size]
         input_gate = hs[:, self.hidden_size:2 * self.hidden_size]
@@ -38,7 +38,7 @@ class LSTM(Layer):
         else:
             c_new = (forget_gate * self.c) + (input_gate * input_data)
 
-        h_new = output_gate * funcs.tanh(c_new)
+        h_new = output_gate * functions.tanh(c_new)
 
         self.h, self.c = h_new, c_new
 

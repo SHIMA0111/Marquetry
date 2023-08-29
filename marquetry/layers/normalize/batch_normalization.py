@@ -1,6 +1,7 @@
 import marquetry.cuda_backend as cuda_backend
-import marquetry.functions as funcs
-from marquetry import Layer, Parameter
+from marquetry import functions
+from marquetry import Layer
+from marquetry import Parameter
 
 
 class BatchNormalization(Layer):
@@ -26,4 +27,4 @@ class BatchNormalization(Layer):
             if self.beta.data is None:
                 self.beta.data = xp.zeros(input_shape, dtype=x.dtype)
 
-        return funcs.batch_normalization(x, self.gamma, self.beta, self.avg_mean.data, self.avg_var.data, self.decay)
+        return functions.batch_normalization(x, self.gamma, self.beta, self.avg_mean.data, self.avg_var.data, self.decay)

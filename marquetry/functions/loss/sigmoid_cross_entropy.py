@@ -1,4 +1,7 @@
-from marquetry import Function, cuda_backend, as_variable, functions
+from marquetry import as_variable
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
 
 
 class SigmoidCrossEntropy(Function):

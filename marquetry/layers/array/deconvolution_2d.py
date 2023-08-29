@@ -1,9 +1,10 @@
 import numpy as np
 
 import marquetry.cuda_backend as cuda_backend
-import marquetry.functions as funcs
 import marquetry.utils as utils
-from marquetry import Layer, Parameter
+from marquetry import functions
+from marquetry import Layer
+from marquetry import Parameter
 
 
 class Deconvolution2D(Layer):
@@ -40,6 +41,6 @@ class Deconvolution2D(Layer):
             xp = cuda_backend.get_array_module(x)
             self._init_w(xp=xp)
 
-        y = funcs.deconvolution_2d(x, self.w, self.b, self.stride, self.pad)
+        y = functions.deconvolution_2d(x, self.w, self.b, self.stride, self.pad)
 
         return y

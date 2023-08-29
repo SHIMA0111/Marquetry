@@ -1,6 +1,5 @@
-import os
-
 import contextlib
+import os
 import sys
 
 

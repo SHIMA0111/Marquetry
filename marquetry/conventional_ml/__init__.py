@@ -1,1 +1,2 @@
-import marquetry.conventional_ml.tree
+from marquetry.conventional_ml.tree.decision_tree import DecisionTree
+from marquetry.conventional_ml.tree.random_forest import RandomForest

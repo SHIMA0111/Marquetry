@@ -1,9 +1,10 @@
 import math
 
-from marquetry import optimizer, cuda_backend
+from marquetry import cuda_backend
+from marquetry.optimizer import Optimizer
 
 
-class Adam(optimizer.Optimizer):
+class Adam(Optimizer):
     def __init__(self, base_learning_rate=0.001, first_decay=0.9, second_decay=0.999, eps=1e-8):
         super().__init__()
         self.blr = base_learning_rate

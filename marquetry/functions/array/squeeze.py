@@ -1,4 +1,6 @@
-from marquetry import Function, cuda_backend, functions
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
 
 
 class Squeeze(Function):

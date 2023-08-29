@@ -1,8 +1,9 @@
 import numpy as np
 
 import marquetry.cuda_backend as cuda_backend
-import marquetry.functions as funcs
-from marquetry import Layer, Parameter
+from marquetry import functions
+from marquetry import Layer
+from marquetry import Parameter
 
 
 class Linear(Layer):
@@ -31,5 +32,5 @@ class Linear(Layer):
             self.in_size = x.shape[-1]
             xp = cuda_backend.get_array_module(x)
             self._init_w(xp=xp)
-        y = funcs.linear(x, self.w, self.b)
+        y = functions.linear(x, self.w, self.b)
         return y
