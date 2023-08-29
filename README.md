@@ -31,7 +31,7 @@ I hope to enjoy your journey!
 │     ├── models ... pre constructed models
 │     ├── optimizers ... optimizer components
 │     ├── preprocesses ... preprocess for tables components
-│     ├── transformers ... data transformer for data loading
+│     ├── transformers ... data transformers for data loading
 │     ├── __init__.py
 │     ├── configuration.py ... configuration manager components
 │     ├── cuda_backend.py ... cuda functions using cupy
