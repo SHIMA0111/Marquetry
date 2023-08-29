@@ -18,7 +18,6 @@ class Split(Function):
         return tuple(y)
 
     def backward(self, x, grad_ys):
-        print(grad_ys)
         grad_x = functions.concat(grad_ys, axis=self.axis)
 
         return grad_x

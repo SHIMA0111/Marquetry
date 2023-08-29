@@ -1,0 +1,24 @@
+name: Non Function Edit Approve
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+jobs:
+  approve-merge:
+    runs-on: ubuntu-latest
+    env:
+      PR_URL: ${{ github.event.pull_request.number }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check if only README or LICENSE are updated
+        run: |
+          git diff --name-only "origin/main" HEAD | tee /tmp/diffs
+          if [ "$(wc -l < /tmp/diffs)" -eq "$(grep -c "")"]
