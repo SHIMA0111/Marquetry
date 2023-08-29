@@ -8,6 +8,7 @@ on:
       - synchronize
     paths:
       - "marquetry/**"
+      - "tests/**"
 jobs:
   unittest:
     name: Test function correctness
