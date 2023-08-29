@@ -7,11 +7,17 @@ on:
 
 jobs:
   check_change:
-    if: (github.event.comment.body == 'approve me') && (github.event.comment.user.login == 'SHIMA0111')
+    if: >-
+      ${{ 
+        github.event.comment.body == 'approve me' && 
+        github.event.comment.user.login == 'SHIMA0111' && 
+        github.event.issue.pull_request 
+      }}
+
     runs-on: ubuntu-latest
 
     env:
-      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_NUMBER: ${{ github.event.issue.number }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
