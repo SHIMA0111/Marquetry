@@ -1,4 +1,5 @@
-from marquetry import Function, cuda_backend
+from marquetry import cuda_backend
+from marquetry import Function
 
 
 class Softmax(Function):

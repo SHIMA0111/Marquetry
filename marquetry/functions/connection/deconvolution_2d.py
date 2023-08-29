@@ -1,4 +1,7 @@
-from marquetry import Function, cuda_backend, utils, functions
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
+from marquetry import utils
 from marquetry.functions.connection.convolution_2d_grad_w import Conv2DGradW
 
 
@@ -21,8 +24,8 @@ class Deconvolution2D(Function):
         batch_size, channels, height, width = x.shape
 
         if self.out_size is None:
-            out_height = utils.get_deconv_outsize(height, kernel_height, stride_height, padding_height)
-            out_width = utils.get_deconv_outsize(width, kernel_width, stride_width, padding_width)
+            out_height = utils.get_deconvolution_outsize(height, kernel_height, stride_height, padding_height)
+            out_width = utils.get_deconvolution_outsize(width, kernel_width, stride_width, padding_width)
         else:
             out_height, out_width = utils.pair(self.out_size)
 

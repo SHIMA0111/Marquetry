@@ -1,4 +1,5 @@
-from marquetry import Function, functions
+from marquetry import Function
+from marquetry import functions
 
 
 class UnSqueeze(Function):

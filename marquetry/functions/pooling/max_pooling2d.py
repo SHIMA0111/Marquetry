@@ -1,4 +1,6 @@
-from marquetry import Function, cuda_backend, utils
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import utils
 
 
 class MaxPooling2D(Function):

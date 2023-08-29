@@ -1,4 +1,4 @@
-import marquetry.functions as funcs
+from marquetry import functions
 from marquetry import Layer
 from marquetry.layers import Linear
 
@@ -26,12 +26,12 @@ class GRU(Layer):
 
     def forward(self, x):
         if self.h is None:
-            new_h = funcs.tanh(self.x2h(x))
+            new_h = functions.tanh(self.x2h(x))
 
         else:
-            reset_gate = funcs.sigmoid(self.x2r(x) + self.h2r(self.h))
-            new_h = funcs.tanh(self.x2h(x) + self.h2h(reset_gate * self.h))
-            update_gate = funcs.sigmoid(self.x2u(x) + self.h2u(self.h))
+            reset_gate = functions.sigmoid(self.x2r(x) + self.h2r(self.h))
+            new_h = functions.tanh(self.x2h(x) + self.h2h(reset_gate * self.h))
+            update_gate = functions.sigmoid(self.x2u(x) + self.h2u(self.h))
 
             new_h = (1 - update_gate) * new_h + update_gate * self.h
 

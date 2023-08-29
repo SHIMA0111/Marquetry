@@ -1,4 +1,7 @@
-from marquetry import Function, cuda_backend, functions, utils
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
+from marquetry import utils
 
 
 class SoftmaxCrossEntropy(Function):

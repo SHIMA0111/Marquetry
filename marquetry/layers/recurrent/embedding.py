@@ -1,7 +1,8 @@
 import numpy as np
 
 from marquetry import cuda_backend
-from marquetry import Layer, Parameter
+from marquetry import Layer
+from marquetry import Parameter
 
 
 class Embedding(Layer):

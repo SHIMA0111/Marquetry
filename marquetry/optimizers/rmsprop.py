@@ -1,7 +1,8 @@
-from marquetry import optimizer, cuda_backend
+from marquetry import cuda_backend
+from marquetry.optimizer import Optimizer
 
 
-class RMSProp(optimizer.Optimizer):
+class RMSProp(Optimizer):
     def __init__(self, learning_rate=0.01, decay=0.99, eps=1e-8):
         super().__init__()
         self.lr = learning_rate
