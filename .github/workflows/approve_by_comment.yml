@@ -7,7 +7,7 @@ on:
 
 jobs:
   check_change:
-    if: (github.event.comment.body == "approve me") && (github.event.comment.user.login == "SHIMA0111")
+    if: (github.event.comment.body == 'approve me') && (github.event.comment.user.login == 'SHIMA0111')
     runs-on: ubuntu-latest
 
     env:
@@ -29,14 +29,14 @@ jobs:
           fi
 
       - name: Approve if no-violation
-        if: ${{ steps.diff.outputs.no_violation == "yes" }}
+        if: ${{ steps.diff.outputs.no_violation == 'yes' }}
         run: |
           gh pr comment $PR_NUMBER -b "The change can approve automatically."
           gh pr review $PR_NUMBER --approve
           echo "is_approved=yes" >> $GITHUB_OUTPUT
 
       - name: Reject the request
-        if: ${{ steps.diff.outputs.no_violation == "no" }}
+        if: ${{ steps.diff.outputs.no_violation == 'no' }}
         run: |
           gh pr comment $PR_NUMBER -b "This approve request was rejected due to the change violate commented approve policy."
           echo "::error::Violate change is \n$(grep -v -e "^LICENSE.md$" -e ".github/*" -e "^.gitignore$" -e "^setup.py$" /tmp/diff_files)"

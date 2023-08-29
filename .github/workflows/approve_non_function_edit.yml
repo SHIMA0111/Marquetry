@@ -6,9 +6,8 @@ on:
       - reopened
       - edited
       - synchronize
-    paths-ignore:
-      - "marquetry/**"
-      - "tests/**"
+    paths:
+      - "README.md"
 jobs:
   approve-merge:
     runs-on: ubuntu-latest
@@ -32,7 +31,7 @@ jobs:
           fi
 
       - name: Approve PR
-        if: ${{ steps.diff.outputs.only_readme == "yes" }}
+        if: ${{ steps.diff.outputs.only_readme == 'yes' }}
         id: approve
         run: |
           gh pr comment $PR_NUMBER -b "The change is only README.md. I approve automatically."
@@ -40,6 +39,6 @@ jobs:
           echo "is_approved=yes" >> $GITHUB_OUTPUT
 
       - name: Merge the PR
-        if: ${{ steps.approve.outputs.is_approved == "yes" }}
+        if: ${{ steps.approve.outputs.is_approved == 'yes' }}
         run: |
           gh pr merge $PR_NUMBER --delete-branch
