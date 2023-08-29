@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check if only README or LICENSE are updated
+      - name: Check if only README is updated
         id: diff
         run: |
           git diff --name-only "origin/main" HEAD | tee /tmp/diff_files
