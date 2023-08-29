@@ -10,7 +10,7 @@ jobs:
     if: >-
       ${{ 
         github.event.comment.body == 'approve me' && 
-        github.event.comment.user.login == 'SHIMA0111' && 
+        github.event.comment.user.login == vers.OWNER && 
         github.event.issue.pull_request 
       }}
 
