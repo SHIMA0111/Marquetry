@@ -19,6 +19,6 @@ jobs:
           fetch-depth: 0
 
       - name: Check if only README or LICENSE are updated
+        id: diff
         run: |
           git diff --name-only "origin/main" HEAD | tee /tmp/diffs
-          if [ "$(wc -l < /tmp/diffs)" -eq "$(grep -c "")"]
