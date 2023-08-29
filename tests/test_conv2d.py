@@ -4,8 +4,7 @@ import numpy as np
 import torch
 
 import marquetry.functions as funcs
-from marquetry import Variable
-from marquetry.utils import gradient_check, array_close, array_equal
+from marquetry.utils import gradient_check, array_close
 
 
 class TestConv2d(unittest.TestCase):
