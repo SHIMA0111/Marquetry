@@ -22,7 +22,7 @@ I hope to enjoy your journey!
 ├── marquetry
 │     ├── conventional_ml
 │     │     └── tree.py ... Tree models
-│     ├── pre_implemetation ... pre impulimentation funcs
+│     ├── pre_implemetation ... pre impulimentation models
 │     │     └── svm.py
 │     ├── dataloaders ... dataloader components
 │     ├── datasets ... dataset load components
