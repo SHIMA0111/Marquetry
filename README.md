@@ -11,7 +11,7 @@ you craft a **Marquetry** from combination of various wood tips.
 ## About this Framework
 You can use this framework for help your learning **Machine/Deep Learning**.  
 This framework is written only **Python**, so you can understand the implementation easily if you are python engineer.  
-For simplify the construct, there are un-efficiency implementation.  
+For simplify the construct, there are un-efficiency implementations.  
 I develop this framework to enjoy learning the construction of the machine/machine learning not **Practical Usage**.  
 I hope to enjoy your journey!  
 
@@ -22,7 +22,7 @@ I hope to enjoy your journey!
 ├── marquetry
 │     ├── conventional_ml
 │     │     └── tree.py ... Tree models
-│     ├── pre_implemetation ... pre impulimentation funcs
+│     ├── pre_implemetation ... pre impulimentation models
 │     │     └── svm.py
 │     ├── dataloaders ... dataloader components
 │     ├── datasets ... dataset load components
@@ -31,13 +31,13 @@ I hope to enjoy your journey!
 │     ├── models ... pre constructed models
 │     ├── optimizers ... optimizer components
 │     ├── preprocesses ... preprocess for tables components
-│     ├── transformers ... data transformer for data loading
+│     ├── transformers ... data transformers for data loading
 │     ├── __init__.py
 │     ├── configuration.py ... configuration manager components
 │     ├── cuda_backend.py ... cuda functions using cupy
 │     ├── dataset.py ...  dataset base class
 │     ├── function.py ... marquetry function base class 
-│     ├── utils.py ... utils
+│     ├── utils.py ... non-gradient utils
 │     ├── layer.py ... layer base class
 │     ├── model.py ... model base class
 │     ├── optimizer.py ... optimizer base class
@@ -75,7 +75,7 @@ Originally, the dezero was developed based on **[Chainer](https://tutorials.chai
 (and **[PyTorch](https://pytorch.org/)**) architecture.   
 Therefore, there are much similar architecture between **dezero**(**Chainer**) and 
 this like the algorithm of the auto-gradient and so.  
-If you want to know about these framework deeply, I suggest to visit the **dezero** and **Chainer** repository. 
+If you want to know about these framework deeply, I suggest to visit the **dezero** and **Chainer** repositories. 
 (PyTorch is more complex but beautiful.)
 
 And, I respect the **dezero** author and his books are very curiously and easy to understandable.  
