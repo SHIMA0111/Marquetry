@@ -37,7 +37,7 @@ I hope to enjoy your journey!
 │     ├── cuda_backend.py ... cuda functions using cupy
 │     ├── dataset.py ...  dataset base class
 │     ├── function.py ... marquetry function base class 
-│     ├── utils.py ... utils
+│     ├── utils.py ... non-gradient utils
 │     ├── layer.py ... layer base class
 │     ├── model.py ... model base class
 │     ├── optimizer.py ... optimizer base class
