@@ -35,8 +35,7 @@ jobs:
         run: python -m unittest discover tests
 
   approve:
-    if: |
-      github.event.pull_request.draft == false
+    if: ${{ github.event.pull_request.user.login == vers.OWNER && github.event.pull_request.draft == false }}
     needs: [unittest]
     runs-on: ubuntu-latest
     env:
