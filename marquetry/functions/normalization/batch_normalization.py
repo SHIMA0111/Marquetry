@@ -1,5 +1,7 @@
-import marquetry
-from marquetry import Function, cuda_backend, functions, configuration
+from marquetry import configuration
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
 
 
 class BatchNormalization(Function):

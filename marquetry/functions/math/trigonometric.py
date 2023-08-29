@@ -1,5 +1,5 @@
+from marquetry import cuda_backend
 from marquetry import Function
-from marquetry import cuda_backend, utils
 
 
 class Sin(Function):

@@ -1,6 +1,8 @@
 import numpy as np
 
-from marquetry import Function, cuda_backend, functions
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
 
 
 class Split(Function):

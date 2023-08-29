@@ -1,4 +1,4 @@
-import marquetry.functions as funcs
+from marquetry import functions
 from marquetry import Layer
 from marquetry.layers import Linear
 
@@ -18,9 +18,9 @@ class RNN(Layer):
 
     def forward(self, x):
         if self.h is None:
-            new_hidden_state = funcs.tanh(self.x2h(x))
+            new_hidden_state = functions.tanh(self.x2h(x))
         else:
-            new_hidden_state = funcs.tanh(self.x2h(x) + self.h2h(self.h))
+            new_hidden_state = functions.tanh(self.x2h(x) + self.h2h(self.h))
 
         self.h = new_hidden_state
 

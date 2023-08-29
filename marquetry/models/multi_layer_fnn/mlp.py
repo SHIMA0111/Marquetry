@@ -1,12 +1,12 @@
 from typing import List
 
-import marquetry.functions as funcs
 import marquetry.layers as layers
+from marquetry import functions
 from marquetry import Model
 
 
 class MLP(Model):
-    def __init__(self, fnn_hidden_sizes: List[int], activation=funcs.sigmoid, is_dropout=True):
+    def __init__(self, fnn_hidden_sizes: List[int], activation=functions.sigmoid, is_dropout=True):
         super().__init__()
         self.activation = activation
         self.layers = []
@@ -20,7 +20,7 @@ class MLP(Model):
     def forward(self, x):
         for layer in self.layers[:-1]:
             if self.is_dropout:
-                x = funcs.dropout(layer(x))
+                x = functions.dropout(layer(x))
             else:
                 x = layer(x)
             x = self.activation(x)

@@ -1,4 +1,5 @@
-from marquetry import as_variable, functions
+from marquetry import as_variable
+from marquetry import functions
 
 
 def average(x, axis=None, keepdims=False):

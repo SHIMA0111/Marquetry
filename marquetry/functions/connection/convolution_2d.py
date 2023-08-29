@@ -1,4 +1,7 @@
-from marquetry import Function, cuda_backend, utils, functions
+from marquetry import cuda_backend
+from marquetry import Function
+from marquetry import functions
+from marquetry import utils
 from marquetry.functions.connection.convolution_2d_grad_w import Conv2DGradW
 
 
