@@ -2,7 +2,7 @@ import numpy as np
 
 
 class HardMarginSVM(object):
-    def __init__(self, learn_rate=0.001, epoch=1000, random_state=42):
+    def __init__(self, learn_rate=0.001, epoch=1000, random_state=2023):
         self.lr = learn_rate
         self.epoch = epoch
         self.random_state = random_state

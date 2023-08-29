@@ -41,4 +41,4 @@ jobs:
       - name: Merge the PR
         if: ${{ steps.approve.outputs.is_approved == 'yes' }}
         run: |
-          gh pr merge $PR_NUMBER --delete-branch
+          gh pr merge $PR_NUMBER --merge
