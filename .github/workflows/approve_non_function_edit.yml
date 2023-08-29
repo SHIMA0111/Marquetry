@@ -38,7 +38,12 @@ jobs:
           gh pr review $PR_NUMBER --approve
           echo "is_approved=yes" >> $GITHUB_OUTPUT
 
-      - name: Merge the PR
-        if: ${{ steps.approve.outputs.is_approved == 'yes' }}
+      - name: Merge the PR to main
+        if: ${{ steps.approve.outputs.is_approved == 'yes' && github.base_ref == "main" }}
+        run: |
+          gh pr merge $PR_NUMBER -m
+
+      - name: Merge the PR to development
+        if: ${{ steps.approve.outputs.is_approved == "yes" && github.base_ref == "development" }}
         run: |
           gh pr merge $PR_NUMBER -s -d
