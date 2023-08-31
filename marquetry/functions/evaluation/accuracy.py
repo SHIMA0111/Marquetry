@@ -1,3 +1,5 @@
+import numpy as np
+
 import marquetry
 from marquetry import as_variable
 from marquetry import as_array
@@ -19,6 +21,7 @@ def accuracy(y, t, threshold=0.7):
         pred = (y.data >= threshold).astype(xp.int32).reshape(t.shape)
     else:
         pred = y.data.argmax(axis=1).reshape(t.shape)
-    result = (pred == t.data)
+    result = np.array(pred == t.data).astype("i")
     acc = result.mean()
+
     return marquetry.Variable(as_array(acc))

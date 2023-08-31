@@ -10,7 +10,7 @@ def split_branch(data, target, class_list, criterion="gini", seed=None, is_leaf=
 
     count_classes_datas = [len(target[target == class_num]) for class_num in class_list]
 
-    current_impurity = marquetry.utils.impurity_criterion(target, criterion=criterion)
+    current_impurity = marquetry.utils.impurity_criterion(target, criterion=criterion, target_type="classification")
     class_counts = dict(zip(class_list, count_classes_datas))
     label = max(class_counts.items(), key=lambda count: count[1])[0]
 

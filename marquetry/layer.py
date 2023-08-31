@@ -62,7 +62,7 @@ class Layer(object):
             else:
                 params_dict[key] = data
 
-    def save_weights(self, path):
+    def save_params(self, path):
         self.to_cpu()
 
         params_dict = {}
@@ -76,7 +76,7 @@ class Layer(object):
                 os.remove(path)
             raise
 
-    def load_weights(self, path):
+    def load_params(self, path):
         npz = np.load(path)
         params_dict = {}
         self._flatten_params(params_dict)
