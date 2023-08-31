@@ -1,10 +1,17 @@
 import numpy as np
 
-import marquetry.utils as utils
+from marquetry import utils
+from marquetry import MachineLearning
 
 
-class DecisionTree(object):
+class ClassificationTree(MachineLearning):
+    _expect_criterion = ("gini", "entropy")
+
     def __init__(self, max_depth=None, min_split_samples=None, criterion="gini", seed=None):
+        if criterion not in self._expect_criterion:
+            raise ValueError("criterion expects {}, but got {}".
+                             format(",".join(self._expect_criterion), criterion))
+
         self.criterion = criterion
         self.seed = seed
         self.max_depth = max_depth if max_depth is not None else float("inf")
@@ -25,12 +32,12 @@ class DecisionTree(object):
 
         return np.array(predict_result)
 
-    def score(self, x, t):
+    def score(self, x, t, evaluator):
         predict = self.predict(x)
-        match_list = list(np.array(predict == t).astype("i"))
-        score_data = sum(match_list) / float(len(t))
 
-        return score_data
+        score = evaluator(predict, t)
+
+        return score
 
     def _recurrent_create_tree(self, x, t, depth, seed=None):
         is_leaf = True if len(x) < self.min_split_samples or depth == self.max_depth else False
