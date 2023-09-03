@@ -181,10 +181,40 @@ class TestLog(unittest.TestCase):
 
     def test_backward1(self):
         x = np.abs(np.random.randn(3, 4))
+        x = np.clip(x, 1e-8, 0.999)
 
         self.assertTrue(gradient_check(funcs.log, x))
 
     def test_backward2(self):
-        x = np.abs(np.random.randn(1))
+        x = np.abs(np.random.rand(1))
+        x = np.clip(x, 1e-8, 0.999)
 
         self.assertTrue(gradient_check(funcs.log, x))
+
+
+class TestAbsolute(unittest.TestCase):
+    def test_forward1(self):
+        x = np.array([[1, -2, 0], [-1, 1, 2]])
+        expected = np.array([[1, 2, 0], [1, 1, 2]])
+
+        y = funcs.absolute(x)
+
+        self.assertTrue(array_equal(y.data, expected))
+
+    def test_forward2(self):
+        x = np.array(-1)
+        expected = np.array(1)
+
+        y = funcs.absolute(x)
+
+        self.assertTrue(array_equal(y.data, expected))
+
+    def test_backward1(self):
+        x = np.random.randn(3, 4)
+
+        self.assertTrue(gradient_check(funcs.absolute, x))
+
+    def test_backward2(self):
+        x = np.random.randn(1)
+
+        self.assertTrue(gradient_check(funcs.absolute, x))

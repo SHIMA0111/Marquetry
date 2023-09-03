@@ -6,6 +6,8 @@ def impurity_criterion(target, criterion=None, target_type="classification"):
         return _classification_impurity_criterion(target, criterion)
     elif target_type == "regression":
         return _regression_impurity_criterion(target, criterion)
+    else:
+        raise ValueError("target_type: {} is not supported.".format(target))
 
 
 def _classification_impurity_criterion(target, criterion="gini"):
@@ -33,11 +35,13 @@ def _classification_impurity_criterion(target, criterion="gini"):
 
 
 def _regression_impurity_criterion(target, criterion="rss"):
+    xp = cuda_backend.get_array_module(target)
+    estimate_target = target.mean()
     if criterion.lower() == "rss":
-        pass
+        result = xp.sum((target - estimate_target) ** 2)
     elif criterion.lower() == "mae":
-        pass
+        result = xp.mean(xp.abs(target - estimate_target))
     else:
         raise ValueError("{} is not supported as criterion.".format(criterion))
 
-
+    return result
