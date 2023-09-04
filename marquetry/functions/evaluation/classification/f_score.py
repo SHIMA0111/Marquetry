@@ -1,4 +1,3 @@
-import marquetry
 from marquetry import cuda_backend
 from marquetry import Function
 
@@ -11,8 +10,18 @@ class FScore(Function):
         self.threshold = threshold
 
     def forward(self, y, t):
-        precision_value = marquetry.functions.precision(y, t, self.threshold)
-        recall_value = marquetry.functions.recall(y, t, self.threshold)
+        xp = cuda_backend.get_array_module(y)
+
+        assert len(xp.unique(t)) <= 2
+
+        pred = xp.asarray((y >= self.threshold), dtype="f").reshape(t.shape)
+
+        true_positive_num = pred[t == 1].sum()
+        pred_positive_num = pred.sum()
+        target_positive_num = xp.asarray((t == 1), dtype="f").sum()
+
+        precision_value, recall_value = _precision_recall_validator(true_positive_num, pred_positive_num,
+                                                                    target_positive_num, xp=xp)
 
         self.retain_inputs(())
         if precision_value == 0. and recall_value == 0.:
@@ -31,8 +40,21 @@ class MultiFScore(Function):
         self.target_class = target_class
 
     def forward(self, y, t):
-        precision_value = marquetry.functions.multi_precision(y, t, self.target_class)
-        recall_value = marquetry.functions.multi_recall(y, t, self.target_class)
+        xp = cuda_backend.get_array_module(y)
+
+        assert len(xp.unique(t)) > 2
+
+        pred = xp.argmax(y, axis=1).reshape(t.shape)
+
+        pred_positive = xp.asarray(pred == self.target_class, dtype="f")
+        true_map = xp.asarray(pred == t, dtype="f")
+
+        true_positive_num = xp.asarray(pred_positive * true_map, dtype="f").sum()
+        pred_positive_num = pred_positive.sum()
+        target_positive_num = xp.asarray(t == self.target_class, dtype="f").sum()
+
+        precision_value, recall_value = _precision_recall_validator(true_positive_num, pred_positive_num,
+                                                                    target_positive_num, xp=xp)
 
         self.retain_inputs(())
         if precision_value == 0. and recall_value == 0.:
@@ -44,3 +66,20 @@ class MultiFScore(Function):
 
 def multi_f_score(y, t, target_class=1):
     return MultiFScore(target_class)(y, t)
+
+
+def _precision_recall_validator(true_positive_num, pred_positive_num, target_positive_num, xp):
+    if pred_positive_num == 0 and target_positive_num == 0:
+        precision_value = xp.asarray(0.0)
+        recall_value = xp.asarray(0.0)
+    elif pred_positive_num == 0:
+        precision_value = xp.asarray(0.0)
+        recall_value = xp.asarray(true_positive_num / target_positive_num)
+    elif target_positive_num == 0:
+        precision_value = xp.asarray(true_positive_num / pred_positive_num)
+        recall_value = xp.asarray(0.0)
+    else:
+        precision_value = xp.asarray(true_positive_num / pred_positive_num)
+        recall_value = xp.asarray(true_positive_num / target_positive_num)
+
+    return precision_value, recall_value

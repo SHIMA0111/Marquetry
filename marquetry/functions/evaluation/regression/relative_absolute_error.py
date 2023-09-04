@@ -28,9 +28,9 @@ class RelativeAbsoluteError(Function):
                                                  absolute_error / absolute_deviation,
                                                  1.0)
         if self.multi_output == "uniform_average":
-            return xp.asarray(relative_absolute_error_value.mean())
+            return xp.asarray(relative_absolute_error_value.mean(), dtype=y.dtype)
         else:
-            return relative_absolute_error_value
+            return xp.asarray(relative_absolute_error_value, dtype=y.dtype)
 
 
 def relative_absolute_error(y, t, multi_output="uniform_average"):

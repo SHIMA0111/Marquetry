@@ -29,8 +29,8 @@ class ClassificationError(Function):
             return xp.asarray((pred != t)).mean(dtype=y.dtype)
 
 
-def classification_error(y, t, threshold=0.7):
-    return ClassificationError(threshold)(y, t)
+def classification_error(y, t, ignore_label=None):
+    return ClassificationError(ignore_label)(y, t)
 
 
 class BinaryClassificationError(Function):
@@ -43,12 +43,12 @@ class BinaryClassificationError(Function):
     def forward(self, y, t):
         xp = cuda_backend.get_array_module(y)
 
-        assert len(xp.unique(t)) > 2
+        assert len(xp.unique(t)) <= 2
 
-        pred = xp.asarray((y >= self.threshold), dtype="f")
+        pred = xp.asarray((y >= self.threshold), dtype=y.dtype)
 
         self.retain_inputs(())
-        return xp.asarray((pred != t), dtype="f").mean()
+        return xp.asarray((pred != t), dtype=y.dtype).mean()
 
 
 def binary_classification_error(y, t, threshold=0.7):

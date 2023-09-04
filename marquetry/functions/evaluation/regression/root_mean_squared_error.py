@@ -21,7 +21,11 @@ class RootMeanSquaredError(Function):
         root_mean_squared_error_value = xp.sqrt(mean_squared_error)
 
         self.retain_inputs(())
-        return root_mean_squared_error_value
+
+        if self.multi_output == "uniform_average":
+            return xp.asarray(root_mean_squared_error_value.mean(), dtype=y.dtype)
+        else:
+            return xp.asarray(root_mean_squared_error_value, dtype=y.dtype)
 
 
 def root_mean_squared_error(y, t, multi_output="uniform_average"):

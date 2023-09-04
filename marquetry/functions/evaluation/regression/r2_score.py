@@ -30,9 +30,9 @@ class R2Score(Function):
 
         self.retain_inputs(())
         if self.multi_output == "uniform_average":
-            return xp.asarray(r2_score_value.mean())
+            return xp.asarray(r2_score_value.mean(), dtype=y.dtype)
         else:
-            return r2_score_value
+            return xp.asarray(r2_score_value, dtype=y.dtype)
 
 
 def r2_score(y, t, multi_output="uniform_average"):

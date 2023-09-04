@@ -22,9 +22,9 @@ class MeanSquaredError(Function):
 
         self.retain_inputs(())
         if self.multi_output == "uniform_average":
-            return xp.asarray(mse_value.sum(), dtype="f")
+            return xp.asarray(mse_value.mean(), dtype=y.dtype)
         else:
-            return mse_value
+            return xp.asarray(mse_value, dtype=y.dtype)
 
 
 def mean_squared_error(y, t, multi_output="uniform_average"):

@@ -42,7 +42,7 @@ class BinaryAccuracy(Function):
     def forward(self, y, t):
         xp = cuda_backend.get_array_module(y)
 
-        assert len(xp.unique(t)) == 2
+        assert len(xp.unique(t)) <= 2
 
         pred = xp.asarray((y >= self.threshold), dtype=y.dtype).reshape(t.shape)
 

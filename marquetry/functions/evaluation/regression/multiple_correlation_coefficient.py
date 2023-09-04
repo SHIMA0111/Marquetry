@@ -3,4 +3,5 @@ from marquetry import Function
 
 
 class MultipleCorrelationCoefficient(Function):
-    pass
+    def __init__(self):
+        raise NotImplementedError()

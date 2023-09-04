@@ -11,7 +11,7 @@ class Recall(Function):
     def forward(self, y, t):
         xp = cuda_backend.get_array_module(y)
 
-        assert len(xp.unique(t)) == 2
+        assert len(xp.unique(t)) <= 2
 
         pred = xp.asarray((y >= self.threshold), dtype="f").reshape(t.shape)
 
@@ -19,10 +19,11 @@ class Recall(Function):
         true_positive_num = pred[t == 1].sum()
 
         self.retain_inputs(())
+
         if t_positive_num == 0:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
-            return true_positive_num / t_positive_num
+            return xp.asarray(true_positive_num / t_positive_num, dtype=y.dtype)
 
 
 def recall(y, t, threshold=0.7):
@@ -48,9 +49,9 @@ class MultiRecall(Function):
 
         self.retain_inputs(())
         if t_positive_num == 0:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
-            return true_positive_num / t_positive_num
+            return xp.asarray(true_positive_num / t_positive_num, dtype=y.dtype)
 
 
 def multi_recall(y, t, target_class=1):

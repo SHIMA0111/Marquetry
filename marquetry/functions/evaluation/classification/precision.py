@@ -11,7 +11,7 @@ class Precision(Function):
     def forward(self, y, t):
         xp = cuda_backend.get_array_module(y)
 
-        assert len(xp.unique(t)) == 2
+        assert len(xp.unique(t)) <= 2
 
         pred = xp.asarray((y >= self.threshold), dtype="f").reshape(t.shape)
 
@@ -20,9 +20,9 @@ class Precision(Function):
 
         self.retain_inputs(())
         if pred_positive_num == 0:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
-            return true_positive_num / pred_positive_num
+            return xp.asarray(true_positive_num / pred_positive_num, dtype=y.dtype)
 
 
 def precision(y, t, threshold=0.7):
@@ -48,9 +48,9 @@ class MultiPrecision(Function):
 
         self.retain_inputs(())
         if pred_positive_num == 0:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
-            return pred_true_positive / pred_positive_num
+            return xp.asarray(pred_true_positive / pred_positive_num, dtype=y.dtype)
 
 
 def multi_precision(y, t, target_class=1):
