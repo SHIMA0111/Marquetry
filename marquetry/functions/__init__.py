@@ -1,5 +1,4 @@
 import marquetry.functions.evaluation
-import marquetry.functions.loss
 
 from marquetry.functions.activations.leaky_relu import leaky_relu
 from marquetry.functions.activations.leaky_relu import LeakyReLU
@@ -46,6 +45,16 @@ from marquetry.functions.connection.deconvolution_2d import deconvolution_2d
 from marquetry.functions.connection.deconvolution_2d import Deconvolution2D
 from marquetry.functions.connection.linear import linear
 from marquetry.functions.connection.linear import Linear
+
+from marquetry.functions.loss.classification.classification_cross_entropy import classification_cross_entropy
+from marquetry.functions.loss.classification.sigmoid_cross_entropy import sigmoid_cross_entropy
+from marquetry.functions.loss.classification.sigmoid_cross_entropy import SigmoidCrossEntropy
+from marquetry.functions.loss.classification.softmax_cross_entropy import softmax_cross_entropy
+from marquetry.functions.loss.classification.softmax_cross_entropy import SoftmaxCrossEntropy
+from marquetry.functions.loss.regression.mean_absolute_error import mean_absolute_error
+from marquetry.functions.loss.regression.mean_absolute_error import MeanAbsoluteError
+from marquetry.functions.loss.regression.mean_squared_error import mean_squared_error
+from marquetry.functions.loss.regression.mean_squared_error import MeanSquaredError
 
 from marquetry.functions.math.absolute import absolute
 from marquetry.functions.math.absolute import Absolute
