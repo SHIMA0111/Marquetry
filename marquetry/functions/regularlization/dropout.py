@@ -25,7 +25,7 @@ class Dropout(Function):
         return y
 
     def backward(self, x, grad_y):
-        if configuration.config.train_mode:
+        if configuration.config.train:
             grad_x = grad_y[0] * self.mask
         else:
             raise Exception("You execute non-train mode so you can't do backward.")

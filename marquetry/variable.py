@@ -283,6 +283,14 @@ class Variable(object):
     def T(self):
         return marquetry.functions.transpose(self)
 
+    def astype(self, dtype, inplace=False):
+        if inplace:
+            self._data = self._data.astype(dtype)
+        else:
+            data = self.copy()
+            data = data._data.astype(dtype)
+            return data
+
     def copy(self):
         return copy.deepcopy(self)
 

@@ -39,10 +39,10 @@ class ClassificationTree(MachineLearning):
 
         return score
 
-    def _recurrent_create_tree(self, x, t, depth, seed=None):
+    def _recurrent_create_tree(self, x, t, depth):
         is_leaf = True if len(x) < self.min_split_samples or depth == self.max_depth else False
         is_leaf, (label, impurity), feature, threshold = (
-            utils.split_branch(x, t, self.unique_list, criterion=self.criterion, seed=seed, is_leaf=is_leaf))
+            utils.split_branch(x, t, self.unique_list, criterion=self.criterion, seed=self.seed, is_leaf=is_leaf))
 
         if is_leaf:
             tmp_dict = {
