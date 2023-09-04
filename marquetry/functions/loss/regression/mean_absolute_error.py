@@ -11,7 +11,7 @@ class MeanAbsoluteError(Function):
         return y
 
     def backward(self, inputs, grad_y):
-        xp = cuda_backend.get_array_module(*inputs)
+        xp = cuda_backend.get_array_module(inputs[0])
         x0, x1 = inputs
 
         diff = x0 - x1

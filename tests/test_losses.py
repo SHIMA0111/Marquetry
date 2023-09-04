@@ -45,6 +45,43 @@ class TestMSE(unittest.TestCase):
         self.assertTrue(gradient_check(f, x0))
 
 
+class TestMAE(unittest.TestCase):
+
+    def test_forward1(self):
+        x0 = np.array([0., 1., 2.])
+        x1 = np.array([0., 1., 2.])
+        y = funcs.mean_absolute_error(x0, x1)
+
+        res = y.data
+        expected = ((x0 - x1) ** 2).sum() / x0.size
+
+        self.assertTrue(array_close(res, expected))
+
+    def test_backward1(self):
+        x0 = np.random.randn(10)
+        x1 = np.random.randn(10)
+
+        f = lambda x: funcs.mean_absolute_error(x, x1)
+
+        self.assertTrue(gradient_check(f, x0))
+
+    def test_backward2(self):
+        x0 = np.random.randn(10)
+        x1 = np.random.randn(10)
+
+        f = lambda x: funcs.mean_absolute_error(x0, x)
+
+        self.assertTrue(gradient_check(f, x1))
+
+    def test_backward3(self):
+        x0 = np.random.rand(100)
+        x1 = np.random.rand(100)
+
+        f = lambda x: funcs.mean_absolute_error(x, x1)
+
+        self.assertTrue(gradient_check(f, x0))
+
+
 class TestSoftmaxCrossEntropy(unittest.TestCase):
 
     def test_forward1(self):

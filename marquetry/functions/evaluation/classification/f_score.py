@@ -25,10 +25,10 @@ class FScore(Function):
 
         self.retain_inputs(())
         if precision_value == 0. and recall_value == 0.:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
             f_score_value = 2 * precision_value * recall_value / (precision_value + recall_value)
-            return f_score_value.data
+            return xp.asarray(f_score_value.data, dtype=y.dtype)
 
 
 def f_score(y, t, threshold=0.7):
@@ -58,10 +58,10 @@ class MultiFScore(Function):
 
         self.retain_inputs(())
         if precision_value == 0. and recall_value == 0.:
-            return 0.0
+            return xp.asarray(0.0, dtype=y.dtype)
         else:
             f_score_value = 2 * precision_value * recall_value / (precision_value + recall_value)
-            return f_score_value.data
+            return xp.asarray(f_score_value.data, dtype=y.dtype)
 
 
 def multi_f_score(y, t, target_class=1):
