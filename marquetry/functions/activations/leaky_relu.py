@@ -2,6 +2,8 @@ from marquetry import Function
 
 
 class LeakyReLU(Function):
+    """Leaky Rectifier Linear Unit."""
+
     def __init__(self, slope):
         self.slope = slope
 
@@ -21,4 +23,33 @@ class LeakyReLU(Function):
 
 
 def leaky_relu(x, slope=0.2):
+    """Leaky Rectified Linear Unit function.
+
+    This function is improved version of the ReLU(Rectified Linear Unit).
+
+    f(x) = {x if x >= 0, slope * x if x < 0}
+        - The ``slope`` is a small constant value the default value is `0.2`.
+
+    Args:
+        x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            Input variable that is float array.
+        slope (float): small constant value. The default is 0.2.
+
+    Returns:
+        marquetry.Variable: Output variable. A float array.
+
+    Examples:
+
+        >>> x = np.array([[-1, 0], [2, -3], [-2, 1]], 'f')
+        >>> x
+        array([[-1.,  0.],
+               [ 2., -3.],
+               [-2.,  1.]], dtype=float32)
+        >>> leaky_relu(x, slope=0.2)
+        matrix([[-0.2  0. ]
+                [ 2.  -0.6]
+                [-0.4  1. ]])
+
+    """
+
     return LeakyReLU(slope)(x)

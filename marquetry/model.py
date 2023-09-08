@@ -6,6 +6,14 @@ from marquetry import utils
 # Model  base class
 # ===========================================================================
 class Model(Layer):
+    """Base class of all Models.
+
+        This class inherits the Layer class.
+        The deference is only add :meth:`plot` method which is to output computation graph.
+
+        More details to see :class:`Layer`.
+
+    """
     def plot(self, *inputs, to_file="model.png"):
         y = self.forward(*inputs)
 

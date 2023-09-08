@@ -4,6 +4,13 @@ from marquetry import dataset
 
 
 class SinCurve(dataset.Dataset):
+    """Get SinCurve dataset.
+
+        Toy problem that is trigonometric number between 0 and 3 * Π.
+        The train dataset is sin curve with small noise, and the test dataset is cos curve.
+
+        The Attributes and Args is following the :class:`marquetry.dataset.Dataset`, please check it.
+    """
     def _set_data(self):
         num_data = 5000
         dtype = np.float64

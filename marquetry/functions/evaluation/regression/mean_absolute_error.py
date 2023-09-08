@@ -3,6 +3,12 @@ from marquetry import Function
 
 
 class MeanAbsoluteError(Function):
+    """Calculate the Mean Absolute Error (MAE) between predicted values and true values.
+
+        This class defines that calculates the Mean Absolute Error (MAE) between predicted values and true Values.
+        MAE measures the average absolute difference between the predicted and true values.
+        It can be calculated either as a uniform average over all samples or as raw values for each column.
+    """
     def __init__(self, multi_output):
         if multi_output in ["uniform_average", "raw_values"]:
             self.multi_output = multi_output
@@ -28,6 +34,26 @@ class MeanAbsoluteError(Function):
 
 
 def mean_absolute_error(y, t, multi_output="uniform_average"):
+    """Calculate the Mean Absolute Error (MAE) between predicted values and true values.
+
+        This function defines that calculates the Mean Absolute Error (MAE) between predicted values and true Values.
+        MAE measures the average absolute difference between the predicted and true values.
+        It can be calculated either as a uniform average over all samples or as raw values for each column.
+
+        Args:
+            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The predicted values.
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The true values.
+            multi_output (str, optional): Specifies how to calculate the MAE for multi-output.
+                It can be one of the following:
+                    - "uniform_average": Compute the uniform average MAE over all samples. This is the default option.
+                    - "raw_values": Return the raw MAE values for each sample.
+
+        Returns:
+            :class:`marquetry.Variable`: The MAE values based on the predicted values
+                and true values.
+    """
     return MeanAbsoluteError(multi_output)(y, t)
 
 

@@ -3,12 +3,49 @@ from marquetry.ml import ClassificationTree
 
 
 class RegressionTree(ClassificationTree):
+    """A decision tree regressor for predicting numerical targets.
+
+        The RegressionTree class implements a decision tree for predicting numerical targets based on input features.
+        It is capable of training on labeled data with numerical targets and making predictions on new data points.
+
+        Args:
+            max_depth (int or None): The maximum depth of the decision tree.
+                If None, the tree can grow indefinitely.
+            min_split_samples (int or None): The minimum number of samples required to split a node.
+                If None, defaults to 1.
+            criterion (str): The criterion used for splitting nodes.
+                Should be one of {"rss", "mae"}.
+            seed (int or None): The random seed for reproducibility.
+
+        Attributes:
+            tree (dict or None): The internal representation of the decision tree.
+
+        Methods:
+            fit(self, x, t): Train the decision tree on the input data and target labels.
+            predict(self, x): Make predictions on new data points.
+            score(self, x, t, evaluator): Evaluate the performance of the decision tree using an evaluator function.
+
+        Examples:
+            >>> model = RegressionTree(max_depth=5, criterion="rss", seed=42)
+            >>> model.fit(training_data, training_labels)
+            >>> predictions = model.predict(new_data)
+            >>> model.tree
+            {
+                'feature': 8,
+                'threshold': -0.00016962857797942404,
+                'content': 'branch',
+                'left_branch': ...,
+                'right_branch': ...,
+            }
+
+    """
+
     _expect_criterion = ("rss", "mae")
 
     def __init__(self, max_depth=None, min_split_samples=None, criterion="rss", seed=None):
         super().__init__(max_depth, min_split_samples, criterion, seed)
 
-    def fit(self, x, t):
+    def _fit_method(self, x, t):
         self.tree = self._recurrent_create_tree(x, t, 0)
 
     def _recurrent_create_tree(self, x, t, depth):

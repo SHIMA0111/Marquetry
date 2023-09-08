@@ -3,6 +3,13 @@ from marquetry import Function
 
 
 class MeanAbsoluteError(Function):
+    """Calculate the Mean Absolute Error (MAE) between two sets of values as loss function.
+
+        This class computes the MAE between two sets of values.
+        The MAE is a measure of the average absolute difference between corresponding elements of the input arrays.
+        MAE is used as loss function when you want to use a data having outlier.
+
+    """
     def forward(self, x0, x1):
         xp = cuda_backend.get_array_module(x0)
         diff = x0 - x1
@@ -26,4 +33,21 @@ class MeanAbsoluteError(Function):
 
 
 def mean_absolute_error(x0, x1):
+    """
+        Calculate the Mean Absolute Error (MAE) between two sets of values.
+
+        This function computes the MAE between two sets of values.
+        The MAE is a measure of the average absolute　difference between corresponding elements of the input arrays.
+        MAE is used as loss function when you want to use a data having outlier.
+
+        Args:
+            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The first set of values.
+            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The second set of values.
+
+        Returns:
+            :class:`marquetry.Variable`: The Mean Absolute Error (MAE).
+    """
+
     return MeanAbsoluteError()(x0, x1)

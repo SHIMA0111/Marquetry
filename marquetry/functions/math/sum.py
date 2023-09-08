@@ -4,6 +4,8 @@ from marquetry import utils
 
 
 class Sum(Function):
+    """Calculate the sum of the input tensor along the specified axis or axes."""
+
     def __init__(self, axis, keepdims):
         self.axis = axis
         self.keepdims = keepdims
@@ -24,4 +26,32 @@ class Sum(Function):
 
 
 def sum(x, axis=None, keepdims=False):
+    """Calculate the sum of the input tensor along the specified axis or axes.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input tensor.
+            axis (None or int or tuple of ints): The axis or axes along which to sum.
+                If None, sum all elements.
+            keepdims (bool): If True, the output will have the same number of dimensions as the input,
+                with size 1 in the reduced dimensions.
+                If False, the output will have reduced dimensions which size is 1 removed.
+
+        Returns:
+            :class:`marquetry.Variable`: The sum of the input tensor along the specified axis or axes.
+
+        Examples:
+                >>> x = np.array([[1, 3, 2], [5, 2, 4]])
+                >>> x
+                array([[1, 3, 2],
+                       [5, 2, 4]])
+                >>> sum(x)
+                matrix(17)
+                >>> sum(x, axis=1)
+                matrix([ 6 11])
+                >>> sum(x, axis=1, keepdims=True)
+                matrix([[ 6]
+                        [11]])
+    """
+
     return Sum(axis, keepdims)(x)

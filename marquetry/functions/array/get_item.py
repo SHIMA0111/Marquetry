@@ -5,6 +5,7 @@ from marquetry import Function
 
 
 class GetItem(Function):
+    """The slices array and extruct element from array."""
     def __init__(self, slices):
         self.slices = slices
 
@@ -40,5 +41,17 @@ class GetItemGrad(Function):
 
 
 def get_item(x, slices):
+    """Extract specified index array from original array.
+
+    Args:
+        x (marquetry.Variable): A variable to be sliced.
+        slices (int, slice, Ellipsis, None, integer array-like, boolean, array-like or tuple of them):
+            It is an integer, a slice, an ellipsis, a numpy.newaxis, an integer array-like, a boolean array-like
+            or tuple of them.
+
+    Returns:
+        A :class:`marquetry.Variable` object which contains sliced array of ``x``.
+    """
+
     f = GetItem(slices)
     return f(x)

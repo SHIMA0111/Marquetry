@@ -4,6 +4,25 @@ from marquetry import cuda_backend
 
 
 class DataLoader(object):
+    """A utility class for loading and iterating over batches of data.
+
+        The `DataLoader` class is designed to facilitate the loading and processing of
+        large datasets in machine learning. It takes a dataset, batch size,
+        and optional shuffle flag to create an iterable data loader that provides batches of data.
+
+    Args:
+        dataset (:class:`marquetry.dataset.Dataset`): The dataset to be loaded and batched.
+        batch_size (int): The size of each batch
+        shuffle (bool): Whether to shuffle the data before each epoch.
+        cuda (bool): Whether to use GPU (CUDA) for data storage (if available).
+
+    Example:
+        >>> dataset = MyDataset()
+        >>> dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+        Iterating over batches of data:
+        >>> for batch_x, batch_t in dataloader:
+        Process the batch of input data (batch_x) and target data (batch_t).
+    """
     def __init__(self, dataset, batch_size, shuffle=True, cuda=False):
         self.dataset = dataset
         self.batch_size = batch_size
@@ -18,7 +37,8 @@ class DataLoader(object):
 
         self.reset()
 
-    def reset(self):
+    def reset(self) -> None:
+        """Reset the data iterations and re-shuffle the data."""
         self.iterations = 0
 
         if self.shuffle:
@@ -45,4 +65,8 @@ class DataLoader(object):
         return x, t
 
     def next(self):
+        """Return the next data.
+            Return:
+                tuple(:class:`numpy.ndarray` or :class:`cupy.ndarray`): tuple has (data, target).
+        """
         return self.__next__()

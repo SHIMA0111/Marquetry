@@ -5,6 +5,16 @@ from marquetry import functions
 
 
 class BatchNormalization(Function):
+    """Apply batch normalization to the input tensor.
+
+        Batch normalization is a technique used in
+        deep neural networks to stabilize and accelerate training.
+        It normalizes the input data by normalization and
+        adjustable parameters called gamma(scale factor) and
+        beta(shift factor).
+        This helps in preventing issues like vanishing gradients,
+        reduce co-variate shift, and allows for faster convergence.
+    """
     def __init__(self, mean, var, decay, eps):
         self.avg_mean = mean
         self.avg_var = var
@@ -86,4 +96,44 @@ class BatchNormalization(Function):
 
 
 def batch_normalization(x, gamma, beta, mean, var, decay=0.9, eps=1e-15):
+    """Apply batch normalization to the input tensor.
+
+        Batch normalization is a technique used in
+        deep neural networks to stabilize and accelerate training.
+        It normalizes the input data by normalization and
+        adjustable parameters called gamma(scale factor) and beta(shift factor).
+        This helps in preventing issues like vanishing gradients,
+        reduce co-variate shift, and allows for faster convergence
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input tensor.
+            gamma (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The scale factor. It allows the network to learn the optimal scaling for each feature.
+            beta (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The shift factor. It allows the network to learn the optimal mean for each feature.
+            mean (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The running mean of the batch. It is updated during training and used for inference.
+            var (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The running variance of the batch. It is updated during training and used for inference.
+            decay (float): The decay rate for the running statistics. It controls how fast the running
+                statistics adapt to changes in the input distribution.
+                Default is 0.9.
+            eps (float): A small value to prevent division by zero.
+                Default is 1e-15.
+
+        Note:
+            Generally use case, you can use BatchNormalization in :mod:`marquetry.layers`.
+            The layer components manage the params like gamma, beta, running_mean and running_var itself.
+            Therefore, we suggest to use it for your network if you have no special meaning to use this function.
+
+        Returns:
+            marquetry.Variable: The normalized and scaled input tensor.
+
+        References:
+            Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift
+            (https://arxiv.org/abs/1502.03167)
+
+    """
+
     return BatchNormalization(mean, var, decay, eps)(x, gamma, beta)

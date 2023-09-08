@@ -4,6 +4,7 @@ from marquetry import cuda_backend
 
 
 def gradient_check(f, x, *args, rtol=1e-4, atol=1e-5, **kwargs):
+    """Check the function backward gradient is correct or not by comparing the numerical gradient."""
     x = as_variable(x)
     xp = cuda_backend.get_array_module(x)
     x.data = x.data.astype(xp.float64)

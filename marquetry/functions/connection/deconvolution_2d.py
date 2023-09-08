@@ -6,6 +6,12 @@ from marquetry.functions.connection.convolution_2d_grad_w import Conv2DGradW
 
 
 class Deconvolution2D(Function):
+    """Perform 2D deconvolution on an input array.
+
+        This class defines a function that performs 2D deconvolution on an input array or variable using the given
+        de-convolutional kernel and optional bias.
+    """
+
     def __init__(self, stride=1, pad=0, out_size=None):
         super().__init__()
         self.stride = utils.pair(stride)
@@ -58,4 +64,38 @@ class Deconvolution2D(Function):
 
 
 def deconvolution_2d(x, w, b=None, stride=1, pad=0, out_size=None):
+    """Perform 2D deconvolution on an input array.
+
+
+        This class defines a function that performs 2D deconvolution on an input array or variable using the given
+        de-convolutional kernel and optional bias.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input array or variable to be de-convolved.
+            w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The de-convolutional kernel.
+            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`, optional):
+                The bias term. If None, no bias is added.
+            stride (int or tuple of ints, optional):
+                The stride for moving the de-convolutional kernel. If an int is provided,
+                it is converted to a tuple of the same value for both dimensions.
+                Defaults to 1.
+            pad (int or tuple of ints, optional): The padding added to the input array or variable before deconvolution.
+                If an int is provided, it is converted to a tuple of the same value for both dimensions.
+                Defaults to 0.
+            out_size (tuple of ints or None, optional): The size of the output feature map.
+                If None, the size is determined based on the input and kernel sizes.
+
+        Returns:
+            :class:`marquetry.Variable`: The result of 2D deconvolution on the input
+                array or variable using the provided kernel and bias (if any).
+
+        Examples:
+            >>> x = np.arange(0, 576).reshape(1, 16, 6, 6)
+            >>> w = np.ones((16, 3, 2, 2))
+            >>> deconvolution_2d(x, w).shape
+            (1, 3, 7, 7)
+        """
+
     return Deconvolution2D(stride, pad, out_size=out_size)(x, w, b)

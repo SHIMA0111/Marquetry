@@ -1,5 +1,6 @@
 def reshape_sum_backward(grad_y, x_shape, axis, keepdims):
     """Reshape gradient appropriately for sum's backward."""
+
     ndim = len(x_shape)
     tupled_axis = axis
     if axis is None:
@@ -20,6 +21,8 @@ def reshape_sum_backward(grad_y, x_shape, axis, keepdims):
 
 
 def max_backward_shape(x, axis):
+    """Calc the origin input data's shape for max(min) backward."""
+
     if axis is None:
         axis = range(x.ndim)
     elif isinstance(axis, int):

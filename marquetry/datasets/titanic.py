@@ -7,8 +7,22 @@ from marquetry.utils import get_file
 
 
 class Titanic(dataset.Dataset):
-    """
-    Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
+    """Get the Titanic dataset.
+
+        Data obtained from http://hbiostat.org/data courtesy of the Vanderbilt University Department of Biostatistics.
+
+        The sinking of the Titanic is one of the most infamous shipwrecks in history.
+
+        On April 15, 1912, during her maiden voyage, the widely considered “unsinkable” RMS Titanic sank after colliding with
+        an iceberg. Unfortunately, there weren't enough lifeboats for everyone onboard,
+        resulting in the death of 1502 out of 2224 passengers and crew.
+        While there was some element of luck involved in surviving,
+        it seems some groups of people were more likely to survive than others.
+        In this challenge, we ask you to build a predictive model that answers the question:
+        “what sorts of people were more likely to survive?”
+        using passenger data (ie name, age, gender, socio-economic class, etc).
+        (From kaggle competition description.)
+
     """
     def __init__(self, train=True, transform=transformers.ToFloat(), target_transform=None,
                  train_rate=0.8, is_one_hot=True, **kwargs):

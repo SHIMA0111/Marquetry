@@ -4,6 +4,23 @@ from marquetry import Preprocess
 
 
 class MissImplementation(Preprocess):
+    """A data preprocessing class for imputing missing values in a DataFrame.
+
+        Args:
+            category_column (list of strs): A list of column names with categorical values.
+            numeric_column (list of strs): A list of column names with numeric values.
+            name: A unique name for the missing value imputer.
+            category_method: The method to impute missing values in categorical columns ("mode", "zero").
+                Default is "mode".
+            numeric_method: The method to impute missing values in numeric columns ("mean", "median", "zero").
+                Default is "mean".
+
+        Examples:
+            >>> encoder = MissImplementation(["Embarked", ...], ["Fare", ...], "titanic")
+            >>> labeled_data = encoder(data)
+
+    """
+
     _label = "pre_mi"
     _enable_method = ("mean", "mode", "median", "zero")
 
@@ -29,6 +46,16 @@ class MissImplementation(Preprocess):
                     "{} and {} are not supported. ".format(category_method, numeric_method) + enable_method_msg)
 
     def process(self, data: pd.DataFrame):
+        """Process the input DataFrame by imputing missing values.
+
+            Args:
+                data (:class:`pandas.DataFrame`): The input DataFrame with missing values to be imputed.
+
+            Returns:
+                pd.DataFrame: The DataFrame with missing values imputed based on the specified methods.
+
+        """
+
         if len(self._category_column + self._numeric_column) == 0:
             return data
 

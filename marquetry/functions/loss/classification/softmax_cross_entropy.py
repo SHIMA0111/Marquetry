@@ -5,10 +5,18 @@ from marquetry import utils
 
 
 class SoftmaxCrossEntropy(Function):
+    """Calculate the Softmax Cross-Entropy loss between predicted values and true labels.
+
+        This function calculates the Softmax Cross-Entropy loss,
+        which measures the difference between the predicted values (scores) and
+        the true labels for multi-class classification tasks.
+        It takes the softmax of the input values to compute class probabilities and then
+        compares them to the true labels.
+    """
     def forward(self, x, t):
         xp = cuda_backend.get_array_module(x)
         batch_size = x.shape[0]
-        log_z = utils.logsumexp(x, axis=1)
+        log_z = utils.log_sum_exp(x, axis=1)
         log_p = x - log_z
         log_p = log_p[xp.arange(batch_size), t.ravel()]
         y = -log_p.sum() / xp.float32(batch_size)
@@ -35,4 +43,23 @@ class SoftmaxCrossEntropy(Function):
 
 
 def softmax_cross_entropy(x, t):
+    """Calculate the Softmax Cross-Entropy loss between predicted values and true labels.
+
+
+        This function calculates the Softmax Cross-Entropy loss,
+        which measures the difference between the predicted values(scores) and
+        the true labels for multi-class classification tasks.
+        It takes the softmax of the input values to compute class probabilities and then
+        compares them to the true labels.
+
+        Args:
+            x (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+                The predicted values or scores.
+            t (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+                The true labels.
+
+        Returns:
+            :class:`marquetry.Variable`: The Softmax Cross-Entropy loss.
+    """
+
     return SoftmaxCrossEntropy()(x, t)

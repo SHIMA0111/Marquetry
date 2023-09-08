@@ -5,6 +5,12 @@ from marquetry import functions
 
 
 class SigmoidCrossEntropy(Function):
+    """Calculate the Sigmoid Cross-Entropy loss between predicted values and true labels.
+
+        This class defines a function that computes the Sigmoid Cross-Entropy loss,
+        which is commonly used as the loss function in binary classification problems.
+        It measures the dissimilarity between the predicted values and the true binary labels.
+    """
     def __init__(self):
         self.batch_size = None
 
@@ -39,6 +45,23 @@ class SigmoidCrossEntropy(Function):
 
 
 def sigmoid_cross_entropy(x, t):
+    """Calculate the Sigmoid Cross-Entropy loss between predicted values and true binary labels.
+
+        This function defines that computes the Sigmoid Cross-Entropy loss,
+        which is commonly used as the loss function in binary classification problems.
+        It measures the dissimilarity between the predicted values and the true binary labels.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The predicted values.
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The true binary labels.
+
+        Returns:
+            :class:`marquetry.Variable`: The Sigmoid Cross-Entropy loss
+                between the predicted values and true binary labels.
+    """
+
     return SigmoidCrossEntropy()(x, t)
 
 

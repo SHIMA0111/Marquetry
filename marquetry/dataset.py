@@ -1,10 +1,32 @@
 import numpy as np
 
+import marquetry
+
 
 # ===========================================================================
 # Dataset base class
 # ===========================================================================
 class Dataset(object):
+    """Dataset base class that provides data format function.
+
+    All dataset implementations defined in :mod:`marquetry.datasets` inherit this class.
+
+
+    The main feature of this class is providing data and target following user setting.
+    If you specify the :attr:`train` is True, this provides train dataset and if False,
+    provides test dataset.
+
+    Args:
+        train (bool): toggle if you want to load train_data or not.
+        transform: transform means transform **data** that is used when data loaded from anything.
+        target_transform: transform means transform **target** that is used when data loaded from anything.
+
+    Notes:
+        This object is usually used with DataLoader object.
+
+    Examples:
+        >>> marquetry.dataloaders.DataLoader(Dataset())
+    """
     def __init__(self, train=True, transform=None, target_transform=None, **kwargs):
         self.train = train
         self.transform = transform

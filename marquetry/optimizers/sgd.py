@@ -2,9 +2,26 @@ from marquetry.optimizer import Optimizer
 
 
 class SGD(Optimizer):
+    """Stochastic Gradient Descent (SGD) optimizer for updating model parameters during training.
+
+        SGD is an optimization algorithm that updates model parameters using a single training sample at a time.
+
+        It is suitable for training large datasets and is a fundamental optimization technique in machine learning.
+        The learning rate controls the step size for parameter updates.
+
+        Args:
+            learning_rate (float): The learning rate for updating parameters.
+
+        Examples:
+            >>> optimizer = SGD()
+            >>> model = marquetry.models.MLP([128, 256, 64, 10])
+            >>> optimizer.prepare(model)
+
+    """
+
     def __init__(self, learning_rate=0.01):
         super().__init__()
         self.lr = learning_rate
 
-    def update_one(self, param):
+    def _update_one(self, param):
         param.data -= self.lr * param.grad.data

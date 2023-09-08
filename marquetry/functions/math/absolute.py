@@ -5,6 +5,11 @@ from marquetry import Function
 
 
 class Absolute(Function):
+    """Calculate the absolute value of an input.
+
+        This class computes the absolute value of the input.
+    """
+
     def forward(self, x):
         y = np.abs(x)
 
@@ -25,4 +30,25 @@ class Absolute(Function):
 
 
 def absolute(x):
+    """Calculate the absolute value of an input.
+
+        This function computes the absolute value of the input.
+
+        Args:
+            x (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+                The input values.
+
+        Returns:
+            :class:`marquetry.Variable`: The absolute value of the input.
+
+        Example:
+            >>> x = np.array([[-2, 4, 0], [-1, 2, -3]])
+            >>> x
+            array([[-2, 4, 0],
+                   [-1, 2, -3]])
+            >>> absolute(x)
+            matrix([[2 4 6]
+                    [1 2 3]])
+    """
+
     return Absolute()(x)

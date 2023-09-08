@@ -4,6 +4,40 @@ from marquetry import Layer
 
 
 class BiLSTM(Layer):
+    """Bidirectional Long Short-Term Memory (BiLSTM) layer for sequence modeling.
+
+        The BiLSTM layer is a variation of the standard LSTM layer
+        that processes input data in both forward and reverse directions.
+        This allows the network to capture information from both past and future context,
+        resulting in richer representations.
+        About LSTM, please see :class:`marquetry.layers.LSTM`.
+
+        Args:
+            hidden_size (int): The size of the hidden state in each LSTM layer.
+            in_size (int): The size of the input data.
+
+        Note:
+            in_size: This is automatically determined from the input data shape
+                and does not need to be specified except a special use case.
+
+        Attributes:
+            forward_lstm (LSTM): Forward LSTM layer.
+            reverse_lstm (LSTM): Reverse LSTM layer.
+
+        Example:
+            >>> dataset = marquetry.datasets.SinCurve()
+            >>> dataloader = marquetry.dataloaders.SeqDataLoader(dataset, batch_size=32)
+            >>> model = (BiLSTM(128), marquetry.layers.Linear(1))
+            >>> loss = 0
+            >>> for x, t in dataloader:
+            >>>     for layer in model:
+            >>>         x = layer(x)
+            >>>     loss += functions.mean_squared_error(x, t)
+            >>> loss
+            matrix(36.87500179632384)
+
+    """
+
     def __init__(self, hidden_size, in_size=None):
         super().__init__()
         self.forward_lstm = marquetry.layers.LSTM(hidden_size, in_size=in_size)
@@ -12,6 +46,24 @@ class BiLSTM(Layer):
     def reset_state(self):
         self.forward_lstm.reset_state()
         self.reverse_lstm.reset_state()
+
+    def set_state(self, h, c=None):
+        """Set the hidden state and cell state to a custom value.
+
+            Args:
+                h (marquetry.Variable): The custom hidden state.
+                c (marquetry.Variable or None, optional): The custom cell state.
+
+            Note:
+                Almost general use case, the cell state should NOT set custom value
+                because cell state in LSTM is used only internal information connection,
+                and it should be managed automatically.
+                If you don't have any special reason, you should set only hidden state.
+
+        """
+
+        self.forward_lstm.set_state(h, c)
+        self.reverse_lstm.set_state(h, c)
 
     def forward(self, x):
         out1 = self.forward_lstm(x)

@@ -3,6 +3,13 @@ from marquetry import Function
 
 
 class RootMeanSquaredError(Function):
+    """Calculate the Root Mean Squared Error (RMSE) between predicted values and true values.
+
+        This class defines a function that calculates the Root Mean Squared Error (RMSE),
+        which is a measure of the average squared difference between predicted and true values.
+        RMSE is widely used to assess the accuracy of regression models.
+    """
+
     def __init__(self, multi_output):
         if multi_output in ["uniform_average", "raw_values"]:
             self.multi_output = multi_output
@@ -29,6 +36,27 @@ class RootMeanSquaredError(Function):
 
 
 def root_mean_squared_error(y, t, multi_output="uniform_average"):
+    """Calculate the Root Mean Squared Error (RMSE) between predicted values and true values.
+
+        This function defines that calculates the Root Mean Squared Error (RMSE),
+        which is a measure of the average squared difference between predicted and true values.
+        RMSE is widely used to assess the accuracy of regression models.
+
+        Args:
+            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The predicted values.
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The true values.
+            multi_output (str, optional): Specifies how to calculate the RMSE for multi-output.
+                It can be one of the following:
+                    - "uniform_average": Compute the uniform average RMSE over all samples. This is the default option.
+                    - "raw_values": Return the raw RMSE values for each sample.
+
+        Returns:
+            :class:`marquetry.Variable`: The RMSE based on the predicted values
+                and true values. Lower values indicate better accuracy.
+    """
+
     return RootMeanSquaredError(multi_output)(y, t)
 
 

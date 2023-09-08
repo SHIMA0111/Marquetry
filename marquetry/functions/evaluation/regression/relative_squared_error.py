@@ -3,6 +3,16 @@ from marquetry import Function
 
 
 class RelativeSquaredError(Function):
+    """Calculate the Relative Squared Error (RSE) between predicted values and true values.
+
+        This class defines a function that calculates the Relative Squared Error (RSE),
+        a measure of the relative difference between the squared differences of predicted
+        and true values relative to the squared differences of true values from their mean.
+        RSE quantifies the average squared difference between predicted and true values
+        relative to the average squared deviation of true values from their mean.
+        It is used to assess the accuracy of regression models.
+    """
+
     def __init__(self, multi_output):
         if multi_output in ["uniform_average", "raw_values"]:
             self.multi_output = multi_output
@@ -35,4 +45,28 @@ class RelativeSquaredError(Function):
 
 
 def relative_squared_error(y, t, multi_output="uniform_average"):
+    """Calculate the Relative Squared Error (RSE) between predicted values and true values.
+
+        This function defines that calculates the Relative Squared Error (RSE),
+        a measure of the relative difference between the squared differences of predicted
+        and true values relative to the squared differences of true values from their mean.
+        RSE quantifies the average squared difference between predicted and true values
+        relative to the average squared deviation of true values from their mean.
+        It is used to assess the accuracy of regression models.
+
+        Args:
+            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The predicted values.
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The true values.
+            multi_output (str, optional): Specifies how to calculate the RSE for multi-output.
+                It can be one of the following:
+                    - "uniform_average": Compute the uniform average RSE over all samples. This is the default option.
+                    - "raw_values": Return the raw RSE values for each sample.
+
+        Returns:
+            :class:`marquetry.Variable`: The RSE based on the predicted values
+                and true values. Lower values indicate better accuracy.
+    """
+
     return RelativeSquaredError(multi_output)(y, t)

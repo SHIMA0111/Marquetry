@@ -3,6 +3,11 @@ from marquetry import Function
 
 
 class Exp(Function):
+    """Calculate the exponential of an input.
+
+        This class computes the exponential of the input.
+    """
+
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.exp(x)
@@ -19,10 +24,31 @@ class Exp(Function):
 
 
 def exp(x):
+    """Calculate the exponential of an input.
+
+        This function computes the exponential of the input.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input values.
+
+        Returns:
+            :class:`marquetry.Variable`: The exponential of the input.
+
+        Examples:
+            >>> x = np.array([1, 2, 3])
+            >>> exp(x)
+            matrix([ 2.71828183  7.3890561  20.08553692])
+    """
+
     return Exp()(x)
 
 
 class Log(Function):
+    """Calculate the natural logarithm of an input.
+
+        This class computes the natural logarithm of the input.
+    """
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.log(x)
@@ -36,10 +62,33 @@ class Log(Function):
 
 
 def log(x):
+    """Calculate the natural logarithm of an input.
+
+        This function computes the natural logarithm of the input.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input values.
+
+        Returns:
+            :class:`marquetry.Variable`: The natural logarithm of the input.
+
+        Examples:
+            >>> x = np.array([1, 2, 3])
+            >>> log(x)
+            matrix([0.         0.69314718 1.09861229])
+
+    """
+
     return Log()(x)
 
 
 class Log2(Function):
+    """Calculate the base-2 logarithm of an input.
+
+        This class computes the base-2 logarithm of the input.
+    """
+
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.log2(x)
@@ -53,10 +102,31 @@ class Log2(Function):
 
 
 def log2(x):
+    """Calculate the base-2 logarithm of an input.
+
+        This function computes the base-2 logarithm of the input.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input values.
+
+        Returns:
+            :class:`marquetry.Variable`: The base-2 logarithm of the input.
+
+        Examples:
+            >>> x = np.array([1, 2, 3])
+            >>> log2(x)
+            matrix([0.        1.        1.5849625])
+    """
     return Log2()(x)
 
 
 class Log10(Function):
+    """Calculate the base-10 logarithm of an input.
+
+        This function computes the base-10 logarithm of the input.
+    """
+
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.log10(x)
@@ -70,4 +140,21 @@ class Log10(Function):
 
 
 def log10(x):
+    """Calculate the base-10 logarithm of an input.
+
+        This function computes the base-10 logarithm of the input.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input values.
+
+        Returns:
+            :class:`marquetry.Variable`: The base-10 logarithm of the input.
+
+        Examples:
+            >>> x = np.array([1, 2, 3])
+            >>> log10(x)
+            matrix([0.         0.30103    0.47712125])
+    """
+
     return Log10()(x)

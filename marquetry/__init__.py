@@ -1,5 +1,6 @@
 from marquetry.variable import as_array
 from marquetry.variable import as_variable
+from marquetry.variable import array
 from marquetry.variable import Parameter
 from marquetry.variable import Variable
 

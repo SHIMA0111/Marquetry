@@ -3,6 +3,13 @@ from marquetry import Function
 
 
 class MeanSquaredError(Function):
+    """Calculate the Mean Squared Error (MSE) between predicted values and true values.
+
+        This class defines that calculates the Mean Squared Error (MSE) between predicted values and true values.
+        MSE measures the average squared difference between the predicted and true values.
+        It can be calculated either as a uniform average over all samples or as raw values for each sample.
+    """
+
     def __init__(self, multi_output):
         if multi_output in ["uniform_average", "raw_values"]:
             self.multi_output = multi_output
@@ -28,6 +35,26 @@ class MeanSquaredError(Function):
 
 
 def mean_squared_error(y, t, multi_output="uniform_average"):
+    """Calculate the Mean Squared Error (MSE) between predicted values and true values.
+
+        This function defines that calculates the Mean Squared Error (MSE) between predicted values and true values.
+        MSE measures the average squared difference between the predicted and true values.
+        It can be calculated either as a uniform average over all samples or as raw values for each sample.
+
+        Args:
+            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The predicted values.
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The true values.
+            multi_output (str, optional): Specifies how to calculate the MSE for multi-output.
+                It can be one of the following:
+                    - "uniform_average": Compute the uniform average MSE over all samples. This is the default option.
+                    - "raw_values": Return the raw MSE values for each sample.
+
+        Returns:
+            :class:`marquetry.Variable`: The MSE values based on the predicted values
+                and true values.
+    """
     return MeanSquaredError(multi_output)(y, t)
 
 

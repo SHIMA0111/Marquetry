@@ -8,6 +8,15 @@ from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 
 
 class FashionMNIST(dataset.Dataset):
+    """Get the FashionMNIST dataset.
+
+        This dataset is sourced from https://github.com/zalandoresearch/fashion-mnist.
+
+        Fashion-MNIST is a dataset of Zalando's article images consisting of a training set of 60,000 examples and
+        a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes.
+
+        The Attributes and Args is following the :class:`marquetry.dataset.Dataset`, please check it.
+    """
     def __init__(self, train=True,
                  transform=Compose([Flatten(), ToFloat(), Normalize(0., 255.)]), target_transform=None):
         super().__init__(train, transform, target_transform)
