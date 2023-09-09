@@ -26,7 +26,7 @@ class Deconvolution2D(Layer):
                 Default is False.
             dtype (numpy.dtype or string): The data type used for weights and biases.
                 Default is np.float32.
-            in_channels (int): The number of input channels.
+            in_channels (int or None): The number of input channels.
 
         Notes:
             kernel_size:

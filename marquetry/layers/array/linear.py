@@ -20,7 +20,7 @@ class Linear(Layer):
                 Default is False.
             dtype (numpy.dtype): The data type used for weights and biases.
                 Default is np.float32.
-            in_size (int): The number of input units (dimension of the input).
+            in_size (int or None): The number of input units (dimension of the input).
 
         Notes:
             in_size:
