@@ -148,3 +148,11 @@ class TestRepeat(unittest.TestCase):
         f = lambda x: x.repeat(repeats, axis)
 
         self.assertTrue(gradient_check(f, x))
+
+    def test_backward3(self):
+        x = np.array([1, 2, 3])
+        repeats = (3, 2, 4)
+
+        f = lambda x: x.repeat(repeats)
+
+        self.assertTrue(gradient_check(f, x))

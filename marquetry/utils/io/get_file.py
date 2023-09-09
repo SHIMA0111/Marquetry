@@ -5,6 +5,20 @@ from marquetry.configuration import config
 
 
 def get_file(url, file_name=None):
+    """Download a file from a URL and save it to a local cache directory.
+
+        This function downloads a file from the specified URL and saves it to a local cache directory.
+        If a local copy of the file with the same name already exists in the cache directory, it is not re-downloaded.
+
+        Args:
+            url (str): The URL of the file to be downloaded.
+            file_name (str): The name to be used for the downloaded file.
+                If None, the last part of the URL (after the last '/') is used as the file name.
+
+        Returns:
+            str: The path to the downloaded file in the local cache directory.
+    """
+
     if file_name is None:
         file_name = url[url.rfind("/") + 1:]
 

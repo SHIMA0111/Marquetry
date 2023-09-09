@@ -7,6 +7,7 @@ from marquetry import Variable
 
 
 def numerical_grad(func, x, *args, **kwargs):
+    """Numerical Gradient calculator"""
     eps = 1e-4
 
     x = x.data if isinstance(x, Variable) else x

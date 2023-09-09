@@ -108,6 +108,14 @@ class TestSqueeze(unittest.TestCase):
 
         self.assertTrue(gradient_check(funcs.squeeze, x, axis=1))
 
+    def test_backward2(self):
+        x = np.random.randn(3, 1, 5, 1, 2, 1)
+        axis = (1, 3, 5)
+
+        f = lambda x: funcs.squeeze(x, axis=axis)
+
+        self.assertTrue(gradient_check(f, x))
+
     def test_shape_check(self):
         x = Variable(np.random.randn(3, 1, 5))
         y = funcs.squeeze(x, axis=1)
@@ -134,6 +142,14 @@ class TestUnSqueeze(unittest.TestCase):
         x = np.random.randn(3, 4)
 
         self.assertTrue(gradient_check(funcs.unsqueeze, x, axis=1))
+
+    def test_backward2(self):
+        x = np.random.randn(3, 5, 2)
+        axis = (1, 3, 5)
+
+        f = lambda x: funcs.unsqueeze(x, axis=axis)
+
+        self.assertTrue(gradient_check(f, x))
 
     def test_shape_check(self):
         x = Variable(np.random.randn(3, 4))

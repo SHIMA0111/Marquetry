@@ -4,6 +4,8 @@ from marquetry import utils
 
 
 class SumTo(Function):
+    """SumTo an input array to a target shape."""
+
     def __init__(self, shape):
         self.shape = shape
 
@@ -29,4 +31,23 @@ class SumTo(Function):
 
 
 def sum_to(x, shape):
+    """SumTo an input array to a target shape.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input array to be summed to the target shape.
+            shape (tuple of ints):
+                The target shape to which the input array should be summed.
+
+        Returns:
+            :class:`marquetry.Variable`: The result of SumTo the input
+                array to the target shape by summing.
+
+        Examples:
+            >>> x = np.arange(1, 9).reshape(2, 4)
+            array([[1, 2, 3, 4],
+                   [5, 6, 7, 8]])
+            >>> sum_to(x, (1, 1))
+            matrix([[36]])
+    """
     return SumTo(shape)(x)

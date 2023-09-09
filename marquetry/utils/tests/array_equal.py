@@ -5,6 +5,7 @@ from marquetry import Variable
 
 
 def array_equal(a, b):
+    """Check if the arrays are the same or not."""
     a = a.data if isinstance(a, Variable) else a
     b = b.data if isinstance(b, Variable) else b
 

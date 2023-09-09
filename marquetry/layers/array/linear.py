@@ -7,6 +7,39 @@ from marquetry import Parameter
 
 
 class Linear(Layer):
+    """Linear layer (fully connected layer).
+
+        The `Linear` layer, also known as the fully connected layer,
+        computes the matrix multiplication between input data and weights.
+        It is commonly used in neural networks as intermediate layers or
+        output layers to transform input data into the desired dimension.
+
+        Args:
+            out_size (int): The number of output units (dimension of the output).
+            nobias (bool): If True, no bias term is added to the linear transformation.
+                Default is False.
+            dtype (numpy.dtype): The data type used for weights and biases.
+                Default is np.float32.
+            in_size (int or None): The number of input units (dimension of the input).
+
+        Notes:
+            in_size:
+                This is automatically determined from the input data shape and
+                does not need to be specified except a special use case.
+
+        Attributes:
+            w (marquetry.Parameter): The weight parameter.
+            b (marquetry.Parameter): The bias parameter (if used).
+
+        Examples:
+            >>> x = np.array([[1, 2, 3, 4, 5]])
+            >>> linear = Linear(100)
+            >>> y = linear(x)
+            >>> y.shape
+            (1, 100)
+
+    """
+
     def __init__(self, out_size, nobias=False, dtype=np.float32, in_size=None):
         super().__init__()
         self.in_size = in_size

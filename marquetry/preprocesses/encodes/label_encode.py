@@ -7,31 +7,59 @@ from marquetry import Preprocess
 
 
 class LabelEncode(Preprocess):
+    """A data preprocessing class for label encoding categorical columns in a DataFrame.
+
+        Args:
+            category_column (list of strs): A list of column names to be label encoded.
+            name (str): A unique name for the label encoder.
+            treat_unknown (str): How to treat unknown values encountered during encoding
+                ("no_label", "encode_specify_value", or "raise_error").
+                Default is "encode_specify_value".
+            unknown_value (int): The value to use for unknown categories
+                (only applicable if treat_unknown is "encode_specify_value").
+            include_null (bool): Whether to include null values (NaN) in the encoding process.
+
+        Examples:
+            >>> encoder = LabelEncode(["Embarked"], name="titanic")
+            >>> labeled_data = encoder(data)
+
+    """
+
     _label = "pre_le"
     _msg = """if you use new data for the training, please use new `name` parameter or delete the old statistic data"""
 
-    def __init__(self, target_column: list, name: str,
+    def __init__(self, category_column: list, name: str,
                  treat_unknown: Literal["no_label", "encode_specify_value", "raise_error"] = "encode_specify_value",
                  unknown_value: int = -1, include_null=False):
         super().__init__(name)
-        self._target_column = target_column
+        self._category_column = category_column
         self._statistic_data = self._load_statistic()
         self._include_null = include_null
         self._treat_unknown = treat_unknown
         self._unknown_value = unknown_value
 
     def process(self, data: pd.DataFrame):
-        if len(self._target_column) == 0:
+        """Process the input DataFrame by label encoding specified columns.
+
+            Args:
+                data (:class:`pandas.DataFrame`): The input DataFrame to be label encoded.
+
+            Returns:
+                pd.DataFrame: The label encoded DataFrame.
+
+        """
+
+        if len(self._category_column) == 0:
             return data
 
-        type_change_dict = {key: str for key in self._target_column}
+        type_change_dict = {key: str for key in self._category_column}
         data = data.astype(type_change_dict).replace("nan", np.nan)
 
         if self._statistic_data is None:
             replace_dict = {}
 
             for column in list(data.columns):
-                if column not in self._target_column:
+                if column not in self._category_column:
                     replace_dict[column] = {}
                     continue
 
@@ -52,7 +80,7 @@ class LabelEncode(Preprocess):
         unknown_handler = self._validate_values(data)
 
         if unknown_handler and self._treat_unknown == "encode_specify_value":
-            for column in self._target_column:
+            for column in self._category_column:
                 unique_set = set(data[column])
                 statistic_unique = set(self._statistic_data[column].keys())
 
@@ -70,7 +98,7 @@ class LabelEncode(Preprocess):
 
     def _validate_values(self, data):
         exist_statistic_columns = set([key for key, value in self._statistic_data.items() if value != {}])
-        input_target_columns = set(self._target_column)
+        input_target_columns = set(self._category_column)
 
         diff_statistic_target = False
 
@@ -78,7 +106,7 @@ class LabelEncode(Preprocess):
             raise ValueError("saved statistic data's target columns is {} but you input {}. "
                              .format(exist_statistic_columns, input_target_columns) + self._msg)
 
-        for column in self._target_column:
+        for column in self._category_column:
             unique_set = set(data[column])
             if not self._include_null:
                 unique_set = set(unique_value for unique_value in unique_set if not pd.isna(unique_value))

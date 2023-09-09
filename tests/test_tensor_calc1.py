@@ -72,6 +72,12 @@ class TestSum(unittest.TestCase):
 
         self.assertTrue(gradient_check(f, x_data))
 
+    def test_backward6(self):
+        x_data = np.random.randn(10, 10, 10)
+        f = lambda x: funcs.sum(x, axis=(1, 2), keepdims=True)
+
+        self.assertTrue(gradient_check(f, x_data))
+
 
 class TestSumTo(unittest.TestCase):
 

@@ -1,4 +1,18 @@
 class Compose(object):
+    """A utility class for composing multiple data transformation functions in a pipeline.
+
+        Args:
+            transforms (list of callable functions):
+                A list of callable data transformation functions.
+
+        Examples:
+            >>> compose = Compose([
+            >>>     marquetry.transformers.Normalize(),
+            >>>     marquetry.transformers.Flatten()
+            >>> ])
+            >>> dataset = marquetry.datasets.MNIST(transform=compose)
+    """
+
     def __init__(self, transforms=None):
         self.transforms = transforms if len(transforms) != 0 else []
 

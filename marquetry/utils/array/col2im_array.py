@@ -3,6 +3,8 @@ from marquetry import cuda_backend
 
 
 def col2im_array(col, img_shape, kernel_size, stride, pad, to_matrix=True):
+    """The util of col2im main process"""
+
     batch_size, channels, height, width = img_shape
     kernel_height, kernel_width = marquetry.utils.pair(kernel_size)
     stride_height, stride_width = marquetry.utils.pair(stride)
@@ -12,10 +14,12 @@ def col2im_array(col, img_shape, kernel_size, stride, pad, to_matrix=True):
     out_width = marquetry.utils.get_convolution_outsize(width, kernel_width, stride_width, padding_width)
 
     if to_matrix:
+        # Reconvert to 6-dims array from the easy used matrix to convolut.
         col = (col.reshape(batch_size, out_height, out_width, channels, kernel_height, kernel_width).
                transpose(0, 3, 4, 5, 1, 2))
 
     xp = cuda_backend.get_array_module(col)
+    # prepare the clear image array which is 4-dims.
     img = xp.zeros(
         (
             batch_size,

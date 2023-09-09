@@ -2,6 +2,15 @@ import numpy as np
 
 
 class Normalize(object):
+    """A data transformation class for normalizing data by subtracting mean and dividing by standard deviation.
+
+        Examples:
+            >>> mean = x.mean(axis=1)
+            >>> std = x.std(axis=1)
+            >>> dataset = marquetry.datasets.MNIST(transform=Normalize(mean=mean, std=std))
+
+    """
+
     def __init__(self, mean=0, std=1):
         self.mean = mean
         self.std = std
