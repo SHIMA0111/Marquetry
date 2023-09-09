@@ -6,6 +6,12 @@ from marquetry.functions.connection.convolution_2d_grad_w import Conv2DGradW
 
 
 class Convolution2D(Function):
+    """Perform 2D convolution on an input array.
+
+        This class defines a function that performs 2D convolution on an input array or variable using the given
+        convolutional kernel and optional bias.
+    """
+
     def __init__(self, stride=1, pad=0):
         super().__init__()
         self.stride = utils.pair(stride)
@@ -43,4 +49,35 @@ class Convolution2D(Function):
 
 
 def convolution_2d(x, w, b=None, stride=1, pad=0):
+    """Perform 2D convolution on an input array or variable.
+
+
+        This class defines a function that performs 2D convolution on an input array or variable using the given
+        convolutional kernel and optional bias.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input array or variable to be convolved.
+            w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The convolutional kernel.
+            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
+                The bias term. If None, no bias is added.
+            stride (int or tuple of ints): The stride for moving the convolutional kernel.
+                If an int is provided, it is converted to a tuple of the same value for both dimensions.
+                Defaults to 1.
+            pad (int or tuple of ints): The padding added to the input array or variable before convolution.
+                If an int is provided, it is converted to a tuple of the same value for both dimensions.
+                Defaults to 0.
+
+        Returns:
+            :class:`marquetry.Variable`:
+                The result of 2D convolution on the input array using the provided kernel and bias (if any).
+
+        Examples:
+            >>> x = np.arange(0, 147).reshape(1, 3, 7, 7)
+            >>> w = np.ones((16, 3, 2, 2))
+            >>> convolution_2d(x, w).shape
+            (1, 16, 6, 6)
+    """
+
     return Convolution2D(stride, pad)(x, w, b)

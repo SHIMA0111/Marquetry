@@ -4,6 +4,12 @@ from marquetry import utils
 
 
 class MaxPooling2D(Function):
+    """Apply 2D Max Pooling to the input tensor.
+
+        Max Pooling is a down-sampling operation that extracts the maximum value from each local region
+        of the input tensor, defined by the kernel size, and produces a smaller output tensor.
+    """
+
     def __init__(self, kernel_size, stride=1, pad=0):
         super().__init__()
         self.kernel_size = kernel_size
@@ -33,6 +39,11 @@ class MaxPooling2D(Function):
 
 
 class MaxPooling2DGrad(Function):
+    """Compute gradients for the 2D Max Pooling operation.
+
+        This class computes the gradient of the loss with respect to the input of the Max Pooling operation.
+    """
+
     def __init__(self, pooling2d):
         self.pooling2d = pooling2d
         self.kernel_size = pooling2d.kernel_size
@@ -57,8 +68,10 @@ class MaxPooling2DGrad(Function):
         grad_col = xp.zeros(
             (batch_size * channels * output_height * output_width * kernel_height * kernel_width), dtype=self.dtype)
 
+        # the indexes of the argmax in flatten of the col
         indexes = (self.indexes.ravel() + xp.arange(
             0, self.indexes.size * kernel_height * kernel_width, kernel_height * kernel_width))
+        # assignment and other is 0
         grad_col[indexes] = grad_y.ravel()
         grad_col = grad_col.reshape((batch_size, channels, output_height, output_width, kernel_height, kernel_width))
         grad_col = xp.swapaxes(grad_col, 2, 4)
@@ -76,6 +89,13 @@ class MaxPooling2DGrad(Function):
 
 
 class Pooling2DWithIndexes(Function):
+    """Compute gradients for the 2D Max Pooling Gradient.
+
+        This class computes the gradient of the loss with respect to the input of the Max Pooling operation.
+        In the second-order differential should extract the same element as the first MaxPooling from
+        the gradient array.
+        So that, this class extract the element by the original argmax indexes.
+    """
     def __init__(self, pooling2d):
         self.kernel_size = pooling2d.kernel_size
         self.stride = pooling2d.stride
@@ -99,4 +119,25 @@ class Pooling2DWithIndexes(Function):
 
 
 def max_pooling_2d(x, kernel_size, stride=1, pad=0):
+    """
+        Apply 2D Max Pooling to the input tensor.
+
+        Max Pooling is a downsampling operation that extracts the maximum value from each local region
+        of the input tensor, defined by the kernel size, and produces a smaller output tensor.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input tensor.
+            kernel_size (int or tuple): The size of the pooling kernel. If int, the same size is used for both
+                height and width.
+            stride (int): The stride of the pooling operation.
+                Default is 1.
+            pad (int): The amount of zero-padding around the input.
+                Default is 0.
+
+        Returns:
+            marquetry.Variable: The result of the Max Pooling operation.
+
+    """
+
     return MaxPooling2D(kernel_size, stride, pad)(x)

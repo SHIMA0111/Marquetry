@@ -5,6 +5,43 @@ from marquetry import MachineLearning
 
 
 class ClassificationTree(MachineLearning):
+    """A decision tree classifier for classification tasks.
+
+        The ClassificationTree class implements a decision tree for classifying data points based on their features.
+        It is capable of training on labeled data and making predictions on new data points.
+
+        Args:
+            max_depth (int or None): The maximum depth of the decision tree.
+                If None, the tree can grow indefinitely.
+            min_split_samples (int or None): The minimum number of samples required to split a node.
+                If None, defaults to 1.
+            criterion (str): The criterion used for splitting nodes.
+                Should be one of {"gini", "entropy"}.
+            seed (int or None): The random seed for reproducibility.
+
+        Attributes:
+            tree (dict or None): The internal representation of the decision tree.
+
+        Methods:
+            fit(self, x, t): Train the decision tree on the input data and target labels.
+            predict(self, x): Make predictions on new data points.
+            score(self, x, t, evaluator): Evaluate the performance of the decision tree using an evaluator function.
+
+        Examples:
+            >>> model = ClassificationTree(max_depth=5, criterion="entropy", seed=42)
+            >>> model.fit(training_data, training_labels)
+            >>> predictions = model.predict(new_data)
+            >>> model.tree
+            {
+                'feature': 2,
+                'threshold': 2.45,
+                'content': 'branch',
+                'left_branch': ...,
+                'right_branch':...,
+            }
+
+    """
+
     _expect_criterion = ("gini", "entropy")
 
     def __init__(self, max_depth=None, min_split_samples=None, criterion="gini", seed=None):
@@ -20,24 +57,19 @@ class ClassificationTree(MachineLearning):
         self.tree = None
         self.unique_list = None
 
-    def fit(self, x, t):
+    def _fit_method(self, x, t):
+
         self.unique_list = np.unique(t).tolist()
         self.tree = self._recurrent_create_tree(x, t, 0)
 
-    def predict(self, x):
+    def _predict_method(self, x):
+
         predict_result = []
 
         for sample in x:
             predict_result.append(self._recurrent_prediction(sample, self.tree))
 
         return np.array(predict_result)
-
-    def score(self, x, t, evaluator):
-        predict = self.predict(x)
-
-        score = evaluator(predict, t)
-
-        return score
 
     def _recurrent_create_tree(self, x, t, depth):
         is_leaf = True if len(x) < self.min_split_samples or depth == self.max_depth else False

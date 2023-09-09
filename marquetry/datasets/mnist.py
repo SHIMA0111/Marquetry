@@ -8,6 +8,15 @@ from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
 
 
 class MNIST(dataset.Dataset):
+    """Get the MNIST dataset.
+
+        This dataset is sourced from http://yann.lecun.com/exdb/mnist/.
+
+        The MNIST database of handwritten digits has a training set of 60,000 examples,
+        and a test set of 10,000 examples.
+
+        The Attributes and Args is following the :class:`marquetry.dataset.Dataset`, please check it.
+    """
     def __init__(self, train=True, transform=Compose([Flatten(), ToFloat(), Normalize(0., 255)]),
                  target_transform=None):
         super().__init__(train, transform, target_transform)

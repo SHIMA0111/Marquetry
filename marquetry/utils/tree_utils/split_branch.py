@@ -3,6 +3,43 @@ from marquetry import cuda_backend
 
 
 def split_branch(data, target, class_list=None, criterion=None, seed=None, target_type="classification", is_leaf=False):
+    """Split a branch of a decision tree based on the specified criteria and target type.
+
+        This function splits a branch of a decision tree into two branches or determines it as a leaf node
+        based on the specified criteria and target type.
+        It can be used for both classification and regression tasks.
+
+        Args:
+            data (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The data used for splitting the branch.
+            target (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The target variable associated with the data.
+            class_list (list or None): A list of class labels used for classification tasks.
+                Default is None.
+            criterion (str): The impurity criterion to use.
+                For classification, options are "gini" or "entropy".
+                For regression, options are "rss" (Residual Sum of Squares) or "mae" (Mean Absolute Error).
+                Default is None, which selects the appropriate criterion based on the target_type.
+            seed (int or None): The random seed for shuffling features during feature selection.
+                Default is None.
+            target_type (str): The type of the target variable. Options are "classification" or "regression".
+                Default is "classification".
+            is_leaf (bool): Indicates whether the branch should be determined as a leaf node.
+                Default is False.
+
+        Returns:
+            tuple: A tuple containing information about the branch split or leaf determination like the below.
+
+                - is_leaf(bool): True if the node is leaf, otherwise, the node is branch.
+
+                - (label or value, impurity)(tuple): The answer label or value and the impurity value.
+
+                - feature(int): The feature number of the source table.
+
+                - threshold(float or int): The threshold splitting the data based on the feature.
+
+    """
+
     if target_type == "classification":
 
         return _classification_split_branch(data, target, class_list, criterion, seed, is_leaf)
@@ -13,9 +50,14 @@ def split_branch(data, target, class_list=None, criterion=None, seed=None, targe
 
 
 def _classification_split_branch(data, target, class_list, criterion="gini", seed=None, is_leaf=False):
+    """Split a branch for classification tasks.
+
+        This function splits a branch of a decision tree for classification tasks based on the specified criterion.
+
+        Returns:
+            tuple: A tuple containing information about the branch split or leaf determination.
     """
-    return: is_leave, (label, impurity), feature, threshold
-    """
+
     if class_list is None:
         raise ValueError("classification splitter expects list object as class_list, but got {}".format(class_list))
 
@@ -62,6 +104,14 @@ def _classification_split_branch(data, target, class_list, criterion="gini", see
 
 
 def _regression_split_branch(data, target, criterion="rss", seed=None, is_leaf=False):
+    """Split a branch for regression tasks.
+
+        This function splits a branch of a decision tree for regression tasks based on the specified criterion.
+
+        Returns:
+            tuple: A tuple containing information about the branch split or leaf determination.
+    """
+
     xp = cuda_backend.get_array_module(data)
 
     current_impurity = marquetry.utils.impurity_criterion(target, criterion=criterion, target_type="regression")

@@ -59,6 +59,7 @@ from marquetry.functions.loss.regression.mean_squared_error import MeanSquaredEr
 from marquetry.functions.math.absolute import absolute
 from marquetry.functions.math.absolute import Absolute
 from marquetry.functions.math.average import average
+from marquetry.functions.math.average import Average
 from marquetry.functions.math.average import mean
 from marquetry.functions.math.basic import add
 from marquetry.functions.math.basic import Add

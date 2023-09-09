@@ -4,6 +4,20 @@ from marquetry import Preprocess
 
 
 class ColumnStandardize(Preprocess):
+    """A data preprocessing class for standardizing columns in a DataFrame.
+
+        Args:
+            target_column (list of strs): A list of column names to be standardized.
+            name (str): A unique name for the column standardizer.
+            skip_nan (bool): A boolean flag indicating whether to skip NaN values when computing statistics.
+                Default is True.
+
+        Examples:
+            >>> encoder = ColumnStandardize(["Fare", ...], "titanic")
+            >>> labeled_data = encoder(data)
+
+    """
+
     _label = "pre_cs"
 
     def __init__(self, target_column: list, name: str, skip_nan: bool = True):
@@ -13,6 +27,16 @@ class ColumnStandardize(Preprocess):
         self._skip_nan = skip_nan
 
     def process(self, data: pd.DataFrame):
+        """Process the input DataFrame by standardizing specified columns.
+
+            Args:
+                data (:class:`pandas.DataFrame`): The input DataFrame with columns to be standardized.
+
+            Returns:
+                pd.DataFrame: The DataFrame with specified columns standardized.
+
+        """
+
         if len(self._target_column) == 0:
             return data
 

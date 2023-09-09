@@ -5,6 +5,7 @@ from marquetry import utils
 
 
 class Max(Function):
+    """Calculate the maximum along the specified axis."""
     def __init__(self, axis, keepdims):
         self.axis = axis
         self.keepdims = keepdims
@@ -32,4 +33,30 @@ class Max(Function):
 
 
 def max(x, axis=None, keepdims=False):
+    """Calculate the maximum along the specified axis.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input tensor.
+            axis (int or tuple of ints): The axis or axes along which to find the maximum.
+            keepdims (bool): If True, the output has the same number of dimensions as the input,
+                otherwise size 1's dimension is reduced.
+
+        Returns:
+            :class:`marquetry.Variable`: The maximum value along the specified axis.
+
+        Examples:
+            >>> x = np.array([[1, 3, 2], [5, 2, 4]])
+            >>> x
+            array([[1, 3, 2],
+                   [5, 2, 4]])
+            >>> max(x)
+            matrix(5)
+            >>> max(x, axis=1)
+            matrix([3 5])
+            >>> max(x, axis=1, keepdims=True)
+            matrix([[3]
+                    [5]])
+
+    """
     return Max(axis, keepdims)(x)

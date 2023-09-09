@@ -4,6 +4,7 @@ from marquetry import functions
 
 
 class BroadcastTo(Function):
+    """BroadcastTo function that transform the array to specify shape."""
     def __init__(self, shape):
         self.shape = shape
 
@@ -30,4 +31,28 @@ class BroadcastTo(Function):
 
 
 def broadcast_to(x, shape):
+    """BroadcastTo function that transform the array to specify shape.
+
+        This function copies the array to the specifying shape.
+
+        Args:
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input variable that is :class:`marquetry.Variable` array.
+            shape (tuple): The goal shape using this function.
+
+        Returns:
+            marquetry.Variable: Output variable. A float array.
+
+        Examples:
+
+            >>> x = np.array([[1, -3]], 'f')
+            >>> x
+            array([[ 1., -3.]], dtype=float32)
+            >>> broadcast_to(x, shape=(4, 2))
+            matrix([[ 1. -3.]
+                    [ 1. -3.]
+                    [ 1. -3.]
+                    [ 1. -3.]])
+
+        """
     return BroadcastTo(shape)(x)

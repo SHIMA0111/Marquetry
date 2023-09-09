@@ -5,7 +5,25 @@ from PIL import Image
 
 
 def plot_dot_graph(output, verbose=True, to_file="graph.png"):
-    dot_graph = get_dot_graph(output, verbose)
+    """Plot a computational graph as a DOT graph and save it to an image file.
+
+        This function generates a DOT graph representing the computational graph backward-reachable
+        from the given output variable.
+        The DOT graph is then saved as an image file in the specified format.
+
+        Args:
+            output (:class:`marquetry.Variable`): The output variable of the computational graph to visualize.
+            verbose (bool, optional): If True, includes detailed information
+                about variable names, shapes, and data types in the DOT graph.
+                Default is True.
+            to_file (str): The file path where the DOT graph image should be saved.
+                Default is "graph.png".
+
+        Returns:
+            None
+    """
+
+    dot_graph = get_dot_graph(output.node, verbose)
 
     tmp_dir = os.path.join(os.path.expanduser("~"), ".module_tmp")
     if not os.path.exists(tmp_dir):
@@ -27,9 +45,9 @@ def plot_dot_graph(output, verbose=True, to_file="graph.png"):
 def get_dot_graph(output, verbose=True):
     """Generates a graphviz DOT text of a computational graph.
 
-    Build a graph of functions and variables backward-reachable from the output.
-    To visualize a graphviz DOT text, you need the dot binary from the graph viz
-    package (www.graphviz.org).
+        Build a graph of functions and variables backward-reachable from the output.
+        To visualize a graphviz DOT text, you need the dot binary from the graph viz
+        package (www.graphviz.org).
     """
     txt = ""
     funcs = []

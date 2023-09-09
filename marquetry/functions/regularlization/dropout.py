@@ -5,6 +5,12 @@ from marquetry import Function
 
 
 class Dropout(Function):
+    """Apply dropout to the input tensor.
+
+        Dropout is a regularization technique used during training to prevent overfitting.
+        It works by randomly deactivating neurons in the input tensor during each forward pass.
+    """
+
     def __init__(self, dropout_rate):
         self.dropout_rate = dropout_rate
 
@@ -34,4 +40,30 @@ class Dropout(Function):
 
 
 def dropout(x, dropout_rate=0.5):
+    """
+        Apply dropout to the input tensor.
+
+        Dropout is a regularization technique used during training to prevent overfitting. It works by randomly
+        deactivating neurons in the input tensor during each forward pass.
+
+        Args:
+            x (:class:marquetry.Variable or :class:numpy.ndarray or :class:cupy.ndarray):
+                The input tensor.
+            dropout_rate (float): The neurons to deactivate during each forward pass.
+                It should be a float between 0 and 1, representing the probability of deactivation.
+                Default is 0.5.
+
+        Returns:
+            marquetry.Variable: The result of applying dropout to the input tensor.
+                The type of the result depends on the type of the input `x`.
+
+        Notes:
+            During training (when `marquetry.configuration.config.train` is `True`),
+                this function deactivates neurons in `x` randomly based on the specified `dropout_rate`.
+                It also scales the remaining activations to maintain the expected value of the output.
+            During inference (when `marquetry.configuration.config.train` is `False`),
+                this function returns `x` unchanged.
+
+    """
+
     return Dropout(dropout_rate)(x)

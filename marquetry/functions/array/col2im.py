@@ -4,17 +4,22 @@ from marquetry import utils
 
 
 class Col2im(Function):
-    def __init__(self, input_shape, kernel_size, stride, pad, to_matrix):
+    """Export image array from array.
+
+        This class is commonly used by the backward computation of the convolution.
+    """
+
+    def __init__(self, image_shape, kernel_size, stride, pad, to_matrix):
         super().__init__()
 
-        self.input_shape = input_shape
+        self.image_shape = image_shape
         self.kernel_size = kernel_size
         self.stride = stride
         self.pad = pad
         self.to_matrix = to_matrix
 
     def forward(self, x):
-        y = utils.col2im_array(x, self.input_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
+        y = utils.col2im_array(x, self.image_shape, self.kernel_size, self.stride, self.pad, self.to_matrix)
 
         self.retain_inputs(())
         return y
@@ -25,5 +30,21 @@ class Col2im(Function):
         return grad_x
 
 
-def col2im(col, input_shape, kernel_size, stride=1, pad=0, to_matrix=True):
-    return Col2im(input_shape, kernel_size, stride, pad, to_matrix)(col)
+def col2im(col, image_shape, kernel_size, stride=1, pad=0, to_matrix=True):
+    """Export image array from array.
+
+        This function is used by the backward computation of the convolution.
+
+        Args:
+            col (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input variable that is :class:`marquetry.Variable` array.
+            image_shape (tuple): image shape the output image.
+            kernel_size (int, tuple(y, x)): The convolution process kernel size.
+            stride (int, tuple(y, x)): The convolution process stride size
+            pad (int, tuple): The convolution process padding size
+            to_matrix (bool): If this ``True``, the input array should be 2-dim array.
+                Otherwise, the input array should be 6-dims array
+                (batch_size, channels, kernel_height, kernel_width, output_height, output_width).
+    """
+
+    return Col2im(image_shape, kernel_size, stride, pad, to_matrix)(col)

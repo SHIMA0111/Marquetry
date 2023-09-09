@@ -2,6 +2,12 @@ from marquetry import Function
 
 
 class MeanSquaredError(Function):
+    """Calculate the Mean Squared Error (MSE) between two input arrays.
+
+        This class computes the Mean Squared Error (MSE) between two input arrays `x0` and `x1`.
+        The MSE is a measure of the average squared difference between corresponding elements  of `x0` and `x1`.
+        It is often used as a loss function in regression problems.
+    """
     def forward(self, x0, x1):
         diff = x0 - x1
         y = (diff ** 2).sum() / diff.dtype.type(diff.size)
@@ -18,4 +24,20 @@ class MeanSquaredError(Function):
 
 
 def mean_squared_error(x0, x1):
+    """Calculate the Mean Squared Error (MSE) between two input arrays.
+
+        This function computes the Mean Squared Error (MSE) between two input arrays `x0` and `x1`.
+        The MSE is a measure of the average squared difference between corresponding elements of `x0` and `x1`.
+        It is often used as a loss function in regression problems.
+
+        Parameters:
+            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The first input array.
+            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The second input array.
+
+        Returns:
+            :class:`marquetry.Variable`: The Mean Squared Error (MSE).
+    """
+
     return MeanSquaredError()(x0, x1)

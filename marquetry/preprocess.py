@@ -10,6 +10,24 @@ from marquetry import configuration
 # preprocess base class
 # ===========================================================================
 class Preprocess(object):
+    """Base class for preprocessing CSV or Datamart(Not implement now) data.
+
+        All preprocess implementation defined in :preprocesses:`marquetry.preprocesses` inherit
+        this class.
+
+        The main feature of this class is to provide a uniform process for all preprocessing steps.
+        When a preprocess function receives input data, it first checks the data type and structure.
+        After that, it resets the data index and performs the preprocessing.
+
+        Attributes:
+            data_dir (str): The directory where statistic data is stored.
+
+        Args:
+            name (str): A unique name for the preprocess instance.
+                It is used for saving and loading statistic data.
+
+    """
+
     _label = None
     _msg = """if you use new data for the training, please use new `name` parameter or delete the old statistic data"""
 
@@ -38,9 +56,26 @@ class Preprocess(object):
         return output
 
     def process(self, data):
+        """Define perform custom preprocessing on the input data. (to be implemented by subclasses)
+
+            Args:
+                data (pd.DataFrame): Input data in the form of a pandas DataFrame.
+
+            Returns:
+                pd.DataFrame: Preprocessed data.
+
+        """
+
         raise NotImplementedError()
 
     def _validate_structure(self, data: pd.DataFrame):
+        """Validate the structure of the input data compared to saved statistic data.
+
+            Args:
+                data (pd.DataFrame): Input data in the form of a pandas DataFrame.
+
+        """
+
         if not isinstance(self._statistic_data, dict):
             raise TypeError("statistic data is wrong, expected dict but got {}".format(type(self._statistic_data)))
 
@@ -53,6 +88,16 @@ class Preprocess(object):
         return
 
     def _save_statistic(self, statistic_data: dict):
+        """Save statistic data to a file.
+
+            Args:
+                statistic_data (dict): Statistic data to be saved.
+
+            Notes:
+                This method requires self._label is not None.
+                Therefore, if this method call in the base class, always it failed by NotImplementedError.
+        """
+
         if self._label is None:
             raise NotImplementedError()
 
@@ -65,6 +110,17 @@ class Preprocess(object):
         return
 
     def _load_statistic(self):
+        """Load saved statistic data from a file.
+
+            Returns:
+                dict or None: Loaded statistic data, or None if no data is found.
+
+            Notes:
+                This method requires self._label is not None.
+                Therefore, if this method call in the base class, always it failed by NotImplementedError.
+
+        """
+
         if self._label is None:
             raise NotImplementedError()
 
@@ -80,6 +136,8 @@ class Preprocess(object):
         return statistic_data
 
     def remove_old_statistic(self):
+        """Remove previously saved statistic data."""
+
         file_name = self._name + "." + self._label + ".json"
         file_path = os.path.join(self.data_dir, file_name)
 

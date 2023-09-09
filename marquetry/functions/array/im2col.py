@@ -4,6 +4,11 @@ from marquetry import utils
 
 
 class Im2col(Function):
+    """Transform an image array to matrix to easy use it convolution.
+
+        This function transform image to the useful for the convolution process.
+    """
+
     def __init__(self, kernel_size, stride, pad, to_matrix):
         super().__init__()
 
@@ -31,4 +36,17 @@ class Im2col(Function):
 
 
 def im2col(img, kernel_size, stride=1, pad=0, to_matrix=True):
+    """Transform an image array to matrix to easy use it convolution.
+
+        This function transform image to the useful for the convolution process.
+
+        Args:
+            img (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input variable that is :class:`marquetry.Variable` array.
+            kernel_size (int, tuple(y, x)): The convolution process kernel size
+            stride (int, tuple(y, x)): The convolution process stride size
+            pad (int, tuple): The convolution process padding size
+            to_matrix (bool): If this ``True``, the output array is 2-dim array.
+                Otherwise, the output array is 6-dims array.
+    """
     return Im2col(kernel_size, stride, pad, to_matrix)(img)
