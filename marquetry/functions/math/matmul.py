@@ -25,7 +25,7 @@ class MatMul(Function):
 def matmul(x0, x1):
     """Calculate dot product between two inputs.
 
-        This class calculates dot product between the two input matrices.
+        This function calculates dot product between the two input matrices.
 
         Args:
             x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):

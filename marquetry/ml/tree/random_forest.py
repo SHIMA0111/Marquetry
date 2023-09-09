@@ -25,7 +25,7 @@ class RandomForest(MachineLearning):
         Attributes:
             forest (list): The Decision Tree list to ensemble the output values.
 
-        Example:
+        Examples:
             >>> model = RandomForest(n_trees=5, target_type="regression", max_depth=3, criterion="rss")
             >>> model.fit(training_data, training_labels)
             >>> predictions = model.predict(new_data)

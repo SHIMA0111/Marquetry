@@ -56,7 +56,7 @@ def relative_absolute_error(y, t, multi_output="uniform_average"):
                 The predicted values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
-            multi_output (str, optional): Specifies how to calculate the RAE for multi-output.
+            multi_output (str): Specifies how to calculate the RAE for multi-output.
                 It can be one of the following:
                     - "uniform_average": Compute the uniform average RAE over all samples. This is the default option.
                     - "raw_values": Return the raw RAE values for each sample.

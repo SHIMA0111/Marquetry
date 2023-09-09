@@ -13,9 +13,9 @@ class RNN(Layer):
 
         Args:
             hidden_size (int): The size of the hidden state in the RNN layer.
-            in_size (int): The size of the input data.
+            in_size (int or None): The size of the input data.
 
-        Note:
+        Notes:
             in_size: This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 

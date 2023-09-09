@@ -45,7 +45,7 @@ def mean_absolute_error(y, t, multi_output="uniform_average"):
                 The predicted values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
-            multi_output (str, optional): Specifies how to calculate the MAE for multi-output.
+            multi_output (str): Specifies how to calculate the MAE for multi-output.
                 It can be one of the following:
                     - "uniform_average": Compute the uniform average MAE over all samples. This is the default option.
                     - "raw_values": Return the raw MAE values for each sample.

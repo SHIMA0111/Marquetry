@@ -59,7 +59,7 @@ def r2_score(y, t, multi_output="uniform_average"):
                 The predicted values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
-            multi_output (str, optional): Specifies how to calculate the R2 score for multi-output.
+            multi_output (str): Specifies how to calculate the R2 score for multi-output.
                 It can be one of the following:
                     - "uniform_average": Compute the uniform average R2 score over all samples. This is the default.
                     - "raw_values": Return the raw R2 score values for each sample.

@@ -49,7 +49,7 @@ def dropout(x, dropout_rate=0.5):
         Args:
             x (:class:marquetry.Variable or :class:numpy.ndarray or :class:cupy.ndarray):
                 The input tensor.
-            dropout_rate (float, optional): The neurons to deactivate during each forward pass.
+            dropout_rate (float): The neurons to deactivate during each forward pass.
                 It should be a float between 0 and 1, representing the probability of deactivation.
                 Default is 0.5.
 

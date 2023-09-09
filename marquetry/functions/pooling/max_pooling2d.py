@@ -130,9 +130,9 @@ def max_pooling_2d(x, kernel_size, stride=1, pad=0):
                 The input tensor.
             kernel_size (int or tuple): The size of the pooling kernel. If int, the same size is used for both
                 height and width.
-            stride (int, optional): The stride of the pooling operation.
+            stride (int): The stride of the pooling operation.
                 Default is 1.
-            pad (int, optional): The amount of zero-padding around the input.
+            pad (int): The amount of zero-padding around the input.
                 Default is 0.
 
         Returns:

@@ -20,15 +20,15 @@ class Deconvolution2D(Layer):
             kernel_size (int or tuple of int): The size of the deconvolutional kernel.
             stride (int, tuple of ints, optional): The stride of the deconvolution operation.
                 Default is 1.
-            pad (int, tuple of ints, optional): The amount of zero-padding to apply around the input data.
+            pad (int, tuple of ints): The amount of zero-padding to apply around the input data.
                 Default is 0.
-            nobias (bool, optional): If True, no bias term is added to the deconvolution.
+            nobias (bool): If True, no bias term is added to the deconvolution.
                 Default is False.
-            dtype (numpy.dtype or string, optional): The data type used for weights and biases.
+            dtype (numpy.dtype or string): The data type used for weights and biases.
                 Default is np.float32.
-            in_channels (int, optional): The number of input channels.
+            in_channels (int): The number of input channels.
 
-        Note:
+        Notes:
             kernel_size:
                 If an int is provided, it's treated as a square kernel size (e.g., 3 for a 3x3 kernel).
                 If a tuple of int is provided, it specifies the height and width

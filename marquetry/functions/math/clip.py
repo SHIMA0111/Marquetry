@@ -5,8 +5,8 @@ from marquetry import Function
 class Clip(Function):
     """Clip the values of an array within a specified range.
 
-        This function clips the values of the input array `x` so that they fall within the specified range
-        [`x_min`, `x_max`].
+        This class clips the values of the input array `x`
+        so that they fall within the specified range [`x_min`, `x_max`].
         Values less than `x_min` are set to `x_min`,
         and values greater than `x_max` are set to `x_max`.
     """
@@ -40,7 +40,7 @@ def clip(x, x_min, x_max):
         and values greater than `x_max` are set to `x_max`.
 
         Args:
-            x (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array or variable.
             x_min (float or int): The minimum value for clipping.
             x_max (float or int): The maximum value for clipping.
@@ -48,7 +48,7 @@ def clip(x, x_min, x_max):
         Returns:
             :class:`marquetry.Variable`: The result of clipping, with values in the range [`x_min`, `x_max`].
 
-        Example:
+        Examples:
             >>> x = np.array([[-0.2, 10.9, 3.2], [-1.2,  4.2, 0]])
             >>> x
             array([[-0.2, 10.9,  3.2],

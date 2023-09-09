@@ -29,11 +29,11 @@ class Optimizer(object):
     def prepare(self, target):
         """Set a target model to optimize the model parameters.
 
-        Args:
-            target (Model): Model which you want to optimize the parameters.
+            Args:
+                target (Model): Model which you want to optimize the parameters.
 
-        Returns:
-            Optimizer: Optimizer object.
+            Returns:
+                Optimizer: Optimizer object.
         """
         self.target = target
 

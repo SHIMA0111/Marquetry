@@ -24,8 +24,6 @@ class Dataset(object):
     Notes:
         This object is usually used with DataLoader object.
 
-    Examples:
-        >>> marquetry.dataloaders.DataLoader(Dataset())
     """
     def __init__(self, train=True, transform=None, target_transform=None, **kwargs):
         self.train = train

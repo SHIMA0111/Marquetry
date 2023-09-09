@@ -5,7 +5,7 @@ from marquetry import utils
 
 
 class Conv2DGradW(Function):
-    """weight gradient calculation class for Convolution2D backward."""
+    """Weight gradient calculation class for Convolution2D backward."""
     def __init__(self, conv2d_instance):
         w = conv2d_instance.inputs[1]
         kernel_height, kernel_width = w.shape[2:]

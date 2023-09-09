@@ -16,7 +16,7 @@ class DataLoader(object):
         shuffle (bool): Whether to shuffle the data before each epoch.
         cuda (bool): Whether to use GPU (CUDA) for data storage (if available).
 
-    Example:
+    Examples:
         >>> dataset = MyDataset()
         >>> dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
         Iterating over batches of data:
@@ -37,7 +37,7 @@ class DataLoader(object):
 
         self.reset()
 
-    def reset(self) -> None:
+    def reset(self):
         """Reset the data iterations and re-shuffle the data."""
         self.iterations = 0
 

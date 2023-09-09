@@ -30,7 +30,7 @@ def transpose(x, axes=None):
         Args:
             x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array to be transposed.
-            axes (tuple of ints or None, optional): The permutation of axes to transpose the input array or variable.
+            axes (tuple of ints or None): The permutation of axes to transpose the input array or variable.
                 If None, the dimensions are reversed.
 
         Returns:

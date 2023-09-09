@@ -19,7 +19,7 @@ class LabelEncode(Preprocess):
                 (only applicable if treat_unknown is "encode_specify_value").
             include_null (bool): Whether to include null values (NaN) in the encoding process.
 
-        Example:
+        Examples:
             >>> encoder = LabelEncode(["Embarked"], name="titanic")
             >>> labeled_data = encoder(data)
 

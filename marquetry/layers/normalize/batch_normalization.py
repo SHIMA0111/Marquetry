@@ -13,8 +13,9 @@ class BatchNormalization(Layer):
         and allows for faster convergence.
 
         Args:
-            decay (float, optional): The weighting factor for the moving averages of mean and variance. A smaller value will
-                make the moving averages change more slowly. Default is 0.9.
+            decay (float): The weighting factor for the moving averages of mean and variance.
+                A smaller value will make the moving averages change more slowly.
+                Default is 0.9.
 
         Attributes:
             gamma (marquetry.Parameter): The gamma parameter used for scaling.

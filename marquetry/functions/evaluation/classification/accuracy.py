@@ -60,7 +60,7 @@ def accuracy(y, t, ignore_label: typing.Optional[int] = None, dtype="float64"):
                 The predicted labels.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
-            ignore_label (int or None, optional):
+            ignore_label (int or None):
                 The label value to be ignored when calculating accuracy.
                 If None, no labels are ignored.
             dtype (str or numpy.dtype):
@@ -114,7 +114,7 @@ def binary_accuracy(y, t, threshold: float = 0.7, dtype="float64"):
                 The predicted binary values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
-            threshold (float, optional): The threshold value used to determine binary predictions.
+            threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
             dtype (str or numpy.dtype):
                 The return value's dtype, Default is "float64" that means 64-bit float value.

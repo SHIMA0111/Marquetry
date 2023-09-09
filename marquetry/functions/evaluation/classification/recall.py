@@ -49,7 +49,7 @@ def recall(y, t, threshold=0.7, dtype="float64"):
                 The predicted values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
-            threshold (float, optional): The threshold value used to determine binary predictions.
+            threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
             dtype (str or numpy.dtype):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
@@ -114,7 +114,7 @@ def multi_recall(y, t, target_class=1, dtype="float64"):
                 The predicted values.
             t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
-            target_class (int, optional): The class index to calculate recall for.
+            target_class (int): The class index to calculate recall for.
                 Defaults to 1.
             dtype (str or numpy.dtype):
                 The return value's dtype, Default is "float64" that means 64-bit float value.

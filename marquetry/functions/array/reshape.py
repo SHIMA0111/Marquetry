@@ -20,7 +20,7 @@ class Reshape(Function):
 
 
 def reshape(x, shape):
-    """reshape function reshapes an input array to the specified shape.
+    """This function reshapes an input array to the specified shape.
 
         Args:
             x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):

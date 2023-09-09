@@ -93,7 +93,7 @@ class Preprocess(object):
             Args:
                 statistic_data (dict): Statistic data to be saved.
 
-            Note:
+            Notes:
                 This method requires self._label is not None.
                 Therefore, if this method call in the base class, always it failed by NotImplementedError.
         """
@@ -115,7 +115,7 @@ class Preprocess(object):
             Returns:
                 dict or None: Loaded statistic data, or None if no data is found.
 
-            Note:
+            Notes:
                 This method requires self._label is not None.
                 Therefore, if this method call in the base class, always it failed by NotImplementedError.
 

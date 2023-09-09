@@ -54,7 +54,7 @@ def using_config(name, value, config_obj=config):
     Yields:
         None
 
-    Example:
+    Examples:
         >>> print(config.train)
         True
         >>> with using_config("train", False):

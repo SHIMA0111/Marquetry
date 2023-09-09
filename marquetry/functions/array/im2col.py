@@ -4,6 +4,11 @@ from marquetry import utils
 
 
 class Im2col(Function):
+    """Transform an image array to matrix to easy use it convolution.
+
+        This function transform image to the useful for the convolution process.
+    """
+
     def __init__(self, kernel_size, stride, pad, to_matrix):
         super().__init__()
 
@@ -31,7 +36,7 @@ class Im2col(Function):
 
 
 def im2col(img, kernel_size, stride=1, pad=0, to_matrix=True):
-    """Extruct matching of kernel size and channels array from image array.
+    """Transform an image array to matrix to easy use it convolution.
 
         This function transform image to the useful for the convolution process.
 

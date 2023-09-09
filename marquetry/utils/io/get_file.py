@@ -12,7 +12,7 @@ def get_file(url, file_name=None):
 
         Args:
             url (str): The URL of the file to be downloaded.
-            file_name (str, optional): The name to be used for the downloaded file.
+            file_name (str): The name to be used for the downloaded file.
                 If None, the last part of the URL (after the last '/') is used as the file name.
 
         Returns:

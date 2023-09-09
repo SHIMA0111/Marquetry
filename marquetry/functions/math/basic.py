@@ -46,7 +46,7 @@ def add(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise addition.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> add(x0, x1)
@@ -95,7 +95,7 @@ def mul(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise multiplication.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> mul(x0, x1)
@@ -124,7 +124,7 @@ class Neg(Function):
 def neg(x):
     """Compute element-wise negation arrays.
 
-        This class computes the element-wise negation arrays `x`.
+        This function computes the element-wise negation arrays `x`.
 
         Args:
             x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
@@ -133,7 +133,7 @@ def neg(x):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise negation.
 
-        Example:
+        Examples:
             >>> x = np.array([1, 2, 3])
             >>> neg(x)
             matrix([-1 -2 -3])
@@ -174,7 +174,7 @@ class Sub(Function):
 def sub(x0, x1):
     """Compute element-wise subtraction of two arrays.
 
-        This class computes the element-wise subtraction of two input arrays `x0` and `x1`.
+        This function computes the element-wise subtraction of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
 
         Args:
@@ -186,7 +186,7 @@ def sub(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise subtracation.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> sub(x0, x1)
@@ -201,7 +201,7 @@ def sub(x0, x1):
 def rsub(x0, x1):
     """Compute element-wise reversed order subtraction of two arrays.
 
-        This class computes the element-wise reversed order subtraction of two input arrays `x0` and `x1`.
+        This function computes the element-wise reversed order subtraction of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
 
         Args:
@@ -213,7 +213,7 @@ def rsub(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise reversed order subtracation.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> rsub(x0, x1)
@@ -250,7 +250,7 @@ class Div(Function):
 def div(x0, x1):
     """Compute element-wise division of two arrays.
 
-        This class computes the element-wise division of two input arrays `x0` and `x1`.
+        This function computes the element-wise division of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
 
         Args:
@@ -262,7 +262,7 @@ def div(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise division.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> div(x0, x1)
@@ -277,7 +277,7 @@ def div(x0, x1):
 def rdiv(x0, x1):
     """Compute element-wise reversed order division of two arrays.
 
-        This class computes the element-wise reversed order division of two input arrays `x0` and `x1`.
+        This function computes the element-wise reversed order division of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
 
         Args:
@@ -289,7 +289,7 @@ def rdiv(x0, x1):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise reversed order division.
 
-        Example:
+        Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> rdiv(x0, x1)
@@ -324,7 +324,7 @@ class Pow(Function):
 def pow(x, c):
     """Compute element-wise power of array and specified coefficient.
 
-        This class computes the element-wise power of input array `x` and coefficient `c`.
+        This function computes the element-wise power of input array `x` and coefficient `c`.
 
         Args:
             x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
@@ -334,7 +334,7 @@ def pow(x, c):
         Returns:
             :class:`marquetry.Variable`: The result of element-wise power.
 
-        Example:
+        Examples:
             >>> x = np.array([1, 2, 3])
             >>> c = 4
             >>> pow(x, c)

@@ -16,7 +16,7 @@ class SeqDataLoader(dataloaders.DataLoader):
         batch_size (int): The size of each batch
         cuda (bool): Whether to use GPU (CUDA) for data storage (if available).
 
-    Example:
+    Examples:
         >>> seq_dataset = SequentialDataset()
         >>> seq_dataloader = SeqDataLoader(seq_dataset, batch_size=32, cuda=True)
         Iterating over batches of sequential data while maintaining order:

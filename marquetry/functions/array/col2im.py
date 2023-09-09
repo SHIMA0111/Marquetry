@@ -4,6 +4,11 @@ from marquetry import utils
 
 
 class Col2im(Function):
+    """Export image array from array.
+
+        This class is commonly used by the backward computation of the convolution.
+    """
+
     def __init__(self, image_shape, kernel_size, stride, pad, to_matrix):
         super().__init__()
 

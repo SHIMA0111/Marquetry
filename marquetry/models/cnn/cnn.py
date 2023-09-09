@@ -26,8 +26,8 @@ class CNN(Model):
                 Applies dropout with a probability of 0.25.
             Fully Connected Layer 1:
                 Has 512 units with specified activation function.
-            Dropout Layer: Applies
-                dropout with a probability of 0.5.
+            Dropout Layer:
+                Applies dropout with a probability of 0.5.
             Fully Connected Layer 2 (Output Layer):
                 Produces final output with size out_size.
 

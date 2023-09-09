@@ -13,7 +13,7 @@ def log_sum_exp(x, axis=1):
         Args:
             x (:class:`numpy.ndarray`, or :class:`cupy.ndarray`):
                 The input array.
-            axis (int, optional): The axis along which the log-sum-exp should be computed.
+            axis (int): The axis along which the log-sum-exp should be computed.
                 Default is axis 1.
 
         Returns:

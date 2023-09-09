@@ -38,7 +38,7 @@ def linear(x, w, b=None):
                 The input array to be linearly transformed.
             w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The weight matrix for the linear transformation.
-            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`, optional):
+            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
                 The bias term. If None, no bias is added.
 
         Returns:

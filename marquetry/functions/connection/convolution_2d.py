@@ -49,8 +49,7 @@ class Convolution2D(Function):
 
 
 def convolution_2d(x, w, b=None, stride=1, pad=0):
-    """
-        Perform 2D convolution on an input array or variable.
+    """Perform 2D convolution on an input array or variable.
 
 
         This class defines a function that performs 2D convolution on an input array or variable using the given
@@ -61,12 +60,12 @@ def convolution_2d(x, w, b=None, stride=1, pad=0):
                 The input array or variable to be convolved.
             w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The convolutional kernel.
-            b (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`, optional):
+            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
                 The bias term. If None, no bias is added.
-            stride (int or tuple of ints, optional): The stride for moving the convolutional kernel.
+            stride (int or tuple of ints): The stride for moving the convolutional kernel.
                 If an int is provided, it is converted to a tuple of the same value for both dimensions.
                 Defaults to 1.
-            pad (int or tuple of ints, optional): The padding added to the input array or variable before convolution.
+            pad (int or tuple of ints): The padding added to the input array or variable before convolution.
                 If an int is provided, it is converted to a tuple of the same value for both dimensions.
                 Defaults to 0.
 
@@ -79,6 +78,6 @@ def convolution_2d(x, w, b=None, stride=1, pad=0):
             >>> w = np.ones((16, 3, 2, 2))
             >>> convolution_2d(x, w).shape
             (1, 16, 6, 6)
-        """
+    """
 
     return Convolution2D(stride, pad)(x, w, b)

@@ -75,16 +75,16 @@ def deconvolution_2d(x, w, b=None, stride=1, pad=0, out_size=None):
                 The input array or variable to be de-convolved.
             w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The de-convolutional kernel.
-            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`, optional):
+            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
                 The bias term. If None, no bias is added.
-            stride (int or tuple of ints, optional):
+            stride (int or tuple of ints):
                 The stride for moving the de-convolutional kernel. If an int is provided,
                 it is converted to a tuple of the same value for both dimensions.
                 Defaults to 1.
-            pad (int or tuple of ints, optional): The padding added to the input array or variable before deconvolution.
+            pad (int or tuple of ints): The padding added to the input array or variable before deconvolution.
                 If an int is provided, it is converted to a tuple of the same value for both dimensions.
                 Defaults to 0.
-            out_size (tuple of ints or None, optional): The size of the output feature map.
+            out_size (tuple of ints or None): The size of the output feature map.
                 If None, the size is determined based on the input and kernel sizes.
 
         Returns:

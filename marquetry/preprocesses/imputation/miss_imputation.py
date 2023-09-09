@@ -9,10 +9,10 @@ class MissImplementation(Preprocess):
         Args:
             category_column (list of strs): A list of column names with categorical values.
             numeric_column (list of strs): A list of column names with numeric values.
-            name: A unique name for the missing value imputer.
-            category_method: The method to impute missing values in categorical columns ("mode", "zero").
+            name (str): A unique name for the missing value imputer.
+            category_method (str): The method to impute missing values in categorical columns ("mode", "zero").
                 Default is "mode".
-            numeric_method: The method to impute missing values in numeric columns ("mean", "median", "zero").
+            numeric_method (str): The method to impute missing values in numeric columns ("mean", "median", "zero").
                 Default is "mean".
 
         Examples:

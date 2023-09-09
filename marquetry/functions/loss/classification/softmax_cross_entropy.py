@@ -53,9 +53,9 @@ def softmax_cross_entropy(x, t):
         compares them to the true labels.
 
         Args:
-            x (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values or scores.
-            t (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
 
         Returns:

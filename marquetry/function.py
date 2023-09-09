@@ -146,7 +146,8 @@ class Function(object):
         """Perform the forward computation of the function.
 
             Args:
-                *xs: Input data arrays.
+                *xs (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                    Input data arrays.
 
             Returns:
                 marquetry.Variable: Output data arrays.
@@ -169,8 +170,7 @@ class Function(object):
         raise NotImplementedError()
 
     def retain_inputs(self, indexes):
-        """
-            Specify which input data should be retained after forward propagation.
+        """Specify which input data should be retained after forward propagation.
 
             Args:
                 indexes (tuple or None): A list of indexes specifying which input data should be retained.
@@ -180,8 +180,7 @@ class Function(object):
         self._input_indexes_to_retain = indexes
 
     def retain_outputs(self, indexes, retain_ever=False):
-        """
-            Specify which output data should be retained after forward propagation,
+        """Specify which output data should be retained after forward propagation,
             and whether it should be retained forever.
 
             Args:

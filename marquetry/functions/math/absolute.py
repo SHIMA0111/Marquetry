@@ -35,13 +35,13 @@ def absolute(x):
         This function computes the absolute value of the input.
 
         Args:
-            x (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
 
         Returns:
             :class:`marquetry.Variable`: The absolute value of the input.
 
-        Example:
+        Examples:
             >>> x = np.array([[-2, 4, 0], [-1, 2, -3]])
             >>> x
             array([[-2, 4, 0],

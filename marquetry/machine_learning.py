@@ -53,7 +53,7 @@ class MachineLearning(object):
                     The input features for prediction.
 
             Returns:
-            :class:`marquetry.Variable`: The model's predictions.
+                :class:`marquetry.Variable`: The model's predictions.
 
         """
 
@@ -76,8 +76,6 @@ class MachineLearning(object):
             Returns:
                 float: The model's score as computed by the evaluator.
 
-            Raises:
-            NotImplementedError: This method is abstract and must be implemented by subclasses.
         """
 
         predict_result = self.predict(x)

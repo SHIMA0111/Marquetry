@@ -16,13 +16,13 @@ class Linear(Layer):
 
         Args:
             out_size (int): The number of output units (dimension of the output).
-            nobias (bool, optional): If True, no bias term is added to the linear transformation.
+            nobias (bool): If True, no bias term is added to the linear transformation.
                 Default is False.
-            dtype (numpy.dtype, optional): The data type used for weights and biases.
+            dtype (numpy.dtype): The data type used for weights and biases.
                 Default is np.float32.
-            in_size (int, optional): The number of input units (dimension of the input).
+            in_size (int): The number of input units (dimension of the input).
 
-        Note:
+        Notes:
             in_size:
                 This is automatically determined from the input data shape and
                 does not need to be specified except a special use case.

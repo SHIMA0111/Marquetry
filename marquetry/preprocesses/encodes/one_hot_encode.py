@@ -15,7 +15,7 @@ class OneHotEncode(Preprocess):
             allow_unknown_value (bool): Whether to allow unknown values encountered during encoding.
                 Default is False.
 
-        Example:
+        Examples:
             >>> encoder = OneHotEncode(["Embarked"], name="titanic")
             >>> labeled_data = encoder(data)
 

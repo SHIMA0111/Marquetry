@@ -103,7 +103,7 @@ def batch_normalization(x, gamma, beta, mean, var, decay=0.9, eps=1e-15):
         It normalizes the input data by normalization and
         adjustable parameters called gamma(scale factor) and beta(shift factor).
         This helps in preventing issues like vanishing gradients,
-        reduce co-variate shift, and allows for faster convergence
+        reduce co-variate shift, and allows for faster convergence.
 
         Args:
             x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):

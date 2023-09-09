@@ -49,7 +49,7 @@ class Layer(object):
             Returns:
                 marquetry.Variable: Output data arrays.
 
-            Note:
+            Notes:
                 Generally, this class shouldn't be called by manually because `forward` is called by `__call__`.
         """
 

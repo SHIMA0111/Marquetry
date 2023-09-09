@@ -77,7 +77,7 @@ class Average(Function):
 def average(x, axis=None, keepdims=False):
     """Calculate the average of an input array along the specified axis or axes.
 
-        This class computes the average value of the input along the specified axis.
+        This function computes the average value of the input along the specified axis.
         If the axis is None, this calculates average value overall input values.
 
         Args:
@@ -88,17 +88,17 @@ def average(x, axis=None, keepdims=False):
                 If None (default), it computes the average of all elements.
                 If int, it specifies the axis along which the average is computed.
                 If tuple of ints, it specifies multiple axes along which the average is computed.
-        -   keepdims (bool): If True, the output has the same dimensions as the input,
+            keepdims (bool): If True, the output has the same dimensions as the input,
                 but the reduced axes are retained with size 1.
                 If False (default), the reduced axes are removed from the output.
 
         Returns:
             :class:`marquetry.Variable`: The average of the input values computed along the specified axis or axes.
 
-        Note:
+        Notes:
             `axis` and `keepdims` follow NumPy conventions.
 
-        Example:
+        Examples:
             >>> x = np.array([[2, 4, 6], [1, 2, 3]])
             >>> x
             array([[2, 4, 6],

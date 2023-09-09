@@ -189,7 +189,7 @@ def _check_grad_type(func, x, grad_x):
             TypeError: If the data type or dtype of the gradient does not match the input data,
                 or if the shapes do not match.
 
-        Note:
+        Notes:
             If either the input data or the gradient data is `None`, no check is performed.
     """
 
@@ -244,7 +244,7 @@ class Variable(object):
             generation (int): The generation number of the variable, used for backpropagation computation.
             name: The variable name.
 
-        Note:
+        Notes:
             Variables created with this class are used in Marquetry's automatic differentiation framework.
             The `Variable` class wraps data and associates it with gradient information.
             Variables can be connected through functions to create computational graphs for automatic differentiation.
@@ -267,11 +267,11 @@ class Variable(object):
     def creator(self):
         """The `Function` object that created this variable during forward computation.
 
-        If `creator` is `None`, it means that this variable is not the result of a function,
-        and backpropagation will not proceed beyond this variable.
+            If `creator` is `None`, it means that this variable is not the result of a function,
+            and backpropagation will not proceed beyond this variable.
 
-        Returns:
-            Function or None: The function that created this variable, or `None` if the variable is not created by a function.
+            Returns:
+                Function or None: The function that created this variable, or `None` if the variable is not created by a function.
         """
         return self._node.creator
 
@@ -307,8 +307,8 @@ class Variable(object):
     def grad(self):
         """Get the gradient array associated with this variable.
 
-        Returns:
-            Variable: The gradient variable corresponding to this variable.
+            Returns:
+                Variable: The gradient variable corresponding to this variable.
         """
         return self._node.grad
 
@@ -373,10 +373,10 @@ class Variable(object):
             of its corresponding VariableNode. This is useful when you want to ensure that
             the data is retained within the computational graph for later use.
 
-        Notes:
-            Retaining data can be helpful when you need to ensure that the data remains
-            accessible within the computational graph, even if the original Variable object
-            goes out of scope.
+            Notes:
+                Retaining data can be helpful when you need to ensure that the data remains
+                accessible within the computational graph, even if the original Variable object
+                goes out of scope.
 
         """
         self._node.data = self._data
@@ -395,26 +395,26 @@ class Variable(object):
     def backward(self, retain_grad=False):
         """Perform backpropagation starting from this variable.
 
-        During backpropagation, the `backward` method of each parent function, which created
-        this variable, is called. This process calculates and stores the gradient for this
-        variable (to the corresponding variable node).
+            During backpropagation, the `backward` method of each parent function, which created
+            this variable, is called. This process calculates and stores the gradient for this
+            variable (to the corresponding variable node).
 
-        If the gradient (`grad`) of this variable is initially `None`, this method initializes
-        it with an array of ones with the same shape as the data.
-        This serves as the initial error for the backpropagation process.
+            If the gradient (`grad`) of this variable is initially `None`, this method initializes
+            it with an array of ones with the same shape as the data.
+            This serves as the initial error for the backpropagation process.
 
-        Args:
-            retain_grad (bool): If `True`, retain the gradient computation graph
-                for potential higher-order derivatives.
-                Otherwise, release computational graph of the backpropagation.
+            Args:
+                retain_grad (bool): If `True`, retain the gradient computation graph
+                    for potential higher-order derivatives.
+                    Otherwise, release computational graph of the backpropagation.
 
-        Notes:
-            In most cases of model training, you don't need higher-order derivatives,
-            so it is recommended to set `retain_grad` to `False`.
-            This method go reverse through the computational graph created during forward computation
-            and calculates gradients for each input variable.
-            The `backward` method is typically called after the forward pass to compute gradients
-            and update model parameters.
+            Notes:
+                In most cases of model training, you don't need higher-order derivatives,
+                so it is recommended to set `retain_grad` to `False`.
+                This method go reverse through the computational graph created during forward computation
+                and calculates gradients for each input variable.
+                The `backward` method is typically called after the forward pass to compute gradients
+                and update model parameters.
 
         """
         if self.creator is None:
@@ -537,12 +537,12 @@ class Variable(object):
         """Get the name assigned to this Variable.
 
             Returns:
-            - str or None: The name assigned to this Variable, or None if no name is assigned.
+                str or None: The name assigned to this Variable, or None if no name is assigned.
 
-            Example:
-            >>> x = Variable(np.array(3), name="my_variable")
-            >>> x.name
-            'my_variable'
+            Examples:
+                >>> x = Variable(np.array(3), name="my_variable")
+                >>> x.name
+                'my_variable'
         """
 
         return self._name
@@ -584,15 +584,15 @@ class Variable(object):
     def copy(self):
         """Create a deep copy of this variable.
 
-        Returns:
-            Variable: A new variable that is a deep copy of the current variable.
+            Returns:
+                Variable: A new variable that is a deep copy of the current variable.
 
-        Examples:
-            >>> x = Variable(np.array([1, 2, 3]))
-            >>> y = x.copy()
-            >>> y.data[0] = 99
-            >>> x.data[0]
-            1
+            Examples:
+                >>> x = Variable(np.array([1, 2, 3]))
+                >>> y = x.copy()
+                >>> y.data[0] = 99
+                >>> x.data[0]
+                1
         """
         return copy.deepcopy(self)
 
@@ -647,7 +647,7 @@ class Variable(object):
             Args:
                 axis (int or tuple or None): The axis or axes along which to compute the mean.
                     If None (default), the mean is calculated over all elements.
-                keepdims (bool, optional): If True, the dimensions of the output are retained,
+                keepdims (bool): If True, the dimensions of the output are retained,
                     and the result will have the same number of dimensions as the original variable.
                     If False (default), dimensions of size 1 are removed from the output.
 
@@ -837,6 +837,7 @@ class Variable(object):
                 (3, 1)
 
         """
+
         return marquetry.functions.unsqueeze(self, axis)
 
     def to_cpu(self):
@@ -844,7 +845,9 @@ class Variable(object):
 
             This method converts the variable's data array from GPU memory to CPU memory.
             If the variable's data is already in CPU memory or if it is `None`, no action is taken.
+
         """
+
         if self.data is None:
             return
 
@@ -859,7 +862,9 @@ class Variable(object):
 
             This method converts the variable's data array from CPU memory to GPU memory.
             If the variable's data is already in GPU memory or if it is `None`, no action is taken.
+
         """
+
         if self.data is not None:
             self._data = marquetry.cuda_backend.as_cupy(self.data)
 
@@ -982,13 +987,13 @@ def as_variable(obj):
         Returns:
             Variable: The Variable representation of the input object if it is not already a Variable.
 
-        Example:
-        >>> x = np.array(5)
-        >>> type(x)
-        <class 'numpy.ndarray'>
-        >>> y = as_variable(x)
-        >>> type(y)
-        <class 'marquetry.variable.Variable'>
+        Examples:
+            >>> x = np.array(5)
+            >>> type(x)
+            <class 'numpy.ndarray'>
+            >>> y = as_variable(x)
+            >>> type(y)
+            <class 'marquetry.variable.Variable'>
     """
 
     if isinstance(obj, Variable):
@@ -1005,7 +1010,7 @@ def as_array(x, array_type=np):
         Args:
             x(int or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The object to be converted to a NumPy array if it is a scalar.
-            array_type (optional): The module managed the actual array object
+            array_type (numpy or cupy): The module managed the actual array object
                 to use when converting a scalar to a ndarray, selectable cupy or numpy.
                 Defaults to `np`, which is the NumPy module.
 
@@ -1014,7 +1019,7 @@ def as_array(x, array_type=np):
                 The ndarray representation of the input object if it is a scalar.
                 Otherwise, the input object itself.
 
-        Example:
+        Examples:
             >>> x = 5
             >>> y = as_array(x)
             >>> type(y)
@@ -1036,9 +1041,9 @@ def array(x, name=None):
             name (str or None): The name to assign to the Variable.
 
         Returns:
-        - Variable: A Variable object that wraps the input NumPy array.
+            Variable: A Variable object that wraps the input NumPy array.
 
-        Example:
+        Examples:
             >>> import numpy as np
             >>> arr = np.array([1, 2, 3])
             >>> var = array(arr, name="my_variable")
