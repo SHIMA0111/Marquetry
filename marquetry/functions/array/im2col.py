@@ -7,6 +7,10 @@ class Im2col(Function):
     """Transform an image array to matrix to easy use it convolution.
 
         This function transform image to the useful for the convolution process.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, kernel_size, stride, pad, to_matrix):
@@ -41,8 +45,8 @@ def im2col(img, kernel_size, stride=1, pad=0, to_matrix=True):
         This function transform image to the useful for the convolution process.
 
         Args:
-            img (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                Input variable that is :class:`marquetry.Variable` array.
+            img (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input container that is :class:`marquetry.Container` array.
             kernel_size (int, tuple(y, x)): The convolution process kernel size
             stride (int, tuple(y, x)): The convolution process stride size
             pad (int, tuple): The convolution process padding size

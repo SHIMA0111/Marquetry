@@ -3,7 +3,12 @@ from marquetry import Function
 
 
 class Reciprocal(Function):
-    """Calculate the reciprocal of the input tensor."""
+    """Calculate the reciprocal of the input tensor.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
 
     def __init__(self, dtype="f"):
         self.dtype = dtype
@@ -27,11 +32,11 @@ def reciprocal(x, dtype="f"):
             reciprocal = 1 / x
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input tensor.
 
         Returns:
-            :class:`marquetry.Variable`: The reciprocal of the input tensor.
+            :class:`marquetry.Container`: The reciprocal of the input tensor.
 
         Examples:
                 >>> x = np.array([[1, 3, 2], [5, 2, 4]])
@@ -39,8 +44,8 @@ def reciprocal(x, dtype="f"):
                 array([[1, 3, 2],
                        [5, 2, 4]])
                 >>> reciprocal(x, dtype=np.float64)
-                matrix([[1.         0.33333333 0.5       ]
-                        [0.2        0.5        0.25      ]])
+                container([[1.         0.33333333 0.5       ]
+                           [0.2        0.5        0.25      ]])
     """
 
     return Reciprocal(dtype)(x)

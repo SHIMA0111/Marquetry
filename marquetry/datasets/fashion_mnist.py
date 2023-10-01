@@ -16,9 +16,18 @@ class FashionMNIST(dataset.Dataset):
         a test set of 10,000 examples. Each example is a 28x28 grayscale image, associated with a label from 10 classes.
 
         The Attributes and Args is following the :class:`marquetry.dataset.Dataset`, please check it.
+
+        >>> data = FashionMNIST(transform=Flatten())
+        >>> data.source.shape
+        (60000, 1, 28, 28)
+        If the data extruct directly by ``.sorce``, the tranform doesn't apply.
+        >>> source, target = data[0]
+        >>> source.shape
+        (784,)
+        >>>
+
     """
-    def __init__(self, train=True,
-                 transform=Compose([Flatten(), ToFloat(), Normalize(0., 255.)]), target_transform=None):
+    def __init__(self, train=True, transform=None, target_transform=None):
         super().__init__(train, transform, target_transform)
 
     def _set_data(self):

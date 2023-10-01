@@ -24,9 +24,9 @@ class MachineLearning(object):
         """Fit the model to the training data.
 
             Args:
-                x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The input features for training.
-                t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The target values for training.
 
             Returns:
@@ -34,7 +34,7 @@ class MachineLearning(object):
 
         """
 
-        inputs = (marquetry.as_variable(x), marquetry.as_variable(t))
+        inputs = (marquetry.as_container(x), marquetry.as_container(t))
         x, t = inputs[0].data, inputs[1].data
 
         if len(x) != t.size and x.shape[0] == t.shape[0]:
@@ -49,17 +49,17 @@ class MachineLearning(object):
         """Make predictions using the trained model.
 
             Args:
-                x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The input features for prediction.
 
             Returns:
-                :class:`marquetry.Variable`: The model's predictions.
+                :class:`marquetry.Container`: The model's predictions.
 
         """
 
-        x = marquetry.as_variable(x).data
+        x = marquetry.as_container(x).data
         y = self._predict_method(x)
-        y = marquetry.as_variable(y)
+        y = marquetry.as_container(y)
 
         return y
 
@@ -67,9 +67,9 @@ class MachineLearning(object):
         """Evaluate the model's performance using an evaluator function.
 
             Args:
-                x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The input features for evaluation.
-                t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The target values for evaluation.
                 evaluator (callable): A function or callable object that computes the model's score.
 

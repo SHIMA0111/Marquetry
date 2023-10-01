@@ -3,7 +3,12 @@ from marquetry import functions
 
 
 class UnSqueeze(Function):
-    """Add a single-dimensional entry (axis with size 1) belong to the specify axis to the shape of an input array."""
+    """Add a single-dimensional entry (axis with size 1) belong to the specify axis to the shape of an input array.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
 
     def __init__(self, axis):
         if isinstance(axis, int):
@@ -39,19 +44,19 @@ def unsqueeze(x, axis):
     """Add a single-dimensional entry (axis with size 1) belong to the specify axis to the shape of an input array.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array to which a single-dimensional entry should be added along the specified axis.
             axis (int or tuple of ints or list of ints): The axis along which to add the single-dimensional entry.
 
         Returns:
-            :class:`marquetry.Variable`:
+            :class:`marquetry.Container`:
                 The result of adding a single-dimensional entry to the input array along the specified axis.
 
         Examples:
             >>> x = np.arange(1, 9).reshape(1, 8)
             array([[1, 2, 3, 4, 5, 6, 7, 8]])
             >>> unsqueeze(x, axis=0)
-            matrix([[[1 2 3 4 5 6 7 8]]])
+            container([[[1 2 3 4 5 6 7 8]]])
             >>> unsqueeze(x, axis=0).shape
             (1, 1, 8)
         """

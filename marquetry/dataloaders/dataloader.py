@@ -10,18 +10,22 @@ class DataLoader(object):
         large datasets in machine learning. It takes a dataset, batch size,
         and optional shuffle flag to create an iterable data loader that provides batches of data.
 
-    Args:
-        dataset (:class:`marquetry.dataset.Dataset`): The dataset to be loaded and batched.
-        batch_size (int): The size of each batch
-        shuffle (bool): Whether to shuffle the data before each epoch.
-        cuda (bool): Whether to use GPU (CUDA) for data storage (if available).
+        Args:
+            dataset (:class:`marquetry.dataset.Dataset`): The dataset to be loaded and batched.
+            batch_size (int): The size of each batch
+            shuffle (bool): Whether to shuffle the data before each epoch.
+            cuda (bool): Whether to use GPU (CUDA) for data storage (if available).
 
-    Examples:
-        >>> dataset = MyDataset()
-        >>> dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
-        Iterating over batches of data:
-        >>> for batch_x, batch_t in dataloader:
-        Process the batch of input data (batch_x) and target data (batch_t).
+        Examples:
+            >>> dataset = MyDataset()
+            >>> dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+            Iterating over batches of data:
+            >>> for batch_x, batch_t in dataloader:
+            Process the batch of input data (batch_x) and target data (batch_t).
+
+        Caution:
+            Generally, DataLoader object is used with ``for`` statement.
+            If you have no special reason, you don't need ``reset`` or ``next`` method.
     """
     def __init__(self, dataset, batch_size, shuffle=True, cuda=False):
         self.dataset = dataset
@@ -30,7 +34,7 @@ class DataLoader(object):
         self.cuda = cuda
 
         self.data_size = len(dataset)
-        self.max_iters = -(-self.data_size // batch_size)
+        self.max_iters = self.data_size // batch_size
 
         self.iterations = 0
         self.index = None
@@ -38,7 +42,6 @@ class DataLoader(object):
         self.reset()
 
     def reset(self):
-        """Reset the data iterations and re-shuffle the data."""
         self.iterations = 0
 
         if self.shuffle:
@@ -65,8 +68,4 @@ class DataLoader(object):
         return x, t
 
     def next(self):
-        """Return the next data.
-            Return:
-                tuple(:class:`numpy.ndarray` or :class:`cupy.ndarray`): tuple has (data, target).
-        """
         return self.__next__()

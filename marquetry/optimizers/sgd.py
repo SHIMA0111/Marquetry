@@ -12,10 +12,15 @@ class SGD(Optimizer):
         Args:
             learning_rate (float): The learning rate for updating parameters.
 
+        Tip:
+            When you would like to optimize your model's parameter,
+            please set the model to this using ``prepare`` method.
+
         Examples:
             >>> optimizer = SGD()
             >>> model = marquetry.models.MLP([128, 256, 64, 10])
             >>> optimizer.prepare(model)
+            >>> optimizer.update()
 
     """
 

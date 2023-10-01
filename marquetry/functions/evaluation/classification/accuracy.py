@@ -9,7 +9,11 @@ class Accuracy(Function):
 
 
         This class defines a function that computes the accuracy of predicted labels compared to true labels.
-        It supports an optional :param:`ignore_label` parameter to exclude certain labels from the accuracy calculation.
+        It supports an optional `ignore_label` parameter to exclude certain labels from the accuracy calculation.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, ignore_label, dtype="float64"):
@@ -48,17 +52,18 @@ def accuracy(y, t, ignore_label: typing.Optional[int] = None, dtype="float64"):
 
 
         This function defines that computes the accuracy of predicted labels compared to true labels.
-        It supports an optional :param:`ignore_label` parameter to exclude certain labels from the accuracy calculation.
+        It supports an optional `ignore_label` parameter to exclude certain labels from the accuracy calculation.
 
 
         Accuracy is calculated as:
-            Accuracy = (TP + TN) / (TP + FP + TN + FN) \n
+            :math:`Accuracy = (TP + TN) / (TP + FP + TN + FN)`
+
             (TP -> TruePositive, FP -> FalsePositive, TN -> TrueNegative, FN -> FalseNegative)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted labels.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
             ignore_label (int or None):
                 The label value to be ignored when calculating accuracy.
@@ -67,7 +72,7 @@ def accuracy(y, t, ignore_label: typing.Optional[int] = None, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The accuracy of the predicted labels compared to the true labels,
+            :class:`marquetry.Container`: The accuracy of the predicted labels compared to the true labels,
                 excluding labels specified by 'ignore_label' (if any).
     """
     return Accuracy(ignore_label, dtype)(y, t)
@@ -79,6 +84,10 @@ class BinaryAccuracy(Function):
 
         This class defines that computes the binary accuracy of predicted binary values compared to true binary labels.
         The binary accuracy is calculated based on a specified threshold.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, threshold: float, dtype="float64"):
@@ -106,13 +115,14 @@ def binary_accuracy(y, t, threshold: float = 0.7, dtype="float64"):
         The binary accuracy is calculated based on a specified threshold.
 
         Accuracy is calculated as:
-            Accuracy = (TP + TN) / (TP + FP + TN + FN) \n
+            :math:`Accuracy = (TP + TN) / (TP + FP + TN + FN)`
+
             (TP -> TruePositive, FP -> FalsePositive, TN -> TrueNegative, FN -> FalseNegative)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted binary values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
             threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
@@ -120,7 +130,7 @@ def binary_accuracy(y, t, threshold: float = 0.7, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The binary accuracy of the predicted binary
+            :class:`marquetry.Container`: The binary accuracy of the predicted binary
                 values compared to the true binary labels using the specified threshold.
     """
 

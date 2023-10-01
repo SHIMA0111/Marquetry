@@ -7,6 +7,10 @@ class Col2im(Function):
     """Export image array from array.
 
         This class is commonly used by the backward computation of the convolution.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, image_shape, kernel_size, stride, pad, to_matrix):
@@ -36,8 +40,8 @@ def col2im(col, image_shape, kernel_size, stride=1, pad=0, to_matrix=True):
         This function is used by the backward computation of the convolution.
 
         Args:
-            col (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                Input variable that is :class:`marquetry.Variable` array.
+            col (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input container that is :class:`marquetry.Container` array.
             image_shape (tuple): image shape the output image.
             kernel_size (int, tuple(y, x)): The convolution process kernel size.
             stride (int, tuple(y, x)): The convolution process stride size

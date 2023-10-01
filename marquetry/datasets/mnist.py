@@ -4,7 +4,7 @@ import numpy as np
 
 from marquetry import dataset
 from marquetry.utils import get_file
-from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
+from marquetry.transformers import Flatten
 
 
 class MNIST(dataset.Dataset):
@@ -16,9 +16,17 @@ class MNIST(dataset.Dataset):
         and a test set of 10,000 examples.
 
         The Attributes and Args is following the :class:`marquetry.dataset.Dataset`, please check it.
+
+        Examples:
+            >>> data = MNIST(transform=Flatten())
+            >>> data.source.shape
+            (60000, 1, 28, 28)
+            If the data extruct directly by ``.sorce``, the tranform doesn't apply.
+            >>> source, target = data[0]
+            >>> source.shape
+            (784,)
     """
-    def __init__(self, train=True, transform=Compose([Flatten(), ToFloat(), Normalize(0., 255)]),
-                 target_transform=None):
+    def __init__(self, train=True, transform=None, target_transform=None):
         super().__init__(train, transform, target_transform)
 
     def _set_data(self):

@@ -8,6 +8,10 @@ class Add(Function):
 
         This class computes the element-wise addition of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self):
@@ -38,19 +42,19 @@ def add(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise addition.
+            :class:`marquetry.Container`: The result of element-wise addition.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> add(x0, x1)
-            matrix([3 5 7])
+            container([3 5 7])
 
     """
 
@@ -63,6 +67,10 @@ class Mul(Function):
 
         This class computes the element-wise multiplication of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x0, x1):
@@ -87,19 +95,19 @@ def mul(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise multiplication.
+            :class:`marquetry.Container`: The result of element-wise multiplication.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> mul(x0, x1)
-            matrix([ 2  6 12])
+            container([ 2  6 12])
 
     """
 
@@ -111,6 +119,10 @@ class Neg(Function):
     """Compute element-wise negation arrays.
 
         This class computes the element-wise negation arrays `x`.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x):
@@ -127,16 +139,16 @@ def neg(x):
         This function computes the element-wise negation arrays `x`.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise negation.
+            :class:`marquetry.Container`: The result of element-wise negation.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> neg(x)
-            matrix([-1 -2 -3])
+            container([-1 -2 -3])
 
     """
 
@@ -148,6 +160,10 @@ class Sub(Function):
 
         This class computes the element-wise subtraction of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self):
@@ -178,19 +194,19 @@ def sub(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise subtracation.
+            :class:`marquetry.Container`: The result of element-wise subtracation.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> sub(x0, x1)
-            matrix([-1 -1 -1])
+            container([-1 -1 -1])
 
     """
 
@@ -205,19 +221,19 @@ def rsub(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise reversed order subtracation.
+            :class:`marquetry.Container`: The result of element-wise reversed order subtracation.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> rsub(x0, x1)
-            matrix([1 1 1])
+            container([1 1 1])
 
     """
 
@@ -230,6 +246,10 @@ class Div(Function):
 
         This class computes the element-wise division of two input arrays `x0` and `x1`.
         It supports broadcasting when the input shapes are not the same.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x0, x1):
@@ -254,19 +274,19 @@ def div(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise division.
+            :class:`marquetry.Container`: The result of element-wise division.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> div(x0, x1)
-            matrix([0.5        0.66666667 0.75      ])
+            container([0.5        0.66666667 0.75      ])
 
     """
 
@@ -281,19 +301,19 @@ def rdiv(x0, x1):
         It supports broadcasting when the input shapes are not the same.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input.
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise reversed order division.
+            :class:`marquetry.Container`: The result of element-wise reversed order division.
 
         Examples:
             >>> x0 = np.array([1, 2, 3])
             >>> x1 = np.array([2, 3, 4])
             >>> rdiv(x0, x1)
-            matrix([2.         1.5        1.33333333])
+            container([2.         1.5        1.33333333])
 
     """
 
@@ -305,6 +325,10 @@ class Pow(Function):
     """Compute element-wise power of array and specified coefficient.
 
         This class computes the element-wise power of input array `x` and coefficient `c`.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, c):
@@ -327,18 +351,18 @@ def pow(x, c):
         This function computes the element-wise power of input array `x` and coefficient `c`.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array.
             c (int): The coefficient of the power
 
         Returns:
-            :class:`marquetry.Variable`: The result of element-wise power.
+            :class:`marquetry.Container`: The result of element-wise power.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> c = 4
             >>> pow(x, c)
-            matrix([ 1 16 81])
+            container([ 1 16 81])
 
     """
 

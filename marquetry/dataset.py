@@ -18,14 +18,16 @@ class Dataset(object):
 
     Args:
         train (bool): toggle if you want to load train_data or not.
-        transform: transform means transform **data** that is used when data loaded from anything.
-        target_transform: transform means transform **target** that is used when data loaded from anything.
+        transform (:class:`marquetry.transformers.Compose` or class or None):
+            transform means transform **data** that is used when data loaded from anything.
+        target_transform(:class:`marquetry.transformers.Compose` or class or None)
+            : transform means transform **target** that is used when data loaded from anything.
 
-    Notes:
+    Note:
         This object is usually used with DataLoader object.
 
     """
-    def __init__(self, train=True, transform=None, target_transform=None, **kwargs):
+    def __init__(self, train=True, transform=None, target_transform=None):
         self.train = train
         self.transform = transform
         self.target_transform = target_transform
@@ -39,7 +41,7 @@ class Dataset(object):
         self.source = None
         self.target = None
 
-        self._set_data(**kwargs)
+        self._set_data()
 
     def __getitem__(self, index):
         assert np.isscalar(index)
@@ -51,5 +53,9 @@ class Dataset(object):
     def __len__(self):
         return len(self.source)
 
-    def _set_data(self, *args, **kwargs):
+    @property
+    def source_shape(self):
+        return self.source.shape
+
+    def _set_data(self, *args):
         raise NotImplementedError()

@@ -3,7 +3,7 @@ import weakref
 
 import numpy as np
 
-from marquetry.variable import Parameter
+from marquetry.container import Parameter
 
 
 # ===========================================================================
@@ -43,13 +43,13 @@ class Layer(object):
         """Perform the forward computation of the layer. Subclasses must implement this method.
 
             Args:
-                *inputs (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                *inputs (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     Input data arrays.
 
             Returns:
-                marquetry.Variable: Output data arrays.
+                marquetry.Container: Output data arrays.
 
-            Notes:
+            Note:
                 Generally, this class shouldn't be called by manually because `forward` is called by `__call__`.
         """
 

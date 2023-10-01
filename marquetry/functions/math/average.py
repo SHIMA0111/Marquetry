@@ -1,4 +1,4 @@
-from marquetry import as_variable
+from marquetry import as_container
 from marquetry import functions
 from marquetry import Function
 
@@ -8,6 +8,10 @@ class Average(Function):
 
         This class computes the average value of the input along the specified axis.
         If the axis is None, this calculates average value overall input values.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def __init__(self, axis=None, keepdims=False):
         if axis is None:
@@ -81,7 +85,7 @@ def average(x, axis=None, keepdims=False):
         If the axis is None, this calculates average value overall input values.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
             axis (int or tuple of ints or None):
                 The axis or axes along which the average is computed.
@@ -93,9 +97,9 @@ def average(x, axis=None, keepdims=False):
                 If False (default), the reduced axes are removed from the output.
 
         Returns:
-            :class:`marquetry.Variable`: The average of the input values computed along the specified axis or axes.
+            :class:`marquetry.Container`: The average of the input values computed along the specified axis or axes.
 
-        Notes:
+        Note:
             `axis` and `keepdims` follow NumPy conventions.
 
         Examples:
@@ -104,19 +108,19 @@ def average(x, axis=None, keepdims=False):
             array([[2, 4, 6],
                    [1, 2, 3]])
             >>> average(x)
-            matrix(3.0)
+            container(3.0)
             >>> average(x, axis=0)
-            matrix([1.5 3.  4.5])
+            container([1.5 3.  4.5])
             >>> average(x, axis=1, keepdims=True)
-            matrix([[4.]
-                    [2.]])
+            container([[4.]
+                       [2.]])
     """
 
     return Average(axis, keepdims)(x)
 
 
 def simple_average(x, axis=None, keepdims=False):
-    x = as_variable(x)
+    x = as_container(x)
     y = functions.sum(x, axis, keepdims)
 
     return y * (y.data.size / x.data.size)

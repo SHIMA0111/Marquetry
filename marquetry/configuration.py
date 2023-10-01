@@ -2,6 +2,8 @@ import contextlib
 import os
 import sys
 
+from marquetry import cuda_backend
+
 
 class Config(object):
     """Configuration of the marquetry.
@@ -15,11 +17,12 @@ class Config(object):
             train (bool): If this is ``True``, marquetry's function computes it as train.
                 Otherwise, computes it as predict mode.
             CACHE_DIR (str): The cache directory of the marquetry.
-                The default path is :path:`~/.marquetry`.
+                The default path is ``~/.marquetry``.
     """
 
     enable_backprop = True
     train = True
+    CUDA_ENABLE = cuda_backend.GPU_ENABLE
     CACHE_DIR = os.path.join(os.path.expanduser("~"), ".marquetry")
 
     def show(self, file=sys.stdout):
@@ -49,7 +52,7 @@ def using_config(name, value, config_obj=config):
         name (str): The name of the configuration setting to modify.
         value: The new value to set for the specified configuration setting.
         config_obj: The configuration object to modify.
-            Defaults to the global configuration object defined in the 'config' module.
+            Defaults to the global configuration object defined in the ``config`` module.
 
     Yields:
         None

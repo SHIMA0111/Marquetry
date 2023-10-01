@@ -6,6 +6,10 @@ class Exp(Function):
     """Calculate the exponential of an input.
 
         This class computes the exponential of the input.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x):
@@ -29,16 +33,16 @@ def exp(x):
         This function computes the exponential of the input.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
 
         Returns:
-            :class:`marquetry.Variable`: The exponential of the input.
+            :class:`marquetry.Container`: The exponential of the input.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> exp(x)
-            matrix([ 2.71828183  7.3890561  20.08553692])
+            container([ 2.71828183  7.3890561  20.08553692])
     """
 
     return Exp()(x)
@@ -48,6 +52,10 @@ class Log(Function):
     """Calculate the natural logarithm of an input.
 
         This class computes the natural logarithm of the input.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
@@ -67,16 +75,16 @@ def log(x):
         This function computes the natural logarithm of the input.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
 
         Returns:
-            :class:`marquetry.Variable`: The natural logarithm of the input.
+            :class:`marquetry.Container`: The natural logarithm of the input.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> log(x)
-            matrix([0.         0.69314718 1.09861229])
+            container([0.         0.69314718 1.09861229])
 
     """
 
@@ -87,6 +95,10 @@ class Log2(Function):
     """Calculate the base-2 logarithm of an input.
 
         This class computes the base-2 logarithm of the input.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x):
@@ -107,16 +119,16 @@ def log2(x):
         This function computes the base-2 logarithm of the input.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
 
         Returns:
-            :class:`marquetry.Variable`: The base-2 logarithm of the input.
+            :class:`marquetry.Container`: The base-2 logarithm of the input.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> log2(x)
-            matrix([0.        1.        1.5849625])
+            container([0.        1.        1.5849625])
     """
     return Log2()(x)
 
@@ -125,6 +137,10 @@ class Log10(Function):
     """Calculate the base-10 logarithm of an input.
 
         This function computes the base-10 logarithm of the input.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x):
@@ -145,16 +161,16 @@ def log10(x):
         This function computes the base-10 logarithm of the input.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input values.
 
         Returns:
-            :class:`marquetry.Variable`: The base-10 logarithm of the input.
+            :class:`marquetry.Container`: The base-10 logarithm of the input.
 
         Examples:
             >>> x = np.array([1, 2, 3])
             >>> log10(x)
-            matrix([0.         0.30103    0.47712125])
+            container([0.         0.30103    0.47712125])
     """
 
     return Log10()(x)

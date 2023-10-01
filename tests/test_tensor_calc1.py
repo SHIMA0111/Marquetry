@@ -3,20 +3,20 @@ import unittest
 import numpy as np
 
 import marquetry.functions as funcs
-from marquetry import Variable
+from marquetry import Container
 from marquetry.utils import gradient_check, array_close
 
 
 class TestSum(unittest.TestCase):
 
     def test_datatype(self):
-        x = Variable(np.random.rand(10))
+        x = Container(np.random.rand(10))
         y = funcs.sum(x)
 
         self.assertFalse(np.isscalar(y))
 
     def test_forward1(self):
-        x = Variable(np.array(2.0))
+        x = Container(np.array(2.0))
         y = funcs.sum(x)
 
         res = y.data
@@ -25,7 +25,7 @@ class TestSum(unittest.TestCase):
         self.assertTrue(array_close(res, expected))
 
     def test_forward2(self):
-        x = Variable(np.random.randn(10, 20, 30))
+        x = Container(np.random.randn(10, 20, 30))
         y = funcs.sum(x, axis=1)
 
         res = y.data
@@ -34,7 +34,7 @@ class TestSum(unittest.TestCase):
         self.assertTrue(array_close(res, expected))
 
     def test_forward3(self):
-        x = Variable(np.random.randn(10, 20, 30))
+        x = Container(np.random.randn(10, 20, 30))
         y = funcs.sum(x, axis=1, keepdims=True)
 
         res = y.data
@@ -82,7 +82,7 @@ class TestSum(unittest.TestCase):
 class TestSumTo(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.random.randn(10))
+        x = Container(np.random.randn(10))
         y = funcs.sum_to(x, (1,))
 
         res = y.data
@@ -91,7 +91,7 @@ class TestSumTo(unittest.TestCase):
         self.assertTrue(array_close(res, expected))
 
     def test_forward2(self):
-        x = Variable(np.array([[1., 2., 3.], [4., 5., 6.]]))
+        x = Container(np.array([[1., 2., 3.], [4., 5., 6.]]))
         y = funcs.sum_to(x, (1, 3))
 
         res = y.data
@@ -100,7 +100,7 @@ class TestSumTo(unittest.TestCase):
         self.assertTrue(array_close(res, expected))
 
     def test_forward3(self):
-        x = Variable(np.random.randn(10))
+        x = Container(np.random.randn(10))
         y = funcs.sum_to(x, (10,))
 
         res = y.data
@@ -136,7 +136,7 @@ class TestSumTo(unittest.TestCase):
 class TestBroadcastTo(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.random.randn(10, 1, 4))
+        x = Container(np.random.randn(10, 1, 4))
         shape = (10, 10, 4)
 
         y = funcs.broadcast_to(x, shape)
@@ -144,7 +144,7 @@ class TestBroadcastTo(unittest.TestCase):
         self.assertEqual(y.shape, shape)
 
     def test_forward2(self):
-        x = Variable(np.random.rand(1))
+        x = Container(np.random.rand(1))
         shape = (5, 4)
 
         y = funcs.broadcast_to(x, shape)
@@ -152,7 +152,7 @@ class TestBroadcastTo(unittest.TestCase):
         self.assertEqual(y.shape, shape)
 
     def test_forward3(self):
-        x = Variable(np.random.randn(5, 4))
+        x = Container(np.random.randn(5, 4))
         shape = (5, 4)
 
         y = funcs.broadcast_to(x, shape)

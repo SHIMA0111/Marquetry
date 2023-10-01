@@ -8,6 +8,10 @@ class MeanSquaredError(Function):
         This class defines that calculates the Mean Squared Error (MSE) between predicted values and true values.
         MSE measures the average squared difference between the predicted and true values.
         It can be calculated either as a uniform average over all samples or as raw values for each sample.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, multi_output):
@@ -42,17 +46,20 @@ def mean_squared_error(y, t, multi_output="uniform_average"):
         It can be calculated either as a uniform average over all samples or as raw values for each sample.
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
             multi_output (str): Specifies how to calculate the MSE for multi-output.
-                It can be one of the following:
-                    - "uniform_average": Compute the uniform average MSE over all samples. This is the default option.
-                    - "raw_values": Return the raw MSE values for each sample.
+
+        Note:
+            multi_output:
+                "uniform_average": Compute the uniform average MSE over all samples. This is the default option.
+
+                "raw_values": Return the raw MSE values for each sample.
 
         Returns:
-            :class:`marquetry.Variable`: The MSE values based on the predicted values
+            :class:`marquetry.Container`: The MSE values based on the predicted values
                 and true values.
     """
     return MeanSquaredError(multi_output)(y, t)

@@ -15,12 +15,13 @@ class RNN(Layer):
             hidden_size (int): The size of the hidden state in the RNN layer.
             in_size (int or None): The size of the input data.
 
-        Notes:
-            in_size: This is automatically determined from the input data shape
+        Caution:
+            in_size:
+                This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 
         Attributes:
-            h (marquetry.Variable or None): The current hidden state of the RNN.
+            h (marquetry.Container or None): The current hidden state of the RNN.
 
         Examples:
             >>> dataset = marquetry.datasets.SinCurve()
@@ -32,7 +33,7 @@ class RNN(Layer):
             >>>         x = layer(x)
             >>>     loss += functions.mean_squared_error(x, t)
             >>> loss
-            matrix(261.4472488881584)
+            container(261.4472488881584)
 
     """
 
@@ -50,13 +51,13 @@ class RNN(Layer):
         """Set the hidden state of the RNN to the given value.
 
             Args:
-                h (marquetry.Variable):
+                h (marquetry.Container):
                     The new hidden state.
 
         """
 
-        if not isinstance(h, marquetry.Variable):
-            raise TypeError("hidden state type should be marquetry.Variable, but got {}."
+        if not isinstance(h, marquetry.Container):
+            raise TypeError("hidden state type should be marquetry.Container, but got {}."
                             .format(type(h).__name__))
 
         self.h = h

@@ -9,6 +9,10 @@ class Clip(Function):
         so that they fall within the specified range [`x_min`, `x_max`].
         Values less than `x_min` are set to `x_min`,
         and values greater than `x_max` are set to `x_max`.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, x_min, x_max):
@@ -40,13 +44,13 @@ def clip(x, x_min, x_max):
         and values greater than `x_max` are set to `x_max`.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The input array or variable.
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input array or container.
             x_min (float or int): The minimum value for clipping.
             x_max (float or int): The maximum value for clipping.
 
         Returns:
-            :class:`marquetry.Variable`: The result of clipping, with values in the range [`x_min`, `x_max`].
+            :class:`marquetry.Container`: The result of clipping, with values in the range [`x_min`, `x_max`].
 
         Examples:
             >>> x = np.array([[-0.2, 10.9, 3.2], [-1.2,  4.2, 0]])
@@ -54,11 +58,11 @@ def clip(x, x_min, x_max):
             array([[-0.2, 10.9,  3.2],
                    [-1.2,  4.2,  0. ]])
             >>> clip(x, 0.1, 5.)
-            matrix([[0.1 5.  3.2]
-                    [0.1 4.2 0.1]])
+            container([[0.1 5.  3.2]
+                       [0.1 4.2 0.1]])
             >>> clip(x, -1., 9.)
-            matrix([[-0.2  9.   3.2]
-                    [-1.   4.2  0. ]])
+            container([[-0.2  9.   3.2]
+                       [-1.   4.2  0. ]])
     """
 
     return Clip(x_min, x_max)(x)

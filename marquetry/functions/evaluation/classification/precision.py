@@ -8,6 +8,10 @@ class Precision(Function):
         This class defines a function that computes precision based on the true binary labels and predicted values.
         The precision indicates the accuracy of the prediction, more easily, this evaluator indicates
         how many correct the positive prediction compare the all positive prediction.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, threshold, dtype="float64"):
@@ -38,18 +42,16 @@ def precision(y, t, threshold=0.7, dtype="float64"):
 
         This function defines that computes precision based on the true binary labels and predicted values.
         The precision indicates the accuracy of the prediction, more easily, this evaluator indicates
-        how many correct the positive prediction compare the all positive prediction
+        how many correct the positive prediction compare the all positive prediction.
 
         Precision is calculated as:
-
-        **Precision = TP / TP + FP**
-
-        (TP -> TruePositive, FP -> FalsePositive)
+            :math:`Precision = TP / TP + FP`
+            (TP -> TruePositive, FP -> FalsePositive)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
             threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
@@ -57,7 +59,7 @@ def precision(y, t, threshold=0.7, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The precision based on the true binary labels
+            :class:`marquetry.Container`: The precision based on the true binary labels
                 and predicted values using the specified threshold.
     """
 
@@ -67,9 +69,14 @@ def precision(y, t, threshold=0.7, dtype="float64"):
 class MultiPrecision(Function):
     """Calculate precision for a specific target class based on true labels and predicted values.
 
-        This class defines a function that calculates precision for a specific target class based on the true labels and predicted
-        values. Precision measures the accuracy of positive predictions for the specified target class, indicating how many
-        positive predictions are correct compare the all positive prediction.
+        This class defines a function that calculates precision for a specific target class based on
+        the true labels and predicted values.
+        Precision measures the accuracy of positive predictions for the specified target class,
+        indicating how many positive predictions are correct compare the all positive prediction.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, target_class, dtype="float64"):
@@ -103,18 +110,19 @@ def multi_precision(y, t, target_class=1, dtype="float64"):
     """Calculate precision for a specific target class based on true labels and predicted values.
 
 
-        This function defines that calculates precision for a specific target class based on the true labels and predicted
-        values. Precision measures the accuracy of positive predictions for the specified target class, indicating how many
-        positive predictions are correct compare the all positive prediction
+        This function defines that calculates precision for a specific target class based on
+        the true labels and predicted values.
+        Precision measures the accuracy of positive predictions for the specified target class, indicating how many
+        positive predictions are correct compare the all positive prediction.
 
         Precision is calculated as:
-            Precision = TP / (TP + FP)
+            :math:`Precision = TP / TP + FP`
             (TP -> True Positives, FP -> False Positives)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
             target_class (int): The class index to calculate precision for.
                 Defaults to 1.
@@ -122,7 +130,7 @@ def multi_precision(y, t, target_class=1, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`:
+            :class:`marquetry.Container`:
                 The precision for the specified target class based on the true labels and predicted values.
     """
 
