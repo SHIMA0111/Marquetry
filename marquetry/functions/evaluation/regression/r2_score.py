@@ -7,8 +7,12 @@ class R2Score(Function):
 
         This class defines a function that calculates the R-squared (R2) score,
         a statistical measure that indicates the goodness of fit of a model to the true values.
-        R2 score measures the proportion of the variance in the dependent variable that is predictable
-        from the independent variables. It is a value between 0 and 1, where higher values indicate a better fit.
+        R2 score measures the proportion of the variance in the dependent container that is predictable
+        from the independent containers. It is a value between 0 and 1, where higher values indicate a better fit.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, multi_output):
@@ -48,24 +52,27 @@ def r2_score(y, t, multi_output="uniform_average"):
 
         This function defines that calculates the R-squared (R2) score,
         a statistical measure that indicates the goodness of fit of a model to the true values.
-        R2 score measures the proportion of the variance in the dependent variable that is predictable
-        from the independent variables. It is a value between 0 and 1, where higher values indicate a better fit.
+        R2 score measures the proportion of the variance in the dependent container that is predictable
+        from the independent containers. It is a value between 0 and 1, where higher values indicate a better fit.
 
         R2-score is calculated as:
-            R2-score = 1 - {(y_pred - t)^2 / (t - t_ave)^2}
+            :math:`R2 = 1 - {(y(pred) - t)^2 / (t - t(ave))^2}`
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
             multi_output (str): Specifies how to calculate the R2 score for multi-output.
-                It can be one of the following:
-                    - "uniform_average": Compute the uniform average R2 score over all samples. This is the default.
-                    - "raw_values": Return the raw R2 score values for each sample.
+
+        Note:
+            multi_output:
+                "uniform_average": Compute the uniform average R2 score over all samples. This is the default.
+
+                "raw_values": Return the raw R2 score values for each sample.
 
         Returns:
-            :class:`marquetry.Variable`: The R2 score based on the predicted values
+            :class:`marquetry.Container`: The R2 score based on the predicted values
                 and true values. Higher values indicate a better fit.
         """
     return R2Score(multi_output)(y, t)

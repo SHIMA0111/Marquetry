@@ -9,6 +9,10 @@ class MeanAbsoluteError(Function):
         The MAE is a measure of the average absolute difference between corresponding elements of the input arrays.
         MAE is used as loss function when you want to use a data having outlier.
 
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+
     """
     def forward(self, x0, x1):
         xp = cuda_backend.get_array_module(x0)
@@ -41,13 +45,13 @@ def mean_absolute_error(x0, x1):
         MAE is used as loss function when you want to use a data having outlier.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first set of values.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second set of values.
 
         Returns:
-            :class:`marquetry.Variable`: The Mean Absolute Error (MAE).
+            :class:`marquetry.Container`: The Mean Absolute Error (MAE).
     """
 
     return MeanAbsoluteError()(x0, x1)

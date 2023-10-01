@@ -5,6 +5,10 @@ class MatMul(Function):
     """Calculate dot product between two inputs.
 
         This class calculates dot product between the two input matrices.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def forward(self, x0, x1):
@@ -28,13 +32,13 @@ def matmul(x0, x1):
         This function calculates dot product between the two input matrices.
 
         Args:
-            x0 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x0 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The first input matrix.
-            x1 (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x1 (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The second input matrix.
 
         Returns:
-            :class:`marquetry.Variable`: The result of the dot product.
+            :class:`marquetry.Container`: The result of the dot product.
 
         Examples:
             >>> x0 = np.arange(0, 20).reshape(5, 4)
@@ -51,11 +55,11 @@ def matmul(x0, x1):
                    [12, 13, 14, 15, 16, 17],
                    [18, 19, 20, 21, 22, 23]])
             >>> matmul(x0, x1)
-            matrix([[  84   90   96  102  108  114]
-                    [ 228  250  272  294  316  338]
-                    [ 372  410  448  486  524  562]
-                    [ 516  570  624  678  732  786]
-                    [ 660  730  800  870  940 1010]])
+            container([[  84   90   96  102  108  114]
+                       [ 228  250  272  294  316  338]
+                       [ 372  410  448  486  524  562]
+                       [ 516  570  624  678  732  786]
+                       [ 660  730  800  870  940 1010]])
             >>> matmul(x0, x1).shape
             (5, 6)
 

@@ -10,6 +10,9 @@ check_scripts/
 .DS_Store
 .idea
 
+# Document HTML files
+marquetry_docs/_build/
+
 # Distributions / packages
 .Python
 build/

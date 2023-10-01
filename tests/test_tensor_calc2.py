@@ -5,15 +5,15 @@ import numpy as np
 
 import marquetry.functions as funcs
 import marquetry.layers as layers
-from marquetry import Variable
+from marquetry import Container
 from marquetry.utils import gradient_check, array_close, array_equal
 
 
 class TestMatmul(unittest.TestCase):
 
     def test_forward1(self):
-        x0 = Variable(np.array([[1, 2, 3], [4, 5, 6]]))
-        x1 = Variable(x0.data.T)
+        x0 = Container(np.array([[1, 2, 3], [4, 5, 6]]))
+        x1 = Container(x0.data.T)
         y = funcs.matmul(x0, x1)
 
         res = y.data
@@ -49,8 +49,8 @@ class TestMatmul(unittest.TestCase):
 class TestLinear(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.array([[1, 2, 3], [4, 5, 6]]))
-        w = Variable(x.data.T)
+        x = Container(np.array([[1, 2, 3], [4, 5, 6]]))
+        w = Container(x.data.T)
         b = None
 
         y = funcs.linear(x, w, b)

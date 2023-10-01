@@ -58,7 +58,7 @@ class Optimizer(object):
             In the subclass, the optimize mechanism is implemented in this method.
 
             Args:
-                param(marquetry.variable.Parameter): The parameter to update.
+                param(marquetry.container.Parameter): The parameter to update.
         """
 
         raise NotImplementedError()

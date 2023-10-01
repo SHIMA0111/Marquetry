@@ -14,13 +14,14 @@ class LSTM(Layer):
             hidden_size (int): The size of the hidden state.
             in_size (int or None): The size of the input data.
 
-        Notes:
-            in_size: This is automatically determined from the input data shape
+        Caution:
+            in_size:
+                This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 
         Attributes:
-            h (:class:`marquetry.Variable`): The current hidden state.
-            c (:class:`marquetry.Variable`): The current cell state.
+            h (:class:`marquetry.Container`): The current hidden state.
+            c (:class:`marquetry.Container`): The current cell state.
 
         Examples:
             >>> dataset = marquetry.datasets.SinCurve()
@@ -32,7 +33,7 @@ class LSTM(Layer):
             >>>         x = layer(x)
             >>>     loss += functions.mean_squared_error(x, t)
             >>> loss
-            matrix(28.759597353348106)
+            container(28.759597353348106)
 
     """
 
@@ -58,22 +59,22 @@ class LSTM(Layer):
         """Set the hidden state and cell state to a custom value.
 
             Args:
-                h (marquetry.Variable): The custom hidden state.
-                c (marquetry.Variable or None, optional): The custom cell state.
+                h (marquetry.Container): The custom hidden state.
+                c (marquetry.Container or None, optional): The custom cell state.
 
-            Note:
+            Caution:
                 Almost general use case, the cell state should NOT set custom value
                 because cell state in LSTM is used only internal information connection,
                 and it should be managed automatically.
                 If you don't have any special reason, you should set only hidden state.
 
         """
-        if not isinstance(h, marquetry.Variable):
-            raise TypeError("hidden state type should be marquetry.Variable, but got {}."
+        if not isinstance(h, marquetry.Container):
+            raise TypeError("hidden state type should be marquetry.Container, but got {}."
                             .format(type(h).__name__))
 
-        if c is not None and not isinstance(c, marquetry.Variable):
-            raise TypeError("cell state type should be (marquetry.Variable or None), but got {}."
+        if c is not None and not isinstance(c, marquetry.Container):
+            raise TypeError("cell state type should be (marquetry.Container or None), but got {}."
                             .format(type(c).__name__))
 
         self.h = h

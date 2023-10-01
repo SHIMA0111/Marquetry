@@ -3,7 +3,12 @@ from marquetry import Function
 
 
 class ReLU(Function):
-    """Rectifier Linear Unit."""
+    """Rectifier Linear Unit.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
         y = xp.maximum(x, 0.0)
@@ -21,26 +26,26 @@ class ReLU(Function):
 def relu(x):
     """Rectified Linear Unit function.
 
-    f(x) = {x if x >= 0, 0 if x < 0}
+        if x >= 0, :math:`f(x) = x` || if x < 0, :math:`f(x) = 0`
 
-    Args:
-        x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-            Input variable that is float array.
+        Args:
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input container that is float array.
 
-    Returns:
-        marquetry.Variable: Output variable. A float array.
+        Returns:
+            marquetry.Container: Output container. A float array.
 
-    Examples:
+        Examples:
 
-        >>> x = np.array([[-1, 0], [2, -3], [-2, 1]], 'f')
-        >>> x
-        array([[-1.,  0.],
-               [ 2., -3.],
-               [-2.,  1.]], dtype=float32)
-        >>> relu(x)
-        matrix([[0. 0.]
-                [2. 0.]
-                [0. 1.]])
+            >>> x = np.array([[-1, 0], [2, -3], [-2, 1]], 'f')
+            >>> x
+            array([[-1.,  0.],
+                   [ 2., -3.],
+                   [-2.,  1.]], dtype=float32)
+            >>> relu(x)
+            container([[0. 0.]
+                       [2. 0.]
+                       [0. 1.]])
 
     """
     return ReLU()(x)

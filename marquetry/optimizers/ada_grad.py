@@ -16,10 +16,15 @@ class AdaGrad(Optimizer):
             eps (float): A small value (epsilon) added to the denominator to prevent division by zero.
                 Default is 1e-8.
 
+        Tip:
+            When you would like to optimize your model's parameter,
+            please set the model to this using ``prepare`` method.
+
         Examples:
             >>> optimizer = AdaGrad()
             >>> model = marquetry.models.MLP([128, 256, 64, 10])
             >>> optimizer.prepare(model)
+            >>> optimizer.update()
 
     """
 

@@ -9,16 +9,16 @@ def no_backprop_mode():
     """Make a context manager which disables back-propagation.
 
         In this context, Marquetry doesn't record the computation graph.
-        :class:`marquetry.Variable` created in this context does not have
-        reference to the :class:`marquetry.Function` which created the variable as creator.
+        :class:`marquetry.Container` created in this context does not have
+        reference to the :class:`marquetry.Function` which created the container as creator.
 
         When you use this context, you can't do backpropagation but the memory will be released.
 
         In this example, ``y`` is created in this context. So you cannot call
-        :func:`marquetry.Variable.backward`.
+        :func:`marquetry.Container.backward`.
 
         Examples:
-            >>> x = marquetry.Variable(np.array([1,], 'f'))
+            >>> x = marquetry.Container(np.array([1,], 'f'))
             >>> with marquetry.no_backprop_mode():
             ...   y = x + 1
 
@@ -31,14 +31,14 @@ def test_mode():
 
         In this context, Marquetry use test mode behavior if the function has different behavior in train and test mode.
 
-        For example, :class:marquetry.functions.BatchNormalization store moving-mean and moving-variant in train mode,
+        For example, :class:`marquetry.functions.BatchNormalization` store moving-mean and moving-variant in train mode,
         and it is used as normalize parameter in test mode.
 
         When you use this context, in the area is recognized as test mode.
 
 
         Examples:
-            >>> x = marquetry.Variable(np.array([1,], 'f'))
+            >>> x = marquetry.Container(np.array([1,], 'f'))
             >>> with marquetry.test_mode():
             ...   y = x + 1
 
@@ -50,16 +50,16 @@ def test_mode():
 # Function
 # ===========================================================================
 class Function(object):
-    """Function on variables with backpropagation ability.
+    """Function on containers with backpropagation ability.
 
         All function implementations defined in :mod:`marquetry.functions` inherit
         this class.
 
         The main feature of this class is recording the computation graph for back prop.
-        When a function is applied to :class:`marquetry.Variable` objects,
-        its :meth:`forward` method is called on :data:`Variable.data` fields of
-        input variables, and at the same time it chains references from output
-        variable nodes to the function and from the function to its input nodes.
+        When a function is applied to :class:`marquetry.Container` objects,
+        its :meth:`forward` method is called on :data:`Container.data` fields of
+        input containers, and at the same time it chains references from output
+        container nodes to the function and from the function to its input nodes.
 
 
         For functions that do not need a part of inputs in backward computation,
@@ -69,12 +69,6 @@ class Function(object):
 
         if you don't need the input data in backward computation, you should specify as :code: self.input_retain(()).
         The input data is remained and output data is released as a default.
-
-        Attributes:
-            generation (int): An identifier to track the generation of this function in the computation graph.
-            inputs (tuple): A tuple of input variable nodes.
-            outputs (tuple): A tuple of weak references to output variable nodes.
-            output_data (tuple): A tuple of output data arrays.
 
     """
 
@@ -88,7 +82,16 @@ class Function(object):
     output_data = None
 
     def __call__(self, *inputs):
-        inputs = [marquetry.as_variable(x) for x in inputs]
+        """Apply the algorithm implemented in the forward method.
+
+            Args:
+                *inputs (:class:`marquetry.Container` and :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                    The input tensor.
+
+            Returns:
+                marquetry.Container: The output data fitted by the function method.
+        """
+        inputs = [marquetry.as_container(x) for x in inputs]
 
         xs = [x.data for x in inputs]
 
@@ -97,7 +100,7 @@ class Function(object):
         ys = self.forward(*xs)
         if not isinstance(ys, tuple):
             ys = (ys,)
-        outputs = [marquetry.Variable(marquetry.as_array(y, xp)) for y in ys]
+        outputs = [marquetry.Container(marquetry.as_array(y, xp)) for y in ys]
 
         if marquetry.configuration.config.enable_backprop:
             self.generation = max([x.generation for x in inputs])
@@ -134,7 +137,7 @@ class Function(object):
         return self.__class__.__name__
 
     def unchain(self):
-        """Break references between this function and its input and output variable nodes."""
+        """Break references between this function and its input and output container nodes."""
         for y in self.outputs:
             y_ref = y()
             if y_ref is not None:
@@ -150,23 +153,27 @@ class Function(object):
                     Input data arrays.
 
             Returns:
-                marquetry.Variable: Output data arrays.
+                marquetry.Container: Output data arrays.
 
             Note:
-                Generally, this class shouldn't be called by manually because `forward` is called by `__call__`.
+                Generally, this class shouldn't be called by manually because `forward` is called via `__call__`.
         """
+
         raise NotImplementedError()
 
     def backward(self, *grad_ys):
         """Perform the backward computation of the function.
 
             Args:
-                *grad_ys (:class:`marquetry.Variable`): Gradient data arrays.
+                *grad_ys (:class:`marquetry.Container`): Gradient data arrays.
 
             Returns:
-                marquetry.Variable: Gradient data arrays with respect to the input data arrays.
-        """
+                marquetry.Container: Gradient data arrays with respect to the input data arrays.
 
+            Note:
+                Function backward should be called by only marquetry (user shouldn't call this method).
+                Generally, a user should call the backward method in :class:`marquetry.Container` of the model output.
+        """
         raise NotImplementedError()
 
     def retain_inputs(self, indexes):

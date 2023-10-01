@@ -14,13 +14,13 @@ def classification_cross_entropy(x, t):
         it calculates the :class:`marquetry.functions.softmax_cross_entropy` loss.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container`, :class:`numpy.ndarray`, or :class:`cupy.ndarray`):
                 The true labels or binary targets.
 
         Returns:
-            :class:`marquetry.Variable`: The Cross-Entropy loss calculated
+            :class:`marquetry.Container`: The Cross-Entropy loss calculated
                 based on the dimensionality of the input data.
     """
 

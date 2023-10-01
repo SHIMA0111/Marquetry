@@ -17,10 +17,15 @@ class MomentumSGD(Optimizer):
             decay (float): The momentum decay factor, controlling the influence of past gradients.
                 Default is 0.9.
 
+        Tip:
+            When you would like to optimize your model's parameter,
+            please set the model to this using ``prepare`` method.
+
         Examples:
             >>> optimizer = MomentumSGD()
             >>> model = marquetry.models.MLP([128, 256, 64, 10])
             >>> optimizer.prepare(model)
+            >>> optimizer.update()
 
     """
 

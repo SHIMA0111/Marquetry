@@ -10,16 +10,16 @@ def information_gain(target, target_left, target_right, criterion=None, target_t
 
         Args:
             target (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable before splitting.
+                The target container before splitting.
             target_left (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable of the left subset after splitting.
+                The target container of the left subset after splitting.
             target_right (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable of the right subset after splitting.
+                The target container of the right subset after splitting.
             criterion (str or None): The impurity criterion to use.
                 For classification, options are "gini" or "entropy."
                 For regression, options are "rss" (Residual Sum of Squares) or "mae" (Mean Absolute Error).
                 Default is None, which selects the appropriate criterion based on the target_type.
-            target_type (str): The type of the target variable.
+            target_type (str): The type of the target container.
                 Options are "classification" or "regression."
                 Default is "classification."
 

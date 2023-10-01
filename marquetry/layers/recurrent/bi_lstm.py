@@ -16,13 +16,14 @@ class BiLSTM(Layer):
             hidden_size (int): The size of the hidden state in each LSTM layer.
             in_size (int or None): The size of the input data.
 
-        Notes:
-            in_size: This is automatically determined from the input data shape
+        Caution:
+            in_size:
+                This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 
         Attributes:
-            forward_lstm (LSTM): Forward LSTM layer.
-            reverse_lstm (LSTM): Reverse LSTM layer.
+            forward_lstm (:class:`marquetry.layers.LSTM`): Forward LSTM layer.
+            reverse_lstm (:class:`marquetry.layers.LSTM`): Reverse LSTM layer.
 
         Examples:
             >>> dataset = marquetry.datasets.SinCurve()
@@ -34,7 +35,7 @@ class BiLSTM(Layer):
             >>>         x = layer(x)
             >>>     loss += functions.mean_squared_error(x, t)
             >>> loss
-            matrix(36.87500179632384)
+            container(36.87500179632384)
 
     """
 
@@ -51,10 +52,10 @@ class BiLSTM(Layer):
         """Set the hidden state and cell state to a custom value.
 
             Args:
-                h (marquetry.Variable): The custom hidden state.
-                c (marquetry.Variable or None): The custom cell state.
+                h (marquetry.Container): The custom hidden state.
+                c (marquetry.Container or None): The custom cell state.
 
-            Notes:
+            Caution:
                 Almost general use case, the cell state should NOT set custom value
                 because cell state in LSTM is used only internal information connection,
                 and it should be managed automatically.

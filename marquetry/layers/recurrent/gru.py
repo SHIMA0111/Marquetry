@@ -14,12 +14,13 @@ class GRU(Layer):
             hidden_size (int): The size of the hidden state.
             in_size (int or None): The size of the input data.
 
-        Notes:
-            in_size: This is automatically determined from the input data shape
+        Caution:
+            in_size:
+                This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 
         Attributes:
-            h (:class:`marquetry.Variable`): The current hidden state.
+            h (:class:`marquetry.Container`): The current hidden state.
 
         Examples:
             >>> dataset = marquetry.datasets.SinCurve()
@@ -31,7 +32,7 @@ class GRU(Layer):
             >>>         x = layer(x)
             >>>     loss += functions.mean_squared_error(x, t)
             >>> loss
-            matrix(29.910813823186242)
+            container(29.910813823186242)
 
     """
 
@@ -53,14 +54,14 @@ class GRU(Layer):
         """Reset the hidden state."""
         self.h = None
 
-    def set_state(self, h: marquetry.Variable):
+    def set_state(self, h: marquetry.Container):
         """Set the hidden state to a custom value.
 
             Args:
-                h (marquetry.Variable): The custom hidden state.
+                h (marquetry.Container): The custom hidden state.
         """
-        if not isinstance(h, marquetry.Variable):
-            raise ValueError("custom hidden state expected marquetry.Variable type, but got {}"
+        if not isinstance(h, marquetry.Container):
+            raise ValueError("custom hidden state expected marquetry.Container type, but got {}"
                              .format(type(h).__name__))
         self.h = h
 

@@ -1,13 +1,17 @@
-from marquetry.variable import as_array
-from marquetry.variable import as_variable
-from marquetry.variable import array
-from marquetry.variable import Parameter
-from marquetry.variable import Variable
+from marquetry.container import as_array
+from marquetry.container import as_container
+from marquetry.container import array
+from marquetry.container import Parameter
+from marquetry.container import random
+from marquetry.container import random_gen
+from marquetry.container import random_int
+from marquetry.container import Container
 
 from marquetry.function import Function
 
 from marquetry.machine_learning import MachineLearning
 
+from marquetry.configuration import config
 from marquetry.configuration import using_config
 from marquetry.function import no_backprop_mode
 from marquetry.function import test_mode

@@ -8,6 +8,10 @@ class Recall(Function):
         This class defines a function that calculates recall based on the true binary labels and predicted values.
         Recall measures the ability to correctly identify positive cases,
         indicating how many actual positive labels were correctly predicted.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def __init__(self, threshold, dtype="float64"):
         if not 0. <= threshold <= 1.:
@@ -41,13 +45,13 @@ def recall(y, t, threshold=0.7, dtype="float64"):
         indicating how many actual positive labels were correctly predicted.
 
         Recall is calculated as:
-            Recall = TP / (TP + FN)
+            :math:`Recall = TP / (TP + FN)`
             (TP -> True Positives, FN -> False Negatives)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
             threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
@@ -55,7 +59,7 @@ def recall(y, t, threshold=0.7, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The recall based on the true binary labels
+            :class:`marquetry.Container`: The recall based on the true binary labels
                 and predicted values using the specified threshold.
     """
 
@@ -69,6 +73,10 @@ class MultiRecall(Function):
         for a specific target class based on the true labels and predicted values.
         Recall measures the ability to correctly identify positive cases for the specified target class,
         indicating how many actual positive labels for that class were correctly predicted.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def __init__(self, target_class, dtype="float64"):
         self.target_class = target_class
@@ -106,13 +114,13 @@ def multi_recall(y, t, target_class=1, dtype="float64"):
         indicating how many actual positive labels for that class were correctly predicted.
 
         Recall is calculated as:
-            Recall = TP / (TP + FN)
+            :math:`Recall = TP / (TP + FN)`
             (TP -> True Positives, FN -> False Negatives)
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
             target_class (int): The class index to calculate recall for.
                 Defaults to 1.
@@ -120,7 +128,7 @@ def multi_recall(y, t, target_class=1, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The recall for the specified target class
+            :class:`marquetry.Container`: The recall for the specified target class
                 based on the true labels and predicted values.
     """
 

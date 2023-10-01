@@ -8,6 +8,10 @@ class MaxPooling2D(Function):
 
         Max Pooling is a down-sampling operation that extracts the maximum value from each local region
         of the input tensor, defined by the kernel size, and produces a smaller output tensor.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, kernel_size, stride=1, pad=0):
@@ -118,7 +122,7 @@ class Pooling2DWithIndexes(Function):
         return col.reshape(batch_size, channels, out_height, out_width)
 
 
-def max_pooling_2d(x, kernel_size, stride=1, pad=0):
+def max_pooling_2d(x, kernel_size, stride=None, pad=0):
     """
         Apply 2D Max Pooling to the input tensor.
 
@@ -126,18 +130,28 @@ def max_pooling_2d(x, kernel_size, stride=1, pad=0):
         of the input tensor, defined by the kernel size, and produces a smaller output tensor.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input tensor.
             kernel_size (int or tuple): The size of the pooling kernel. If int, the same size is used for both
                 height and width.
             stride (int): The stride of the pooling operation.
-                Default is 1.
+                If stride is None, stride is the same size as the kernel_size.
             pad (int): The amount of zero-padding around the input.
                 Default is 0.
 
+        Examples:
+            >>> x = np.random.randn(1, 3, 20, 20)
+            >>> x.shape
+            (1, 3, 20, 20)
+            >>> pool_data = max_pooling_2d(x, kernel_size=(2, 2))
+            >>> pool_data.shape
+            (1, 3, 10, 10)
+
         Returns:
-            marquetry.Variable: The result of the Max Pooling operation.
+            marquetry.Container: The result of the Max Pooling operation.
 
     """
+    if stride is None:
+        stride = kernel_size
 
     return MaxPooling2D(kernel_size, stride, pad)(x)

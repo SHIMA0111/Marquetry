@@ -2,9 +2,9 @@ from marquetry import cuda_backend
 
 
 def impurity_criterion(target, criterion=None, target_type="classification"):
-    """Compute an impurity criterion for a given target variable.
+    """Compute an impurity criterion for a given target container.
 
-        This function computes an impurity criterion for a given target variable
+        This function computes an impurity criterion for a given target container
         based on the specified criteria and target type.
 
         Args:
@@ -14,7 +14,7 @@ def impurity_criterion(target, criterion=None, target_type="classification"):
                 For classification, options are "gini" or "entropy."
                 For regression, options are "rss" (Residual Sum of Squares) or "mae" (Mean Absolute Error).
                 Default is None, which selects the appropriate criterion based on the target_type.
-            target_type (str): The type of the target variable.
+            target_type (str): The type of the target container.
                 Options are "classification" or "regression" Default is "classification".
 
         Returns:
@@ -32,14 +32,14 @@ def impurity_criterion(target, criterion=None, target_type="classification"):
 
 
 def _classification_impurity_criterion(target, criterion):
-    """Compute a classification impurity criterion for a given target variable.
+    """Compute a classification impurity criterion for a given target container.
 
-        This function computes a classification impurity criterion for a given target variable
+        This function computes a classification impurity criterion for a given target container
         based on the specified criterion.
 
         Args:
             target (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable for which the impurity criterion should be computed.
+                The target container for which the impurity criterion should be computed.
             criterion (str): The impurity criterion to use.
                 Options are "gini" or "entropy".
 
@@ -72,14 +72,14 @@ def _classification_impurity_criterion(target, criterion):
 
 
 def _regression_impurity_criterion(target, criterion):
-    """Compute a regression impurity criterion for a given target variable.
+    """Compute a regression impurity criterion for a given target container.
 
-        This function computes a regression impurity criterion for a given target variable
+        This function computes a regression impurity criterion for a given target container
         based on the specified criterion.
 
         Args:
             target (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable for which the impurity criterion should be computed.
+                The target container for which the impurity criterion should be computed.
             criterion (str): The impurity criterion to use.
                 Options are "rss" (Residual Sum of Squares) or "mae" (Mean Absolute Error).
 
