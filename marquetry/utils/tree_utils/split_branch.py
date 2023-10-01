@@ -13,7 +13,7 @@ def split_branch(data, target, class_list=None, criterion=None, seed=None, targe
             data (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The data used for splitting the branch.
             target (:class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The target variable associated with the data.
+                The target container associated with the data.
             class_list (list or None): A list of class labels used for classification tasks.
                 Default is None.
             criterion (str): The impurity criterion to use.
@@ -22,7 +22,7 @@ def split_branch(data, target, class_list=None, criterion=None, seed=None, targe
                 Default is None, which selects the appropriate criterion based on the target_type.
             seed (int or None): The random seed for shuffling features during feature selection.
                 Default is None.
-            target_type (str): The type of the target variable. Options are "classification" or "regression".
+            target_type (str): The type of the target container. Options are "classification" or "regression".
                 Default is "classification".
             is_leaf (bool): Indicates whether the branch should be determined as a leaf node.
                 Default is False.

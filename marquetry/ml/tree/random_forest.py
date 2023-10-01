@@ -13,7 +13,7 @@ class RandomForest(MachineLearning):
 
         Args:
             n_trees (int): The number of decision trees in the ensemble.
-            target_type (str): The type of target variable, either "classification" or "regression".
+            target_type (str): The type of target container, either "classification" or "regression".
             max_depth (int or None): The maximum depth of individual decision trees.
                 If None, the trees can grow indefinitely.
             min_split_samples (int or None): The minimum number of samples required to split a node in a tree.

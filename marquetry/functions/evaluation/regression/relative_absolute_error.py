@@ -10,6 +10,10 @@ class RelativeAbsoluteError(Function):
         RAE quantifies the average absolute difference between predicted and true
         values relative to the average absolute deviation of true values from their mean.
         It is used to assess the accuracy of regression models.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, multi_output):
@@ -52,17 +56,20 @@ def relative_absolute_error(y, t, multi_output="uniform_average"):
         It is used to assess the accuracy of regression models.
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true values.
             multi_output (str): Specifies how to calculate the RAE for multi-output.
-                It can be one of the following:
-                    - "uniform_average": Compute the uniform average RAE over all samples. This is the default option.
-                    - "raw_values": Return the raw RAE values for each sample.
+
+        Note:
+            multi_output:
+                "uniform_average": Compute the uniform average RAE over all samples. This is the default option.
+
+                "raw_values": Return the raw RAE values for each sample.
 
         Returns:
-            :class:`marquetry.Variable`: The RAE based on the predicted values
+            :class:`marquetry.Container`: The RAE based on the predicted values
                 and true values. Lower values indicate better accuracy.
     """
 

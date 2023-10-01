@@ -1,7 +1,7 @@
 import numpy as np
 
 from marquetry import cuda_backend
-from marquetry import Variable
+from marquetry import Container
 from marquetry import Layer
 from marquetry import Parameter
 
@@ -51,7 +51,7 @@ class Embedding(Layer):
             because the custom vector should be pre-trained by word2vec or so.
 
             Args:
-                vector (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                vector (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                     The custom embedding vectors to set.
 
             Notes:
@@ -64,7 +64,7 @@ class Embedding(Layer):
             raise ValueError("embed_vector shape expected {}, but got {}"
                              .format(self.w.shape, vector.shape))
 
-        if isinstance(vector, Variable):
+        if isinstance(vector, Container):
             vector = vector.data
 
         self.w.data = vector

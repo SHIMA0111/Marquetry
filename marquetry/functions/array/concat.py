@@ -4,7 +4,12 @@ from marquetry import functions
 
 
 class Concat(Function):
-    """Concatenate multiple tensors towards specified axis."""
+    """Concatenate multiple tensors towards specified axis.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
     def __init__(self, axis):
         self.axis = axis
 
@@ -33,16 +38,16 @@ class Concat(Function):
 
 
 def concat(*inputs, axis=0):
-    """Concatenates given variables to specify an axis.
+    """Concatenates given containers to specify an axis.
 
         Args:
-            inputs (tuple or enumeration of :class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                Input variables to be concatenated. The variables must have the
+            inputs (tuple or enumeration of :class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input containers to be concatenated. The containers must have the
                 same shape, except in the dimension corresponding to the concat axis.
             axis (int): The axis along which the arrays will be concatenated. Default is 0.
 
         Returns:
-            marquetry.Variable: The concatenated variable.
+            marquetry.Container: The concatenated container.
 
         Examples:
 
@@ -57,9 +62,9 @@ def concat(*inputs, axis=0):
                    [1],
                    [2]])
             >>> concat(x, y, axis=1)
-            matrix([[ 0  1  2  3  0]
-                    [ 4  5  6  7  1]
-                    [ 8  9 10 11  2]])
+            container([[ 0  1  2  3  0]
+                       [ 4  5  6  7  1]
+                       [ 8  9 10 11  2]])
 
         """
 

@@ -3,7 +3,12 @@ from marquetry import Function
 
 
 class Repeat(Function):
-    """Copy and expand the array to the specify number and axis."""
+    """Copy and expand the array to the specify number and axis.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
 
     def __init__(self, repeats, axis):
         if isinstance(repeats, int):
@@ -103,21 +108,21 @@ def repeat(x, repeats, axis):
     """Repeat and expand an input array along a specified axis.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array to be repeated and expanded.
             repeats (int): The number of times to repeat the input along the specified axis.
             axis (int): The axis along which the input should be repeated and expanded.
 
         Returns:
-            A :class:`marquetry.Variable` object which is the result of repeating and
+            A :class:`marquetry.Container` object which is the result of repeating and
             expanding the input array along the specified axis.
 
         Examples:
             >>> x = np.arange(0, 3).reshape(1, 3)
             array([[0, 1, 2]])
             >>> repeat(x, repeats=3, axis=0)
-            matrix([[0 1 2]
-                    [0 1 2]
-                    [0 1 2]])
+            container([[0 1 2]
+                       [0 1 2]
+                       [0 1 2]])
     """
     return Repeat(repeats, axis)(x)

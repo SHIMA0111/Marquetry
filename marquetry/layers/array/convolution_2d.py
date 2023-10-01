@@ -26,7 +26,7 @@ class Convolution2D(Layer):
                 Default is np.float32.
             in_channels (int or None): The number of input channels.
 
-        Notes:
+        Note:
             kernel_size:
                 If an int is provided, it's treated as a square kernel size (e.g., 3 for a 3x3 kernel).
                 If a tuple of int is provided, it specifies the height and width

@@ -10,6 +10,10 @@ class FScore(Function):
         The F-score is a way of combining the precision and recall of the model,
         and it is defined as the harmonic mean of the model’s precision and recall.
 
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+
     """
 
     def __init__(self, threshold, dtype="float64"):
@@ -50,14 +54,14 @@ def f_score(y, t, threshold=0.7, dtype="float64"):
         and it is defined as the harmonic mean of the model’s precision and recall.
 
         F-score is calculated as:
-            F-score = (2 * precision * recall) / (precision + recall)
+            :math:`F-score = (2 * precision * recall) / (precision + recall)`
 
         More species, please see :meth:`marquetry.functions.precision` and :meth:`marquetry.functions.recall`.
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
             threshold (float): The threshold value used to determine binary predictions.
                 Defaults to 0.7.
@@ -65,7 +69,7 @@ def f_score(y, t, threshold=0.7, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The F-score based on the true binary labels
+            :class:`marquetry.Container`: The F-score based on the true binary labels
                 and predicted values using the specified threshold.
     """
 
@@ -80,6 +84,10 @@ class MultiFScore(Function):
 
         The F-score is a way of combining the precision and recall of the model,
         and it is defined as the harmonic mean of the model’s precision and recall.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
 
     """
 
@@ -124,15 +132,15 @@ def multi_f_score(y, t, target_class=1, dtype="float64"):
         and it is defined as the harmonic mean of the model’s precision and recall.
 
         F-score is calculated as:
-            F-score = (2 * precision * recall) / (precision + recall)
+            :math:`F-score = (2 * precision * recall) / (precision + recall)`
 
         More species,
         please see :meth:`marquetry.functions.multi_precision` and :meth:`marquetry.functions.multi_recall`.
 
         Args:
-            y (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            y (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
             target_class (int):
                 The class index to be treated as the positive class when calculating the F-score.
@@ -141,7 +149,7 @@ def multi_f_score(y, t, target_class=1, dtype="float64"):
                 The return value's dtype, Default is "float64" that means 64-bit float value.
 
         Returns:
-            :class:`marquetry.Variable`: The F-score for the specified target class
+            :class:`marquetry.Container`: The F-score for the specified target class
                 based on the true labels and predicted values.
     """
     return MultiFScore(target_class, dtype)(y, t)

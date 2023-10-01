@@ -22,7 +22,7 @@ class Linear(Layer):
                 Default is np.float32.
             in_size (int or None): The number of input units (dimension of the input).
 
-        Notes:
+        Note:
             in_size:
                 This is automatically determined from the input data shape and
                 does not need to be specified except a special use case.

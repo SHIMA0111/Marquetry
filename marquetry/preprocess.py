@@ -1,5 +1,6 @@
 import json
 import os
+import warnings
 
 import pandas as pd
 
@@ -12,7 +13,7 @@ from marquetry import configuration
 class Preprocess(object):
     """Base class for preprocessing CSV or Datamart(Not implement now) data.
 
-        All preprocess implementation defined in :preprocesses:`marquetry.preprocesses` inherit
+        All preprocess implementation defined in :mod:`marquetry.preprocesses` inherit
         this class.
 
         The main feature of this class is to provide a uniform process for all preprocessing steps.
@@ -25,21 +26,23 @@ class Preprocess(object):
         Args:
             name (str): A unique name for the preprocess instance.
                 It is used for saving and loading statistic data.
+            is_train(bool): Specifying the data is ``train`` or not.
 
     """
 
     _label = None
     _msg = """if you use new data for the training, please use new `name` parameter or delete the old statistic data"""
 
-    def __init__(self, name):
+    def __init__(self, name, is_train):
         self._name = name
+        self._is_train = is_train
 
         data_dir = os.path.join(configuration.config.CACHE_DIR, name)
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
 
         self.data_dir = data_dir
-        self._statistic_data = None
+        self._statistic_data, self._statistic_size = self._load_statistic()
 
     def __call__(self, data: pd.DataFrame):
         if not isinstance(data, pd.DataFrame):
@@ -47,6 +50,13 @@ class Preprocess(object):
 
         if self._statistic_data is not None:
             self._validate_structure(data)
+
+        if self._statistic_data is None and not self._is_train:
+            raise ValueError("In test data process, train statistic must be needed but there is no statistic data.")
+
+        if self._statistic_size is None:
+            self._statistic_size = len(data.index)
+
         data.reset_index(drop=True, inplace=True)
         output = self.process(data)
 
@@ -75,15 +85,29 @@ class Preprocess(object):
                 data (pd.DataFrame): Input data in the form of a pandas DataFrame.
 
         """
+        if self._statistic_size != len(data) and self._is_train:
+            self._statistic_data = None
+            self.remove_old_statistic()
+            self._statistic_size = len(data.index)
+
+            return
 
         if not isinstance(self._statistic_data, dict):
-            raise TypeError("statistic data is wrong, expected dict but got {}".format(type(self._statistic_data)))
+            msg = "statistic data is wrong, expected dict but got {}. ".format(type(self._statistic_data))
+            if not self._is_train:
+                raise TypeError(msg)
+
+            warnings.warn(msg + "Delete and Recalculate the statistic file.", SyntaxWarning)
+            self._statistic_data = None
+            self.remove_old_statistic()
+
+            return
 
         data_columns = set(data.columns)
         statistic_columns = set(self._statistic_data.keys())
 
         if data_columns != statistic_columns:
-            raise ValueError("saved static data: {} is exist, but the construct is wrong".format(self._name))
+            raise ValueError("Statistic data unmatch with input data. Please check correctness of the statistic name.")
 
         return
 
@@ -93,7 +117,7 @@ class Preprocess(object):
             Args:
                 statistic_data (dict): Statistic data to be saved.
 
-            Notes:
+            Note:
                 This method requires self._label is not None.
                 Therefore, if this method call in the base class, always it failed by NotImplementedError.
         """
@@ -104,8 +128,10 @@ class Preprocess(object):
         file_name = self._name + "." + self._label + ".json"
         file_path = os.path.join(self.data_dir, file_name)
 
+        save_data_dict = {"statistic_data": statistic_data, "statistic_size": self._statistic_size}
+
         with open(file_path, "w") as f:
-            json.dump(statistic_data, f)
+            json.dump(save_data_dict, f)
 
         return
 
@@ -115,7 +141,7 @@ class Preprocess(object):
             Returns:
                 dict or None: Loaded statistic data, or None if no data is found.
 
-            Notes:
+            Note:
                 This method requires self._label is not None.
                 Therefore, if this method call in the base class, always it failed by NotImplementedError.
 
@@ -128,12 +154,15 @@ class Preprocess(object):
         file_path = os.path.join(self.data_dir, file_name)
 
         if not os.path.exists(file_path):
-            return None
+            return None, None
 
         with open(file_path, "r") as f:
-            statistic_data = json.load(f)
+            load_data = json.load(f)
 
-        return statistic_data
+        statistic_data = load_data["statistic_data"]
+        data_size = load_data["statistic_size"]
+
+        return statistic_data, data_size
 
     def remove_old_statistic(self):
         """Remove previously saved statistic data."""

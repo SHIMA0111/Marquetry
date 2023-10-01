@@ -3,14 +3,14 @@ import unittest
 import numpy as np
 
 import marquetry.functions as funcs
-from marquetry import Variable
+from marquetry import Container
 from marquetry.utils import array_close, gradient_check
 
 
 class TestReshape(unittest.TestCase):
 
     def test_shape_check1(self):
-        x = Variable(np.random.randn(1, 9))
+        x = Container(np.random.randn(1, 9))
         y = x.reshape((3, 3))
 
         expected_shape = (3, 3)
@@ -18,7 +18,7 @@ class TestReshape(unittest.TestCase):
         self.assertTrue(y.shape, expected_shape)
 
     def test_shape_check2(self):
-        x = Variable(np.random.randn(1, 16))
+        x = Container(np.random.randn(1, 16))
         y = x.reshape((4, 4))
 
         y.backward()
@@ -29,13 +29,13 @@ class TestReshape(unittest.TestCase):
 class TestTranspose(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.array([[1, 2, 3], [4, 5, 6]]))
+        x = Container(np.array([[1, 2, 3], [4, 5, 6]]))
         y = funcs.transpose(x)
 
         self.assertEqual(y.shape, (3, 2))
 
     def test_forward2(self):
-        x = Variable(np.random.randn(2, 3, 4))
+        x = Container(np.random.randn(2, 3, 4))
         y = funcs.transpose(x, (1, 0, 2))
 
         self.assertEqual(y.shape, (3, 2, 4))
@@ -70,28 +70,28 @@ class TestGetItem(unittest.TestCase):
 
     def test_forward1(self):
         x_data = np.arange(12).reshape((2, 2, 3))
-        x = Variable(x_data)
+        x = Container(x_data)
         y = x[0]
 
         self.assertTrue(array_close(y.data, x_data[0]))
 
     def test_forward2(self):
         x_data = np.arange(18).reshape((3, 3, 2))
-        x = Variable(x_data)
+        x = Container(x_data)
         y = funcs.get_item(x, 0)
 
         self.assertTrue(array_close(y.data, x_data[0]))
 
     def test_forward3(self):
         x_data = np.arange(27).reshape((3, 3, 3))
-        x = Variable(x_data)
+        x = Container(x_data)
         y = funcs.get_item(x, (Ellipsis, 2))
 
         self.assertTrue(array_close(y.data, x_data[..., 2]))
 
     def test_forward4(self):
         x_data = np.arange(36).reshape((3, 3, 4))
-        x = Variable(x_data)
+        x = Container(x_data)
         y = funcs.get_item(x, (0, 1, slice(0, 2, 2)))
 
         self.assertTrue(array_close(y.data, x_data[0, 1, 0:2:2]))
@@ -113,19 +113,19 @@ class TestGetItem(unittest.TestCase):
 
 class TestRepeat(unittest.TestCase):
     def test_check_shape1(self):
-        x = Variable(np.random.randn(3, 1, 5))
+        x = Container(np.random.randn(3, 1, 5))
         y = x.repeat(5, axis=1)
 
         self.assertEqual(y.shape, (3, 5, 5))
 
     def test_check_shape2(self):
-        x = Variable(np.random.randn(3, 1, 5))
+        x = Container(np.random.randn(3, 1, 5))
         y = funcs.repeat(x, repeats=4, axis=2)
 
         self.assertEqual(y.shape, (3, 1, 20))
 
     def test_forward1(self):
-        x = Variable(np.arange(12).reshape((3, 4)))
+        x = Container(np.arange(12).reshape((3, 4)))
         y = x.repeat(2, axis=0)
 
         self.assertTrue(array_close(y.data[0::2, :], x.data))

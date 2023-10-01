@@ -3,14 +3,14 @@ from typing import Sequence
 import numpy as np
 
 from marquetry import cuda_backend
-from marquetry import Variable
+from marquetry import Container
 
 
 def numerical_grad(func, x, *args, **kwargs):
     """Numerical Gradient calculator"""
     eps = 1e-4
 
-    x = x.data if isinstance(x, Variable) else x
+    x = x.data if isinstance(x, Container) else x
     xp = cuda_backend.get_array_module(x)
     if xp is not np:
         np_x = cuda_backend.as_numpy(x)
@@ -26,14 +26,14 @@ def numerical_grad(func, x, *args, **kwargs):
 
         x[index] = tmp_val + eps
         y1 = func(x, *args, **kwargs)
-        if isinstance(y1, Variable):
+        if isinstance(y1, Container):
             y1 = y1.data
 
         y1 = y1.copy()
 
         x[index] = tmp_val - eps
         y2 = func(x, *args, **kwargs)
-        if isinstance(y2, Variable):
+        if isinstance(y2, Container):
             y2 = y2.data
 
         y2 = y2.copy()
@@ -45,7 +45,7 @@ def numerical_grad(func, x, *args, **kwargs):
         else:
             diff = (y1 - y2).sum()
 
-        if isinstance(diff, Variable):
+        if isinstance(diff, Container):
             diff = diff.data
 
         grad[index] = diff / (2 * eps)

@@ -13,7 +13,7 @@ class Compose(object):
             >>> dataset = marquetry.datasets.MNIST(transform=compose)
     """
 
-    def __init__(self, transforms=None):
+    def __init__(self, transforms: list = None):
         self.transforms = transforms if len(transforms) != 0 else []
 
     def __call__(self, data):

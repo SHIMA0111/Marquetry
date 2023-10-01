@@ -1,5 +1,7 @@
 import marquetry.functions.evaluation
 
+from marquetry.functions.activations.identity import identity
+from marquetry.functions.activations.identity import Identity
 from marquetry.functions.activations.leaky_relu import leaky_relu
 from marquetry.functions.activations.leaky_relu import LeakyReLU
 from marquetry.functions.activations.log_softmax import log_softmax
@@ -107,5 +109,5 @@ from marquetry.functions.normalization.batch_normalization import BatchNormaliza
 
 from marquetry.functions.pooling.max_pooling2d import max_pooling_2d
 from marquetry.functions.pooling.max_pooling2d import MaxPooling2D
-from marquetry.functions.regularlization.dropout import dropout
-from marquetry.functions.regularlization.dropout import Dropout
+from marquetry.functions.regularization.dropout import dropout
+from marquetry.functions.regularization.dropout import Dropout

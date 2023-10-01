@@ -12,6 +12,10 @@ class SoftmaxCrossEntropy(Function):
         the true labels for multi-class classification tasks.
         It takes the softmax of the input values to compute class probabilities and then
         compares them to the true labels.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def forward(self, x, t):
         xp = cuda_backend.get_array_module(x)
@@ -53,13 +57,13 @@ def softmax_cross_entropy(x, t):
         compares them to the true labels.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values or scores.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true labels.
 
         Returns:
-            :class:`marquetry.Variable`: The Softmax Cross-Entropy loss.
+            :class:`marquetry.Container`: The Softmax Cross-Entropy loss.
     """
 
     return SoftmaxCrossEntropy()(x, t)

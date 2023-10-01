@@ -1,4 +1,4 @@
-from marquetry import as_variable
+from marquetry import as_container
 from marquetry import cuda_backend
 from marquetry import Function
 from marquetry import functions
@@ -10,6 +10,10 @@ class SigmoidCrossEntropy(Function):
         This class defines a function that computes the Sigmoid Cross-Entropy loss,
         which is commonly used as the loss function in binary classification problems.
         It measures the dissimilarity between the predicted values and the true binary labels.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
     def __init__(self):
         self.batch_size = None
@@ -52,13 +56,13 @@ def sigmoid_cross_entropy(x, t):
         It measures the dissimilarity between the predicted values and the true binary labels.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The predicted values.
-            t (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            t (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The true binary labels.
 
         Returns:
-            :class:`marquetry.Variable`: The Sigmoid Cross-Entropy loss
+            :class:`marquetry.Container`: The Sigmoid Cross-Entropy loss
                 between the predicted values and true binary labels.
     """
 
@@ -69,7 +73,7 @@ def simple_sigmoid_cross_entropy(x, t):
     if x.ndim != t.ndim:
         t = t.reshape(*x.shape)
 
-    x, t = as_variable(x), as_variable(t)
+    x, t = as_container(x), as_container(t)
     batch_size = len(x)
     p = functions.sigmoid(x)
     p = functions.clip(p, 1e-15, 0.99)

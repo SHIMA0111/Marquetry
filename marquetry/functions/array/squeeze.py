@@ -4,7 +4,12 @@ from marquetry import functions
 
 
 class Squeeze(Function):
-    """Remove single-dimensional entries from the shape of an input array."""
+    """Remove single-dimensional entries from the shape of an input array.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
     def __init__(self, axis):
         if isinstance(axis, int):
             axis = (axis,)
@@ -49,13 +54,13 @@ def squeeze(x, axis):
     """Remove single-dimensional entries from the shape of an input array.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array  from which single-dimensional entries should be removed.
             axis (int or tuple of ints or list of ints): The axis along which single-dimensional entries should be removed.
 
         Returns:
-            :class:`marquetry.Variable`: The result of removing single-dimensional
-            entries from the input array or variable along the specified axis (or all axes if axis is None).
+            :class:`marquetry.Container`: The result of removing single-dimensional
+            entries from the input array or container along the specified axis (or all axes if axis is None).
 
         Raises:
             ValueError: If the specified axis does not have a size of 1,
@@ -65,7 +70,7 @@ def squeeze(x, axis):
             >>> x = np.arange(1, 9).reshape(1, 8)
             array([[1, 2, 3, 4, 5, 6, 7, 8]])
             >>> squeeze(x, axis=0)
-            matrix([1 2 3 4 5 6 7 8])
+            container([1 2 3 4 5 6 7 8])
 
     """
 

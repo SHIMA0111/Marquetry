@@ -4,7 +4,12 @@ from marquetry import functions
 
 
 class BroadcastTo(Function):
-    """BroadcastTo function that transform the array to specify shape."""
+    """BroadcastTo function that transform the array to specify shape.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
+    """
     def __init__(self, shape):
         self.shape = shape
 
@@ -36,12 +41,12 @@ def broadcast_to(x, shape):
         This function copies the array to the specifying shape.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                Input variable that is :class:`marquetry.Variable` array.
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                Input container that is :class:`marquetry.Container` array.
             shape (tuple): The goal shape using this function.
 
         Returns:
-            marquetry.Variable: Output variable. A float array.
+            marquetry.Container: Output container. A float array.
 
         Examples:
 
@@ -49,10 +54,10 @@ def broadcast_to(x, shape):
             >>> x
             array([[ 1., -3.]], dtype=float32)
             >>> broadcast_to(x, shape=(4, 2))
-            matrix([[ 1. -3.]
-                    [ 1. -3.]
-                    [ 1. -3.]
-                    [ 1. -3.]])
+            container([[ 1. -3.]
+                       [ 1. -3.]
+                       [ 1. -3.]
+                       [ 1. -3.]])
 
         """
     return BroadcastTo(shape)(x)

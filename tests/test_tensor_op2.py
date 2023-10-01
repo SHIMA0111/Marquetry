@@ -3,14 +3,14 @@ import unittest
 import numpy as np
 
 import marquetry.functions as funcs
-from marquetry import Variable
+from marquetry import Container
 from marquetry.utils import array_equal, gradient_check
 
 
 class TestConcat(unittest.TestCase):
 
     def test_forward1(self):
-        x0 = Variable(np.array([[1, 2], [3, 4], [5, 6]]))
+        x0 = Container(np.array([[1, 2], [3, 4], [5, 6]]))
         x1 = np.array([[4], [4], [4]])
 
         y = funcs.concat((x0, x1), axis=1)
@@ -117,7 +117,7 @@ class TestSqueeze(unittest.TestCase):
         self.assertTrue(gradient_check(f, x))
 
     def test_shape_check(self):
-        x = Variable(np.random.randn(3, 1, 5))
+        x = Container(np.random.randn(3, 1, 5))
         y = funcs.squeeze(x, axis=1)
         y.backward()
 
@@ -133,7 +133,7 @@ class TestUnSqueeze(unittest.TestCase):
         self.assertEqual(y.shape, (3, 1, 4))
 
     def test_forward2(self):
-        x = Variable(np.random.randn(3, 4))
+        x = Container(np.random.randn(3, 4))
         y = x.unsqueeze(axis=0)
 
         self.assertEqual(y.shape, (1, 3, 4))
@@ -152,7 +152,7 @@ class TestUnSqueeze(unittest.TestCase):
         self.assertTrue(gradient_check(f, x))
 
     def test_shape_check(self):
-        x = Variable(np.random.randn(3, 4))
+        x = Container(np.random.randn(3, 4))
         y = x.unsqueeze(axis=2)
         y.backward()
 

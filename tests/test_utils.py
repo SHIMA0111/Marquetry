@@ -4,14 +4,14 @@ import numpy as np
 import torch
 
 import marquetry.functions as funcs
-from marquetry import Variable
+from marquetry import Container
 from marquetry.utils import array_close, gradient_check
 
 
 class TestMax(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.random.rand(10))
+        x = Container(np.random.rand(10))
         y = funcs.max(x)
 
         res = y.data
@@ -23,7 +23,7 @@ class TestMax(unittest.TestCase):
         shape = (10, 20, 30)
         axis = 1
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.max(x, axis=axis)
 
         res = y.data
@@ -35,7 +35,7 @@ class TestMax(unittest.TestCase):
         shape = (10, 20, 30)
         axis = (0, 1)
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.max(x, axis=axis)
 
         res = y.data
@@ -47,7 +47,7 @@ class TestMax(unittest.TestCase):
         shape = (10, 20, 30)
         axis = (0, 1)
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.max(x, axis=axis, keepdims=True)
 
         res = y.data
@@ -89,7 +89,7 @@ class TestMax(unittest.TestCase):
 class TestMin(unittest.TestCase):
 
     def test_forward1(self):
-        x = Variable(np.random.rand(10))
+        x = Container(np.random.rand(10))
         y = funcs.min(x)
 
         res = y.data
@@ -101,7 +101,7 @@ class TestMin(unittest.TestCase):
         shape = (10, 20, 30)
         axis = 1
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.min(x, axis=axis)
 
         res = y.data
@@ -113,7 +113,7 @@ class TestMin(unittest.TestCase):
         shape = (10, 20, 30)
         axis = (0, 1)
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.min(x, axis=axis)
 
         res = y.data
@@ -125,7 +125,7 @@ class TestMin(unittest.TestCase):
         shape = (10, 20, 30)
         axis = (0, 1)
 
-        x = Variable(np.random.randn(*shape))
+        x = Container(np.random.randn(*shape))
         y = funcs.min(x, axis=axis, keepdims=True)
 
         res = y.data

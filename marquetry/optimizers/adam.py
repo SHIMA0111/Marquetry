@@ -25,11 +25,15 @@ class Adam(Optimizer):
             eps (float): A small value (epsilon) added to the denominator to prevent division by zero.
                 Default is 1e-8.
 
+        Tip:
+            When you would like to optimize your model's parameter,
+            please set the model to this using ``prepare`` method.
 
         Examples:
             >>> optimizer = Adam()
             >>> model = marquetry.models.MLP([128, 256, 64, 10])
             >>> optimizer.prepare(model)
+            >>> optimizer.update()
 
     """
 
@@ -46,11 +50,6 @@ class Adam(Optimizer):
         self.histories = {}
 
     def update(self):
-        """Update the optimizer's internal iteration count.
-
-            This method should be called once per training iteration.
-
-        """
         self.iters += 1
         super().update()
 
@@ -76,15 +75,6 @@ class Adam(Optimizer):
 
     @property
     def lr(self):
-        """Get the current learning rate adjusted for the current iteration.
-
-            The learning rate is adjusted based on the current iteration count.
-
-            Returns:
-                float: The adjusted learning rate.
-
-        """
-
         correction1 = 1. - math.pow(self.fd, self.iters)
         correction2 = 1. - math.pow(self.sd, self.iters)
 

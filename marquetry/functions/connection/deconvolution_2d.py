@@ -8,8 +8,12 @@ from marquetry.functions.connection.convolution_2d_grad_w import Conv2DGradW
 class Deconvolution2D(Function):
     """Perform 2D deconvolution on an input array.
 
-        This class defines a function that performs 2D deconvolution on an input array or variable using the given
+        This class defines a function that performs 2D deconvolution on an input array or container using the given
         de-convolutional kernel and optional bias.
+
+        Note:
+            Generally, you don't need to execute ``forward`` and ``backward`` method manually.
+            You should use only ``__call__`` method.
     """
 
     def __init__(self, stride=1, pad=0, out_size=None):
@@ -67,29 +71,29 @@ def deconvolution_2d(x, w, b=None, stride=1, pad=0, out_size=None):
     """Perform 2D deconvolution on an input array.
 
 
-        This class defines a function that performs 2D deconvolution on an input array or variable using the given
+        This class defines a function that performs 2D deconvolution on an input array or container using the given
         de-convolutional kernel and optional bias.
 
         Args:
-            x (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                The input array or variable to be de-convolved.
-            w (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+            x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
+                The input array or container to be de-convolved.
+            w (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The de-convolutional kernel.
-            b (:class:`marquetry.Variable` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
+            b (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray` or None):
                 The bias term. If None, no bias is added.
             stride (int or tuple of ints):
                 The stride for moving the de-convolutional kernel. If an int is provided,
                 it is converted to a tuple of the same value for both dimensions.
                 Defaults to 1.
-            pad (int or tuple of ints): The padding added to the input array or variable before deconvolution.
+            pad (int or tuple of ints): The padding added to the input array or container before deconvolution.
                 If an int is provided, it is converted to a tuple of the same value for both dimensions.
                 Defaults to 0.
             out_size (tuple of ints or None): The size of the output feature map.
                 If None, the size is determined based on the input and kernel sizes.
 
         Returns:
-            :class:`marquetry.Variable`: The result of 2D deconvolution on the input
-                array or variable using the provided kernel and bias (if any).
+            :class:`marquetry.Container`: The result of 2D deconvolution on the input
+                array or container using the provided kernel and bias (if any).
 
         Examples:
             >>> x = np.arange(0, 576).reshape(1, 16, 6, 6)
