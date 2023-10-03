@@ -28,8 +28,7 @@ release = 'v0.1.0'
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
+    'sphinx.ext.doctest',
     'sphinx.ext.napoleon',
     'sphinx_design'
 ]
@@ -46,6 +45,7 @@ sd_fontawesome_latex = True
 
 todo_include_todos = False
 html_show_sphinx = False
+html_show_sourcelink = False
 
 html_theme_options = {
     "footer_icons": [
