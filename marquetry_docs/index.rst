@@ -57,6 +57,7 @@ More information
    documents/get_started
    documents/examples
    api_reference
+   release_note
 
 .. grid:: 2
    :gutter: 2
