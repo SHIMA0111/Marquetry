@@ -18,6 +18,8 @@ from marquetry.function import test_mode
 
 from marquetry.layer import Layer
 from marquetry.model import Model
+from marquetry.optimizer import WeightDecay
+from marquetry.optimizer import ClipGrad
 from marquetry.preprocess import Preprocess
 
 import marquetry.dataloaders

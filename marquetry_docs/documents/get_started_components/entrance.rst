@@ -21,12 +21,12 @@ We use simple separate area data.
 
 What is the Dataset we use?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The dataset is area classification problem!
+The dataset is an area classification problem!
 This problem's core is the grid data classifying if the grid is over the sin curve or under.
 From our(people), the classification is simple and easy.
 Because we can understand that this problem is simply as y > sin(x) or y < sin(x).
 However, we don't provide this formula. We provide just the coordinate points
-and the correct label corresponding the points.
+and the correct label corresponding to the points.
 
 **Let's challenge the project with Marquetry!**
 
@@ -95,18 +95,18 @@ The upper of the sin curve points are classified as 1, under points are 0.
 
 You can see a beautiful sin curve!
 
-Tell you the truth, this learning is difficult for the conventional linear machine learning.
-Because, the conventional machine learning, which is ``linear regression`` or ``logistic regression``,
+To tell you the truth, this learning is difficult for conventional linear machine learning.
+Because, conventional machine learning, which is ``linear regression`` or ``logistic regression``,
 can learn only linear information.
-However, sin curve is non-linear function so the classification threshold also non-liner.
-In the conventional machine learning, this learning is very hard.
+However, the sin curve is a non-linear function so the classification threshold is also a non-linear.
+In conventional machine learning, this learning is very hard.
 
 I've tested the training using ``Logistic Regression``, please see the below figures.
 
-The first figure is unlearned model output. The second is 100 epoch learned model.
-The third figure is 900 epoch learned model.
+The first figure is the unlearned model output. The second is the 100 epoch learned model.
+The third figure is the 900 epoch learned model.
 
-You can see the model can only linear output. This doesn't fit the non-linear data(sin curve).
+You can see the model can only have linear output. This doesn't fit the non-linear data(sin curve).
 
 .. note::
    1 epoch means learning all dataset. In this time, the 1600 data is used.
@@ -135,9 +135,9 @@ You can see the model can only linear output. This doesn't fit the non-linear da
       900 epochs
 
 .. tip::
-   Keep mind, there are non-linear model even in conventional machine learning models
+   Keep in mind, there are non-linear models even in conventional machine learning models
    like ``polynomial regression`` and so.
-   If you use such non-linear model, you can learn non-linear function.
+   If you use such non-linear models, you can learn non-linear functions.
 
 .. centered:: **Congratulation! You succeed the dataset creation!**
 
@@ -145,24 +145,25 @@ Create Model
 ~~~~~~~~~~~~~
 Let's start model definition. Oh, rest assured!
 
-Now you are using Marquetry, so the definition can do very easy.
+Now you are using Marquetry, so the definition can be very easy.
 
 This problem is **not** image data and not sequence data so we use a simple fully connected neural network.
 
-Fully connected neural network means the all neuron in current layer and the next/previous layer connected each other.
-Such neural network sometimes called ``Multiple Layer Perceptron``.
+A fully connected neural network means neurons in the current layer and
+the next/previous layer are connected to each other.
+Such neural network is sometimes called ``Multiple Layer Perceptron``.
 
 Oh, sorry, I didn't explain what is the ``Neural Network``.
 
-Neural Network is base of the Deep Learning. In other words, Deep Learning is deeper Neural Network.
+Neural Network is base of the Deep Learning. In other words, Deep Learning is a deeper Neural Network.
 In some documents, ``Deep Learning`` and ``Neural Network`` are used indicating the same thing.
 
-In typically, upper than 3 layers neural network is often called ``Deep Learning``.
+In typically, an upper than 3-layer neural network is often called ``Deep Learning``.
 But the definition seems to be ambiguous.
-You don't need to remember this! Please keep in the back of your mind only about the Deep Learning is
-deeper Neural Network so the mechanism is almost same.
+You don't need to remember this! Please keep in the back of your mind only the Deep Learning is
+deeper Neural Network so the mechanism is almost the same.
 
-Well, in this time, we create 3-layers Neural Network. Using :class:`marquetry.models.MLP`.
+Well, this time, we create a 3-layer Neural Network. Using :class:`marquetry.models.MLP`.
    - What is the MLP? MLP stands for ``Multiple Layer Perceptron``!
 
 1. Define the model, don't worry! You should do is only define the number of the neuron and the layer.
@@ -174,50 +175,50 @@ Well, in this time, we create 3-layers Neural Network. Using :class:`marquetry.m
 
    .. note:: The definition means the first layer has 2 neurons and　the second one has 3 neurons,
              and the last layer has 1 neuron.
-             The last layer called as ``output layer`` which must be the same size as output which you want to.
+             The last layer is called as ``output layer`` which must be the same size as the output that you want.
              In this time, the output is over/under so this can be expressed by 0/1 so the output size should **1**.
 
-   .. tip:: In accurate, Neural Network(Deep Learning) has one more layer which is called as ``input layer``.
-            However, input layer is doing only forward the input layer to the first layer.
+   .. tip:: In accuracy, Neural Network(Deep Learning) has one more layer which is called as ``input layer``.
+            However, the input layer only forwards the input layer to the first layer.
             In other words, the input layer has no compute process.
-            Therefore, the layer isn't count as the model's layer in almost case.
+            Therefore, the layer doesn't count as the model's layer in almost every case.
 
-            Although, some documents count layer including the input layer so if you face such document,
+            However, some documents count layers including the input layer so if you face such documents,
             please remember this :)
 
 
-In the network training, we needs to compute the gradient for the loss of the output comparing with the target data.
-The loss is important to learning the excellence of the model for the time.
+In the network training, we need to compute the gradient for the loss of the output compared with the target data.
+The loss is important to learn the excellence of the model for the time.
 
 :You: What is the loss? Why is it needed?
 :Me: Loss is the distance for the ideal!
-     Please imagine when you studied something, maybe you tried and learned an mistakes.
+     Please imagine when you studied something, maybe you tried and made mistakes.
      From mistakes, you can learn how to make no mistakes after this time.
-     Neural Network is inspired by human cranial nerves so to make the model to learn by themselves,
+     Neural Network is inspired by human cranial nerves so to make the model learn by itself,
      we need to provide the correct error(mistakes) as we did.
-     The correct error in the neural network called ``loss`` and it is provided by ``Loss Function``.
+     The correct error in the neural network is called ``loss`` and it is provided by ``Loss Function``.
 
 .. tip::
     Let me rephrase it, the correct data is the ideal output. If the loss(error) is 0,
-    the model can provide the completely correct prediction.
-    In this situation, the model has no thing to learn by the data.
+    the model can provide a completely correct prediction.
+    In this situation, the model has nothing to learn from the data.
 
-    However, if the loss(error) larger than 0, the model can learn the relation between the data and the ideal output.
-    In generally, Neural Network learn data to reduce the loss(error) updating the model parameter.
+    However, if the loss(error) is larger than 0, the model can learn the relation between the data and the ideal output.
+    In general, Neural Network learn data to reduce the loss(error) by updating the model parameter.
     And when getting closer to the ideal, the model loss is also reduced.
 
-    Therefore, ``Loss`` can be talked as the distance for the the ideal.
+    Therefore, ``Loss`` can be told about as the distance for the ideal.
 
-2. Define ``Loss Function`` which is indicator to learn the input source data and the correct label(value).
-   This time, the prediction type is classification(data classificator model).
-   In general, the classification can divide to ``BinaryClassification`` and ``MultiClassification``.
-   There are suitable loss function for each case.
+2. Define ``Loss Function`` which is an indicator to learn the input source data and the correct label(value).
+   This time, the prediction type is classification.
+   In general, the classification can be divided into ``BinaryClassification`` and ``MultiClassification``.
+   There are suitable loss functions for each case.
 
    Oh, we need to consider it at first?
 
-   No, you are using Marquetry so let's leave such troublesome matter to the framework!
+   No, you are using Marquetry so let's leave such a troublesome matter to the framework!
 
-   We use :func:`marquetry.functions.classification_cross_entropy` which detect and choose the classification type and
+   We use :func:`marquetry.functions.classification_cross_entropy` which detects and chooses the classification type and
    loss function automatically.
 
    .. code-block:: python
@@ -226,46 +227,46 @@ The loss is important to learning the excellence of the model for the time.
 
 How to learn the data?
 ***********************
-The model learns the data and the corresponding correct by updating them parameters.
+The model learns the data and the corresponding correct by updating the parameters.
 What is the update indicator? That is exactly what it is ``Loss``.
 
-Try to remember, when the model fit the data, the ``Loss`` is reduced.
-In other words, the ``Loss`` is reduced, the model will fit to the data.
+Try to remember, when the model is fitted to the data, the ``Loss`` is reduced.
+In other words, the ``Loss`` is reduced, and the model will fit the data.
 
-Now, we prepare the data and model and loss_function so the next component is the last and important things,
+Now, we prepare the data and model and loss_function so the next component is the last and important thing,
 which is called ``Optimizer``.
 
-The model fitting is called as ``Optimize the model``, so that optimizer is the update function.
-Internally, model fitting is reduce the loss by gradient of the loss for each parameter.
-Optimizer is update the parameter following the gradient to reduce the loss.
+The model fitting is called ``Optimize the model``, so the optimizer is the update function.
+Internally, model fitting reduces the loss by the gradient of the loss for each parameter.
+Optimizer updates the parameter following the gradient to reduce the loss.
 
-To resolve some issue, handled and thousand of optimizer have presented so far.
-In this time, we use SGD :class:`marquetry.optimizers.SGD` which is most simple optimizer.
+To resolve some issues, handled and thousands of optimizers have been presented so far.
+In this time, we use SGD :class:`marquetry.optimizers.SGD` which is the most simple optimizer.
 
 :The formula is: previous_param -= learning_rate(small constant value) * the corresponding gradient
 
-What is the gradient? Ok, I try to explain it briefly!
+What is the gradient? Okay, I try to explain it briefly!
 
-I planned to not explain this, hahaha but ok, such curious is very important!
+I planned to not explain this, hahaha but okay, such curiosity is very important!
 
-Try to remember when you were high school student.
+Try to remember when you were a high school student.
 
-... No! I don't ask you about your girlfriend when you were in high school! lol
+... No! I didn't ask you about your girlfriend when you were in high school! lol
 
-I'd like you to remember mathmatics!
-Maybe you learned differential. The differential is tangent slope of the original function.
+I'd like you to remember mathematics!
+Maybe you learned differential. The differential is the tangent slope of the original function.
 The tangent slope is the mentioned ``Gradient``.
 
-From macro perspective,
-deep learning(include loss function) can be viewed as a complex function (ten to million dim function).
+From a macro perspective,
+deep learning(including loss function) can be viewed as a complex function (ten to million dim function).
 The slope indicates the direction of the function maximum(at least increasing)
 so that the parameter updates to the opposite direction of the gradient, the function result can be decreased.
 
-Try to remember one more, to fit model to the data, we need to reduce the loss.
+Try to remember one more, to fit a model to the data, we need to reduce the loss.
 
 Have you figured it out yet?
 The Gradient is computed including the loss function,
-so if all parameter of the model updates to the opposite direction, the loss will be reduced.
+so if all parameters of the model update in the opposite direction, the loss will be reduced.
 
 The SGD formula follows this mission. Please see again the formula.
  - The formula updates the param by opposite gradient
@@ -281,26 +282,26 @@ This time we use 0.1 as ``learning_rate``.
       optim = mq.optimizers.SGD(0.1).prepare(model)
 
 .. tip::
-   In Marquetry, the model you want optimizing is registered to the optimizer via optimizer's :meth:`prepare`.
-   (This is Marquetry manner, not common knowledge.)
+   In Marquetry, the model you want to optimize is registered to the optimizer via optimizer's :meth:`prepare`.
+   (This is a Marquetry manner, not common knowledge.)
 
 Model Training
 ~~~~~~~~~~~~~~~~
 Finally, we get all we need in this section!
 Let's train the model using the created dataset!
 
-Only a few more step left to do!
+Only a few more steps left to do!
 
-We need to decide ``Batch Size`` and ``Epoch`` which are some of hyper parameters for deep learning.
+We need to decide ``Batch Size`` and ``Epoch`` which are some of hyperparameters for deep learning.
 
-:Batch Size: This means how many record use for the training at once.
-             For Deep Learning, there are 3 methods about this topic. ``batch``, ``mini-batch`` and ``online`` training.
+:Batch Size: This means how many records is used for the training at once.
+             For Deep Learning, there are 3 methods for this topic. ``batch``, ``mini-batch`` and ``online`` training.
 
              ``batch``:
-                  this method is using all of data for 1 time training.
+                  this method uses all of the data for 1 time training.
 
              ``mini-batch``:
-                  this method is using some sampled data from the original data for 1 time training
+                  this method uses some sampled data from the original data for 1 time training
                   and the mini-batch combination is changed in each epoch.
 
              ``online``
@@ -308,28 +309,28 @@ We need to decide ``Batch Size`` and ``Epoch`` which are some of hyper parameter
                   Generally, the order is changed in each epoch.
 
 .. tip::
-   ``batch`` training provides a stable training because this method uses all data at once
-   so the training insensitive to the influence of a small noise in data like outlier or so.
+   ``batch`` training provides stable training because this method uses all data at once
+   so the training is insensitive to the influence of a small noise in data like outlier or so.
 
-   However, ``batch`` needs very large memory space owing to this method needs all data is loaded on the memory at once.
+   However, ``batch`` needs very large memory space because this method needs all data to be loaded on the memory at once.
    And, the computational load is also increased.
 
    ``online`` training provides fast learning and low memory usage,
-   and can fit real time model update if you needs to update the model to fit the real time data like stock value.
+   and can fit real time model update if you need to update the model to fit the real time data like stock value.
 
    However, ``online`` is sometimes not stable because this method uses only 1 data at 1 training so it sensitive to
    the influence of a small noise, and honestly speaking,
    ``online`` training is slowly comparing 1 data unit compute time with ``batch``.
 
    ``mini-batch`` is the mixed method of ``batch`` and ``online``.
-   This method uses mini-batch unit at 1 training, each 1 time,
-   using randomly sampled dataset of user defined size(batch size).
+   This method uses a mini-batch unit at 1 training, each 1 time,
+   using a randomly sampled dataset of user defined size(batch size).
    And the size is smaller than the original data size.
 
-   From this specifications, this method insensitive to the influence of a noise than ``online`` training and
+   From these specifications, this method insensitive to the influence of noises than ``online`` training and
    smaller than the data size than the ``batch`` training so this can reduce the memory usage.
 
-Currently, almost case uses ``mini-batch`` training so this time, we use ``mini-batch``.
+Currently, almost every case uses ``mini-batch`` training so this time, we use ``mini-batch``.
 
 .. _epoch:
 
@@ -338,14 +339,14 @@ In other words, 1 epoch means that all data uses up even the training method is 
 
 (``batch`` training uses all data at once so this method, ``Epoch`` match with the training times.)
 
-In this time, we use ``mini-batch`` method with batch size is 32, and epoch is 2000.
+In this time, we use the ``mini-batch`` method with a batch size 32, and the epoch is 2000.
 
-(For check the training correctness, print the average loss and accuracy each iteration.)
+(To check the training correctness, print the average loss and accuracy of each iteration.)
 
 Also, to confirm the progress print loss and output the figure per setting interval.
-This time, the interval set as 100.
+This time, the interval is set as 100.
 
-Let's training the model with data!
+Let's train the model with data!
 
 .. code-block:: python
 
@@ -459,28 +460,28 @@ Let's training the model with data!
       .. image:: ../../_static/img/nn_sin_2000.png
 
 
-Your model draw a beautiful sin curve!
-Just now, you stepped out the deep learning world! Congratulation!!!
+Your model draws a beautiful sin curve!
+Just now, you stepped in to the deep learning world! Congratulation!!!
 
-Welcome the deep learning world!!
+Welcome to the deep learning world!!
 
 Lastly...
 ~~~~~~~~~~
-This model has just only 6 neurons so the expressiveness is limited like just only draw such simple area classification.
+This model has only 6 neurons so the expressiveness is limited like just drawing such simple area classification.
 
-Of course, the real problem may be more complex, some problem can't deal with this small model.
+Of course, the real problem may be more complex, some problems can't deal with this small model.
 
 However, if you understand these steps, you can expand the model!
-Please play with this framework and I wish your journey is all best!
+Please play with this framework and I hope your journey is all the best!
 
 ...how's it going? Impressive, isn't it? lol
 
-Keep mind, you are only enter the world start line!
+Keep in mind, you are only entering the world start line!
 We prepare the more practical problem! Let's keep learning!
 
-The next is prediction of Titanic Disaster. This problem needs only fully connected neural network.
+The next is a prediction of the Titanic Disaster. This problem needs only a fully connected neural network.
 
-``fully connected neural network`` is the same as ``MLP``. So all weapon to resolve the problem are in your hands now!
+``fully connected neural network`` is the same as ``MLP``. So all weapons to resolve the problem are in your hands now!
 
 .. centered:: **Let's go to the practical problem!**
 

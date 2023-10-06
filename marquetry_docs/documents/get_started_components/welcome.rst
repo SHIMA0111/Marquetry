@@ -13,28 +13,28 @@ Explain Marquetry
 
 At the first I'd like to explain this Framework to you.
 Oh, no need to explain? bore you? Sorry... please don't close this page...
-I agree with you, the most enjoyable thing of such framework is **use** on the actual code, I think so too.
+I agree with you, the most enjoyable thing of such framework is **use** the actual code!
 Ok, let's keep it short and to the point!
 This framework is developed as Deep Learning and Machine Learning framework.
 
 Why...?
 ~~~~~~~~
 
-:You: Why did you started to develop this framework? Already there were greatful framework for deep learning...?
+:You: Why did you start to develop this framework? Already there were great frameworks for deep learning...?
 :Me: Because it seems to be very fun and interesting!
 
-This is True, but I have one more reason of this.
-I wondered I want to create a framework for deep learning beginners, and I'd like to spread the fun!
-Surely, we can learn it from other framework like Tensorflow, PyTorch too, or Chainer, but these framework is more
-complex for the beginners.
-And more, for Tensorflow and PyTorch are used a lot of c/c++ for optimizing the calculate process.
-In general work use case, such optimizing is very important but for learner of Deep Learning mechanism,
+This is true, but I have one more reason for this.
+I wondered I wanted to create a framework for deep learning beginners, and I'd like to spread the fun!
+Surely, we can learn it from other frameworks like Tensorflow, PyTorch, or Chainer, but these frameworks are more
+complex for beginners.
+Furthermore, Tensorflow and PyTorch use a lot of c/c++ for optimizing the calculation process.
+In general work use cases, such optimizing is very important but for learners of Deep Learning mechanisms,
 it cannot help you...
 
-Therefore, I was starting to develop this framework to contribute such beginner person!
+Therefore, I was starting to develop this framework to contribute to such a beginner person!
 This framework is written by only Python. And the implementation is very simple.
-If you are worker, sorry, this framework can't fill your needs..., but if you are learner of the deep learning
-implementation, this framework always besides you!
+If you are a worker, sorry, this framework can't fill your needs..., but if you are a learner of deep learning
+implementation, this framework is always beside you!
 
 The bothered explanation is up now! So, **Let's start your journey!!**
 
