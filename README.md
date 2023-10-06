@@ -15,38 +15,11 @@ For simplify the construct, there are un-efficiency implementations.
 I develop this framework to enjoy learning the construction of the machine/machine learning not **Practical Usage**.
 I hope to enjoy your journey!
 
-### Directory
+# Installation
+```shell
+pip install marquetry
 ```
-├── LICENSE.md
-├── README.md
-├── marquetry
-│     ├── conventional_ml
-│     │     └── tree.py ... Tree models
-│     ├── pre_implemetation ... pre impulimentation models
-│     │     └── svm.py
-│     ├── dataloaders ... dataloader components
-│     ├── datasets ... dataset load components
-│     ├── functions ... marquetry function components that have auto-grad mechanism
-│     ├── layers ... layer components
-│     ├── models ... pre constructed models
-│     ├── optimizers ... optimizer components
-│     ├── preprocesses ... preprocess for tables components
-│     ├── transformers ... data transformers for data loading
-│     ├── __init__.py
-│     ├── configuration.py ... configuration manager components
-│     ├── cuda_backend.py ... cuda functions using cupy
-│     ├── dataset.py ...  dataset base class
-│     ├── function.py ... marquetry function base class
-│     ├── utils.py ... non-gradient utils
-│     ├── layer.py ... layer base class
-│     ├── model.py ... model base class
-│     ├── optimizer.py ... optimizer base class
-│     ├── preprocess.py ... preprocess base class
-│     └── container.py ... container components
-├── setup.py
-└── tests
-
-```
+More detail installation is in the [document](https://marquetry.little-tabby.com/)
 
 ### Dependencies
 You need to fill the below version requirement and import external libraries.
@@ -57,12 +30,14 @@ You need to fill the below version requirement and import external libraries.
 
 Optional
  - [CyPy](https://cupy.dev/)
+ - [Matplotlib](https://matplotlib.org/)
 
 for display the calculation graph
  - [Pillow](https://pillow.readthedocs.io/en/stable/)
 
 for test script
  - [PyTorch](https://pytorch.org/)
+ - [scikit-learn](https://scikit-learn.org/stable/)
 
 
 ### License

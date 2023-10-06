@@ -18,6 +18,7 @@ marquetry_docs/_build/
 build/
 develop-eggs/
 dist/
+artifacts/
 downloads/
 eggs/
 .eggs/

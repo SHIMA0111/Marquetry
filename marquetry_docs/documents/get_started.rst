@@ -7,7 +7,7 @@ Hello!!
 
 Thank you for checking this!
 
-If you need help for installation, please select ``Installation``.
+If you need help with installation, please select ``Installation``.
 
 When you want to know ``Marquetry`` or ``Deep Learning``, please select ``Welcome Marquetry!!``.
 

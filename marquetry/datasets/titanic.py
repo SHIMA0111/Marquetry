@@ -95,7 +95,7 @@ class Titanic(dataset.Dataset):
         self._unique_dict = None
 
         self._down_float_bit = down_float_bit
-        if down_float_bit:
+        if down_float_bit and pre_process:
             transform = compose.Compose([astypes.AsType(dtype=np.float32)])
         else:
             transform = None

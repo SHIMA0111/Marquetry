@@ -7,10 +7,10 @@ Marquetry examples
 We've prepared 3 examples.
 Which one is using Titanic Disaster which is a serious ship sinking, you know this as Movie.
 
-Another one is using MNIST which is handwrite number images. We try to classify the image using CNN.
+Another one is using MNIST which is handwritten number images. We try to classify the image using CNN.
 
-Last one is using TrigonometricCurve dataset which provide sin curve values when training,
-and cos curve values when test.
+The last one is using TrigonometricCurve dataset which provides sin curve values when training,
+and cos curve values in the test.
 We try to predict the curve using RNN.
 
 Let's start your journey with your curiosity! All ways are open to you!!
