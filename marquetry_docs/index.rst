@@ -58,6 +58,7 @@ More information
    documents/examples
    api_reference
    release_note
+   license
 
 .. grid:: 2
    :gutter: 2

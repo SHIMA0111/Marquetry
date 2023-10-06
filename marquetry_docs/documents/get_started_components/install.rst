@@ -68,7 +68,7 @@ Install
 
 Verification
 -------------
- - You can check `Marquetry <../../index.html>`_ has be installed correctly by the following simple test.
+ - You can check if `Marquetry <../../index.html>`_ has been installed correctly by the following simple test.
 
  .. code-block:: python
 

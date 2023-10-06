@@ -23,9 +23,9 @@ setup(
     version="0.1.0",
     license="MIT",
     install_requires=[
-        "numpy",
-        "pandas",
-        "pillow",
+        "numpy>=1.20.0",
+        "pandas>=1.5.0",
+        "Pillow>=9.2.0"
     ],
     description="Simple Machine Learning Framework",
     long_description=long_description,

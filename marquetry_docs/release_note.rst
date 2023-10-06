@@ -46,7 +46,7 @@ Version 0.1.0 (Released: 2023/10/05)
 
    - Normalize implementation wasn't correct
    - :class:`UnSqueeze` doesn't work expectedly when the axis is specified multiple type (tuple or list)
-   - :class:`Max` (and :class:`Min` which inherits the :class:`Max`) returns odd type values' array it can't compare with the native numpy ndarray
+   - :class:`Max` (and :class:`Min` which inherits the :class:`Max`) returns a strange form of values' array it can't compare with the native numpy ndarray
 
 Initial Version (Not official release)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

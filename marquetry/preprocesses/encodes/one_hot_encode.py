@@ -150,5 +150,5 @@ class OneHotEncode(Preprocess):
             tmp_dict = dict(zip(sorted(unique_set), class_nums))
             one_hot_dict[column] = tmp_dict
 
-        # self._save_statistic(one_hot_dict)
+        self._save_statistic(one_hot_dict)
         self._statistic_data = one_hot_dict

@@ -1,4 +1,5 @@
 import copy
+import warnings
 import weakref
 
 import numpy as np
@@ -1119,6 +1120,11 @@ def random(shape, name=None, random_std=1.):
                        [ 0.00681053  0.78007514 -2.9132976  -0.19908861]])
 
     """
+
+    if isinstance(shape, int) and isinstance(name, int):
+        warnings.warn("Your input is shape={} and name={}. "
+                      "If you want to set the shape being ({}, {}), please use shape=({}, {})."
+                      .format(shape, name, shape, name, shape, name), SyntaxWarning, stacklevel=3)
 
     if not isinstance(shape, (tuple, int)):
         raise ValueError("shape is expected tuple or int, but got {}".format(type(shape)))

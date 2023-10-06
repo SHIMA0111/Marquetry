@@ -2,20 +2,20 @@ Titanic Disaster Prediction
 =============================
 Welcome to the Titanic Disaster Prediction!
 
-In this page, we predict Titanic Disaster Survivor using a various passengers' attribute.
+On this page, we predict Titanic Disaster Survivor using various passengers' attributes.
 
 Do you know the Titanic?
 
-On April 15, 1912, RMS Titanic, witch was widely considered "unsinkable" at that time,
+On April 15, 1912, RMS Titanic, which was widely considered "unsinkable" at that time,
 sank after colliding with an iceberg.
 Unfortunately, there weren't enough lifeboats for all passengers. As a result, 1502 of all(2224) passengers and crews
 are passed away.
-In a later survey, there are some trend between survivors and others.
+In a later survey, there are some trends between survivors and others.
 
-This prediction is a challenge that build a fit model that "what people were more likely to survive"
+This prediction is a challenge that builds a fit model that "what people were more likely to survive"
 using passengers' data(name, age, gender, etc).
 
-(This data obtained from `the Vanderbilt University Department of Biostatistics <http://hbiostat.org/data>`_.)
+(This data was obtained from `the Vanderbilt University Department of Biostatistics <http://hbiostat.org/data>`_.)
 
 .. centered:: Let's start to challenge this problem!
 
@@ -23,7 +23,7 @@ Prepare data
 ~~~~~~~~~~~~~
 1. Load data
 
-   We prepared Titanic data as Marquetry built-in dataset. So you can load the dataset easily.
+   We prepared Titanic data as the Marquetry built-in dataset. So you can load the dataset easily.
 
    .. code-block:: python
 
@@ -34,13 +34,13 @@ Prepare data
       print(dataset.source_shape)
       >>> (1309, 10)
 
-   In Titanic dataset, you can specify the ``train_rate`` by yourself. When ``train_rate`` is 1.0, you get all data.
+   In the Titanic dataset, you can specify the ``train_rate`` by yourself. When ``train_rate`` is 1.0, you get all data.
    So, this dataset has 1309 records.
 
    And, 10 columns are had as source data (and 1 column is for target data).
 
    .. tip::
-      As a matter of fact, the original data has more 3 data but 2 are leak data and 1 is not exist in the kaggle so
+      As a matter of fact, the original data has more 3 data but 2 are leak data and 1 isn't in the Kaggle so
       to be simple, it was deleted by Marquetry.
 
    Let's check the data.
@@ -56,20 +56,20 @@ Prepare data
       >>> [3 'Yasbeck, Mr. Antoni' 'male' 27.0 1 0 '2659' 14.4542 nan 'C']
 
    Actually, this dataset can't be learned as-is.
-   Please focus ``name`` ``sex``, ``ticket``, ``embarked``, these data is expressed as string.
+   Please focus on ``name`` ``sex``, ``ticket``, ``embarked``, these data is expressed as a string.
    But in neural network, data is computed by linear transformation so neural network can only treat numeric data.
 
    Then, what should we do?
 
-   The answer is very simple, such strings are transformed to numeric representing the original data.
-   There are many techniques but in here, I introduce most simple 2 techniques.
+   The answer is very simple, such strings are transformed into numeric representing the original data.
+   There are many techniques but here, I introduce the most simple 2 techniques.
 
-   First one is called as ``Label Encoding``.
+   The first one is called as ``Label Encoding``.
 
-   As the first step, gathering the column unique values, and then, integers assign to the unique values.
+   As the first step, gathering the column's unique values, and then, integers are assigned to the unique values.
    And transform the original column to the integers assigned to the value.
 
-   For example, we had the below column in data we want to make learn model.
+   For example, we had the below column in data we want to make a learn model.
 
    ======  ========
    Index   Classes
@@ -81,10 +81,10 @@ Prepare data
    5       C
    ======  ========
 
-   The unique values of the ``Classes`` are ``{A, B, C}``. And assign number to the unique set like
+   The unique values of the ``Classes`` are ``{A, B, C}``. And assigned number to the unique set is
    ``{A: 0, B: 1, C: 2}``.
 
-   Then, you transform the original value to the number like the below.
+   Then, you transform the original value to the number like below.
 
    ======  ========
    Index   Classes
@@ -96,27 +96,27 @@ Prepare data
    5       2
    ======  ========
 
-   The data is changed to numeric data however the data meaning isn't changed because 0 is always indicating ``A``
+   The data is changed to numeric data however the data meaning isn't changed because 0 always indicates ``A``
    in this column. Even others are the same.
 
    Right, very easy and simple, isn't it?
 
-   However, this encord method has some problems. One of the most biggest problems is "What is the magnitude relation?".
+   However, this encode method has some problems. One of the biggest problems is "What is the magnitude relation?".
 
-   In Label Encoding, the magnitude relation will show up because it just assign number orderly.
-   But if the ``Classes`` signifies the class room name, there is no relation in the magnitude
-   ("A" class should be neither superior nor inferior others).
+   In Label Encoding, the magnitude relation will show up because it just assigns number orderly.
+   But if the ``Classes`` signifies the classroom name, there is no relation in the magnitude
+   ("A" class should be neither superior nor inferior to others).
 
-   Therefore, such column is often transformed by the next technique.
+   Therefore, such a column is often transformed by the next technique.
 
    The second technique is called as ``One-Hot Encoding``.
 
-   In this method also gather unique values in the column and assign number as the first step.
+   This method also gathers unique values in the column and assigns number as the first step.
    However, the next step is different from the ``Label Encoding`` completely.
 
    As the next step, we prepare the 0-filled matrix as the size of ``record_num``×``unique_num``.
-   After that, the number of the assigned number to the value considering as the column index and the corresponding
-   record column changing to 1.
+   After that, the labeled number is considered as the column index,
+   and the corresponding cell in the matrix changes to 1.
 
    Using the same classes column, the one-hot is the below
 
@@ -136,13 +136,13 @@ Prepare data
 
    This method provides ``One-Hot`` vector so now we can no longer be misled by the magnitude relationship.
 
-   In this page, we use these 2 methods to data preparation.
+   In this page, we use these 2 methods for data preparation.
 
    .. note::
       At first sight, the ``One-Hot Encoding`` seems to be the best option for the no magnitude relationship data.
       However, ``One-Hot Encoding`` has a large problem.
 
-      It is that the one-hot vector can't be controlled the data column size(dimensions).
+      It is that the one-hot vector's size(dimensions) can't be controlled.
       If the unique values num are 100,000,000 values, one-hot encoder creates and adds the 100000000 dims data
       to the data.
 
@@ -150,55 +150,55 @@ Prepare data
       feature space explosion. This cause also the curse of dimensionality.
 
    .. tip::
-      Curse of Dimensionality is advocated by ``Richard Ernest Bellman`` who is applied mathematician.
+      The ``Curse of Dimensionality`` is advocated by ``Richard Ernest Bellman`` who is an applied mathematician.
       This signifies the computation cost is exponentially increasing following the Dimension of the mathematical space.
 
 
    In the Marquetry, you can do this preprocess easily!
 
-   Before it, let's sort the original features.
-   Temporary, we ignore the numerical data.
+   Before that, let's sort out the original features.
+   Temporarily, we ignore the numerical data.
 
    ``name`` and ``sex`` and ``ticket`` and ``cabin``, and ``embarked`` has no the magnitude relationship so
-   these should be transformed to ``One-Hot``.
+   these should be transformed into ``One-Hot``.
 
    In this data, there is no data having the magnitude relationship in the strings columns.
 
-   Then, let's consider about numerical data.
-   Firstly, ``age``, ``fare`` are float number, these isn't needed to be encoded to any
+   Then, let's consider numerical data.
+   Firstly, ``age``, ``fare`` are float numbers, these don't need to be encoded to any
    because these can use data as-is.
 
-   - ``sibsp`` means the number of the siblings/Spouses aboard on the Titanic.
-   - ``parch`` means the number of the parents/children aboard on the Titanic.
+   - ``sibsp`` means the number of siblings/Spouses aboard the Titanic.
+   - ``parch`` means the number of parents/children aboard the Titanic.
 
    Therefore, these can be considered as numerical columns.
 
    For ``pclass``, this indicates passenger class(1st, 2nd, 3rd) which is a proxy for socio-economic class.
 
-   Therefore, ``pclass`` seems to be categorical columns however, this column has a magnitude relationship.
+   Therefore, ``pclass`` seems to be a categorical column however, this column has a magnitude relationship.
    So we should transform this column to label data.
 
    .. tip::
-      This time, ``pclass`` treats as categorical column and trans it to label data.
-      However, some of you think what is there meaning to trans to label.
-      Because the original data is also number so you think it could be useful as-is.
+      This time, ``pclass`` treats as a categorical column and trans to label data.
+      However, some of you think about what is there meaning to trans to label.
+      Because the original data is also a number so you think it could be useful as-is.
 
-      Your thinking is correct so if you can use the data as numerical column too.
+      Your thinking is correct so you can use the data as numerical column too.
       However, in Marquetry, ``pclass`` is set as categorical column built-in.
 
       Also ``sibsp`` and ``parch`` unique number is limited,
-      so that these also can be considered as also Categorical columns.
+      so that these also can be considered as a Categorical columns.
 
-      If you have such question, you may stand the start point of the feature engineering.
+      If you have such a question, you may stand the starting point of feature engineering.
 
    I have rambled on for quite some time. But the data explanation is up so let's prepare the dataset.
-   One more remind, ``pclass`` should be label data and
+   One more reminder, ``pclass`` should be labeled data and
    ``age``, ``fare``, ``sibsp``, and ``parch`` should be numerical data.
    And others should be one-hot data.
-   The category and numerical classification is built-in so you don't need specify it.
+   The category or numerical detection is built-in so you don't need to specify it.
 
-   And category columns are assigned to one-hot as default, so you need only specify ``label_encoding_columns``.
-   (Also, ``name`` is unique data so this time drop ``name`` column.)
+   Category columns are assigned to one-hot as default, so you need to only specify ``label_encoding_columns``.
+   (Also, ``name`` is unique data so this time drops ``name`` column.)
 
    .. code-block:: python
 
@@ -211,7 +211,7 @@ Prepare data
 2. Load dataset to dataloader
 
    DataLoader helps the mini-batch learning to be easy.
-   At this time, the ``batch_size`` is 32.
+   In this time, the ``batch_size`` is 32.
 
    .. code-block:: python
 
@@ -226,13 +226,13 @@ Prepare data
 Prepare model
 ~~~~~~~~~~~~~~
 
-1. Create model
+1. Create a model
 
-   In this time, we try to use Sequential wrapper constructing Fully-connected Neural Network(MLP).
+   In this time, we try to use a Sequential wrapper to construct Fully-connected Neural Network(MLP).
    And, to regularize the learning, we use :class:`marquetry.layers.BatchNormalization`
-   and also using :math:`marquetry.functions.relu` as activation function.
+   and also using :math:`marquetry.functions.relu` as an activation function.
 
-   The first Linear transformation has 16 neurons and the output Linear has 1 neurons.
+   The first Linear transformation has 16 neurons and the output Linear has 1 neuron.
 
    .. code-block:: python
 
@@ -248,12 +248,12 @@ Prepare model
       optim.prepare(model)
 
 
-.. centered:: Now you have all you needed to learn the Titanic dataset! Let's proceed the learning section!
+.. centered:: Now you have all you need to learn the Titanic dataset! Let's proceed the learning section!
 
 Model fitting
 ~~~~~~~~~~~~~~
 
-In this time, the ``max_epoch`` is 100 and ``accuracy`` and ``loss`` are used as accuracy indicator.
+In this time, the ``max_epoch`` is 100, and ``accuracy`` and ``loss`` are used as accuracy indicators.
 
 .. code-block:: python
 
@@ -306,32 +306,32 @@ The result is
    Test data | loss: 0.7382 | accuracy: 0.7969
 
 From this result, this model overfit the train data,
-however this model can predict the unknown data almost 80% accuracy.
+however, this model can predict the unknown data with almost 80% accuracy.
 
 .. tip::
-   Overfitting means the model conforming to the training data excessively.
-   Tell you the truth, such model isn't good because almost such model can't predict unknown data correctly.
+   Overfitting means the model conforms to the training data excessively.
+   To tell you the truth, such models aren't good because almost such models can't predict unknown data correctly.
 
-   In deep learning, the model expression power is very high so overfitting liable occurring.
-   To prevent such situation, we consider reducing model expression power or increasing the train data.
+   In deep learning, the model expression power is very high so overfitting liable.
+   To prevent such a situation, we consider reducing model expression power or increasing the train data.
 
-   Before now, many method preventing overfitting are developed.
+   Before now, many methods preventing overfitting have been developed.
    The :class:`marquetry.layers.BatchNormalization` is one of the methods, and :meth:`marquetry.functions.dropout`
    is also one of the methods.
-   And L1/L2/LN regularization is also famous way of preventing overfitting methods.
+   L1/L2/LN regularization is also a famous way of preventing overfitting methods.
 
-This data is simple and few so tend to overfit, to prevent this we may be able to use ``up sampling`` or
-reducing epoch or reducing neurons or so.
+This data is simple and few tend to overfit, to prevent this we may be able to use ``up sampling`` or
+reducing epochs or reducing neurons or so.
 
 In this section, we don't view such prevent overfitting method, please research and check it out for yourself!
 
-Thank you for your hard work! Now the FNN(Fully-connected Neural Network) example lecture is completed!
+Thank you for your hard work! Now the FNN(Fully connected Neural Network) example lecture is completed!
 
-FNN is very useful for wide-variety use case. Let's try some problem using Marquetry!
+FNN is very useful for a variety of use cases. Let's try some problems using Marquetry!
 
 ----
 
-Do you want to check more example? Sure! We prepare more example using Marquetry.
+Do you want to check more examples? Sure! We prepare more example using Marquetry.
 
 Do you want to check image classification?:
    .. button-link:: ./mnist_cnn.html
