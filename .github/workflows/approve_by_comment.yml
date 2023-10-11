@@ -28,7 +28,7 @@ jobs:
         id: diff
         run: |
           git diff --name-only "origin/main" HEAD | tee /tmp/diff_files
-          if [ "$(wc -l < /tmp/diff_files)" -eq  "$(grep -c -e "^README.md$" -e "^LICENSE.md$" -e ".github/*" -e "^.gitignore$" -e "^setup.py$" /tmp/diff_files)" ]; then
+          if [ "$(wc -l < /tmp/diff_files)" -eq  "$(grep -c -e "^README.md$" -e "^LICENSE.md$" -e ".github/*" -e "marquetry_docs/*" -e "^.gitignore$" -e "^setup.py$" /tmp/diff_files)" ]; then
             echo "no_violation=yes" >> $GITHUB_OUTPUT
           else
             echo "no_violation=no" >> $GITHUB_OUTPUT
