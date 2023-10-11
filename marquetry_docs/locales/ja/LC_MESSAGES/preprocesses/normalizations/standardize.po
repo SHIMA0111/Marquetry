@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../preprocesses/normalizations/standardize.rst:3
+msgid "Standardize (min-max scaling)"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:1 of
+msgid "Bases: :py:class:`~marquetry.preprocess.Preprocess`"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:1 of
+msgid "Column Standardization for Specified Columns in a DataFrame."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:3 of
+msgid ""
+"ColumnStandardize is a preprocessing step used to standardize specified "
+"columns in a Pandas DataFrame. It scales the values in the selected "
+"columns to have a minimum of 0 and a maximum of 1."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process
+#: of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:6 of
+msgid "A list of column names to be standardized."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:8 of
+msgid "The name of the ColumnStandardize instance."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:10 of
+msgid ""
+"A boolean flag indicating whether this ColumnStandardize instance is for "
+"training or inference."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:13 of
+msgid ""
+"If True, columns containing NaN (null) values will be skipped during "
+"standardization. If False, NaN values will raise an error. Defaults to "
+"True."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:19 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize:34 of
+msgid ""
+"ColumnStandardize scales the values in the specified columns to have a "
+"minimum of 0 and a maximum of 1. It provides an option to skip columns "
+"containing NaN (null) values during standardization."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process:1
+#: of
+msgid "Process the input DataFrame by standardizing specified columns."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process:3
+#: of
+msgid "The input DataFrame with columns to be standardized."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process
+#: of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process:6
+#: of
+msgid "The DataFrame with specified columns standardized."
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process
+#: of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.preprocesses.normalize.column_standardize.ColumnStandardize.process:11
+#: of
+msgid ""
+"Generally, process will be called by ``Marquetry`` core. Please call like"
+" the ``EXAMPLES``."
+msgstr ""
+

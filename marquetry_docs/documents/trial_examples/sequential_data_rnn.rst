@@ -84,7 +84,7 @@ This state stores all past information, so RNN can use the input and the past in
    1. Initialize all parameters
 
       - Initialize weights randomly (``input weights`` and ``hidden weights``)
-      - Initialize ``bias`` if you use bias by only the `0` matrix
+      - Initialize ``bias`` if you use bias by only the `0` array
       - Initialize ``hidden state`` by only the `0` matrix (``hidden state`` shape is the same as the output shape)
 
    2. Input the input data

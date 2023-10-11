@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/math/add.rst:3
+msgid "Add"
+msgstr ""
+
+#: marquetry.functions.math.basic.Add:1 marquetry.functions.math.basic.add:1 of
+msgid "Compute element-wise addition of two arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.add:3 of
+msgid ""
+"This function computes the element-wise addition of two input arrays `x0`"
+" and `x1`."
+msgstr ""
+
+#: marquetry.functions.math.basic.add:5 of
+msgid "It supports broadcasting when the input shapes are not the same."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward
+#: marquetry.functions.math.basic.Add.forward
+#: marquetry.functions.math.basic.add of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.math.basic.add:7 of
+msgid "The first input."
+msgstr ""
+
+#: marquetry.functions.math.basic.add:9 of
+msgid "The second input."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward
+#: marquetry.functions.math.basic.Add.forward
+#: marquetry.functions.math.basic.add of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.math.basic.add:12 of
+msgid "The result of element-wise addition."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward
+#: marquetry.functions.math.basic.Add.forward
+#: marquetry.functions.math.basic.add of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.math.basic.add:13 of
+msgid ":class:`marquetry.Container`"
+msgstr ""
+
+#: marquetry.functions.math.basic.add:16 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.math.basic.Add:1 of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.math.basic.Add:3 of
+msgid ""
+"This class computes the element-wise addition of two input arrays `x0` "
+"and `x1`. It supports broadcasting when the input shapes are not the "
+"same."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add:8 of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward:1 of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward:3 of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward:6 of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.backward:11 of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Add.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+

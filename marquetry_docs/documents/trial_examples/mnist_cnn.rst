@@ -42,7 +42,7 @@ Prepare data
       Each channel has a heat map of the corresponding color and it can express the matrix which
       has 0 to 255 values on the same size of the image.
 
-      Let's check the channel below.
+      Let's check the channels.
       The original image is the one.
 
       .. image:: ../../_static/img/tabby_image.png
@@ -125,7 +125,7 @@ Prepare model
 
    4th layer:
       ``Dropout`` layer which drop ``0.25`` ratio neurons(values).
-      With ``flatten`` the matrix to array
+      With ``flatten`` the tensor to matrix
       (the original data has 3-dims but the fnn layer can't treat the data so it needs to be flattened.)
 
    5th layer:

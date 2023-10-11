@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-08 02:55+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../documents/get_started_components/welcome.rst:3
+msgid "The first step of using Marquetry"
+msgstr "Marquetryの初めの一歩"
+
+#: ../../documents/get_started_components/welcome.rst:6
+msgid "Welcome!"
+msgstr "ようこそ！"
+
+#: ../../documents/get_started_components/welcome.rst:7
+msgid "Welcome to the Marquetry Get started!"
+msgstr "ようこそ、Marquetryのドキュメントへ！"
+
+#: ../../documents/get_started_components/welcome.rst:9
+msgid "And, I appreciate you installing Marquetry, Thank you very much!"
+msgstr "そして、Marquetryをインストールして下さってありがとうございます！"
+
+#: ../../documents/get_started_components/welcome.rst:12
+msgid "Explain Marquetry"
+msgstr "Marquetryの説明"
+
+#: ../../documents/get_started_components/welcome.rst:14
+msgid "At the first I'd like to explain this Framework to you."
+msgstr "まずは、Marquetryというフレームワークについて説明しようと思います。"
+
+#: ../../documents/get_started_components/welcome.rst:15
+msgid "Oh, no need to explain? bore you? Sorry... please don't close this page..."
+msgstr "え？説明なんていいから早く使い方を教えろって？"
+
+#: ../../documents/get_started_components/welcome.rst:16
+msgid ""
+"I agree with you, the most enjoyable thing of such framework is **use** "
+"the actual code!"
+msgstr "うーん、確かにプログラミングは使うのが一番楽しいですしね。"
+
+#: ../../documents/get_started_components/welcome.rst:17
+msgid "Ok, let's keep it short and to the point!"
+msgstr "よし、でも少しだけ説明させてください。簡潔にするので。。。"
+
+#: ../../documents/get_started_components/welcome.rst:18
+msgid ""
+"This framework is developed as Deep Learning and Machine Learning "
+"framework."
+msgstr "では、まずこのフレームワークはディープラーニングや機械学習のフレームワークとして開発されています。"
+
+#: ../../documents/get_started_components/welcome.rst:21
+msgid "Why...?"
+msgstr "なぜ?"
+
+#: ../../documents/get_started_components/welcome.rst
+msgid "You"
+msgstr "あなた"
+
+#: ../../documents/get_started_components/welcome.rst:23
+msgid ""
+"Why did you start to develop this framework? Already there were great "
+"frameworks for deep learning...?"
+msgstr "世の中には様々な便利なフレームワークが存在するのに、今更なぜフレームワークを作ろうと思ったのですか？"
+
+#: ../../documents/get_started_components/welcome.rst
+msgid "Me"
+msgstr "私"
+
+#: ../../documents/get_started_components/welcome.rst:24
+msgid "Because it seems to be very fun and interesting!"
+msgstr "明確な理由なんてありません。ただ作るのが **楽しそうだったから** です！"
+
+#: ../../documents/get_started_components/welcome.rst:26
+msgid "This is true, but I have one more reason for this."
+msgstr "まぁ、これは事実なんですが、後付けでいいならもう一つ理由があります。"
+
+#: ../../documents/get_started_components/welcome.rst:27
+msgid ""
+"I wondered I wanted to create a framework for deep learning beginners, "
+"and I'd like to spread the fun!"
+msgstr "僕はディープラーニングに詳しくない初心者のためのフレームワークを作りたかったんです。そして、ディープラーニングというものの楽しさを広めたかったというのもあります！"
+
+#: ../../documents/get_started_components/welcome.rst:29
+msgid ""
+"Surely, we can learn it from other frameworks like Tensorflow, PyTorch, "
+"or Chainer, but these frameworks are more complex for beginners."
+msgstr "もちろん、学習する上でTensorflowやPyTorch、Chainerなどのフレームワークを使用することもできるでしょう。しかし、これらのフレームワークは初心者にとっては複雑です。"
+
+#: ../../documents/get_started_components/welcome.rst:30
+msgid ""
+"Furthermore, Tensorflow and PyTorch use a lot of c/c++ for optimizing the"
+" calculation process."
+msgstr "そして、TensorflowとPyTorchは処理の効率化のためにコア部分がC/C++で実装されています。"
+
+#: ../../documents/get_started_components/welcome.rst:32
+msgid ""
+"In general work use cases, such optimizing is very important but for "
+"learners of Deep Learning mechanisms, it cannot help you..."
+msgstr "こういった効率化・最適化は一般的なユースケースでは重要ですが、"
+"ディープラーニングを、そしてその仕組みを学ぼうとする人にはむしろ厄介な代物です。"
+
+#: ../../documents/get_started_components/welcome.rst:34
+msgid ""
+"Therefore, I was starting to develop this framework to contribute to such"
+" a beginner person!"
+msgstr "だからこそ、僕はこのフレームワークをそんなビギナーの人たちへ向けて開発を始めたのです！"
+
+#: ../../documents/get_started_components/welcome.rst:35
+msgid ""
+"This framework is written by only Python. And the implementation is very "
+"simple."
+msgstr "このフレームワークはその全てがPythonのみで書かれています。そして、ほとんどの実装は非常にシンプルになっています。"
+
+#: ../../documents/get_started_components/welcome.rst:37
+msgid ""
+"If you are a worker, sorry, this framework can't fill your needs..., but "
+"if you are a learner of deep learning implementation, this framework is "
+"always beside you!"
+msgstr "もし、あなたが実務でこれを使おうと思っているなら、多分あなたのニーズを満たせないでしょう...申し訳ありません。"
+"ですが、もしあなたがディープラーニングを学びたいと考えているなら、このフレームワークは常にあなたの味方です！"
+
+#: ../../documents/get_started_components/welcome.rst:39
+msgid "The bothered explanation is up now! So, **Let's start your journey!!**"
+msgstr "さぁ、退屈な説明はこれで終わりです。あなたの、あなただけの **旅を始めましょう！！** "
+
+#: ../../documents/get_started_components/welcome.rst:43
+msgid "Go forward the first quest"
+msgstr "最初のクエストに進みましょう！"
+
+#: ../../documents/get_started_components/welcome.rst:50
+msgid "Ready for your first quest? Let's get start!"
+msgstr "準備は大丈夫ですか？さぁ、幕開けです！"
+
+#: ../../documents/get_started_components/welcome.rst:45
+msgid "Enter the Deep Learning World!"
+msgstr ""
+
+#: ../../documents/get_started_components/welcome.rst:58
+msgid ""
+"Oh, interested in the mechanism of deep learning? Ok, let's dive into the"
+" basic!"
+msgstr "お!?ディープラーニングの仕組みに興味がありますか？ ではディープラーニングの基礎に飛び込んでみましょう！"
+
+#: ../../documents/get_started_components/welcome.rst:53
+msgid "Basic of Deep Learning"
+msgstr ""
+
+#: ../../documents/get_started_components/welcome.rst:60
+msgid ""
+"Prefer to skip such first simplest quest? No problem! Let's go the more "
+"practical example!"
+msgstr "最初のクエストは簡単すぎるので飛ばしたいですか？ いいでしょう!もっと実務的な例をみてみましょう！"
+
+#: ../../documents/get_started_components/welcome.rst:68
+msgid "Fully Connected:"
+msgstr "全結合ネットワーク:"
+
+#: ../../documents/get_started_components/welcome.rst:63
+msgid "Titanic Disaster"
+msgstr ""
+
+#: ../../documents/get_started_components/welcome.rst:76
+msgid "Convolution:"
+msgstr "畳み込みネットワーク:"
+
+#: ../../documents/get_started_components/welcome.rst:71
+msgid "MNIST classification"
+msgstr ""
+
+#: ../../documents/get_started_components/welcome.rst:84
+msgid "Sequence Predict"
+msgstr "時系列予測:"
+
+#: ../../documents/get_started_components/welcome.rst:79
+msgid "Trigonometric toy problem"
+msgstr ""
+
+#: ../../documents/get_started_components/welcome.rst:92
+msgid "Do you want to create your custom model? Sure, all you needed is in here!"
+msgstr "自分でカスタムモデルを作りたいですか？　オーケー！必要なものは揃っています！"
+
+#: ../../documents/get_started_components/welcome.rst:87
+msgid "API Reference"
+msgstr ""
+
+

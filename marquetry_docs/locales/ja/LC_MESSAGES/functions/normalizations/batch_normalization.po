@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/normalizations/batch_normalization.rst:3
+msgid "Batch Normalization"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization:1
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:1
+#: of
+msgid "Apply batch normalization to the input tensor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization:3
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:3
+#: of
+msgid ""
+"Batch normalization is a technique used in deep neural networks to "
+"stabilize and accelerate training. It normalizes the input data by "
+"normalization and adjustable parameters called gamma(scale factor) and "
+"beta(shift factor). This helps in preventing issues like vanishing "
+"gradients, reduce co-variate shift, and allows for faster convergence."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward
+#: marquetry.functions.normalization.batch_normalization.batch_normalization of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:10
+#: of
+msgid "The input tensor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:12
+#: of
+msgid ""
+"The scale factor. It allows the network to learn the optimal scaling for "
+"each feature."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:14
+#: of
+msgid ""
+"The shift factor. It allows the network to learn the optimal mean for "
+"each feature."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:16
+#: of
+msgid ""
+"The running mean of the batch. It is updated during training and used for"
+" inference."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:18
+#: of
+msgid ""
+"The running variance of the batch. It is updated during training and used"
+" for inference."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:20
+#: of
+msgid ""
+"The decay rate for the running statistics. It controls how fast the "
+"running statistics adapt to changes in the input distribution. Default is"
+" 0.9."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:24
+#: of
+msgid "A small value to prevent division by zero. Default is 1e-15."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:30
+#: of
+msgid ""
+"Generally use case, you can use BatchNormalization in "
+":mod:`marquetry.layers`. The layer components manage the params like "
+"gamma, beta, running_mean and running_var itself. Therefore, we suggest "
+"to use it for your network if you have no special meaning to use this "
+"function."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward
+#: marquetry.functions.normalization.batch_normalization.batch_normalization of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:34
+#: of
+msgid "The normalized and scaled input tensor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward
+#: marquetry.functions.normalization.batch_normalization.batch_normalization of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:38
+#: of
+msgid "References"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.batch_normalization:39
+#: of
+msgid ""
+"Batch Normalization: Accelerating Deep Network Training by Reducing "
+"Internal Covariate Shift (https://arxiv.org/abs/1502.03167)"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization:1
+#: of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization:13
+#: of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward:1
+#: of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward:3
+#: of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward:6
+#: of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.backward:11
+#: of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward:1
+#: of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward:3
+#: of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward:6
+#: of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_normalization.BatchNormalization.forward:9
+#: of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+

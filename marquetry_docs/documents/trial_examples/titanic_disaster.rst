@@ -230,7 +230,7 @@ Prepare model
 
    In this time, we try to use a Sequential wrapper to construct Fully-connected Neural Network(MLP).
    And, to regularize the learning, we use :class:`marquetry.layers.BatchNormalization`
-   and also using :math:`marquetry.functions.relu` as an activation function.
+   and also using :meth:`marquetry.functions.relu` as an activation function.
 
    The first Linear transformation has 16 neurons and the output Linear has 1 neuron.
 
