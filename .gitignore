@@ -12,6 +12,7 @@ check_scripts/
 
 # Document HTML files
 marquetry_docs/_build/
+*.mo
 
 # Distributions / packages
 .Python

@@ -1,0 +1,737 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-11 17:51+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:2
+msgid "Trigonometric curve prediction"
+msgstr "三角関数曲線の予測"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:3
+msgid "Welcome to the Trigonometric curve sequential prediction!"
+msgstr "ようこそ、三角関数曲線の時系列予測へ！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:5
+msgid ""
+"In this page, we predict the Trigonometric curve. Hmm...Oh, Do you want "
+"to know what is different from `the separate area over/under Sin Curve "
+"problem <../get_started_components/entrance.html>`_ ?"
+msgstr ""
+"このページでは、三角関数曲線の予測を行います。ふむ？ `sinカーブの領域分割問題 "
+"<../get_started_components/entrance.html>`_ と何が違うのかって？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:9
+msgid ""
+"Sure! In the area separation problem, the actual problem is which area "
+"should each coordinate be assigned. This problem can consider only 1 "
+"coordinate because each coordinate is independent of others."
+msgstr "では、確認してみましょう！領域分割問題の核心はそれぞれの座標がどちらの領域に属するか、というものです。この問題は各点、一つづつ独立して考えることができます。他の点と依存関係はありません。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:12
+msgid ""
+"So how about this problem? This sequential problem predicts the next "
+"value receiving the one-past value as input data."
+msgstr "では、今回の問題はどうでしょうか？この問題では時系列予測です。ひとつ前の状態を受け取って一つ先の状態を予測する問題です。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:15
+msgid "Let's check the difference using Sin values."
+msgstr "この違いを確認してみましょう。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:31
+msgid ""
+"For the area separation problem, if there is (x, y) = (0.5, 0.6) "
+"coordinate, which area should this belong to?"
+msgstr "領域分割問題では、例えば (x, y) = (0.5, 0.6) という座標があった場合、この座標はどちらの領域に属すでしょうか？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:42
+msgid ""
+"From this, the coordinate belongs to the under area. Then if we get a new"
+" coordinate (0.3, 0.9), the area does **NOT** relate to the (0.5, 0.6) "
+"coordinate. (There is no relation between (0.3, 0.9)'s belonging area and"
+" (0.5, 0.6)'s belonging area. These areas depend only the over or under "
+"SinCurve line.)"
+msgstr ""
+"この図を見ると、座標はsin曲線の下のエリアに属するようです。では次に (0.3, 0.9) "
+"という座標を得たとしたら、この座標が属する領域は先ほどの(0.5, "
+"0.6)の属する座標に依存しませんね。(片方が上だから、もう一方が下のようにはならず、単に(0.3, "
+"0.9)がsin曲線の上か下か、というだけですね。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:47
+msgid ""
+"Then, the sequential problem, the input data, and the correct data are "
+"the sin curve y-axis coordinates. (x-axis values are considered as time-"
+"series. (the index `1` is the next of the index `0`, and the index `2` is"
+" the next of the index `1`...))"
+msgstr "一方、時系列問題では入力値と正解値はsin曲線のy軸方向の座標になっています。(x軸は時系列軸と考えることができます。x=0は時刻0、x=1は時刻1、...にようなイメージです。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:51
+msgid ""
+"If there is a first index coordinate, the problem asks what is the next "
+"coordinate(y-axis value)."
+msgstr "最初の時刻の座標(x=0の時のy軸座標)が与えられた時、この問題は\"次の時刻の座標(x=1の時のy軸座標)は何？\"ということを聞いてきます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:63
+msgid ""
+"In this problem, we have the red triangle y-axis "
+"value(``-1.22464680e-16``), and we predict the next y-axis value which is"
+" the blue circle."
+msgstr ""
+"そして今回の問題では赤い三角形のy軸座標 value(``-1.22464680e-16``) "
+"が与えられて、青い円(次の時刻)のy座標を予測します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:66
+msgid ""
+"As I said, the x-axis can be considered as time-series so this problem's "
+"core problem is that predict the next value from the past values."
+msgstr "先ほども言った通り、x軸方向は時系列と考えられます。つまり、この問題の本質は次時刻のy軸の値を過去の値から予測するというものです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:69
+msgid ""
+"In other words, the predictor receives the time ``t``'s y and predicts "
+"``t+1``'s y."
+msgstr "言い方を変えれば、この予測器は時刻 ``t`` のyを受け取って、 ``t+1`` のyを予測します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:71
+msgid ""
+"In such a problem, we use ``RNN (Recurrent Neural Network)``. RNN stores "
+"a special value, which called a ``hidden state``, this is very, very "
+"important for RNN. RNN can capture the time-series trends by the ``hidden"
+" state``."
+msgstr ""
+"このような問題には ``RNN (再帰型ニューラルネットワーク)`` を使用します。RNNは ``隠れ状態`` "
+"という特別な値を保持します。これが非常にRNNにおいて重要です。RNNはこの ``隠れ状態`` "
+"によって時系列の特徴を捉えることができるようになります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:75
+msgid ""
+"This state stores all past information, so RNN can use the input and the "
+"past information to predict the next future."
+msgstr "この隠れ状態は過去の全ての情報を保持します。つまり、RNNは未来を予測するために入力データとそれ以前の過去の情報を使うのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst
+msgid "You"
+msgstr "あなた"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:79
+msgid ""
+"What is a ``hidden state``? You said the state stores the past "
+"information. But I can't imagine it really."
+msgstr "``隠れ状態`` とはなんですか？過去の情報を保持すると言いますが、イメージができません。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst
+msgid "Me"
+msgstr "私"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:80
+msgid "Okay, let's check the ``hidden state`` mechanisms!"
+msgstr "なるほど、確かにね。じゃあ、 ``隠れ状態`` の仕組みをみてみよう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:82
+msgid ""
+"RNN model having wights of input transform and hidden transform, it "
+"calculates the below flow."
+msgstr "RNNモデルは入力に対する重みと隠れ状態に対する重みを持ちます。これらは以下のような流れで計算されます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:84
+msgid "Initialize all parameters"
+msgstr "全てのパラメータの初期化"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:86
+msgid "Initialize weights randomly (``input weights`` and ``hidden weights``)"
+msgstr "ランダムに重みを初期化します (``input weights`` と ``hidden weights``)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:87
+msgid "Initialize ``bias`` if you use bias by only the `0` array"
+msgstr "バイアスを使う場合には `0` の配列で ``bias`` を初期化します"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:88
+msgid ""
+"Initialize ``hidden state`` by only the `0` matrix (``hidden state`` "
+"shape is the same as the output shape)"
+msgstr ""
+"`0` の行列で ``隠れ状態(hidden state)`` を初期化します。 (この時、``隠れ状態`` "
+"は入力の線形変換の結果と同じ形状になります)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:90
+msgid "Input the input data"
+msgstr "入力データを入力"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:92
+msgid ""
+"Linear transformation with the ``input weights`` and ``bias`` like the "
+"fully-connected neural network."
+msgstr ""
+"入力値に対して ``input weights`` と ``bias`` を使って全結合ニューラルネットワークと同じように線形変換します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:94
+msgid "Linear transform hidden state with ``hidden weights``"
+msgstr "隠れ状態を ``hidden weights`` と線形変換します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:97
+msgid ""
+"At the first step(t=0), the hidden state is filled by only `0` so this "
+"result is also 0."
+msgstr ""
+"最初の時刻(t=0)においては、隠れ状態は初期化された状態なので `0` です。"
+"つまり、この線形変換もこの時は0になります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:99
+msgid "Sum up the 2's output data and 3's output"
+msgstr "2と3の出力を足し合わせる"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:102
+msgid ""
+"At the first step(t=0), 3's output is 0 so the sum is the same as 2's "
+"output."
+msgstr ""
+"書いた通りですが、t=0の時、3の出力は0なので、時刻0においてのみこの結果は2の出力になります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:104
+msgid "Scale the 4's output using :meth:`marquetry.functions.tanh`"
+msgstr ":meth:`marquetry.functions.tanh` を使って4の出力をスケーリングする"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:107
+msgid ""
+"Of course, we can use other activation functions at this step, but in "
+"RNN, Tanh is often used as an activation function."
+msgstr ""
+"もちろん、このステップで別の活性化関数を使うこともできますが、RNNでは慣習的にtanh(双曲線正接関数、ハイパボリックタンジェント)を使うことが多いです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:110
+msgid ""
+"Output the 5's output as the result, and it stores as the next time "
+"hidden state too."
+msgstr ""
+"5の出力を結果として出力し、また次の時刻の隠れ状態として内部に保持する"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:112
+msgid "Therefore, the RNN can be expressed as the below image flow."
+msgstr "従って、RNNは以下の図のように表現することができます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:118
+msgid ""
+"Please focus the step 4, the output is the sum of the input and **the "
+"hidden state** information. After that, in step 6, the data is stored as "
+"the next time hidden state."
+msgstr ""
+"ステップ4に注目してください。このステップの出力は入力値と **隠れ状態** を足したのもです。"
+"その後、ステップ6でこのデータが次時刻の隠れ状態として保持されました。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:121
+msgid ""
+"From the specification, RNN can expand the time-series axis like the one "
+"below."
+msgstr ""
+"この特性から、RNNは以下のように時系列方向に展開することができます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:128
+msgid "...You already know the answer. What is the ``hidden state``?"
+msgstr "...お分かりでしょうか？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:130
+msgid "``hidden state`` is the encoded past all accumulation information."
+msgstr "``隠れ状態`` は過去全てのエンコードされた情報が蓄積されたものなのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:132
+msgid ""
+"(Linear and activation transformed data can't be understood by humans so "
+"such data is sometimes called ``encoded data``.)"
+msgstr "(線形写像や活性化関数で変換されたデータはもはや人間には理解できないデータになります。"
+"このようなデータを ``エンコードされた情報`` と呼ぶことがあります。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:135
+msgid "Prepare data"
+msgstr "データ準備"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:136
+msgid "Load data"
+msgstr "データの読み込み"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:138
+msgid ""
+"We prepared Trigonometric data as the Marquetry built-in dataset. Let's "
+"load the data!"
+msgstr ""
+"三角関数データはMarquetryの組み込みデータセットとして準備しています。さぁ、データを読み込んでみましょう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:152
+msgid ""
+":class:`marquetry.datasets.TrigonometricCurve` returns Sin(training data)"
+" or Cos(test data) values. To tell you the truth, the train data(Sin) is "
+"not truly Sin Curve, it is mixed with little noises."
+msgstr ""
+":class:`marquetry.datasets.TrigonometricCurve` は訓練データとしてsinの、テストデータとしてcosの値を返します。"
+"ただし、実は訓練データには小さなノイズが加えられています。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:155
+msgid "Let's check the ``dataset`` and ``test_dataset`` plotting to fig!"
+msgstr "``dataset`` と ``test_dataset`` をプロットして確認してみましょう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:172
+msgid "The blue line is ``dataset`` (train data). You can see the line shaky."
+msgstr "この青の線が ``dataset`` です。見て分かる通り、この線は揺れていますね。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:174
+msgid "Why do you add the noise to the sin curve?"
+msgstr "なぜ、sin曲線にノイズを加えるのでしょうか？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:175
+msgid ""
+"To train a robust model. If you use no noise data as training data, The "
+"model tends to overfit the data. And also almost real data has noise to a"
+" greater or lesser degree. If only clean data is used as training data, "
+"the model can be driven by noise heavily. To add noise to the training "
+"data, the data can reduce such issues."
+msgstr ""
+"ロバストなモデルを学習するためです。ノイズのないデータを学習データとして利用すると、そのモデルは過学習しやすいということもあります。"
+"また、世の中の実際のデータは多かれ少なかれノイズが混ざっています。そのため、綺麗なデータだけを訓練データとして使用すると、"
+"モデルはノイズによって大きく振り回されることになります。ノイズを訓練データに加えることでそういった問題を軽減できるのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:182
+msgid ""
+"As a matter of fact, such noise can be also used as a purpose for "
+"extending data. In this dataset, there isn't such purpose(not extended) "
+"but if you face the training data is very small and can't gather anymore,"
+" you may countermeasure the situation by this method."
+msgstr ""
+"実はこういったノイズを付加する手法はデータ拡張にもよく使われます。このデータセットではそう言った目的でノイズを使っていませんが、"
+"訓練データが少なく、これ以上データを集められないという場合には対処策としてこの手法が使えるかもしれません。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:186
+msgid ""
+"★ Noise extending can be not always used in any data, this is just one of"
+" the extending methods."
+msgstr ""
+"※ ノイズによるデータ拡張はいつでもどんなデータにも使えるわけではありません。"
+"この手法はデータ拡張手法の一つであり、完璧ではないことを覚えておいてください。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:188
+msgid "Load dataset to dataloader"
+msgstr "データセットをデータローダに読み込む"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:190
+msgid ""
+"For sequential datasets, we use "
+":class:`marquetry.dataloaders.SeqDataLoader` as a dataloader. This "
+"dataloader was designed as special to the sequential data. The speciality"
+" is the batch select method. In sequential data, we need to ensure the "
+"sequence data size from the sequential data's specification."
+msgstr ""
+"時系列データセットには :class:`marquetry.dataloaders.SeqDataLoader` をデータローダとして使います。"
+"このデータローダは時系列データに特化して設計されています。その特徴はバッチの選択方法にあります。"
+"時系列データでは時系列データの特性的に時系列方向のサイズを一定確保する必要があります。"
+"(バッチを取得する際に、通常通りデータをとっていくと、次の時刻のデータが同じバッチ内に存在する状態になり、時系列データ方向の学習になりません。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:195
+msgid ""
+"In the SeqDataLoader, the sequence size is calculated by the data size "
+"and the batch size automatically. And, the dataloader provides an "
+"appropriate mini-batch dataset."
+msgstr ""
+"SeqDataLoaderは時系列方向のサイズをバッチサイズとデータサイズから自動に計算し、適切なミニバッチデータセットを提供することができます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:198
+msgid "In this time, the batch_size is set as 32."
+msgstr "今回、``batch_size`` は32とします。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:208
+msgid "Then you complete preparation. Congratulation!!"
+msgstr "これでデータの前準備は完了です！おめでとうございます！！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:210
+msgid "Prepare model"
+msgstr "モデルの準備"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:212
+msgid "Create model"
+msgstr "モデルの作成"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:214
+msgid ""
+"In this time, we use :class:`marquetry.layers.RNN` and "
+":class:`marquetry.layers.Linear` to create model. Firstly, define the "
+"model class, and then you get the instance with the ``out_size`` is `1`."
+msgstr ""
+"今回、 :class:`marquetry.layers.RNN` と :class:`marquetry.layers.Linear` をモデル作成に使用します。"
+"最初にモデルクラスを定義します。そして ``out_size`` を `1` としてインスタンスを取得します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:237
+msgid "Set the model to Optimizer"
+msgstr "モデルをオプティマイザーにセットする"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:239
+msgid "We use :class:`marquetry.optimizers.Adam` as optimizer."
+msgstr "オプティマイザーは :class:`marquetry.optimizers.Adam` を使用します。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:246
+msgid ""
+"Now you have all you need to learn the Trigonometric Sequential Curve "
+"dataset!"
+msgstr ""
+"これで三角関数曲線の時系列予測の学習の準備が完了しました！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:248
+msgid "Let's proceed the learning section!"
+msgstr "さぁ、学習セクションに進みましょう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:250
+msgid "Model fitting"
+msgstr "モデルの学習"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:252
+msgid ""
+"For the RNN, we need to set a new hyperparameter which is called as "
+"``bptt_length``. ``BPTT`` means ``Back-propagation Through Time``, so the"
+" ``bptt_length`` indicates \"How long are the links from the past "
+"kept?\"."
+msgstr ""
+"RNNでは新たに ``bptt_length`` というハイパーパラメータを設定する必要があります。"
+"``BPTT`` は ``Back-Propagation Through Time(時系列逆伝播)`` を意味します。"
+"つまり、 ``bptt_length`` は\"どのくらい古い情報まで保持するか？\"を示すのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:256
+msgid "Please review the below image."
+msgstr "再度以下の画像を見てください。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:262
+msgid "The real neural network link is the flow from the bottom to the top."
+msgstr "実際のネットワークの繋がりは上下の流れです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:268
+msgid "This link is the same as the normal neural network. Already you know."
+msgstr "この繋がりはご存知の通り、通常のニューラルと同じです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:270
+msgid ""
+"However, with only these links, the model can't learn the time-series "
+"trends. Do you remember there is another direction link in the RNN image?"
+msgstr ""
+"しかしながら、この繋がりだけではモデルは時系列の傾向を学習することができません。"
+"RNNの画像にはもうひとつ別の方向の繋がりがありましたね？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:273
+msgid ""
+"...Yes, the time direction links, surely this link is logical link, not "
+"real link. However, this link is very important to get the trends of "
+"time-series, isn't it?"
+msgstr ""
+"...そうです。時系列方向の繋がりですね。もちろん、この繋がりは論理的な繋がりであり、実際の繋がりではありません。"
+"しかし、この繋がりが時系列の傾向を掴むのに非常に重要なのでしたね。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:280
+msgid ""
+"We need to also consider this link in backpropagation. In other words, "
+"RNN has 2 directions neural network. One is the normal network on the 1 "
+"time. The other is the time-series direction network."
+msgstr ""
+"そのため、この時系列方向の逆伝播も考える必要があります。言い換えれば、RNNは2方向のニューラルネットワークを持っているということです。"
+"一つは通常のニューラルネットワークです。そしてもう一方は時系列方向のネットワークです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:284
+msgid "Therefore, the backpropagation should be the below image."
+msgstr "そのため、逆伝播は以下のようなイメージになります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:290
+msgid ""
+"Well, from these, the training preparation seems to be complete. Maybe "
+"you think \"Anyhow, such backpropagation is also managed by Marquetry, "
+"right?\"."
+msgstr ""
+"もちろん、これらの逆伝播自体はもちろんMarquetryによって管理されます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:293
+msgid ""
+"Yes, your thinking is correct but for the time-series direction, if the "
+"network links to infinity, the training can't proceed correctly."
+msgstr ""
+"しかし、時系列方向についてはネットワークが無限に(少なくとも非常に長く)続いた場合、学習はうまく進みません。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:296
+msgid ""
+"The cause is very simple, such a very long link causes a vanishing "
+"gradient due to the computational graph being very complex. (In general, "
+"the gradient is weakened as the computation graph is longer.)"
+msgstr ""
+"この原因は非常にシンプルで、このような長い繋がりは計算グラフが複雑になり、勾配消失を引き起こします。"
+"(通常、計算グラフが長くなればなるほど、勾配は弱くなっていきます。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:300
+msgid ""
+"Gradient Vanishing is one of the most serious problems in deep learning. "
+"In the past, this problem was more serious for a normal deep learning "
+"network."
+msgstr ""
+"勾配消失はディープラーニングにおける最も深刻な問題のひとつです。"
+"その昔、この問題は通常のニューラルネットワークにおいてより深刻な問題でした。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:303
+msgid ""
+"At the time, the sigmoid function was often used as activation function. "
+"However, the sigmoid function's gradient can be 0.25 even if it is max. "
+"So as the network gets deeper, the gradient gets weaker, and the gradient"
+" is vanishing at final."
+msgstr ""
+"当時はシグモイド関数が活性化関数としてよく使われていました。"
+"しかし、シグモイド関数の勾配は最大でも0.25となり、層が深くなると :math:`(0.25)^n` という指数関数的な"
+"勾配の衰弱が発生します。そして最終的には勾配が消失してしまうのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:307
+msgid ""
+"Why is ReLU often used as an activation function currently? The answer is"
+" that ReLU is less likely to cause a gradient vanishing problem. (More "
+"accurately, ReLU needs less computation cost so this is also one of the "
+"largest reasons.)"
+msgstr ""
+"なぜ、現代ではReLUが活性化関数としてよく使われるのか？この答えはReLUは勾配消失問題を起こしにくいためです。"
+"(より正確に言えば、ReLUは計算コストが小さいという利点があり、これも大きな理由の一つではありますが。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:-1
+msgid "What is **Computational Graph**?"
+msgstr "**計算グラフ** とはなんですか？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:313
+msgid ""
+"``Computational Graph`` is the thing that visualize the computation "
+"process."
+msgstr ""
+"``計算グラフ`` は計算過程を可視化したものです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:315
+msgid ""
+"Computational Graph is constructed by some nodes which are simple "
+"computation units like add or div or so. This is very helpful to compute "
+"gradient because it can just go back like backpropagation."
+msgstr ""
+"計算グラフは基本的には足し算や割り算のようなシンプルな計算単位のノードを複数繋げることによって構築されます。"
+"計算グラフでは逆伝播逆方向からノードを遡るだけで勾配を計算できるので、勾配計算に非常に便利なのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:318
+msgid ""
+"In other words, ``Computational Graph`` is the thing that visualize "
+"differentiation chain rule."
+msgstr ""
+"言い換えれば、 ``計算グラフ`` は微分の連鎖律を可視化したものとも考えられます。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:320
+msgid ""
+"Dynamic computational graph frameworks including Marquetry are using this"
+" mechanism in the computation core algorithms."
+msgstr ""
+"Marquetryを含め、動的計算グラフを作るフレームワークは計算のコアアルゴリズムにこの計算グラフのメカニズムを使用していたりします。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:323
+msgid ""
+"In the below image, I've tried to compute sigmoid function "
+"differentiation."
+msgstr ""
+"以下の画像では、実際にシグモイド関数の微分を計算グラフを使って計算しています。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:328
+msgid ""
+"``Computational Graph``'s one of the most important advantage is we can "
+"compute the differentiation just by going back on the graph when the "
+"computational graph draw down once."
+msgstr ""
+"``計算グラフ`` の大きな利点は一度計算グラフを描いてしまえば、グラフを遡るだけで微分が計算できることにあります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:331
+msgid ""
+"To prevent such vanishing gradient problem for time-series axis network, "
+"we truncate the network link certain length. The length needs to be set "
+"as appropriate length for the data."
+msgstr ""
+"時系列方向のネットワークの勾配消失問題を防ぐために、時系列方向の繋がりを適切な長さで切り捨てます。"
+"この長さはデータに適した長さで設定される必要があります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:334
+msgid ""
+"After truncation, the network can learn time-series trends correctly "
+"because it can be propagated correct gradient."
+msgstr ""
+"繋がりを一定で切り捨てるようにすると、ネットワークは正しい勾配を伝播できるようになり、時系列の傾向を正しく学習できるようになります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:336
+msgid ""
+"This length is the ``bptt_length``. This is important when you use RNN, "
+"if you can't learn data correctly, try to reduce the keeping time-series "
+"length."
+msgstr ""
+"この長さが ``bptt_length`` です。これがRNNを使う際に重要なハイパーパラメータのひとつです。"
+"もし、上手くデータを正しく学習できない時は時系列の長さを減らしてみたりしてください。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:340
+msgid ""
+"In the real world problem, RNN can't show enough ability due to the too "
+"short truncation."
+msgstr ""
+"現実の問題では、RNNは実際に保持できる時系列の長さが短く、十分な能力を示せないことがあります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:342
+msgid ""
+"``LSTM`` (Long-Short Term Memory) was invented to learn more long "
+"dependencies. In ``LSTM``, it stores a special value different from the "
+"hidden state, which is called ``Memory Cell``, as the value's benefit, "
+"``LSTM`` can learn more long-term time-series dependencies than normal "
+"RNN."
+msgstr ""
+"より長期間の依存関係を学習するために ``LSTM`` (長・短期間記憶)が開発されました。"
+"``LSTM`` では、 ``メモリーセル`` と呼ばれる隠れ状態とは異なる特別な値を保持します。"
+"このメモリーセルによって、 ``LSTM`` はより長期間の時系列の依存関係を学習することができるのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:346
+msgid ""
+"Till some years ago, ``LSTM`` was the front line of the natural language "
+"process. ``Seq2Seq`` which extends a model of the ``LSTM`` was used as a "
+"mainstream mechanism of the AI chatbot."
+msgstr ""
+"数年前まで、 ``LSTM`` は自然言語処理の最先端でした。"
+"また、 ``Seq2Seq`` という ``LSTM`` を拡張したモデルはAIチャットボットの主流なメカニズムでした。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:349
+msgid ""
+"Recently, the position of the general chatbot mainstream has been "
+"depriving by ``transformer``, but it is used for some specific tasks "
+"still front line."
+msgstr ""
+"最近では一般のチャットボットは ``トランスフォーマー`` という仕組みに覇権を奪われつつありますが、"
+"それでも未だに特定の分野のタスクにおいては最先端でも使われています。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:352
+msgid "This shows ``LSTM`` is how versatile it is."
+msgstr "これは、 ``LSTM`` が以下に有用であるかを示しているでしょう。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:354
+msgid "Then, let's try to learn the curve!"
+msgstr "さぁ、曲線の学習してみよう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:356
+msgid ""
+"In this time, the ``max_epoch`` is ``25`` and the ``bptt_length`` is "
+"``32``, and ``loss`` are used as an accuracy indicator. (This problem "
+"predicts the next **value** so this is **Regression** problem. Thus, the "
+"``accuracy`` can't be used.)"
+msgstr ""
+"今回、 ``max_epoch``  は ``25`` で ``bptt_length`` は ``32`` とします。"
+"また、精度指標として ``損失`` を使います。"
+"(この問題は次時刻の **値** を予測するものです。そのため、 **回帰** 問題となり、 ``精度(accuracy)`` を使うことはできません。)"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:402
+msgid "The result is"
+msgstr "この結果は以下のようになります。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:414
+msgid ""
+"From the loss, the learning seems to proceed correctly. However, we can't"
+" check it directly by these."
+msgstr ""
+"この損失から、学習は正しく進んでいるようです。しかし、これでは直感的にはわかりませんね。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:416
+msgid "Then, let's check the model using plotting."
+msgstr "では、予測値をプロットして可視化してみましょう。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:443
+msgid "The model looks good! Predict trajectory can trace the actual cos curve!"
+msgstr "正しく学習できているようですね！予測の軌跡は実際のcos曲線を正しくトレースできていますね！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:446
+msgid ""
+"I think this trajectory can be predicted without a hidden state. Is it "
+"really necessary?"
+msgstr ""
+"隠れ状態がなくとも軌跡は正しく予測できるのではないでしょうか？本当に隠れ状態は必要なのでしょうか？"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:447
+msgid "Hmm, okay, let's check the prediction without a hidden state!"
+msgstr "ふむ、では、隠れ状態を使用しない予測をみてみましょう！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:474
+msgid ""
+"From this, the hidden state is important to trace the trajectory as more "
+"accurate!"
+msgstr ""
+"この結果から、隠れ状態はより正確に軌跡がトレースするために重要だと分かると思います。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:476
+msgid ""
+"Thank you for your hard work!! Now the RNN(Recurrent Neural Network) "
+"example lecture is completed!"
+msgstr ""
+"お疲れ様でした！！これでRNN(再帰型ニューラルネットワーク)の例題は完了です！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:478
+msgid ""
+"RNN(and LSTM) is used wide-variety use cases needing to consider time-"
+"series like natural language process."
+msgstr ""
+"RNN(とLSTM)は自然言語処理などの時系列を考える必要があるユースケースで広く使用されています。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:480
+msgid ""
+"Recently, AI chatbots like ChatGPT(from OpenAI) and Bard(from Google) and"
+" so become explosion famous. These models use ``Transformer`` which uses "
+"the Attention mechanism, different from RNN. However, such chatbot "
+"history started from RNN."
+msgstr ""
+"最近は、ChatGPT(OpenAI社)やBard(Google社)などのAIチャットボットが爆発的に有名になりました。"
+"これらのモデルは ``Transformer(トランスフォーマー)`` というAttention機構を用いたもので構築されており、"
+"RNNとは異なります。しかし、こういったチャットボットの歴史はRNNから始まったのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:484
+msgid ""
+"And, ``Attention`` was used with ``RNN(LSTM)``. Learning the ``RNN`` and "
+"``LSTM`` may help you if you want to learn and create an AI chatbot."
+msgstr ""
+"また、 ``Attention`` は ``RNN(LSTM)`` と一緒にも使われていました。"
+"``RNN`` や ``LSTM`` を学ぶことはあなたがAIチャットボットを作りたいと思っているのであれば、きっと助けになるでしょう。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:487
+msgid ""
+"Also, in generating music, generating movie, or machine translation use "
+"RNN(LSTM)."
+msgstr ""
+"さらにRNN(LSTM)は音楽生成や動画生成、機械翻訳などでも使用されているのです。"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:489
+msgid "Let's keep trying deep learning! Thank you!!"
+msgstr "ディープラーニングを学び続けてくださいね！お疲れ様でした！！"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:493
+msgid ""
+"Do you want to check more examples? Sure! We prepare more example using "
+"Marquetry."
+msgstr ""
+"もっと例題をみたいですか？もちろんです！Marquetryを使った例題を他にも用意しています"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:501
+msgid "Do you want to check Titanic prediction?:"
+msgstr "Titanicの生存者予測をみたいですか？:"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:496
+msgid "Titanic Disaster prediction"
+msgstr ""
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:508
+msgid "Do you want to check image classification?:"
+msgstr "画像分類をみたいですか？:"
+
+#: ../../documents/trial_examples/sequential_data_rnn.rst:504
+msgid "MNIST classification"
+msgstr ""
+

@@ -1,0 +1,742 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-08 06:40+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../documents/get_started_components/entrance.rst:3
+msgid "Entrance of Deep Learning"
+msgstr "ディープラーニングの世界の入口"
+
+#: ../../documents/get_started_components/entrance.rst:6
+msgid "Let's start your journey!"
+msgstr "さぁ、旅を始めよう！"
+
+#: ../../documents/get_started_components/entrance.rst:7
+msgid "Welcome to the Deep Learning World!! Here is your start point!"
+msgstr "ようこそ、ディープラーニングの世界へ！！ ここがスタートラインです！"
+
+#: ../../documents/get_started_components/entrance.rst:11
+msgid "What will do here?"
+msgstr "ここで何をするのでしょうか？"
+
+#: ../../documents/get_started_components/entrance.rst
+msgid "You"
+msgstr "あなた"
+
+#: ../../documents/get_started_components/entrance.rst:13
+msgid "What will do here? We use a complex data?"
+msgstr "ここで何をするのでしょうか？複雑なデータを使うのですか？"
+
+#: ../../documents/get_started_components/entrance.rst
+msgid "Me"
+msgstr "私"
+
+#: ../../documents/get_started_components/entrance.rst:14
+msgid "No, here we use a simple and intuitive problem for training and testing."
+msgstr "いえ、ここではシンプルかつ直感的な問題を扱います。"
+
+#: ../../documents/get_started_components/entrance.rst:16
+msgid "Let's start learning!"
+msgstr "学習を始めよう！"
+
+#: ../../documents/get_started_components/entrance.rst:19
+msgid "Challenge!"
+msgstr "ディープラーニングに挑戦！"
+
+#: ../../documents/get_started_components/entrance.rst:20
+msgid "We use simple separate area data."
+msgstr "ここで使うのはシンプルな領域分割のデータです。"
+
+#: ../../documents/get_started_components/entrance.rst:23
+msgid "What is the Dataset we use?"
+msgstr "どのようなデータセットですか？"
+
+#: ../../documents/get_started_components/entrance.rst:24
+msgid ""
+"The dataset is an area classification problem! This problem's core is the"
+" grid data classifying if the grid is over the sin curve or under. From "
+"our(people), the classification is simple and easy. Because we can "
+"understand that this problem is simply as y > sin(x) or y < sin(x)."
+msgstr ""
+"このデータセットは領域分割の **分類** "
+"問題です。この問題の主目的はグラフ上の各点がsinカーブの上に存在するか、それとも下に存在するか、を分類するというものです。非常にシンプルですよね。人間からしたらこのような分類は非常に簡単です。私たちは計算式を使って"
+" :math:`y > sin(x)` か :math:`y < sin(x)` かを計算して判断できますよね。"
+
+#: ../../documents/get_started_components/entrance.rst:29
+msgid ""
+"However, we don't provide this formula. We provide just the coordinate "
+"points and the correct label corresponding to the points."
+msgstr ""
+"しかし、この計算式を今回はAIには与えません。私たちがAIに渡すのは ``座標の点`` と ``対応する領域`` "
+"のみです。このデータからAIにこの分割方法を学習してもらいます。"
+
+#: ../../documents/get_started_components/entrance.rst:32
+msgid "**Let's challenge the project with Marquetry!**"
+msgstr "**Marquetryを使ってこの問題に挑戦しましょう！**"
+
+#: ../../documents/get_started_components/entrance.rst:36
+msgid "Create Data"
+msgstr "データの作成"
+
+#: ../../documents/get_started_components/entrance.rst:37
+msgid ""
+"Let's create the dataset! We prepare x coordinate which is the range "
+"[-1.0, 1.0] splitting each 0.05 and y coordinate which is also the range "
+"[-1.0, 1.0] splitting each 0.05. The number of coordinate points is (2.0 "
+"/ 0.05) * (2.0 / 0.05) = 40 * 40 = 1600. Therefore, the correct label is "
+"also 1600 records."
+msgstr ""
+"データセットを作りましょう！私たちはx座標、y座標それぞれに ``-1.0`` から ``1.0`` を ``0.05`` "
+"づつ分割したデータを使用します。``-1.0`` から ``1.0`` を ``0.05`` づつに分割すると、 :math:`2.0 / "
+"0.05` より、``40`` 個の座標が得られます。従って、このデータセットは xとyの座標の組み合わせなので、:math:`40 * 40` "
+"で ``1600`` 個の座標となります。"
+
+#: ../../documents/get_started_components/entrance.rst:43
+msgid "This time, we use :mod:`matplotlib` to visualize this data."
+msgstr "今回は分類の様子を可視化するために :mod:`matplotlib` を使用します。"
+
+#: ../../documents/get_started_components/entrance.rst:45
+msgid "Import ``matplotlib``"
+msgstr "``matplotlib`` をインストールします。(すでにインストール済みの場合は飛ばしてください)"
+
+#: ../../documents/get_started_components/entrance.rst:51
+msgid "The upper of the sin curve points are classified as 1, under points are 0."
+msgstr "sinカーブより上にある座標は ``1`` 、下にある座標は ``0`` とします。"
+
+#: ../../documents/get_started_components/entrance.rst:53
+msgid "Prepare the coordinate points"
+msgstr "座標データと正解ラベルの準備"
+
+#: ../../documents/get_started_components/entrance.rst:77
+msgid ""
+"Let's check this data plotting the point separate the area using "
+":mod:`matplotlib`"
+msgstr "作成したデータを :mod:`matplotlib` でプロットして可視化してみましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:92
+msgid "Result example"
+msgstr "結果の例"
+
+#: ../../documents/get_started_components/entrance.rst:97
+msgid "You can see a beautiful sin curve!"
+msgstr "綺麗なsinカーブが座標点で表現されていますね！"
+
+#: ../../documents/get_started_components/entrance.rst:99
+msgid ""
+"To tell you the truth, this learning is difficult for conventional linear"
+" machine learning. Because, conventional machine learning, which is "
+"``linear regression`` or ``logistic regression``, can learn only linear "
+"information. However, the sin curve is a non-linear function so the "
+"classification threshold is also a non-linear. In conventional machine "
+"learning, this learning is very hard."
+msgstr ""
+"実は、こういったデータの学習は従来の機械学習では難しかったりします。``線形回帰`` や ``ロジスティック回帰`` "
+"と呼ばれる従来の機械学習の手法では線形分離の情報しか学習することができません。しかし、sinカーブは見ての通り、非線形の形状をしています。そのため、この分類の閾値も非線形となり、線形情報しか学習できない従来の機械学習手法では学習ができないのです。"
+
+#: ../../documents/get_started_components/entrance.rst:105
+msgid ""
+"I've tested the training using ``Logistic Regression``, please see the "
+"below figures."
+msgstr "試しに、 ``ロジスティック回帰`` を使用してこのデータを学習させてみました。以下の画像をご覧ください。"
+
+#: ../../documents/get_started_components/entrance.rst:107
+msgid ""
+"The first figure is the unlearned model output. The second is the 100 "
+"epoch learned model. The third figure is the 900 epoch learned model."
+msgstr "1枚目の画像は未学習の段階の出力です。そして、2枚目は100エポック段階のもの、3枚目は900エポック段階のものです。"
+
+#: ../../documents/get_started_components/entrance.rst:110
+msgid ""
+"You can see the model can only have linear output. This doesn't fit the "
+"non-linear data(sin curve)."
+msgstr "この結果を見ると、ロジスティック回帰モデルが線形分離しかできないということがよくわかるのではないでしょうか？"
+
+#: ../../documents/get_started_components/entrance.rst:113
+msgid "1 epoch means learning all dataset. In this time, the 1600 data is used."
+msgstr "1エポックとは全てのデータが一回学習に使われたことを意味します。つまり、今回の例では1エポックで1600のデータ全てを一度使ったことを示します。"
+
+#: ../../documents/get_started_components/entrance.rst:115
+msgid "The details in :ref:`Epoch explanation <epoch>`."
+msgstr "より詳細は :ref:`Epochについて <epoch>` をご覧ください。"
+
+#: ../../documents/get_started_components/entrance.rst:124
+msgid "Non Learned"
+msgstr "未学習"
+
+#: ../../documents/get_started_components/entrance.rst:130
+msgid "100 epochs"
+msgstr ""
+
+#: ../../documents/get_started_components/entrance.rst:136
+msgid "900 epochs"
+msgstr ""
+
+#: ../../documents/get_started_components/entrance.rst:139
+msgid ""
+"Keep in mind, there are non-linear models even in conventional machine "
+"learning models like ``polynomial regression`` and so. If you use such "
+"non-linear models, you can learn non-linear functions."
+msgstr ""
+"非線形モデルは従来の機械学習にも ``多項式回帰`` "
+"のように存在しています。こういったモデルを使用することで、従来の機械学習でも非線形分離を行うことができることには注意しましょう。"
+
+#: ../../documents/get_started_components/entrance.rst:144
+msgid "Congratulation! You succeed the dataset creation!"
+msgstr "おめでとうございます！データセットの作成に成功しました！"
+
+#: ../../documents/get_started_components/entrance.rst:146
+msgid "Create Model"
+msgstr "モデルの作成"
+
+#: ../../documents/get_started_components/entrance.rst:147
+msgid "Let's start model definition. Oh, rest assured!"
+msgstr "では、モデルを定義していきましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:149
+msgid "Now you are using Marquetry, so the definition can be very easy."
+msgstr "心配はいりません。Marquetryを使えば簡単に定義できます。"
+
+#: ../../documents/get_started_components/entrance.rst:151
+msgid ""
+"This problem is **not** image data and not sequence data so we use a "
+"simple fully connected neural network."
+msgstr "この問題は画像データでも時系列データでもないため、シンプルな全結合ニューラルネットワークを使用します。"
+
+#: ../../documents/get_started_components/entrance.rst:153
+msgid ""
+"A fully connected neural network means neurons in the current layer and "
+"the next/previous layer are connected to each other. Such neural network "
+"is sometimes called ``Multiple Layer Perceptron``."
+msgstr ""
+"全結合ネットワークとは全ての層のニューロンが前後の層の全てのニューロンと結合されたニューラルネットワークのことです。このようなニューラルネットワークは"
+" ``多層パーセプトロン`` とも呼ばれます。"
+
+#: ../../documents/get_started_components/entrance.rst:157
+msgid "Oh, sorry, I didn't explain what is the ``Neural Network``."
+msgstr "そういえば、 ``ニューラルネットワーク`` について説明していませんでしたね。"
+
+#: ../../documents/get_started_components/entrance.rst:159
+msgid ""
+"Neural Network is base of the Deep Learning. In other words, Deep "
+"Learning is a deeper Neural Network. In some documents, ``Deep Learning``"
+" and ``Neural Network`` are used indicating the same thing."
+msgstr ""
+"とはいっても、ニューラルネットワークはディープラーニングとほぼ同じものです。言い換えると、層が深いニューラルネットワークがディープラーニングなのです。そのため、文献によっては"
+" ``ニューラルネットワーク`` と ``ディープラーニング`` は同じ意味で使われていることもあります。"
+
+#: ../../documents/get_started_components/entrance.rst:162
+msgid ""
+"In typically, an upper than 3-layer neural network is often called ``Deep"
+" Learning``. But the definition seems to be ambiguous. You don't need to "
+"remember this! Please keep in the back of your mind only the Deep "
+"Learning is deeper Neural Network so the mechanism is almost the same."
+msgstr ""
+"通常は、3層以上のニューラルネットワークが ``ディープラーニング`` と呼ばれます。しかし、この定義も実際は曖昧なので、とりあえず "
+"``ディープラーニング`` は深いニューラルネットワークなんだな。とだけ覚えておいてください。計算の仕組みはほぼ同じです。"
+
+#: ../../documents/get_started_components/entrance.rst:168
+msgid ""
+"Well, this time, we create a 3-layer Neural Network. Using "
+":class:`marquetry.models.MLP`."
+msgstr "さて、今回、私たちは3層のニューラルネットワークを :class:`marquetry.models.MLP` で作成します。"
+
+#: ../../documents/get_started_components/entrance.rst:168
+msgid "What is the MLP? MLP stands for ``Multiple Layer Perceptron``!"
+msgstr "MLPとは何かって？MLPは ``多層パーセプトロン(Multiple Layer Perceptron)`` のことです！"
+
+#: ../../documents/get_started_components/entrance.rst:170
+msgid ""
+"Define the model, don't worry! You should do is only define the number of"
+" the neuron and the layer."
+msgstr "ではモデルを定義しましょう。安心してください、Marquetryを使えば各層のニューロン数を指定するだけです！"
+
+#: ../../documents/get_started_components/entrance.rst:177
+msgid ""
+"The definition means the first layer has 2 neurons and　the second one has"
+" 3 neurons, and the last layer has 1 neuron. The last layer is called as "
+"``output layer`` which must be the same size as the output that you want."
+" In this time, the output is over/under so this can be expressed by 0/1 "
+"so the output size should **1**."
+msgstr ""
+"定義したモデルは一層目に2つ、二層目に3つ、そして最後の層に1つの ``ニューロン`` を持ちます。ちなみにこの最後の層は ``出力層`` "
+"と呼ばれ、あなたが予測したいデータのサイズと一致させる必要があります。今回のケースで言えば、予測したいデータは 0/1 "
+"のバイナリ値です。つまり、一つのカラムで表現できるので出力層のニューロンは **1** を指定します。"
+
+#: ../../documents/get_started_components/entrance.rst:182
+msgid ""
+"In accuracy, Neural Network(Deep Learning) has one more layer which is "
+"called as ``input layer``. However, the input layer only forwards the "
+"input layer to the first layer. In other words, the input layer has no "
+"compute process. Therefore, the layer doesn't count as the model's layer "
+"in almost every case."
+msgstr ""
+"より正確にはニューラルネットワーク(ディープラーニング)にはもう一つ、 ``入力層`` "
+"と呼ばれる層が存在します。しかしながら、入力層は単にデータを一層目に渡すだけの層、言い換えればなんの計算処理も行いません。そのため、多くのケースではこの層はモデルのレイヤー数に数えません。Marquetryでも入力層は層として数えていません。"
+
+#: ../../documents/get_started_components/entrance.rst:187
+msgid ""
+"However, some documents count layers including the input layer so if you "
+"face such documents, please remember this :)"
+msgstr "ただし、論文などを読む中で入力層をレイヤーに含めていることもあります。そのような文章に出会った時はそんな層もあったな、と思い出してくださいね(^^)"
+
+#: ../../documents/get_started_components/entrance.rst:191
+msgid ""
+"In the network training, we need to compute the gradient for the loss of "
+"the output compared with the target data. The loss is important to learn "
+"the excellence of the model for the time."
+msgstr "ネットワークを学習する上で、正解ラベルと出力値を比較した損失の勾配を計算する必要があります。損失は学習ごとのモデルの優秀性を確認するために重要なのです。"
+
+#: ../../documents/get_started_components/entrance.rst:194
+msgid "What is the loss? Why is it needed?"
+msgstr "損失とはなんですか？なぜ必要なのでしょうか？"
+
+#: ../../documents/get_started_components/entrance.rst:195
+msgid ""
+"Loss is the distance for the ideal! Please imagine when you studied "
+"something, maybe you tried and made mistakes. From mistakes, you can "
+"learn how to make no mistakes after this time. Neural Network is inspired"
+" by human cranial nerves so to make the model learn by itself, we need to"
+" provide the correct error(mistakes) as we did. The correct error in the "
+"neural network is called ``loss`` and it is provided by ``Loss "
+"Function``."
+msgstr ""
+"損失とは理想との距離です！あなたが何かを学習する時を想像してください。きっとあなたは挑戦して失敗して、そこから失敗しない方法を学んできたでしょう。``ニューラルネットワーク``"
+" "
+"は人間の脳細胞から着想を得ています。そのため、モデルに学ばせるためには同じように何が間違いだったのかを教えてあげる必要があります。この間違いを示すものが"
+" ``損失`` なのです。そして、損失は ``損失関数`` と呼ばれる関数によって計算されます。"
+
+#: ../../documents/get_started_components/entrance.rst:203
+msgid ""
+"Let me rephrase it, the correct data is the ideal output. If the "
+"loss(error) is 0, the model can provide a completely correct prediction. "
+"In this situation, the model has nothing to learn from the data."
+msgstr "言い換えれば、正解ラベルは理想の出力値です。もし損失(誤差)が0であれば、そのモデルは正解ラベルを完璧に予測できることになります。この場合、モデルがデータから学ぶことはもう何もないことを意味するのです。"
+
+#: ../../documents/get_started_components/entrance.rst:207
+msgid ""
+"However, if the loss(error) is larger than 0, the model can learn the "
+"relation between the data and the ideal output. In general, Neural "
+"Network learn data to reduce the loss(error) by updating the model "
+"parameter. And when getting closer to the ideal, the model loss is also "
+"reduced."
+msgstr "しかし損失(誤差)が0より大きい場合、モデルはまだデータと理想の出力との間にある関係性を学習することができます。一般的に、ニューラルネットワークは損失(誤差)を減らすようにデータを学習してモデルのパラメータを更新していきます。モデルが理想に近づくほど、損失も小さくなっていくというわけです。"
+
+#: ../../documents/get_started_components/entrance.rst:211
+msgid "Therefore, ``Loss`` can be told about as the distance for the ideal."
+msgstr "そのため、``損失`` は理想との距離と表現することができるのです。"
+
+#: ../../documents/get_started_components/entrance.rst:213
+msgid ""
+"Define ``Loss Function`` which is an indicator to learn the input source "
+"data and the correct label(value). This time, the prediction type is "
+"classification. In general, the classification can be divided into "
+"``BinaryClassification`` and ``MultiClassification``. There are suitable "
+"loss functions for each case."
+msgstr ""
+"入力データと正解ラベル(値)を学習するための指標である ``損失関数`` を定義します。今回は分類問題です。一般に分類問題は ``二値分類`` と"
+" ``多値分類`` に分けることができます。損失関数はそれぞれのケースに分けて考える必要があります。"
+
+#: ../../documents/get_started_components/entrance.rst:218
+msgid "Oh, we need to consider it at first?"
+msgstr "なるほど、ではまず最初に損失関数を検討する必要があるのですね？"
+
+#: ../../documents/get_started_components/entrance.rst:220
+msgid ""
+"No, you are using Marquetry so let's leave such a troublesome matter to "
+"the framework!"
+msgstr "いえ、せっかくMarquetryを使っているので、そのような面倒なことはフレームワークに丸投げしていましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:222
+msgid ""
+"We use :func:`marquetry.functions.classification_cross_entropy` which "
+"detects and chooses the classification type and loss function "
+"automatically."
+msgstr ""
+"ここでは分類タイプを自動で検出して損失関数を選択してくれる "
+":func:`marquetry.functions.classification_cross_entropy` を使います。"
+
+#: ../../documents/get_started_components/entrance.rst:230
+msgid "How to learn the data?"
+msgstr "どのようにデータを学ばせるのですか？"
+
+#: ../../documents/get_started_components/entrance.rst:231
+msgid ""
+"The model learns the data and the corresponding correct by updating the "
+"parameters. What is the update indicator? That is exactly what it is "
+"``Loss``."
+msgstr "モデルはパラメータをアップデートすることでデータと正解を学びます。このアップデートの指標とはなんでしょうか？それこそが ``損失`` なのです。"
+
+#: ../../documents/get_started_components/entrance.rst:234
+msgid ""
+"Try to remember, when the model is fitted to the data, the ``Loss`` is "
+"reduced. In other words, the ``Loss`` is reduced, and the model will fit "
+"the data."
+msgstr ""
+"思い出してください、モデルをデータに合うように調整すると、 ``損失`` は減少します。言い換えれば ``損失`` "
+"が減少すれば、モデルはデータにフィットしていくのです。"
+
+#: ../../documents/get_started_components/entrance.rst:237
+msgid ""
+"Now, we prepare the data and model and loss_function so the next "
+"component is the last and important thing, which is called ``Optimizer``."
+msgstr ""
+"これで私たちは ``データ`` 、 ``モデル`` 、 ``損失関数`` を手に入れました。次が最後にして非常に重要な ``オプティマイザー "
+"(最適化関数)`` です。"
+
+#: ../../documents/get_started_components/entrance.rst:240
+msgid ""
+"The model fitting is called ``Optimize the model``, so the optimizer is "
+"the update function. Internally, model fitting reduces the loss by the "
+"gradient of the loss for each parameter. Optimizer updates the parameter "
+"following the gradient to reduce the loss."
+msgstr ""
+"モデルの適合は ``モデルの最適化`` "
+"と呼ばれます。つまりオプティマイザーとは、モデルを更新する関数です。内部的には、各パラメータに対する損失の勾配を損失を減らすために使用します。つまりはオプティマイザーは損失を減らすために勾配に従ってパラメータを更新するのです。。"
+
+#: ../../documents/get_started_components/entrance.rst:244
+msgid ""
+"To resolve some issues, handled and thousands of optimizers have been "
+"presented so far. In this time, we use SGD "
+":class:`marquetry.optimizers.SGD` which is the most simple optimizer."
+msgstr ""
+"様々な問題を解決するためにこれまでに無数のオプティマイザーが開発されてきました。今回は最もシンプルなオプティマイザーである "
+":class:`marquetry.functions.SGD` (確率的勾配降下法)を使用します。"
+
+#: ../../documents/get_started_components/entrance.rst
+msgid "The formula is"
+msgstr "公式は以下の通りです。"
+
+#: ../../documents/get_started_components/entrance.rst:247
+msgid ""
+"previous_param -= learning_rate(small constant value) * the corresponding"
+" gradient"
+msgstr "現在のパラメータ -= 学習率(小さな定数値) * 対応する勾配"
+
+#: ../../documents/get_started_components/entrance.rst:249
+msgid "What is the gradient? Okay, I try to explain it briefly!"
+msgstr "勾配とは何かって？よし、では簡潔に説明しよう！"
+
+#: ../../documents/get_started_components/entrance.rst:251
+msgid ""
+"I planned to not explain this, hahaha but okay, such curiosity is very "
+"important!"
+msgstr "好奇心は非常に大切だからね！"
+
+#: ../../documents/get_started_components/entrance.rst:253
+msgid "Try to remember when you were a high school student."
+msgstr "高校生の頃を思い出してみてください。"
+
+#: ../../documents/get_started_components/entrance.rst:255
+msgid ""
+"... No! I didn't ask you about your girlfriend when you were in high "
+"school! lol"
+msgstr "... え？文化祭で焼きそばを売っていたって？そんなことを思い出して欲しいわけじゃないよ(笑)"
+
+#: ../../documents/get_started_components/entrance.rst:257
+msgid ""
+"I'd like you to remember mathematics! Maybe you learned differential. The"
+" differential is the tangent slope of the original function. The tangent "
+"slope is the mentioned ``Gradient``."
+msgstr ""
+"数学を思い出してほしい！多分、あなたは微分を学んだでしょう。微分とは元の関数の接線の傾きだと習ったはずです。この接線の傾きこそが ``勾配`` "
+"です。"
+
+#: ../../documents/get_started_components/entrance.rst:261
+msgid ""
+"From a macro perspective, deep learning(including loss function) can be "
+"viewed as a complex function (ten to million dim function). The slope "
+"indicates the direction of the function maximum(at least increasing) so "
+"that the parameter updates to the opposite direction of the gradient, the"
+" function result can be decreased."
+msgstr "マクロな観点から見れば、損失関数を含むディープラーニングのモデルは複雑な(数十から数百万次元を超えるような)一つの関数と考えることができます。勾配はこの複雑な関数が増大する方向をさし示します。つまり、勾配とは逆方向に進めば関数は減少する方向に向かうのです。これに従ってパラメータをアップデートすることで関数の結果は減少します。"
+
+#: ../../documents/get_started_components/entrance.rst:266
+msgid ""
+"Try to remember one more, to fit a model to the data, we need to reduce "
+"the loss."
+msgstr "もう一つ思い出してください。モデルを適合させるためには損失を減少させる必要があるのでしたね。"
+
+#: ../../documents/get_started_components/entrance.rst:268
+msgid ""
+"Have you figured it out yet? The Gradient is computed including the loss "
+"function, so if all parameters of the model update in the opposite "
+"direction, the loss will be reduced."
+msgstr ""
+"もうお分かりでしょう。 ``勾配`` "
+"は損失関数を含めて計算されます。つまり、全てのパラメータが勾配とは逆方向に更新されることによってこの損失は減少させることができるのです。"
+
+#: ../../documents/get_started_components/entrance.rst:274
+msgid "The SGD formula follows this mission. Please see again the formula."
+msgstr "SGDの公式はこれらの条件を満たしています。もう一度計算式をみてみましょう。"
+
+#: ../../documents/get_started_components/entrance.rst:273
+msgid ""
+"The formula updates the param by opposite gradient (This function "
+"computes subtraction of the gradient from previous parameters.)"
+msgstr "SGDはパラメータを勾配の逆方向に更新しています(SGDでは勾配を現在のパラメータから引く作業をしています)。"
+
+#: ../../documents/get_started_components/entrance.rst:276
+msgid ""
+"The ``learning_rate`` prevents large updates, by this mechanism, we can "
+"reduce the risk of oscillating the model. This time we use 0.1 as "
+"``learning_rate``."
+msgstr ""
+"``学習率`` "
+"とは一度に大きな更新を行うことを防ぎます。この仕組みによってモデルが振動する(更新が大きすぎていつまでも収束しない状態)になるリスクを減らすことができるのです。今回は0.1を"
+" ``学習率`` として扱います。"
+
+#: ../../documents/get_started_components/entrance.rst:279
+msgid "Prepare optimizer"
+msgstr "オプティマイザーを準備する"
+
+#: ../../documents/get_started_components/entrance.rst:286
+msgid ""
+"In Marquetry, the model you want to optimize is registered to the "
+"optimizer via optimizer's :meth:`prepare`. (This is a Marquetry manner, "
+"not common knowledge.)"
+msgstr ""
+"Marquetryでは、あなたが最適化したいモデルをオプティマイザーに :meth:`prepare` "
+"というメソッドを使用して登録する必要があります。(これは ``Marquetry`` の作法なので一般的な知識ではありません。)"
+
+#: ../../documents/get_started_components/entrance.rst:290
+msgid "Model Training"
+msgstr "モデルのトレーニング"
+
+#: ../../documents/get_started_components/entrance.rst:291
+msgid ""
+"Finally, we get all we need in this section! Let's train the model using "
+"the created dataset!"
+msgstr "ついに、私たちは今回必要なものを全て獲得しました！さぁ、モデルを作成したデータに適合するように学習させましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:294
+msgid "Only a few more steps left to do!"
+msgstr "必要な手順も残すところあと数ステップです！"
+
+#: ../../documents/get_started_components/entrance.rst:296
+msgid ""
+"We need to decide ``Batch Size`` and ``Epoch`` which are some of "
+"hyperparameters for deep learning."
+msgstr "まず、 ``バッチサイズ`` と ``エポック数`` というハイパーパラメータを決めます。"
+
+#: ../../documents/get_started_components/entrance.rst
+msgid "Batch Size"
+msgstr "バッチサイズ"
+
+#: ../../documents/get_started_components/entrance.rst:298
+msgid ""
+"This means how many records is used for the training at once. For Deep "
+"Learning, there are 3 methods for this topic. ``batch``, ``mini-batch`` "
+"and ``online`` training."
+msgstr ""
+"これは一回の学習でどれくらいのデータを使用するかを意味します。ディープラーニングにおいては主に三つの手法が存在します。``バッチ学習`` 、 "
+"``ミニバッチ学習``　そして、 ``オンライン学習`` です。"
+
+#: ../../documents/get_started_components/entrance.rst:302
+msgid "``batch``:"
+msgstr "バッチ学習:"
+
+#: ../../documents/get_started_components/entrance.rst:302
+msgid "this method uses all of the data for 1 time training."
+msgstr "この手法では一回の学習で全てのデータを使います。"
+
+#: ../../documents/get_started_components/entrance.rst:306
+msgid "``mini-batch``:"
+msgstr "ミニバッチ学習:"
+
+#: ../../documents/get_started_components/entrance.rst:305
+msgid ""
+"this method uses some sampled data from the original data for 1 time "
+"training and the mini-batch combination is changed in each epoch."
+msgstr "この手法ではいくつかのデータをサンプリングして一回の学習に使います。そしてデータの組み合わせはエポックごとに変更されます。"
+
+#: ../../documents/get_started_components/entrance.rst:310
+msgid "``online``"
+msgstr "オンライン学習"
+
+#: ../../documents/get_started_components/entrance.rst:309
+msgid ""
+"this method is only 1 record sampled randomly for 1 time training. "
+"Generally, the order is changed in each epoch."
+msgstr "この手法では一回の学習がランダムに選ばれた一つのデータのみを使用します。一般的にこのランダムに選ばれたデータの並びはエポックごとに変更されます。"
+
+#: ../../documents/get_started_components/entrance.rst:313
+msgid ""
+"``batch`` training provides stable training because this method uses all "
+"data at once so the training is insensitive to the influence of a small "
+"noise in data like outlier or so."
+msgstr "``バッチ学習`` は全てのデータを一度に使用するため、ノイズや外れ値などに左右されることなく、安定的に学習を行うことができます。"
+
+#: ../../documents/get_started_components/entrance.rst:316
+msgid ""
+"However, ``batch`` needs very large memory space because this method "
+"needs all data to be loaded on the memory at once. And, the computational"
+" load is also increased."
+msgstr "しかしながら、この手法ではデータを一度にメモリ上に読み込む必要があるので非常に大きなメモリが必要になり、さらに計算コストもデータ数に従って大きくなります。"
+
+#: ../../documents/get_started_components/entrance.rst:319
+msgid ""
+"``online`` training provides fast learning and low memory usage, and can "
+"fit real time model update if you need to update the model to fit the "
+"real time data like stock value."
+msgstr ""
+"``オンライン学習`` "
+"は一回の学習に一つのデータしか使わないので、低いメモリ使用と速い学習を行うことができます。例えば、株価予測などのようにリアルタイムに学習させる必要がある場合にはこのオンライン学習が使用されることが多いです。"
+
+#: ../../documents/get_started_components/entrance.rst:322
+msgid ""
+"However, ``online`` is sometimes not stable because this method uses only"
+" 1 data at 1 training so it sensitive to the influence of a small noise, "
+"and honestly speaking, ``online`` training is slowly comparing 1 data "
+"unit compute time with ``batch``."
+msgstr "一方で、オンライン学習は一回の学習に一つのデータしか使わないため、小さなノイズや外れ値の影響を受けやすいという問題があります。これによって、学習が不安定になることもあります。さらに、実はデータ全てを学習するのにかかる時間はバッチ学習よりも遅くなるケースもあります。"
+
+#: ../../documents/get_started_components/entrance.rst:326
+msgid ""
+"``mini-batch`` is the mixed method of ``batch`` and ``online``. This "
+"method uses a mini-batch unit at 1 training, each 1 time, using a "
+"randomly sampled dataset of user defined size(batch size). And the size "
+"is smaller than the original data size."
+msgstr ""
+"``ミニバッチ学習`` はオンライン学習とバッチ学習のいいとこ取りをするために考案された手法です。この方法では ``ミニバッチ`` "
+"という単位で一回の学習を行います。毎回ユーザが指定したサイズ(バッチサイズ)のデータをランダムに抽出して学習に使います。この時、バッチサイズは元のデータサイズよりも小さい必要があります。"
+
+#: ../../documents/get_started_components/entrance.rst:331
+msgid ""
+"From these specifications, this method insensitive to the influence of "
+"noises than ``online`` training and smaller than the data size than the "
+"``batch`` training so this can reduce the memory usage."
+msgstr "これらの性質から、この手法はオンライン学習よりもノイズに強く、またデータサイズが小さくなるため、バッチ学習よりも計算コストやメモリを小さくすることができます。"
+
+#: ../../documents/get_started_components/entrance.rst:334
+msgid ""
+"Currently, almost every case uses ``mini-batch`` training so this time, "
+"we use ``mini-batch``."
+msgstr "近年では多くのケースでミニバッチ学習が使用されます。そのため、今回は私たちもミニバッチ学習を使用します。"
+
+#: ../../documents/get_started_components/entrance.rst:338
+msgid ""
+"``Epoch`` defines how many times train the data. In other words, 1 epoch "
+"means that all data uses up even the training method is any."
+msgstr "``エポック数`` は何回学習データ全てを使って学習するかを定義します。1エポックは全てのデータが学習によって使い切られたことを意味します。"
+
+#: ../../documents/get_started_components/entrance.rst:341
+msgid ""
+"(``batch`` training uses all data at once so this method, ``Epoch`` match"
+" with the training times.)"
+msgstr "(バッチ学習では全てのデータを一度に使用するため、この手法ではエポック数はそのまま学習回数に一致します。)"
+
+#: ../../documents/get_started_components/entrance.rst:343
+msgid ""
+"In this time, we use the ``mini-batch`` method with a batch size 32, and "
+"the epoch is 2000."
+msgstr "今回、私たちは ``ミニバッチ学習`` を使用します。バッチサイズは ``32`` でエポック数は ``2000`` とします。"
+
+#: ../../documents/get_started_components/entrance.rst:345
+msgid ""
+"Also, to confirm the progress record the loss, and output the figure per "
+"setting interval. This time, the interval is set as 100."
+msgstr "また、進捗を確認するために損失を記録して、設定したインターバルごとに損失を表示します。"
+"今回はこのインターバルは ``100`` とします。"
+
+#: ../../documents/get_started_components/entrance.rst:348
+msgid "Let's train the model with data!"
+msgstr "さぁ、モデルを学習しましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:408
+msgid "The output transition"
+msgstr "出力の推移は以下のようになります。"
+
+#: ../../documents/get_started_components/entrance.rst:461
+msgid ""
+"Your model draws a beautiful sin curve! Just now, you stepped in to the "
+"deep learning world! Congratulation!!!"
+msgstr ""
+"あなたの作成したモデルは美しいsinカーブを描くことに成功しました！"
+"たった今、あなたはディープラーニングの世界に足を踏み入れたのです！"
+"おめでとうございます！！！"
+
+#: ../../documents/get_started_components/entrance.rst:464
+msgid "Welcome to the deep learning world!!"
+msgstr "そして、ようこそディープラーニングの世界へ！！！"
+
+#: ../../documents/get_started_components/entrance.rst:467
+msgid "Lastly..."
+msgstr "最後に..."
+
+#: ../../documents/get_started_components/entrance.rst:468
+msgid ""
+"This model has only 6 neurons so the expressiveness is limited like just "
+"drawing such simple area classification."
+msgstr ""
+"今回作成したモデルはたった6個のニューロンしか持ちません。"
+"そのため、表現力もこういった簡単な領域分割のような分類しかできません。"
+
+#: ../../documents/get_started_components/entrance.rst:470
+msgid ""
+"Of course, the real problem may be more complex, some problems can't deal"
+" with this small model."
+msgstr ""
+"当然ですが、現実世界の問題はもっと複雑なことがあります。"
+"そして、そういった問題は今回のような小さなモデルでは対処できないこともあります。"
+
+#: ../../documents/get_started_components/entrance.rst:472
+msgid ""
+"However, if you understand these steps, you can expand the model! Please "
+"play with this framework and I hope your journey is all the best!"
+msgstr ""
+"しかしながら、このページの内容を理解できているならモデルを拡張することは簡単でしょう！"
+"このフレームワークを使って遊んでください。そしてあなたの旅路に幸多からんことを！"
+
+#: ../../documents/get_started_components/entrance.rst:475
+msgid "...how's it going? Impressive, isn't it? lol"
+msgstr "...どうですか？感動的でしょ？(笑)"
+
+#: ../../documents/get_started_components/entrance.rst:477
+msgid ""
+"Keep in mind, you are only entering the world start line! We prepare the "
+"more practical problem! Let's keep learning!"
+msgstr ""
+"ここはまだこの世界のスタートラインでしかないことを忘れないでくださいね。"
+"僕はあなたのためにより実践的な問題を用意しました。"
+"学び続けてください！"
+
+#: ../../documents/get_started_components/entrance.rst:480
+msgid ""
+"The next is a prediction of the Titanic Disaster. This problem needs only"
+" a fully connected neural network."
+msgstr ""
+"次はタイタニックの生存者予測です。"
+"この問題は全結合ニューラルネットワークだけで解けます。"
+
+#: ../../documents/get_started_components/entrance.rst:482
+msgid ""
+"``fully connected neural network`` is the same as ``MLP``. So all weapons"
+" to resolve the problem are in your hands now!"
+msgstr ""
+"``全結合ニューラルネットワーク`` は ``MLP(多層パーセプトロン)`` と同じなのでしたね。"
+"つまり、すでにこの問題を解くための武器をあなたはすでに持っているのです！"
+
+#: ../../documents/get_started_components/entrance.rst:485
+msgid "Let's go to the practical problem!"
+msgstr "さぁ、より実践的な問題に進みましょう！"
+
+#: ../../documents/get_started_components/entrance.rst:486
+msgid "Titanic Disaster"
+msgstr ""
+

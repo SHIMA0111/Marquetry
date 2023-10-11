@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../cuda_backend.rst:3
+msgid "CUDA Backend"
+msgstr ""
+
+#: ../../cuda_backend.rst:6
+msgid "Get Array module (numpy or cupy)"
+msgstr ""
+
+#: marquetry.cuda_backend.get_array_module:1 of
+msgid "Get the array module corresponding to the input container."
+msgstr ""
+
+#: marquetry.cuda_backend.get_array_module:3 of
+msgid ""
+"This function determines whether the input container is  a :mod:`NumPy` "
+"or :mod:`CuPy` array and returns the appropriate array module. If CuPy is"
+" enabled and the input container is a CuPy array, it returns the CuPy "
+"module; otherwise, it returns the NumPy module."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy marquetry.cuda_backend.as_numpy
+#: marquetry.cuda_backend.get_array_module of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy:7 marquetry.cuda_backend.as_numpy:7
+#: marquetry.cuda_backend.get_array_module:8 of
+msgid "The input container or array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy marquetry.cuda_backend.as_numpy
+#: marquetry.cuda_backend.get_array_module of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.cuda_backend.get_array_module:11 of
+msgid ""
+"The array module (either NumPy or CuPy) corresponding to the input "
+"container or array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy marquetry.cuda_backend.as_numpy
+#: marquetry.cuda_backend.get_array_module of
+msgid "Return type"
+msgstr ""
+
+#: ../../cuda_backend.rst:11
+msgid "Convert Array to CuPy"
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy:1 of
+msgid "Convert an input container or array to a CuPy array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy:3 of
+msgid ""
+"This function takes an input container or array, checks its type, and "
+"converts it to a CuPy array if it is not already a CuPy array. It raises "
+"an exception if CuPy is not enabled."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy:10 of
+msgid "The input container or array as a CuPy array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_cupy:11 of
+msgid ":class:`cupy.ndarray`"
+msgstr ""
+
+#: ../../cuda_backend.rst:16
+msgid "Convert Array to NumPy"
+msgstr ""
+
+#: marquetry.cuda_backend.as_numpy:1 of
+msgid "Convert an input container or array to a NumPy array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_numpy:3 of
+msgid ""
+"This function takes an input container or array, checks its type, and "
+"converts it to a NumPy array if it is not already a NumPy array. If the "
+"input is a scalar, it is converted to a NumPy array as well."
+msgstr ""
+
+#: marquetry.cuda_backend.as_numpy:10 of
+msgid "The input container or array as a NumPy array."
+msgstr ""
+
+#: marquetry.cuda_backend.as_numpy:11 of
+msgid ":class:`numpy.ndarray`"
+msgstr ""
+
