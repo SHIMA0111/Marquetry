@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../layers/recurrents/bi_lstm.rst:3
+msgid "Bi-Directional LSTM (Bi-LSTM)"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:1 of
+msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:1 of
+msgid "Bidirectional Long Short-Term Memory (BiLSTM) layer for sequence modeling."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:3 of
+msgid ""
+"The BiLSTM layer is a variation of the standard LSTM layer that processes"
+" input data in both forward and reverse directions. This allows the "
+"network to capture information from both past and future context, "
+"resulting in richer representations. About LSTM, please see "
+":class:`marquetry.layers.LSTM`."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:9 of
+msgid "The size of the hidden state in each LSTM layer."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:11 of
+msgid "The size of the input data."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:17 of
+msgid "in_size:"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:17 of
+msgid ""
+"This is automatically determined from the input data shape and does not "
+"need to be specified except a special use case."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:22 of
+msgid "Forward LSTM layer."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM of
+msgid "type"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:24
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:30 of
+msgid ":class:`marquetry.layers.LSTM`"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:28 of
+msgid "Reverse LSTM layer."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:33 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward:1 of
+msgid ""
+"Perform the forward computation of the layer. Subclasses must implement "
+"this method."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called by `__call__`."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:1 of
+msgid "Set the hidden state and cell state to a custom value."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:3 of
+msgid "The custom hidden state."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:5 of
+msgid "The custom cell state."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:10 of
+msgid ""
+"Almost general use case, the cell state should NOT set custom value "
+"because cell state in LSTM is used only internal information connection, "
+"and it should be managed automatically. If you don't have any special "
+"reason, you should set only hidden state."
+msgstr ""
+

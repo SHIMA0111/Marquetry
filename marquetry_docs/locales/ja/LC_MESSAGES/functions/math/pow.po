@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/math/pow.rst:3
+msgid "Pow"
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow:1 marquetry.functions.math.basic.pow:1 of
+msgid "Compute element-wise power of array and specified coefficient."
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:3 of
+msgid ""
+"This function computes the element-wise power of input array `x` and "
+"coefficient `c`."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward
+#: marquetry.functions.math.basic.Pow.forward
+#: marquetry.functions.math.basic.pow of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:5 of
+msgid "The input array."
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:7 of
+msgid "The coefficient of the power"
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward
+#: marquetry.functions.math.basic.Pow.forward
+#: marquetry.functions.math.basic.pow of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:10 of
+msgid "The result of element-wise power."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward
+#: marquetry.functions.math.basic.Pow.forward
+#: marquetry.functions.math.basic.pow of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:11 of
+msgid ":class:`marquetry.Container`"
+msgstr ""
+
+#: marquetry.functions.math.basic.pow:14 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow:1 of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow:3 of
+msgid ""
+"This class computes the element-wise power of input array `x` and "
+"coefficient `c`."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow:7 of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward:1 of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward:3 of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward:6 of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.backward:11 of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.math.basic.Pow.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+

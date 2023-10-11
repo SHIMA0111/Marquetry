@@ -47,6 +47,16 @@ todo_include_todos = False
 html_show_sphinx = False
 html_show_sourcelink = False
 
+locale_dir = ["locale/"]
+gettext_compact = False
+
+html_context = {
+    "support_languages": {
+        "en": "English",
+        "ja": "日本語",
+    }
+}
+
 html_theme_options = {
     "footer_icons": [
         {
