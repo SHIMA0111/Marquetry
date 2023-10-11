@@ -14,11 +14,10 @@ Requirements
 Options
 --------
  - Python Packages:
-     - `CuPy <https://cupy.dev>`_ :
-        CuPy is NumPy compatible scientific mathmatics library working on CUDA GPU.
-           - CuPy requires a machine installing CUDA GPU, if your machine doesn't have CUDA you can't install CuPy.
-     - `Matplotlib <https://matplotlib.org/>`_:
-        Matplotlib is a visualize module, this must not be needed but it is used in get started and examples. If you use the get started and examples, please install it.
+     - `CuPy <https://cupy.dev>`_ : CuPy is NumPy compatible scientific mathmatics library working on CUDA GPU.
+        - CuPy requires a machine installing CUDA GPU, if your machine doesn't have CUDA you can't install CuPy.
+     - `Matplotlib <https://matplotlib.org/>`_: Matplotlib is a visualize module for Marquetry, but it is used
+        in get started and examples. If you use the get started and examples, please install it.
 
 Install
 ------------------

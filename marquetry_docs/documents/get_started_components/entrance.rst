@@ -25,7 +25,6 @@ The dataset is an area classification problem!
 This problem's core is the grid data classifying if the grid is over the sin curve or under.
 From our(people), the classification is simple and easy.
 Because we can understand that this problem is simply as y > sin(x) or y < sin(x).
-
 However, we don't provide this formula. We provide just the coordinate points
 and the correct label corresponding to the points.
 
@@ -342,7 +341,9 @@ In other words, 1 epoch means that all data uses up even the training method is 
 
 In this time, we use the ``mini-batch`` method with a batch size 32, and the epoch is 2000.
 
-Also, to confirm the progress record the loss, and output the figure per setting interval.
+(To check the training correctness, print the average loss and accuracy of each iteration.)
+
+Also, to confirm the progress print loss and output the figure per setting interval.
 This time, the interval is set as 100.
 
 Let's train the model with data!
@@ -371,6 +372,7 @@ Let's train the model with data!
 
            y = model(batch_x)
            loss = loss_func(y, batch_t)
+           accuracy = mq.functions.evaluation.binary_accuracy(y, batch_t)
 
            model.clear_grads()
            loss.backward()
