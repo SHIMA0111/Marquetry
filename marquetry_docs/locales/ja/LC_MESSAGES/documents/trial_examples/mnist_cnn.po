@@ -1,0 +1,548 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-11 05:19+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:2
+msgid "MNIST image classification"
+msgstr "MNIST画像分類タスク"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:3
+msgid "Welcome to the MNIST image classification!"
+msgstr "ようこそ、MNIST画像分類タスクへ！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:5
+msgid ""
+"On this page, we classify the MNIST image which is a handwritten number. "
+"The dataset has 60000 train images and 10000 test images."
+msgstr "このページでは手書き数字のMNISTの分類タスクに挑戦します。このデータセットは60000枚の学習用画像と10000枚のテスト用画像を持ちます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:12
+msgid "This problem's goal is a classification of the number from the image."
+msgstr "この問題のゴールは画像から数字を正しく分類することです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:15
+msgid "Prepare data"
+msgstr "データの準備"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:16
+msgid "Load data"
+msgstr "データの読み込み"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:18
+msgid ""
+"We prepared the MNIST dataset as Marquetry's built-in dataset. Let's load"
+" the data!"
+msgstr "MNISTデータセットはMarquetryの組み込みデータセットとして用意しています。では、データを読み込んでみましょう！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:33
+msgid "The shape means (number of images, channels, height, width)."
+msgstr "このデータの形は(画像数, チャンネル, 画像の高さ, 画像の幅)を意味します。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:36
+msgid ""
+"``channels`` means the color channel in the image. Probably, you've heard"
+" of ``RGB`` or ``CMYK``."
+msgstr ""
+"``チャンネル`` は画像の色チャンネルを意味します。多分、 ``RGB`` や ``CMYK`` "
+"といった言葉を聞いたことがあるのではないでしょうか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:39
+msgid ""
+"``RGB`` means ``Red`` and ``Green`` and ``Blue`` so if you have ``RGB`` "
+"image, the image has 3 channels."
+msgstr ""
+"``RGB`` は ``Red`` 、 ``Green`` 、 ``Blue`` を意味します。つまり、 ``RGB`` "
+"の画像を使用する場合、このチャンネルは3チャンネルとなります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:42
+msgid ""
+"Each channel has a heat map of the corresponding color and it can express"
+" the matrix which has 0 to 255 values on the same size of the image."
+msgstr "それぞれのチャンネルは対応する色のヒートマップを持っています。そして、画像と同じサイズの0から255の行列で表現できます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:45
+msgid "Let's check the channels. The original image is the one."
+msgstr "では、チャンネルをチェックしてみましょう。元の画像は以下のものです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:51
+msgid "Very cute cat..., I love cats."
+msgstr "とても可愛い猫ですよね。。。癒し。。。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:53
+msgid ""
+"Oh, it doesn't matter. Let's check the color map. This photo has RGB "
+"channels. So, the below are separate channels."
+msgstr "おっと、そんなことはどうでもいいですね。カラーマップを確認しましょう。この画像はRGBチャンネルなので、チャンネルに分けると以下のようになります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:63
+msgid "Red channel"
+msgstr "Redチャンネル"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:69
+msgid "Green channel"
+msgstr "Greenチャンネル"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:75
+msgid "Blue channel"
+msgstr "Blueチャンネル"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:77
+msgid "The original image is created by piling these 3 color channels."
+msgstr "元の画像はこれらの3つの色チャンネルを積み重ねて作られています。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:79
+msgid ""
+"If the channel is only 1, the image is often treated as a Gray Scale "
+"image. Even if Grayscale image, the array is the same."
+msgstr "チャンネルが1のみだった場合、その画像はグレースケールとして扱われることが多いです。グレースケールであっても配列は同じです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:82
+msgid ""
+"In the Gray scale, 0 is black and 255 is white. Also, the MNIST is 1 "
+"channel image so this is Grayscale."
+msgstr "グレースケールでは0は黒、255は白です。そして、MNISTも1チャンネルの画像でグレースケールです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:85
+msgid "And the target data is the label of the handwritten number."
+msgstr "そして、ターゲットデータは手書き数字のラベルになります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:87
+msgid ""
+"The ``transform`` is a transform function when getting items from the "
+"dataset. ``Compose`` is the wrapper. ``ToFloat()`` works as the "
+"transformer from int or any float to 32-bit float. And, ``Normalize()`` "
+"works as the transformer from raw value to scaled value in the range of 0"
+" to 1."
+msgstr ""
+"``transformer`` はデータセットからデータを取得する際にデータを変換するための関数を指定します。 ``Compose`` "
+"はラッパーオブジェクトです。 ``ToFloat()`` はintやfloat型のデータを32-bitの浮動小数値に変換します。そして、 "
+"``Normalize()`` は元の値を0から1に変換します。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:91
+msgid "Load dataset to dataloader"
+msgstr "データセットをデータローダに読み込む"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:93
+msgid ""
+"DataLoader helps the mini-batch data creation on your behalf. In this "
+"time, the ``batch_size`` is 32."
+msgstr "データローダはミニバッチを作成するのを手伝ってくれます。今回は ``batch_size`` を32とします。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:105
+msgid "Then you complete preparation. Congratulation!!"
+msgstr "これで前準備は完了です！おめでとうございます！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:107
+msgid "Prepare model"
+msgstr "モデルの準備"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:109
+msgid "Create a model"
+msgstr "モデルの作成"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:111
+msgid ""
+"In this time, we use :class:`marquetry.models.CNN` which has the below "
+"layers."
+msgstr "今回は :class:`marquetry.models.CNN` を使用します。モデルの詳細は以下の通りです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:116
+msgid "1st layer:"
+msgstr "1層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:114
+msgid ""
+"``Convolution`` layer has ``32`` filters which size is ``(3, 3)`` and the"
+" stride is ``1`` and padding is ``0``. With ``ReLU`` as an activation "
+"function."
+msgstr ""
+"``32`` 個の ``3×3`` のフィルターを持つ ``Convolution(畳み込み)`` "
+"層。ストライドは1、パディングは0。活性化関数は ``ReLU``"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:121
+msgid "2nd layer:"
+msgstr "2層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:119
+msgid ""
+"``Convolution`` layer has ``64`` filters which size is ``(3, 3)`` and the"
+" stride is ``1`` and padding is ``0``. With ``ReLU`` as an activation "
+"function."
+msgstr ""
+"``64`` 個の ``3×3`` のフィルターを持つ ``Convolution(畳み込み)`` "
+"層。ストライドは1、パディングは0。活性化関数は ``ReLU``"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:124
+msgid "3rd layer:"
+msgstr "3層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:124
+msgid ""
+"``Max Pooling`` layer which down sample the matrix using ``(2, 2)`` size "
+"kernel and stride ``2``."
+msgstr "カーネル ``2×2`` 、ストライド ``2`` の ``Max Pooling`` 層"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:129
+msgid "4th layer:"
+msgstr "4層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:127
+msgid ""
+"``Dropout`` layer which drop ``0.25`` ratio neurons(values). With "
+"``flatten`` the tensor to matrix (the original data has 3-dims but the "
+"fnn layer can't treat the data so it needs to be flattened.)"
+msgstr "ドロップ率 ``0.25`` の ``Dropout`` と高次配列を二次元配列に変換する ``flatten`` 処理を行う層"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:132
+msgid "5th layer:"
+msgstr "5層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:132
+msgid ""
+"``Fully-connected(Linear)`` Layer which has ``512`` neurons with ``ReLU``"
+" as activation function."
+msgstr ""
+"512個のニューロンを持つ ``全結合`` 層。活性化関数は ``ReLU``"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:135
+msgid "6th layer:"
+msgstr "6層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:135
+msgid "``Dropout`` layer which drop ``0.5`` ratio neurons(values)."
+msgstr "ドロップ率 ``0.5`` の ``Dropout`` 層"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:139
+msgid "7th layer:"
+msgstr "7層目"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:138
+msgid ""
+"``Fully-connected(Linear)`` Layer which is the output layer. The layer "
+"has ``output size`` neurons."
+msgstr ""
+"``output size(出力サイズ)`` 個のニューロンを持つ ``全結合`` 層。活性化関数は ``ReLU``"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:141
+msgid ""
+"The MNIST dataset has 10 labels(0 to 9 handwritten number). So the "
+"``out_size`` should be ``10``."
+msgstr "MNISTデータセットは10個のラベル(0~9の手書き数字)を持っています。つまり、 ``out_size`` は ``10`` となります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:147
+msgid "Set the model to Optimizer"
+msgstr "オプティマイザーにモデルをセットする"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:149
+msgid "We use :class:`marquetry.optimizers.Adam` as optimizer."
+msgstr "今回は :class:`marquetry.optimizers.Adam` を使用します。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:157
+msgid ""
+"Now you have all you need to learn the MNIST dataset! Let's proceed to "
+"the learning section!"
+msgstr ""
+"これでMNISTデータセットを学習するために必要なものが揃いました！さぁ、学習を始めましょう！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:159
+msgid "Model fitting"
+msgstr "モデルの学習"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:161
+msgid ""
+"In this time, the ``max_epoch`` is 25, and ``accuracy`` and ``loss`` are "
+"used as accuracy indicators."
+msgstr ""
+"今回は ``max_epoch`` は25とします。また、 ``精度`` と ``損失`` を精度指標として使います。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:164
+msgid "In this step, CNN needs a very long time(a couple hours unit range time)."
+msgstr "このステップは非常に長い時間が必要になることがあります(数時間以上)。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:166
+msgid ""
+"Therefore, if you try to this fitting on your local environment, we "
+"suggest using the CUDA accelerator. For using it, :mod:`cupy` must be "
+"needed."
+msgstr ""
+"そのため、もし実際にこのステップを実行したい場合は、CUDAアクセラレータを使うことをオススメします。"
+"CUDAを使うためには :mod:`cupy` が必須です。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:170
+msgid "Optional: Reload the dataset using the CuPy array."
+msgstr "オプション: データセットをCuPyの配列に再読み込みする"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:177
+msgid ""
+"Specify the ``cuda`` as True, the dataset will be loaded as "
+":class:`cupy.ndarray`."
+msgstr ""
+"``cuda`` を ``True`` と指定することで、データセットを :class:`cupy.ndarray` で読み込むことができます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:219
+msgid "The result is"
+msgstr "この結果は以下のようになります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:232
+msgid ""
+"If you don't have a CUDA environment and the training is difficult, you "
+"can use pre-trained parameters."
+msgstr ""
+"もしCUDA環境を持っていなかったり、学習が難しい場合は事前学習済みのパラメータを使用することもできます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:234
+msgid ""
+"Please download the pre-trained params file: :download:`Pre-trained "
+"MNIST(Click this!) <../../_static/file/mnist_model_cnn.npz>`"
+msgstr ""
+"事前学習済みパラメータのファイルをダウンロードしてください: "
+":download:`Pre-trained MNIST(こちらをクリックしてください。) <../../_static/file/mnist_model_cnn.npz>`"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:237
+msgid "You can use this file like..."
+msgstr "以下のようにこのファイルを使用できます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:259
+msgid ""
+"This params file optimized the :class:`marquetry.models.CNN` with "
+":meth:`marquetry.functions.relu` as an activation function."
+msgstr ""
+"このパラメータファイルは活性化関数が :meth:`marquetry.functions.relu` の :class:`marquetry.models.CNN` で"
+"学習されています。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:262
+msgid ""
+"If you use other construction CNN, the params from the file can't "
+"indicate the high recognition power."
+msgstr ""
+"別の構成でCNNを作成した場合、このパラメータファイルは高い認識能力を示すことができないので注意してください。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:264
+msgid ""
+"The model can classify the handwritten number with 99.26% accuracy. This "
+"accuracy isn't bad."
+msgstr ""
+"このモデルは99.26%の精度で手書き数字を識別できています。この精度は悪くありません。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:267
+msgid "Let's try it as a challenge yourself to reach 99.5%!"
+msgstr "ぜひ、99.5%を目指して挑戦してみてください！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:270
+msgid "To realize the accuracy, the hyperparameter turning is very important."
+msgstr "この精度を実現するためには、ハイパーパラメータのチューニングが非常に重要になります。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:272
+msgid "How many Convolution layers are put on the model?"
+msgstr "どれくらいの畳み込み層をおくか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:273
+msgid "How many Filters in the convolution layer should be put on the layer?"
+msgstr "どれくらいのフィルターを畳み込み層に入れるか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:274
+msgid "How much data should be in one batch? (``Batch Size``)"
+msgstr "1バッチにどれくらいのデータを使うか？(``Batch Size``)"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:275
+msgid "What activation function should we use?"
+msgstr "活性化関数は何を使うべきか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:276
+msgid "How many epochs should we use?"
+msgstr "エポックはどれくらいにするか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:277
+msgid "What optimizer should we use?"
+msgstr "オプティマイザーは何を使うべきか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:279
+msgid "..."
+msgstr ""
+
+#: ../../documents/trial_examples/mnist_cnn.rst:281
+msgid ""
+"There are many hyperparameters in Deep Learning, so please create your "
+"own model using :class:`marquetry.Model` base class."
+msgstr ""
+"ディープラーニングには沢山のハイパーパラメータがあります。"
+"ぜひ :class:`marquetry.Model` を使って自分のモデルを作って試してみてください。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:284
+msgid ""
+"If you want to check how to build your own model, please reference the "
+":class:`marquetry.models.CNN` source code. (`CNN <https://github.com"
+"/little-tabby/Marquetry/blob/main/marquetry/models/cnn/cnn.py>`_)"
+msgstr ""
+"独自のモデルをどのように作るかについては :class:`marquetry.models.CNN` のソースコードをみてみてください。"
+"(`CNN <https://github.com/little-tabby/Marquetry/blob/main/marquetry/models/cnn/cnn.py>`_)"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:287
+msgid ""
+"It is not difficult, when you want to build a model, you should do only "
+"the below 2 steps."
+msgstr ""
+"とはいえ、難しいものはありません。モデルを作るには以下の二つのステップを辿れば良いのです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:289
+msgid "Prepare the layer using in the model on the model class constructor."
+msgstr "モデルに使いたいレイヤーをモデルの定義クラスのコンストラクタで宣言する"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:290
+msgid "Chain the layer using the output as the next layer input."
+msgstr "最初の層から出力を次の層の入力とすることで層同士を繋ぐ"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:292
+msgid ""
+"For example, we want to create a SimpleFNN model which has 1 hidden "
+"layer(128 neurons) and an output layer, and activation is ReLU, then we "
+"should do like the below."
+msgstr ""
+"例えば、1つの隠れ層(128ニューロン)と出力層を持つSimpleFNNというモデルを作りたいとします。活性化関数はReLUを使用します。"
+"この時、以下のように実装します。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:315
+msgid "Then this can be used the same way as the built-in models."
+msgstr "そして、このモデルは組み込みのモデルと同じ方法で使用できます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:317
+msgid ""
+"When you train this model, we can call this model and chain it with a "
+"loss function. And calling the loss value ``backward`` method(each params"
+" gradient calculated by this) and then, model parameter update."
+msgstr ""
+"モデルを学習する際、これまでやったようにモデルを実行してその出力を損失関数に入れます。"
+"そして、損失値の ``backward`` メソッドを呼びます(これによってパラメータの勾配を計算します)。"
+"最後にモデルのパラメータを更新します。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:321
+msgid ""
+"When you create your own model using ``Marquetry``, the backward "
+"implementation doesn't need to be considered. Such complex processes are "
+"taken over by the ``Marquetry`` core."
+msgstr ""
+"``Marquetry`` を使って独自モデルを作る時、 ``backward`` の実装は考える必要がありません。"
+"そのような複雑な処理はMarquetryによって全て代行されます。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:324
+msgid "In the last of this section, let's check what images are misclassified."
+msgstr "最後に誤認識した画像をみてみましょう。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:365
+msgid ""
+"These numbers are difficult even from a human eye so the model can "
+"classify the data close to the human eye."
+msgstr ""
+"これらの数字は人間の目でも判断が難しいでしょう。つまり、モデルが人間の目に近いレベルで画像を分類できているのです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:367
+msgid ""
+"Of course, if you look for all the wrong images, there are some clear "
+"mistakes. But the important thing is the CNN model can classify the "
+"handwritten number with 99.2% accuracy."
+msgstr ""
+"もちろん、間違えた画像を全て確認すれば、人間が犯さないような明らかな間違いもあるでしょう。"
+"しかし、重要なことはCNNモデルが手書き文字を99.2%の精度で分類できたということです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:370
+msgid ""
+"Maybe, the human eye can be more accurate than the model but this model "
+"can classify the 10000 data in just a few seconds. If we classify these "
+"10000 data by your hand, the work needs over a couple of hours."
+msgstr ""
+"もしかしたら、人の目であればより精度高く分類できるかもしれません。"
+"しかし、このモデルは10000枚の画像をたった数秒で分類できます。これが人間の手で分類される場合はその作業は数時間以上かかるでしょう。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:373
+msgid ""
+"Please note, that one of the largest benefits of using deep learning is "
+"the time reduction. 99.2% accurate in just a few seconds is more "
+"beneficial than 100% accurate over a couple of hours in almost cases."
+msgstr ""
+"忘れてはいけないのは、ディープラーニングを使う最も大きな利点の一つは時間削減にあるということです。"
+"99.2%の精度をたった数秒で実現できることは多くの場合において数時間での100%の精度よりも価値があるでしょう。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:376
+msgid ""
+"Thank you for your hard work!! Now the CNN(Convolutional Neural Network) "
+"example lecture is completed!"
+msgstr ""
+"お疲れ様でした！！これでCNN(畳み込みニューラルネットワーク)の例題は完了です！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:378
+msgid ""
+"CNN is used in a variety of use cases that use images. We prepare the "
+"FashionMNIST dataset as a test problem. The FashionMNIST is a harder "
+"dataset than MNIST."
+msgstr ""
+"現在、CNNは画像を使う様々なユースケースに使われています。MarquetryにFashionMNISTデータセットも用意しました。"
+"FashionMNISTは今回のMNISTよりも難しいデータセットです。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:381
+msgid ""
+"The data construction follows the original MNIST. FashionMNIST was "
+"created to deal with the MNIST is too easy in current deep learning and "
+"difficult to evaluate the model correctly. You confirmed in this section,"
+" the MNIST can realize over 99% accuracy even with such simple CNN. "
+"Current CNN can be over 100 layers so the original MNIST dataset isn't "
+"appropriate for such models."
+msgstr ""
+"このデータはオリジナルのMNISTと同じ構成をしています。"
+"FashionMNISTはディープラーニングにおいてMNISTデータセットが簡単すぎ、正しくモデルを評価できないという問題に対処するために作成されました。"
+"このセクションでみてきたようにMNISTは今回のようなシンプルなCNNでも99%を超える精度を実現できてしまいます。"
+"現代のCNNは100層を超えるようなものもあります。オリジナルのMNISTはこういったモデルの評価に適しません。"
+"(100層などはより大量の分類のデータセットを使うことも多いですが。。。)"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:387
+msgid ""
+"FashionMNIST is more enjoyable if you are the kind that gets more fired "
+"up the harder something is."
+msgstr ""
+"FashionMNISTは難しい問題に挑戦することに燃える人ならきっと楽しめるでしょう。"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:389
+msgid ""
+"After this, let's try the :class:`marquetry.datasets.FashionMNIST` using "
+"your original CNN and aim to reach over 90%!"
+msgstr ""
+"ぜひ、 :class:`marquetry.datasets.FashionMNIST` を使って独自のCNNで90%を超える精度を目指してみてください！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:393
+msgid ""
+"Do you want to check more examples? Sure! We prepare more example using "
+"Marquetry."
+msgstr ""
+"もっと例題をみたいですか？もちろんです！Marquetryを使った例題を他にも用意しています！"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:401
+msgid "Do you want to check Titanic prediction?:"
+msgstr "Titanicの生存者予測をみたいですか？:"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:396
+msgid "Titanic Disaster prediction"
+msgstr ""
+
+#: ../../documents/trial_examples/mnist_cnn.rst:408
+msgid "Would you like to check time-series data?:"
+msgstr "時系列データをみたいですか？"
+
+#: ../../documents/trial_examples/mnist_cnn.rst:404
+msgid "Trigonometric toy problem"
+msgstr ""

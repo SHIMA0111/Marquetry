@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../models/cnn.rst:3
+msgid "Convolution Neural Network (CNN)"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:1 of
+msgid "Bases: :py:class:`~marquetry.model.Model`"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:1 of
+msgid "A convolutional neural network (CNN) model for image processing tasks."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:3 of
+msgid ""
+"The CNN class implements a convolutional neural network model, which is "
+"widely used for image processing tasks such as image classification and "
+"object detection. It consists of convolutional layers, fully connected "
+"layers, and pooling layers."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN marquetry.models.cnn.cnn.CNN.forward of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:7 of
+msgid ""
+"The size of the output layer, typically representing the number of "
+"classes."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:9 of
+msgid ""
+"The activation function applied after each convolutional and fully "
+"connected layer."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:11 of
+msgid ""
+"The number of input channels. If None, it will be determined "
+"automatically."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:28 of
+msgid "Architecture:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:15 of
+msgid "Convolutional Layer 1:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:16 of
+msgid "Applies 32 filters of size (3, 3) with specified activation function."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:17 of
+msgid "Convolutional Layer 2:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:18 of
+msgid "Applies 64 filters of size (3, 3) with specified activation function."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:19 of
+msgid "Max Pooling Layer:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:20 of
+msgid "Performs max pooling with a kernel size of (2, 2) and stride of 2."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:21 marquetry.models.cnn.cnn.CNN:25 of
+msgid "Dropout Layer:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:22 of
+msgid "Applies dropout with a probability of 0.25."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:23 of
+msgid "Fully Connected Layer 1:"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:24 of
+msgid "Has 512 units with specified activation function."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:26 of
+msgid "Applies dropout with a probability of 0.5."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:28 of
+msgid "Fully Connected Layer 2 (Output Layer):"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:28 of
+msgid "Produces final output with size out_size."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN:31 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward:1 of
+msgid ""
+"Perform the forward computation of the layer. Subclasses must implement "
+"this method."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.models.cnn.cnn.CNN.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called by `__call__`."
+msgstr ""
+

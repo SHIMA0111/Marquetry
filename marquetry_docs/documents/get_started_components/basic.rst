@@ -102,7 +102,7 @@ Why...?
 .. tip::
    ``Loss`` is often called as ``Error``.
 
-Gradient Descent is subtracted from the ``Gradient`` from the params.
+Gradient Descent subtracts the ``Gradient`` from the current params.
 From the explanation, the ``Loss`` is decreased by this process so that the model is fit to the correct value.
 
 Loss is ``Descended`` by ``Gradient`` so this method is called ``Gradient Descent method``.
@@ -132,7 +132,7 @@ The function's formula is
 This is very simple, sum all squared residual values of each record.
 Why is squared? Because the raw residual has mixed +/- value if just sum the value,
 the loss is incorrect by the loss value annihilation.
-So the sine of the residual is gotten together by squared.
+So the sign of the residual is ignored together by squared.
 
 
 The next one is for the Classification problem.
@@ -156,7 +156,7 @@ For label encoded correct data, there is the more efficient formula.
       CE = -Σ{log(predict_matrix[index, correct_label])}
 
 This function uses the logarithm specification.
-The logarithm output is shapely decreasing when the value is closing to 0 so that the reversed sine logarithm is
+The logarithm output is shapely decreasing when the value is closing to 0 so that the minus logarithm is
 shapely increasing.
 
 .. grid:: 2
@@ -168,7 +168,7 @@ shapely increasing.
       .. image:: ../../_static/img/log_func2.png
 
 Please try to remember, ``Cross Entropy``'s core is the logarithm of the predicted score **corresponding correct label**.
-In other words, the optimizing loss function should be a large value when the prediction score is low.
+The optimal loss function should be a large value when the prediction score is low.
 
 This requirement is filled by the minus logarithm function.
 So the ``Cross Entropy`` is structured by the -log function.
@@ -189,7 +189,8 @@ Now, the weapons of ``Gradient Descent`` are in your hand!
 The last piece connecting the weapons is ``Backpropagation``.
 
 Before telling you the details, please consider how to find the gradient of the model and the loss function.
-The loss function and the model are independent of each other. So the gradient can't be found simply.
+The loss function and the model are independent without the point that the loss function receiving
+the model output of each other. So the gradient can't be found simply.
 
 .. tip::
    To tell the truth, such connecting different functions are called ``composite functions``.
@@ -546,7 +547,7 @@ Why...?
       .. grid-item::
          .. image:: ../../_static/img/spiral_non_act_900.png
 
-   This model can't this data correctly. In the model without activation, the model expression isn't enough...
+   This model can't learn this data correctly. In the model without activation, the model expression isn't enough...
 
    To tell you the truth, the ``Activation`` function governs non-linear expression.
    If the activation function isn't used, the model even if deep can't express non-linear features.
@@ -647,7 +648,8 @@ Some of the order of the implementation is different from the explanation to eas
 
 .. note:: We use :mod:`NumPy` to calculate the matrix operation.
 
-1. Implement ReLU(Rectified Linear Unit).
+1. Implement ReLU(Rectified Linear Unit)
+
    The formula is
 
    .. math::
@@ -679,9 +681,10 @@ Some of the order of the implementation is different from the explanation to eas
    In the backward method, we use ``mask`` which depends on the forward input.
    This mask is mapped 0 as x(input) < 0, otherwise, 1.
 
-   The ``backward`` is the differentiation with respect to `x`.
+   The ``backward`` returns the output differentiation with respect to `x`.
 
 2. Implement Linear trans function
+
    The formula is
 
    .. math::
@@ -733,7 +736,7 @@ Some of the order of the implementation is different from the explanation to eas
               self.w -= learn_rate * self.grad_w
               self.b -= learn_rate * self.grad_b
 
-   ``init_mean`` controls the initial weight standard deviation.
+   ``init_std`` controls the initial weight standard deviation.
    Default is 0.01.
 
    ``update`` method updates the layer parameters.
@@ -743,6 +746,7 @@ Some of the order of the implementation is different from the explanation to eas
    ... Yes, this is SGD method!
 
 3. Implement SoftmaxWithCrossEntropy which loss function for classification problems.
+
    The formula is
 
    .. math::
@@ -837,7 +841,7 @@ Some of the order of the implementation is different from the explanation to eas
       .. math::
          \begin{align}
          g(f(x_k)) &= -\sum_{k=0} \{t_k * log(exp(x_k) / \sum_{l=0} exp(x_l))\} \\
-         &= -\sum_{k=0} \{t_k * (log(exp(x_k) - log(\sum_{l=0} exp(x_l))))\} \\
+         &= -\sum_{k=0} \{t_k * (log(exp(x_k)) - log(\sum_{l=0} exp(x_l)))\} \\
          &= -\sum_{k=0} \{t_k * log(exp(x_k)) - t_k * log(\sum_{l=0} exp(x_l))\} \\
          &= -\sum_{k=0} \{t_k * x_k - t_k * log(\sum_{l=0} exp(x_l))\} \\
          &= \sum_{k=0} \{t_k * log(\sum_{l=0} exp(x_l))\} - \sum_{k=0} \{t_k * x_k\} \\
@@ -862,6 +866,7 @@ Some of the order of the implementation is different from the explanation to eas
          \end{align}
 
 4. Create a model object using implemented classes
+
    Now, we have all the components for deep learning construction but difficult to use it is now.
    Therefore, we create wrapping objects to use easily.
 
@@ -939,6 +944,7 @@ Some of the order of the implementation is different from the explanation to eas
       Let's try to modify this code as such new implements!
 
 5. Training the model
+
    Finally, you create deep learning by your hand!
    Now, let's let it learn!!
    In this training, we use the ``trigonometric area separation problem``
@@ -1022,7 +1028,7 @@ Please don't forget, this is not a goal, you just stepped on the great journey.
 
 ----
 
-I prepared the next step which tries a more typical problem using ``Marquetry``.
+I prepared the next step which tries a more practical problem using ``Marquetry``.
 The first one is the ``Titanic Disaster`` prediction.
 
 .. button-link:: ../trial_examples/titanic_disaster.html

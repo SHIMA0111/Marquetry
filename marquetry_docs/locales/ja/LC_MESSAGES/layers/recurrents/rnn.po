@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../layers/recurrents/rnn.rst:3
+msgid "RNN (Recurrent Neural Network)"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:1 of
+msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:1 of
+msgid "Recurrent Neural Network (RNN) layer for sequence modeling."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:3 of
+msgid ""
+"The RNN layer is a fundamental building block for processing sequential "
+"data. It performs a recurrent　computation on input data, allowing it to "
+"maintain hidden states and capture dependencies across time steps."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN
+#: marquetry.layers.recurrent.rnn.RNN.forward
+#: marquetry.layers.recurrent.rnn.RNN.set_state of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:7 of
+msgid "The size of the hidden state in the RNN layer."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:9 of
+msgid "The size of the input data."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:15 of
+msgid "in_size:"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:15 of
+msgid ""
+"This is automatically determined from the input data shape and does not "
+"need to be specified except a special use case."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:20 of
+msgid "The current hidden state of the RNN."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN of
+msgid "type"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:22 of
+msgid "marquetry.Container or None"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN:25 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward:1 of
+msgid ""
+"Perform the forward computation of the layer. Subclasses must implement "
+"this method."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called by `__call__`."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.reset_state:1 of
+msgid "Reset the hidden state of the RNN."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.set_state:1 of
+msgid "Set the hidden state of the RNN to the given value."
+msgstr ""
+
+#: marquetry.layers.recurrent.rnn.RNN.set_state:3 of
+msgid "The new hidden state."
+msgstr ""
+

@@ -1,0 +1,1486 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-10 01:40+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../documents/get_started_components/basic.rst:2
+msgid "Basic of Deep Learning"
+msgstr "ディープラーニングの基礎"
+
+#: ../../documents/get_started_components/basic.rst:5
+msgid "Let's Learn the deep learning!"
+msgstr "ディープラーニングを学ぼう！"
+
+#: ../../documents/get_started_components/basic.rst:6
+msgid ""
+"In this section, we learn the details of the deep learning! Currently, we"
+" often hear \"Deep Learning\" but most people unknown the details."
+msgstr "このセクションでは、私たちはディープラーニングの詳細を学びます。最近はよく\"ディープラーニング\"という言葉を聞きますが、きっと多くの人はその中身を知らないと思います。"
+
+#: ../../documents/get_started_components/basic.rst:9
+msgid "Deep Learning(Neural Network) is a little complex but very exciting!"
+msgstr "ディープラーニング(ニューラルネットワーク)は少々複雑ですが、非常に楽しい分野です！"
+
+#: ../../documents/get_started_components/basic.rst:11
+msgid "Let's dive into the wonderful deep learning world!"
+msgstr "さぁ、素晴らしきディープラーニングの世界に飛び込みましょう！"
+
+#: ../../documents/get_started_components/basic.rst:15
+msgid "What is the \"Learning\"?"
+msgstr "\"学習(ラーニング)\"とはなんでしょう？"
+
+#: ../../documents/get_started_components/basic.rst:16
+msgid ""
+"Recently, we heard or seen \"Learning\", Machine Learning, or Deep "
+"Learning or Reinforcement Learning, or so. However, what is the meaning "
+"of the \"Learning\" originally?"
+msgstr "最近、\"学習(ラーニング)\"という言葉を機械学習、ディープラーニング、深層学習などでよく見聞きすると思います。しかし、そもそも\"学習\"とはなんなのでしょうか？"
+
+#: ../../documents/get_started_components/basic.rst:19
+msgid ""
+"A pioneer of Artificial Intelligence(AI), ``Arthur Lee Samuel`` who is a "
+"computer scientist and held positions such as Standford University, he "
+"defines Machine Learning as"
+msgstr ""
+"人工知能(AI)の先駆者であり、スタンフォード大学で教授を勤めた計算機学者である ``アーサー・リー・サミュエル`` "
+"は機械学習を次のように定義しました。"
+
+#: ../../documents/get_started_components/basic.rst:22
+msgid ""
+"Field of study that gives computers the ability to learn without being "
+"explicitly programmed"
+msgstr "明示的にプログラムされなくともコンピュータに自ら学習する能力を与える研究分野"
+
+#: ../../documents/get_started_components/basic.rst:24
+msgid "This is the most simple but precise definition."
+msgstr "この定義は非常にシンプルですが正確です。"
+
+#: ../../documents/get_started_components/basic.rst:26
+msgid ""
+"In other words, what should we do is consider how to teach the relation "
+"of data and correct value to computer without any formula directly "
+"relating to the problem."
+msgstr "言い換えれば、特定の問題に関する公式を直接与えることなく、どのようにデータと正解の関係を教えるかを考える分野です。"
+
+#: ../../documents/get_started_components/basic.rst:29
+msgid ""
+"To tell you the truth, there are a variety of approaches, tree model "
+"using \"Impurity formula and Info Gain\" indicator, Support Vector "
+"Machine(SVM) using a distance from the support vector(record of the two-"
+"value which should be classified), and so."
+msgstr ""
+"実はこの分野には様々なアプローチがあります。ツリーモデルという\" **不純度と情報利得** "
+"\"を指標に学習するモデルやサポートベクターマシン(SVM)という分割すべき領域の境界(超平面)に最も近いそれぞれの領域の座標(これをサポートベクトルという)を基準にこのサポートベクトルと分割境界となる超平面の距離を最大化するモデルなどもあります。"
+
+#: ../../documents/get_started_components/basic.rst:33
+msgid ""
+"Sorry, I don't explain these algorithms here, these are more complex than"
+" the Gradient Descent method used by Linear regression, Logistic "
+"regression, and almost all Neural Network(Deep Learning) algorithms."
+msgstr ""
+"すみませんが、ここではそういったアルゴリズムを説明しません。これらは数学的にはここで説明する線形回帰やロジスティック回帰、そして多くのディープラーニングで使用されている"
+" *勾配降下法* より複雑であることが多いためです。興味があればぜひ調べてみてください。"
+
+#: ../../documents/get_started_components/basic.rst:36
+msgid ""
+"Then, what do you think we learn about here? ... Oh, yes! We learn about "
+"the ``Gradient Descent method``! You know it well! Hum? Oh, I said it "
+"myself earlier! lol"
+msgstr "さて、ここでは ``勾配降下法`` についてみていきます。"
+
+#: ../../documents/get_started_components/basic.rst:41
+msgid "Let's learn the Gradient Descent method!!"
+msgstr "さぁ、勾配降下法を学びましょう！"
+
+#: ../../documents/get_started_components/basic.rst:43
+msgid "Gradient Descent"
+msgstr "勾配降下法"
+
+#: ../../documents/get_started_components/basic.rst:44
+msgid "``Gradient Descent`` is one of the most used algorithms."
+msgstr "``勾配降下`` は機械学習の中でよく使われる手法の一つです。"
+
+#: ../../documents/get_started_components/basic.rst:46
+msgid ""
+"``Linear Regression`` and ``Logistic Regression`` and ``Neural "
+"Network(Deep Learning)``, and so are following this method."
+msgstr "``線形回帰`` や ``ロジスティック回帰`` 、 ``ニューラルネットワーク(ディープラーニング)`` などはこの手法に従って学習を行います。"
+
+#: ../../documents/get_started_components/basic.rst:49
+msgid ""
+"This method's core is ``Gradient`` of ``Loss`` with respect to each "
+"parameter in the model."
+msgstr "この手法の本質はモデルの各パラメータに対する ``損失`` の ``勾配`` です。"
+
+#: ../../documents/get_started_components/basic.rst:51
+msgid ""
+"``Gradient`` means partial differentiation so this method uses the slope "
+"of the loss with respect to each independent parameters."
+msgstr "``勾配`` とは偏微分を意味します。つまり、この手法ではモデルの各パラメータに対してそれぞれのパラメータの損失に対する偏微分を使うのです。"
+
+#: ../../documents/get_started_components/basic.rst:55
+#: ../../documents/get_started_components/basic.rst:442
+msgid "Why...?"
+msgstr "なぜ...？"
+
+#: ../../documents/get_started_components/basic.rst
+msgid "You"
+msgstr "あなた"
+
+#: ../../documents/get_started_components/basic.rst:57
+msgid "Why do we use partial differentiation to learn the computer from the data?"
+msgstr "なぜ、コンピュータがデータを学ぶために偏微分を使うのですか？"
+
+#: ../../documents/get_started_components/basic.rst
+msgid "Me"
+msgstr "私"
+
+#: ../../documents/get_started_components/basic.rst:59
+msgid ""
+"Let's come back to the what is the ``Loss``. ``Loss`` means the distance "
+"between the machine output and the correct value."
+msgstr "では、まず ``損失`` とは何か、というところに立ち返ってみましょう。``損失`` とは出力値と正しい値との距離を表すものでした。"
+
+#: ../../documents/get_started_components/basic.rst:62
+msgid ""
+"Originally, Machine Learning's goal is that predict unknown things by "
+"provided data. If the prediction output is quite different from the "
+"correct value, the model is far from the actual event."
+msgstr "元々、機械学習の目的は与えられたデータから未知の値を予測することです。もし、予測値が正解値から完全に異なる状態であれば、そのモデルは現実の出来事からかけ離れていることになります。"
+
+#: ../../documents/get_started_components/basic.rst:65
+msgid ""
+"For example, the data is ``Height`` and the correct value is ``Weight``, "
+"the correct dataset is the below."
+msgstr "例えば、ここに ``身長`` というデータと、正解値として ``Weight`` が以下のようにあったとします。"
+
+#: ../../documents/get_started_components/basic.rst:68
+#: ../../documents/get_started_components/basic.rst:77
+msgid "Height"
+msgstr "身長"
+
+#: ../../documents/get_started_components/basic.rst:68
+#: ../../documents/get_started_components/basic.rst:77
+msgid "Weight"
+msgstr "体重"
+
+#: ../../documents/get_started_components/basic.rst:69
+#: ../../documents/get_started_components/basic.rst:78
+msgid "168"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:69
+msgid "55"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:70
+#: ../../documents/get_started_components/basic.rst:79
+msgid "172"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:70
+msgid "64"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:71
+#: ../../documents/get_started_components/basic.rst:80
+msgid "180"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:71
+msgid "75"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:74
+msgid "However, the model predict the below"
+msgstr "しかし、モデルは以下のように予測したとします。"
+
+#: ../../documents/get_started_components/basic.rst:78
+msgid "39"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:79
+msgid "73"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:80
+msgid "42"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:83
+msgid ""
+"Then, this model doesn't fit the real world. The correct value can be "
+"rephrased as the ideal model. Intuitively, you can understand this "
+"situation means that the model is far from the ideal model."
+msgstr "この時、このモデルは現実世界に上手く適合できていません。この正解値は\"理想のモデル\"と考えることができます。直感的にも現在のモデルが理想のモデルからかけ離れていることがわかるでしょう。"
+
+#: ../../documents/get_started_components/basic.rst:86
+msgid ""
+"To predict correctly, we teach how the distance can be reduced to the "
+"ideal model."
+msgstr "正しく予測するために、私たちはどのようにこの理想のモデルとの ``距離`` を減らすのかをモデルに教える必要があります。"
+
+#: ../../documents/get_started_components/basic.rst:88
+msgid ""
+"From the previous explanations, the distance is the same as ``Loss`` so "
+"to reduce the distance, we should teach only how to reduce the ``Loss``."
+msgstr ""
+"前に説明したとおり、この距離は ``損失`` と同じに考えられます。つまり、距離を減らす(近づく)ためには、どのようにこの ``損失`` "
+"を減らせばいいのかを教えれば良いのです。"
+
+#: ../../documents/get_started_components/basic.rst:91
+msgid ""
+"Then, please try to remember, that the differentiation calculates the "
+"slope of the tangent at the point of function. The slope indicates the "
+"direction of the increasing function result so that the opposition "
+"indicates the decreasing direction."
+msgstr "そして、思い出してください。微分はその座標における関数の接線の勾配を計算するものでした。その勾配は関数の増加する方向を示すので、勾配の反対に進めば関数は減少するのでしたね。"
+
+#: ../../documents/get_started_components/basic.rst:95
+msgid ""
+"You can already see it! What should we do is only computing ``Gradient`` "
+"of the model including the output loss calculator and updating the model "
+"based on the ``Gradient``."
+msgstr ""
+"もうお分かりでしょう、私たちが教えるべきことはたった二つです。まず、損失関数を含めたモデルの ``勾配`` を計算すること、そしてその "
+"``勾配`` を元にモデルを更新するれば良いのです。"
+
+#: ../../documents/get_started_components/basic.rst:99
+msgid ""
+"Almost ``Machine Learning`` is structured by amount many parameters so "
+"the partial differentiation is very helpful computing the ``Gradient`` "
+"for each parameter."
+msgstr ""
+"多くの ``機械学習`` は非常に多くのパラメータによって構築されています。そのため、偏微分は各パラメータの ``勾配`` "
+"を求めるのに非常に便利なのです。"
+
+#: ../../documents/get_started_components/basic.rst:103
+msgid "``Loss`` is often called as ``Error``."
+msgstr "ちなみに、 ``損失`` はよく ``誤差`` とも呼ばれます。"
+
+#: ../../documents/get_started_components/basic.rst:105
+msgid ""
+"Gradient Descent subtracts the ``Gradient`` from the current params. From"
+" the explanation, the ``Loss`` is decreased by this process so that the "
+"model is fit to the correct value."
+msgstr ""
+"勾配降下では、現在のパラメータから ``勾配`` を引くような動作をします。説明した通り(勾配の反対方向にパラメータを移動させる)、この作業で "
+"``Loss`` は減少されます。その結果、モデルは正解値に適合していくのです。"
+
+#: ../../documents/get_started_components/basic.rst:108
+msgid ""
+"Loss is ``Descended`` by ``Gradient`` so this method is called ``Gradient"
+" Descent method``."
+msgstr "損失が ``勾配`` によって ``降下`` されるので、 ``勾配降下法`` と呼ばれるのです。"
+
+#: ../../documents/get_started_components/basic.rst:110
+msgid "Well, how to define the ``Loss`` by the output and the correct value."
+msgstr "さて、では出力値と正解値からどのように ``損失`` を定義すれば良いのでしょうか？"
+
+#: ../../documents/get_started_components/basic.rst:114
+msgid "Loss Function"
+msgstr "損失関数"
+
+#: ../../documents/get_started_components/basic.rst:115
+msgid ""
+"In the previous step, we learned the method of the fitting model to the "
+"correct value."
+msgstr "先ほどまで、私たちはモデルをどのように正解値に適合させるかをみてきました。"
+
+#: ../../documents/get_started_components/basic.rst:117
+msgid ""
+"The method uses the ``Gradient`` of the output value's loss. But we "
+"should how to calculate the loss value. The loss value calculator is "
+"called ``Loss Function``."
+msgstr ""
+"そこでは出力値の損失の ``勾配`` を使用していましたね。しかし、どのようにこの損失値を計算すれば良いのでしょうか。この損失を計算するのが "
+"``損失関数`` と呼ばれるものです。"
+
+#: ../../documents/get_started_components/basic.rst:120
+msgid ""
+"This function is independent of the model. Loss function receives the "
+"prediction(output) and the correct value and calculates the loss value."
+msgstr "この関数は実際のモデルとは独立しています。損失関数は予測値(出力)と正解値を受け取ります。そして損失値を計算します。"
+
+#: ../../documents/get_started_components/basic.rst:123
+msgid ""
+"There are variable loss functions but here, I'd like to introduce 2 loss "
+"functions which commonly used."
+msgstr "世の中には様々な損失関数が存在します。今回はその中で2つのよく使われる損失関数を紹介します。"
+
+#: ../../documents/get_started_components/basic.rst:125
+msgid "The first one is for the Regression problem."
+msgstr "一つ目は回帰問題に使用されるものです。"
+
+#: ../../documents/get_started_components/basic.rst:127
+msgid ""
+"This loss function is called ``Mean Squared Error`` a.k.a ``MSE``. The "
+"function's formula is"
+msgstr "この損失関数は ``二乗和誤差`` と呼ばれるものです。 ``MSE`` という略称でも有名です。この関数の公式は以下の通りです。"
+
+#: ../../documents/get_started_components/basic.rst:130
+msgid "MSE = Σ{(predict_value - correct_value)^2}"
+msgstr "MSE = Σ{(予測値 - 正解値)^2}"
+
+#: ../../documents/get_started_components/basic.rst:132
+msgid ""
+"This is very simple, sum all squared residual values of each record. Why "
+"is squared? Because the raw residual has mixed +/- value if just sum the "
+"value, the loss is incorrect by the loss value annihilation. So the sign "
+"of the residual is ignored together by squared."
+msgstr "非常にシンプルで、単に残差を二乗して足し合わせたものです。なぜ二乗にするのか？それはそのままの残差では正負の値が入り混じります。しかし、正解値より大きいか小さいかは損失には関係ありませんね。そのまま足し合わせてしまうと、損失が相殺されてしまい正しく誤差を計算できないので、二乗によって残差の符号を無視するのです。"
+
+#: ../../documents/get_started_components/basic.rst:138
+msgid "The next one is for the Classification problem."
+msgstr "もう一つは分類問題に使われるものです。"
+
+#: ../../documents/get_started_components/basic.rst:140
+msgid ""
+"This loss function is called ``Cross Entropy Error``. The formula is a "
+"little more complex than the ``MSE`` like the one below"
+msgstr "この損失関数は ``クロスエントロピー誤差`` と呼ばれるものです。計算式は ``MSE`` に比べて少々複雑で以下のようになります。"
+
+#: ../../documents/get_started_components/basic.rst:144
+msgid "For one-hot data:"
+msgstr "ワンホットデータ向け:"
+
+#: ../../documents/get_started_components/basic.rst:144
+msgid "CE = -Σ{correct_label * log(predict_value)}"
+msgstr "CE = -Σ{対応するラベル * log(予測スコア)}"
+
+#: ../../documents/get_started_components/basic.rst:147
+msgid ""
+"The one-hot formula is famous as ``Cross Entropy Error``. In this case, "
+"the ``correct_label`` is 0 or 1. Therefore, the actual mean of the "
+"formula is the sum all of the logarithm of the prediction score "
+"corresponding correct label."
+msgstr ""
+"このワンホット向けの計算式が ``クロスエントロピー誤差`` として有名なものです。このケースでは ``正解ラベル`` "
+"は0か1になります。そのため、実質的にこの計算式は正解ラベル(1)の予測値のlogを足し合わせているのです。"
+
+#: ../../documents/get_started_components/basic.rst:151
+msgid "Other value is ignored because it is erased by the correct_label being 0."
+msgstr "それ以外の値は対応するラベルが0となるため、結果的に値が無視されます。"
+
+#: ../../documents/get_started_components/basic.rst:153
+msgid "For label encoded correct data, there is the more efficient formula."
+msgstr "正解データがラベル(実際の0 ~ ?の値)の場合、より効率的な計算式があります。"
+
+#: ../../documents/get_started_components/basic.rst:156
+msgid "For label data:"
+msgstr "ラベルデータ向け:"
+
+#: ../../documents/get_started_components/basic.rst:156
+msgid "CE = -Σ{log(predict_matrix[index, correct_label])}"
+msgstr "CE = -Σ{log(predict_matrix[index, 正解のラベル])}"
+
+#: ../../documents/get_started_components/basic.rst:158
+msgid ""
+"This function uses the logarithm specification. The logarithm output is "
+"shapely decreasing when the value is closing to 0 so that the minus "
+"logarithm is shapely increasing."
+msgstr "この関数は対数の特性を使ったものです。自然対数計算では入力が0に近づくほどに急激に値が減少します。そのため、マイナスをつけて計算することで、値が急激に増加することになります。"
+
+#: ../../documents/get_started_components/basic.rst:170
+msgid ""
+"Please try to remember, ``Cross Entropy``'s core is the logarithm of the "
+"predicted score **corresponding correct label**. The optimal loss "
+"function should be a large value when the prediction score is low."
+msgstr ""
+"``クロスエントロピー`` "
+"の本質は正解であるラベルに対応する予測値の対数を取るです。そして最適な損失関数とは言ってしまえば、予測値が低い時に大きな値を取れば良いのです。"
+
+#: ../../documents/get_started_components/basic.rst:173
+msgid ""
+"This requirement is filled by the minus logarithm function. So the "
+"``Cross Entropy`` is structured by the -log function. Another parameter "
+"is for fitting the loss function(Ignore the score corresponding wrong "
+"label)."
+msgstr ""
+"もうお分かりかと思いますが、この要件はこのマイナス対数を取ることで満たされるのです。そのため、``クロスエントロピー`` は "
+":math:`-log` が核心となるのです。そしてそれ以外の計算式は損失関数として使いやすくするために存在しているのです"
+
+#: ../../documents/get_started_components/basic.rst:178
+msgid ""
+"``Cross Entropy Error`` is expected that the predicted scores are in the "
+"range from 0.0 to 1.0. The classification model output is generally a "
+"possibility. So, the value isn't over 1.0 and under 0.0. However, there "
+"is a case that the output doesn't settle into the range when you use "
+"multiple classification models. In the multiple predictions, the "
+"prediction value is converted to the range by "
+":class:`marquetry.functions.softmax` but in the prediction phase, almost "
+"the framework doesn't use the Softmax function for reducing the "
+"computation cost. If you mistake the model setting, this function can "
+"return an error. Please caution such case."
+msgstr ""
+"``クロスエントロピー誤差`` "
+"は予測値(入力)が0.0から1.0の範囲であることを想定しています。そのため、分類モデルの出力値は一般的に確率値になります。これにより1.0以上になったり、0.0以下になることはありません。しかし、多値分類のモデルではその範囲に治らないケースもあります。多値分類では予測値を"
+" :class:`marquetry.functions.softmax` "
+"で0.0から1.0の範囲の値に変換します。しかし、予測(推論)モードでは多くのフレームワークで計算コストを減らすためにこのソフトマックス関数を使いません。もしモデルの設定を間違えて作成した場合には、このクロスエントロピーはエラーを返します。その際にはこのことを思い出して設定を確認してください。"
+
+#: ../../documents/get_started_components/basic.rst:186
+msgid "Backpropagation algorithm"
+msgstr "バックプロパゲーション(逆伝播)アルゴリズム"
+
+#: ../../documents/get_started_components/basic.rst:187
+msgid "Now, the weapons of ``Gradient Descent`` are in your hand!"
+msgstr "ここまでで ``勾配降下法`` や ``損失関数`` という武器を手に入れました。"
+
+#: ../../documents/get_started_components/basic.rst:189
+msgid "The last piece connecting the weapons is ``Backpropagation``."
+msgstr "そして、これらの武器を繋ぐためのピースが ``バックプロパゲーション`` です。"
+
+#: ../../documents/get_started_components/basic.rst:191
+msgid ""
+"Before telling you the details, please consider how to find the gradient "
+"of the model and the loss function. The loss function and the model are "
+"independent without the point that the loss function receiving the model "
+"output of each other. So the gradient can't be found simply."
+msgstr "この詳細を話す前に、どのようにモデルと損失関数から勾配を求めるか考えてみてください。損失関数とモデルは損失関数のがモデルの出力を入力に受け取ること以外ではお互いに独立したものでしたね。つまり、シンプルに勾配を求めることができないのです。"
+
+#: ../../documents/get_started_components/basic.rst:196
+msgid ""
+"To tell the truth, such connecting different functions are called "
+"``composite functions``. In this function, the one function's output is "
+"the after function's input."
+msgstr "実はこのように異なる関数を繋げた関数を ``合成関数`` と呼びます。この関数では、一つの関数の出力がもう一方の関数の入力として扱われます。"
+
+#: ../../documents/get_started_components/basic.rst:199
+msgid ""
+"In this situation, we use ``Chain Rule`` of the differentiation. This is "
+"a key man connecting the gradient of the independent functions."
+msgstr "この時、私たちは ``微分の連鎖律`` というものを使います。これこそが、異なる関数の勾配を繋ぐキーマンなのです。"
+
+#: ../../documents/get_started_components/basic.rst:202
+msgid "Do you know the differentiation chain rule?"
+msgstr "ところで、微分の連鎖律はご存知ですか？"
+
+#: ../../documents/get_started_components/basic.rst:204
+msgid "...Oh, no problem! I explain this here!"
+msgstr "知らなくても問題ありません！ここで説明します！"
+
+#: ../../documents/get_started_components/basic.rst:206
+msgid "Let's consider the below case"
+msgstr "では、以下のケースを考えてみてください。"
+
+#: ../../documents/get_started_components/basic.rst:210
+msgid "There are two functions"
+msgstr "ここに二つの関数があります。"
+
+#: ../../documents/get_started_components/basic.rst:209
+msgid "f(x)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:210
+msgid "g(h)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:214
+msgid "And these functions' relation is the below"
+msgstr "そして、これらの関数の関係性は以下のようになっています。"
+
+#: ../../documents/get_started_components/basic.rst:213
+msgid "h = f(x)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:214
+msgid "y = g(h)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:217
+msgid "So this can be considered as composite"
+msgstr "つまり、これらは合成関数と考えられます。"
+
+#: ../../documents/get_started_components/basic.rst:217
+msgid "y = g(f(x))"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:219
+msgid ""
+"When you find the gradient of ``y`` with respect to x by this function, "
+"the required value can be expressed by the below"
+msgstr "この時、 ``y`` の ``x`` に対する勾配を求めたいとすると、その値は以下のように表せます。"
+
+#: ../../documents/get_started_components/basic.rst:222
+msgid "dy/dx = (g(f(x)))'"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:224
+msgid "But the value is calculated directly seems to be difficult..."
+msgstr "しかし、この値は直接求めるのは難しそうですね...。"
+
+#: ../../documents/get_started_components/basic.rst:226
+msgid "``Chain Rule`` is where we come in!"
+msgstr "ここで ``連鎖律の出番`` です！"
+
+#: ../../documents/get_started_components/basic.rst:228
+msgid ""
+"From the composition definition, there is ``h`` as intermediate data. "
+"Using this value, the ``dy/dx`` can be separated into the gradient of "
+"``h`` with respect to ``x`` and gradient ``y`` with respect to ``h``."
+msgstr ""
+"合成関数の定義から、中間データとして ``h(一つ目の関数の出力)`` を考えます。この値を使って、 ``dy/dx`` は以下のように "
+"``h`` の ``x`` に対する勾配と ``y`` の ``h`` に対する勾配に分けることができます。"
+
+#: ../../documents/get_started_components/basic.rst:232
+msgid "dh/dx = f'(x) dy/dh = g'(h)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:235
+msgid "Then, we can express the ``dy/dx`` as"
+msgstr "つまり、 ``dy/dx`` は以下のように表現できます。"
+
+#: ../../documents/get_started_components/basic.rst:237
+msgid "dy/dx = dy/dh * dh/dx = f'(x) * g'(x)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:239
+msgid ""
+"In short, the composite functions of different functions can be "
+"differentiated by the product of each function's differentiations."
+msgstr "つまり、異なる関数の合成関数はそれぞれの関数の微分の掛け算で求めることができるのです！"
+
+#: ../../documents/get_started_components/basic.rst:242
+msgid "This is ``Chain Rule``!"
+msgstr "これが ``連鎖律`` です！"
+
+#: ../../documents/get_started_components/basic.rst:244
+msgid ""
+"As a matter of fact, this ``Chain Rule`` can apply to 3 or more depth "
+"composite functions too. This is very helpful to Neural Network(Deep "
+"Learning)."
+msgstr "実は、この ``連鎖律`` は3以上のもっと深い合成関数にも使用できます。これがニューラルネットワーク(ディープラーニング)で非常に有益なのです。"
+
+#: ../../documents/get_started_components/basic.rst:247
+msgid "Following this rule, you can differentiate any complicated functions."
+msgstr "このルールに従えば、どんなに複雑な関数でも微分できます。"
+
+#: ../../documents/get_started_components/basic.rst:249
+msgid "h = sigmoid(x) y = h ** 2"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:252
+msgid "dh/dx = sigmoid(x) * (1 - sigmoid(x)) dy/dh = 2 * h = 2 * sigmoid(x)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:256
+msgid ""
+"dy/dx = (dy/dh) * (dh/dx) = {2 * sigmoid(x)} * {sigmoid(x) * (1 - "
+"sigmoid(x))}"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:256
+msgid "= 2 * (sigmoid(x)) ** 2 * (1 - sigmoid(x)) = 2 * h ** 2 * (1 - h)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:258
+msgid "Let's check the correctness! The x is 4."
+msgstr "この正しさを確認してみましょう。xは4とします。"
+
+#: ../../documents/get_started_components/basic.rst:273
+#: ../../documents/get_started_components/basic.rst:288
+msgid "The output is"
+msgstr "この出力は以下のようになります。"
+
+#: ../../documents/get_started_components/basic.rst:273
+msgid "container(0.9643510838246173)"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:275
+msgid ""
+"From the above formula, calculate the differentiation. And the comparison"
+" value is calculated by :meth:`backward`."
+msgstr "上の計算式から計算した微分です。これと、Marquetry( :meth:`backward` )で計算した微分を比較してみましょう。"
+
+#: ../../documents/get_started_components/basic.rst:288
+msgid "Your formula for differentiation is correct!!"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:290
+msgid ""
+"You were able to calculate the complicated function(:math:`sigmoid(x)^2`)"
+" by your hand!"
+msgstr "これであなたは :math:`sigmoid(x)^2` という複雑な関数の微分をあなたの手で計算できました！"
+
+#: ../../documents/get_started_components/basic.rst:292
+msgid "What do you think? Do you understand how useful the ``Chain Rule``?"
+msgstr "どうしょう？ ``連鎖律`` がいかに便利なものかわかりましたか？"
+
+#: ../../documents/get_started_components/basic.rst:294
+msgid ""
+"Actually, ``Chain Rule`` positions the recent Deep Learning's core. "
+"Furthermore, :mod:`Marquetry` is also constructed based on this rule."
+msgstr ""
+"実はこの ``連鎖律`` は現代のディープラーニングの核心でもあるのです。そして、この :mod:`Marquetry` "
+"もこのルールに従って構成されています。"
+
+#: ../../documents/get_started_components/basic.rst:297
+msgid ""
+"Now you get ``Gradient Descent`` and ``Backpropagation``! All you need is"
+" in your hands!"
+msgstr ""
+"何はともあれ、これで ``勾配降下法`` と ``バックプロパゲーション`` "
+"を習得しました。これで、ディープラーニングに必要なものはほぼ手に入っています。"
+
+#: ../../documents/get_started_components/basic.rst:299
+msgid ""
+"After here, we confirm how is the backpropagation used for Deep Learning,"
+" Activation Function which is important for deep learning, and the last, "
+"we try to construct a simple model by hand without any framework!"
+msgstr "ここから、私たちはバックプロパゲーションがどのようにディープラーニングで使用されているのかをみて、活性化関数というディープラーニングにおける最後にして最も重要な機能をみます。そして、最後には私たちはシンプルなディープラーニングをフレームワークの力を借りずに1から作ります！"
+
+#: ../../documents/get_started_components/basic.rst:304
+msgid "So let's continue to have fun as we go along!"
+msgstr "さぁ、引き続き楽しんでいきましょう！"
+
+#: ../../documents/get_started_components/basic.rst:306
+msgid "Deep Learning backpropagation"
+msgstr "ディープラーニングにおけるバックプロパゲーション"
+
+#: ../../documents/get_started_components/basic.rst:307
+msgid "Well, we talk focusing about on Deep Learning!"
+msgstr "よし、では今回はディープラーニングにフォーカスして話します！"
+
+#: ../../documents/get_started_components/basic.rst:309
+msgid ""
+"At first, we need to understand ``Linear Regression`` mechanism. "
+"Originally, ``Linear Regression`` is based on ``Linear Transformation "
+"(Linear Mapping)``."
+msgstr ""
+"まずは ``線形回帰`` の仕組みを理解する必要があるのですが、そもそも、 ``線形回帰`` は ``線形変換(線形写像)`` "
+"がベースになっています。"
+
+#: ../../documents/get_started_components/basic.rst:316
+msgid "More simply, the transformation means the below formula"
+msgstr "もっと簡単にいえば、線形変換は以下の式を意味します。"
+
+#: ../../documents/get_started_components/basic.rst:316
+msgid ":math:`y = x_1w_1 + x_2w_2 + ... + x_nw_n + b`"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:314
+msgid "X(input): (x\\ :sub:`1`\\ , x\\ :sub:`2`\\ , ..., x\\ :sub:`n`\\ )"
+msgstr "X(入力): (x\\ :sub:`1`\\ , x\\ :sub:`2`\\ , ..., x\\ :sub:`n`\\ )"
+
+#: ../../documents/get_started_components/basic.rst:315
+msgid "W(weight): (w\\ :sub:`1`\\ , w\\ :sub:`2`\\ , ..., w\\ :sub:`n`\\ )"
+msgstr "W(重み): (w\\ :sub:`1`\\ , w\\ :sub:`2`\\ , ..., w\\ :sub:`n`\\ )"
+
+#: ../../documents/get_started_components/basic.rst:316
+msgid "b(bias)"
+msgstr "b(バイアス)"
+
+#: ../../documents/get_started_components/basic.rst:318
+msgid "The `y` is Linear Regression output."
+msgstr "`y` は線形回帰の出力です。"
+
+#: ../../documents/get_started_components/basic.rst:321
+msgid ""
+"In the ``Logistic Regression``, `y` is the input of the Logistic "
+"Sigmoid(:class:`marquetry.functions.sigmoid`). The sigmoid function "
+"output is the prediction score(this value settles into 0.0 ~ 1.0 by the "
+"sigmoid function)."
+msgstr ""
+"``ロジスティック回帰`` では `y` "
+"はシグモイド関数(:class:`marquetry.functions.sigmoid`)の入力となります。シグモイド関数は予測スコア(0.0 "
+"~ 1.0の範囲の値)を出力します。"
+
+#: ../../documents/get_started_components/basic.rst:324
+msgid ""
+"Therefore, ``Logistic Regression`` is the combination of ``Linear "
+"Regression`` and ``Logistic Sigmoid``."
+msgstr "そのため、 ``ロジスティック回帰`` は ``線形回帰`` と ``シグモイド関数`` の組み合わせなのです。"
+
+#: ../../documents/get_started_components/basic.rst:326
+msgid ""
+"Actually, the neurons in deep learning are processing this ``Linear "
+"Transformation`` and one new function."
+msgstr "実は、ディープラーニングのニューロンもこの ``線形変換`` ともう一つの新しい関数によって構成されています。"
+
+#: ../../documents/get_started_components/basic.rst:328
+msgid ""
+"The part of the new function is called ``Activation Function``. "
+"Activation is profound so I'll explain the activation details later... In"
+" this time, please keep your mind only about ``Activation receives the "
+"Linear Transformation outputs as inputs``."
+msgstr ""
+"この新しい関数は ``活性化関数`` "
+"と呼ばれます。活性化関数は奥が深いので詳細は後ほどにして...今回は、``活性化関数は線形変換の出力を入力として受け取る`` "
+"ということだけ覚えておいてください。"
+
+#: ../../documents/get_started_components/basic.rst:332
+msgid ""
+"The outputs is treated as inputs, we've seen the relation before! Yes, "
+"this is a composite function."
+msgstr "出力を入力として受け取る。。。どこかでこの関係をみましたね？はい、そうです。これは合成関数です。"
+
+#: ../../documents/get_started_components/basic.rst:335
+msgid ""
+"The one neuron outputs only 1 value. In short, the layer has 2 neurons "
+"and the input has 3 dims, the value is transformed as"
+msgstr "1つのニューロンは1つの値しか出力しません。つまり、この層に2つのニューロンがあり、入力値が3次元(3つのカラム)を持つ場合、この値は以下のように変換されます。"
+
+#: ../../documents/get_started_components/basic.rst:338
+msgid ":math:`y_1 = x_1w_{11} + x_2w_{12} + x_3w_{13} + b_1`"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:340
+msgid ":math:`y_2 = x_1w_{21} + x_2w_{22} + x_3w_{23} + b_2`"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:342
+msgid "X(input): (x\\ :sub:`1`\\ , x\\ :sub:`2`\\ , x\\ :sub:`3`\\ )"
+msgstr "X(入力): (x\\ :sub:`1`\\ , x\\ :sub:`2`\\ , x\\ :sub:`3`\\ )"
+
+#: ../../documents/get_started_components/basic.rst:343
+msgid ""
+"W\\ :sub:`1`\\ (neuron1_weight): (w\\ :sub:`11`\\ , w\\ :sub:`12`\\ , w\\"
+" :sub:`13`\\ )"
+msgstr ""
+"W\\ :sub:`1`\\ (ニューロン1の重み): (w\\ :sub:`11`\\ , w\\ :sub:`12`\\ , w\\ "
+":sub:`13`\\ )"
+
+#: ../../documents/get_started_components/basic.rst:344
+msgid ""
+"W\\ :sub:`2`\\ (neuron2_weight): (w\\ :sub:`21`\\ , w\\ :sub:`22`\\ , w\\"
+" :sub:`23`\\ )"
+msgstr ""
+"W\\ :sub:`2`\\ (ニューロン2の重み): (w\\ :sub:`21`\\ , w\\ :sub:`22`\\ , w\\ "
+":sub:`23`\\ )"
+
+#: ../../documents/get_started_components/basic.rst:345
+msgid "b\\ :sub:`1`\\ (neuron1_bias)"
+msgstr "b\\ :sub:`1`\\ (ニューロン1のバイアス)"
+
+#: ../../documents/get_started_components/basic.rst:346
+msgid "b\\ :sub:`2`\\ (neuron2_bias)"
+msgstr "b\\ :sub:`2`\\ (ニューロン2のバイアス)"
+
+#: ../../documents/get_started_components/basic.rst:348
+msgid ""
+"From these, the output is (y\\ :sub:`1`\\ , y\\ :sub:`2`\\ ) so the "
+"number of outputs matches the number of neurons. If you set layer after "
+"this layer, these outputs are treated as inputs of the next layer."
+msgstr ""
+"これらより、出力は(y\\ :sub:`1`\\ , y\\ "
+":sub:`2`\\)となります。つまり、出力値の数はニューロン数に一致します。また、この層の後ろにさらに別の層が置かれた場合は、これらの出力値は次の層の入力となります。"
+
+#: ../../documents/get_started_components/basic.rst:352
+msgid ""
+"From a macro perspective, even the layer can be also considered as one "
+"function. The relation between the layer and the next layer is also a "
+"composite function."
+msgstr "マクロな観点から考えると、ニューラルネットワークの層も一つの関数と考えることができるのです。そして、層の前後の繋がりは ``合成関数`` です。"
+
+#: ../../documents/get_started_components/basic.rst:355
+msgid ""
+"From there, You already know that deep learning is a big composite "
+"function built by simple small functions."
+msgstr "もうお分かりでしょう、ディープラーニングのモデルも小さなシンプルな関数で構築された ``合成関数`` なのです。"
+
+#: ../../documents/get_started_components/basic.rst:357
+msgid ""
+"And these are composite functions, you know, the deep learning's gradient"
+" can be computed by the ``Composite function's differentiation Chain "
+"Rule``."
+msgstr "そしてこれらの合成関数はご存知の通り、``合成関数の微分の連鎖律`` を使って勾配を求められます。"
+
+#: ../../documents/get_started_components/basic.rst:360
+msgid ""
+"Here's where this rule helps deep learning!! By this rule, we can apply "
+"``Gradient Descent`` to the Deep Learning model!"
+msgstr "ここでこの連鎖律が役に立つのです！このルールによって、ディープラーニングのモデルに ``勾配降下法`` を適用できるようになります！"
+
+#: ../../documents/get_started_components/basic.rst:363
+msgid ""
+"In Deep Learning, the function is very long so the differentiation chains"
+" as very long. This method looks to propagate the ``Loss`` backward "
+"direction."
+msgstr ""
+"ディープラーニングではこの連鎖律を適用する連鎖が非常に長くなります。この連鎖律によって逆方向(出力 -> 入力)に ``損失`` "
+"が伝播するように見えます。"
+
+#: ../../documents/get_started_components/basic.rst:366
+msgid ""
+"Therefore, this method is called an ``Error Backpropagation method`` "
+"especially. And updating the model's parameters by the gradients as same "
+"as the Linear Regression and so on."
+msgstr ""
+"したがって、この手法は ``誤差逆伝播法`` "
+"と特別に呼ばれたりします。そして線形回帰などと同じように勾配を使ってモデルのパラメータを更新するのです。"
+
+#: ../../documents/get_started_components/basic.rst:373
+msgid "Generally, the Linear Transformation uses matrix operation."
+msgstr "線形変換にはよく行列計算を使います。"
+
+#: ../../documents/get_started_components/basic.rst:371
+msgid "X (input_data): matrix (batch_size * data_dims)"
+msgstr "X (入力): 行列 (バッチサイズ * データのカラム数)"
+
+#: ../../documents/get_started_components/basic.rst:372
+msgid "W (weights): matrix (data_dims * neuron_nums)"
+msgstr "W (重み): 行列 (データのカラム数 * 層のニューロン数)"
+
+#: ../../documents/get_started_components/basic.rst:373
+msgid "b (bias): vector (neuron_nums)"
+msgstr "b (バイアス): ベクトル (層のニューロン数)"
+
+#: ../../documents/get_started_components/basic.rst:378
+msgid ""
+"X =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"x_{11} & x_{12} & \\cdots & x_{1m} \\\\\n"
+"x_{21} & x_{22} & \\cdots & x_{2m} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\vdots \\\\\n"
+"x_{l1} & x_{l2} & \\cdots & x_{lm} \\\\\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$m$columns}}\n"
+"\\,\\text{$l$rows},\n"
+"W =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"w_{11} & w_{12} & \\cdots & w_{1n} \\\\\n"
+"w_{21} & w_{22} & \\cdots & w_{2n} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\vdots \\\\\n"
+"w_{m1} & w_{m2} & \\cdots & w_{mn}\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$columns}}\n"
+"\\,\\text{$m$rows},\n"
+"b =\n"
+"\\underbrace { \\left.\n"
+"\\begin{pmatrix}\n"
+"b_1 & b_2 & \\cdots & b_n\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$columns}}\n"
+"\n"
+msgstr ""
+"X =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"x_{11} & x_{12} & \\cdots & x_{1m} \\\\\n"
+"x_{21} & x_{22} & \\cdots & x_{2m} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\vdots \\\\\n"
+"x_{l1} & x_{l2} & \\cdots & x_{lm} \\\\\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$m$列}}\n"
+"\\,\\text{$l$行},\n"
+"W =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"w_{11} & w_{12} & \\cdots & w_{1n} \\\\\n"
+"w_{21} & w_{22} & \\cdots & w_{2n} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\vdots \\\\\n"
+"w_{m1} & w_{m2} & \\cdots & w_{mn}\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$列}}\n"
+"\\,\\text{$m$行},\n"
+"b =\n"
+"\\underbrace { \\left.\n"
+"\\begin{pmatrix}\n"
+"b_1 & b_2 & \\cdots & b_n\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$列}}\n"
+"\n"
+
+#: ../../documents/get_started_components/basic.rst:406
+msgid "The output `Y` is"
+msgstr "出力 `Y` は以下の通りです。"
+
+#: ../../documents/get_started_components/basic.rst:408
+msgid ""
+"Y =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"\\Sigma{(x_{1p}w_{p1}) + b_1} & \\Sigma{(x_{1p}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{1p}w_{pn}) + b_n} \\\\\n"
+"\\Sigma{(x_{2p}w_{p1}) + b_1} & \\Sigma{(x_{2p}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{2p}w_{pn}) + b_n} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\ vdots \\\\\n"
+"\\Sigma{(x_{lp}w_{p1}) + b_1} & \\Sigma{(x_{lp}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{lp}w_{pn}) + b_n}\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$columns}}\n"
+"\\,\\text{$l$rows}\n"
+"\n"
+msgstr ""
+"Y =\n"
+"\\underbrace{ \\left.\n"
+"\\begin{pmatrix}\n"
+"\\Sigma{(x_{1p}w_{p1}) + b_1} & \\Sigma{(x_{1p}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{1p}w_{pn}) + b_n} \\\\\n"
+"\\Sigma{(x_{2p}w_{p1}) + b_1} & \\Sigma{(x_{2p}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{2p}w_{pn}) + b_n} \\\\\n"
+"\\vdots & \\vdots & \\ddots & \\ vdots \\\\\n"
+"\\Sigma{(x_{lp}w_{p1}) + b_1} & \\Sigma{(x_{lp}w_{p2}) + b_2} & \\cdots &"
+" \\Sigma{(x_{lp}w_{pn}) + b_n}\n"
+"\\end{pmatrix}\n"
+"\\right\\}}_{\\text{$n$列}}\n"
+"\\,\\text{$l$行}\n"
+"\n"
+
+#: ../../documents/get_started_components/basic.rst:420
+msgid ""
+"The matrix operation can be realized by NumPy. Marquetry also realize it "
+"but the internal flow uses NumPy."
+msgstr ""
+"こういった行列計算は ``NumPy`` によって実現されています。Marquetryでも行列計算を実現できますが、内部的には ``NumPy``"
+" を使用しています。"
+
+#: ../../documents/get_started_components/basic.rst:436
+msgid "Activation"
+msgstr "活性化関数"
+
+#: ../../documents/get_started_components/basic.rst:437
+msgid ""
+"Here, we learn the Activation function which is a part of neuron "
+"components."
+msgstr "ここではニューロンの構成要素の一つのあり、非常に重要な要素である活性化関数についてみていきます。"
+
+#: ../../documents/get_started_components/basic.rst:439
+msgid "This function is very important for deep learning."
+msgstr "この関数、ディープラーニングにおいて非常に重要です。"
+
+#: ../../documents/get_started_components/basic.rst:444
+msgid ""
+"Why is the activation very important for deep learning? I think the most "
+"important thing about deep learning is piling up the layers."
+msgstr "なぜ活性化関数がディープラーニングで重要なのでしょうか？ディープラーニングで最も大切なのは層を積み上げることだと思います。"
+
+#: ../../documents/get_started_components/basic.rst:447
+msgid ""
+"Certainly, yes. But if the deep learning doesn't have the activation "
+"function, the deep learning can't get such rich expressive power even if "
+"the layer is piled up many. Let's test the deep learning with/without "
+"activation!"
+msgstr "確かにそうだね。ただ活性化関数を持たないディープラーニングではいくら層を積み上げたとしてもモデルが豊富な表現力を得ることができません。では、活性化関数がある場合とない場合のディープラーニングモデルをテストしてみよう！"
+
+#: ../../documents/get_started_components/basic.rst:451
+msgid "The first one is using activation called ``ReLU``."
+msgstr "一つ目は ``ReLU`` という活性化関数を使ったものです。"
+
+#: ../../documents/get_started_components/basic.rst:518
+msgid ""
+"This model learning correctly. Then, we use the same setting except for "
+"``activation``. We use :meth:`marquetry.functions.identity` which returns"
+" the input data unchanged (so this is no activation substantially)."
+msgstr ""
+"このモデルは正しく学習できてきますね。次に ``活性化関数`` 以外を同じ設定にしたものを使ってみましょう。今回、活性化関数として "
+":meth:`marquetry.functions.identity` "
+"という入力をそのまま出力する関数を使います。これによって実質的に活性化関数がない状態になります。"
+
+#: ../../documents/get_started_components/basic.rst:550
+msgid ""
+"This model can't learn this data correctly. In the model without "
+"activation, the model expression isn't enough..."
+msgstr "このモデルでは正常にデータを学習できていませんね。活性化関数がない場合、モデルの表現力が十分では内容です..."
+
+#: ../../documents/get_started_components/basic.rst:552
+msgid ""
+"To tell you the truth, the ``Activation`` function governs non-linear "
+"expression. If the activation function isn't used, the model even if deep"
+" can't express non-linear features."
+msgstr "実は、活性化関数は非線形表現力を司っているのです。つまり、活性化関数を使わない場合はモデルはどれだけ深くされても非線形の特徴を表現できません。"
+
+#: ../../documents/get_started_components/basic.rst:555
+msgid ""
+"What do you think? Can you understand why ``Activation`` is very "
+"important? hahaha!"
+msgstr "どうですか？ ``活性化関数`` の重要度はわかりましたか？"
+
+#: ../../documents/get_started_components/basic.rst:557
+msgid ""
+"This phenomenon can be explained by the transformation result simply (I "
+"describe the actual flow in the ``note`` section). Anyway, in short, if "
+"the activation function isn't used, the model computation can be "
+"converted simple linear formula even how the neuron and layer are large."
+msgstr ""
+"この現象は変換結果によってシンプルに説明することができます。(以下の ``注釈`` "
+"セクションで実際に説明します)いずれにしろ、この現象は活性化関数が使われていないモデルの計算はどれだけニューロンと層がどれだけ大きくてもシンプルな線形式に変換できてしまうのです。"
+
+#: ../../documents/get_started_components/basic.rst:562
+msgid ""
+"Check Non-activation deep learning model calculation! The parameter is "
+"below. (To be simple, the biases are abbreviated.)"
+msgstr "活性化関数のないディープラーニングモデルの計算をみてみましょう！パラメータは以下の通りです。(シンプルにするため、バイアスは省略しています)"
+
+#: ../../documents/get_started_components/basic.rst:565
+msgid ""
+"X =\n"
+"\\begin{pmatrix}\n"
+"x_1 & x_2 & x_3\n"
+"\\end{pmatrix},\n"
+"W_1 =\n"
+"\\begin{pmatrix}\n"
+"w^1_{11} & w^1_{12} & w^1_{13} \\\\\n"
+"w^1_{21} & w^1_{22} & w^1_{23} \\\\\n"
+"w^1_{31} & w^1_{32} & w^1_{33}\n"
+"\\end{pmatrix},\n"
+"W_2 =\n"
+"\\begin{pmatrix}\n"
+"w^2_{11} \\\\\n"
+"w^2_{21} \\\\\n"
+"w^2_{31}\n"
+"\\end{pmatrix}\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:583
+msgid "The actual calculation is the below."
+msgstr "実際の計算は以下のようになります。"
+
+#: ../../documents/get_started_components/basic.rst:585
+msgid ""
+"Y_1 = X･W_1 =\n"
+"\\begin{pmatrix}\n"
+"\\Sigma(x_pw^1_{p1}) & \\Sigma(x_pw^1_{p2}) & \\Sigma(x_pw^1_{p3})\n"
+"\\end{pmatrix}\n"
+"\n"
+"Y_2 = Y_1･W_2 =\n"
+"\\begin{pmatrix}\n"
+"\\Sigma\\{\\Sigma(x_pw^1_{pq})w^2_{q1}\\}\n"
+"\\end{pmatrix}"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:596
+msgid "Expanding the matrix, the Y\\ :sub:`2`\\ can convert the below"
+msgstr "行列を展開すると、 Y\\ :sub:`2`\\ は以下のように変換できます。"
+
+#: ../../documents/get_started_components/basic.rst:598
+msgid ""
+"Y_2 = (w^1_{11}w^2_{11} + w^1_{12}w^2_{21} + w^1_{13}w^2_{31}) * x_1 + "
+"(w^1_{21}w^2_{11} + w^1_{22}w^2_{21} +\n"
+"w^1_{23}w^2_{31}) * x_2 + (w^1_{31}w^2_{11} + w^1_{32}w^2_{21} + "
+"w^1_{33}w^2_{31}) * x_3\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:602
+msgid ""
+"The weight is all float values so :math:`(w^1_{11}w^2_{11} + "
+"w^1_{12}w^2_{21} + w^1_{13}w^2_{31})` and so are also simple float value."
+" Therefore, this transformation can be considered as Linear Regression "
+"using the below weight."
+msgstr ""
+"元の重みは全て小数値なので、 :math:`(w^1_{11}w^2_{11} + w^1_{12}w^2_{21} + "
+"w^1_{13}w^2_{31})` などはシンプルな一つの小数になります。したがって、この変換は以下の重みを使った ``線形回帰`` "
+"と考えることができるのです。"
+
+#: ../../documents/get_started_components/basic.rst:606
+msgid ""
+"W_{total} =\n"
+"\\begin{pmatrix}\n"
+"w^1_{11}w^2_{11} + w^1_{12}w^2_{21} + w^1_{13}w^2_{31} \\\\\n"
+"w^1_{21}w^2_{11} + w^1_{22}w^2_{21} + w^1_{23}w^2_{31} \\\\\n"
+"w^1_{31}w^2_{11} + w^1_{32}w^2_{21} + w^1_{33}w^2_{31}\n"
+"\\end{pmatrix}\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:614
+msgid ""
+"Please remember the Linear Regression. This is simple Linear "
+"Transformation so the output is also linear separation. This trait is "
+"unchanged even if there are tens of millions layers."
+msgstr "そして線形回帰はシンプルな線形変換でしたね。そしてその出力も線形分離になります。その特性は層が何千万層あっても変わりません。"
+
+#: ../../documents/get_started_components/basic.rst:617
+msgid ""
+"A Deep Learning model without activation function can't express non-"
+"linear separation but applying activation to the model, expression of the"
+" model is rapidly increasing. Let me rephrase this, ``Activation`` is one"
+" of the deep learning mechanism core."
+msgstr ""
+"活性化関数を使わないディープラーニングモデルは非線形分離を表現できません。しかし、活性化関数をモデルに適用するとモデルの表現力は爆発的に増加します。言い換えれば、"
+" ``活性化関数`` はディープラーニングの最も重要な仕組みの一つなのです。"
+
+#: ../../documents/get_started_components/basic.rst:621
+msgid ""
+"For non-linear transformation, the activation function needs to be a non-"
+"linear function, of course."
+msgstr "非線形変換のためには、もちろん活性化関数も非線形の関数である必要があります。"
+
+#: ../../documents/get_started_components/basic.rst:623
+msgid ""
+"Currently, :meth:`marquetry.functions.relu` is usually used as an "
+"activation function so the next step scratches deep learning using this "
+"activation."
+msgstr ""
+"最近では :meth:`marquetry.functions.relu` "
+"が活性化関数としてはよく使われています。なので、次のステップでもReLUを活性化関数として使用します。"
+
+#: ../../documents/get_started_components/basic.rst:627
+msgid ""
+"Of course, there are a variety of activations so you need to consider and"
+" choose an activation function to match your use case."
+msgstr "もちろん、世の中には様々な活性化関数があります。そのため、ユースケースに合わせた活性化関数を検討・選択する必要はあります。"
+
+#: ../../documents/get_started_components/basic.rst:630
+msgid ""
+"However, in many cased, you can use ``ReLU`` function. This function is "
+"very simple so the computation cost is low and match many cases. If you "
+"are NOT a specialist in the use case area, please try to use ReLU at "
+"first!"
+msgstr ""
+"しかし、多くのケースでは ``ReLU`` "
+"を使うことができると思います。この関数は非常にシンプルであり、計算コストも低く、さらに多くのケースに適合します。もしあなたがその道のプロでないのであれば、最初にReLUを試してみるといいかもしれませんね。"
+
+#: ../../documents/get_started_components/basic.rst:636
+msgid "Thank you for your hard work by here!"
+msgstr "お疲れ様でした！"
+
+#: ../../documents/get_started_components/basic.rst:637
+msgid ""
+"Now we have gotten all the weapons to scratch deep learning! Let's start "
+"the final quest of this section!!"
+msgstr "これでディープラーニングを作成するのに必要な全ての武器が揃いました。さぁ、このページの最後のクエストを始めましょう！"
+
+#: ../../documents/get_started_components/basic.rst:641
+msgid "Scratch Deep Learning"
+msgstr "ゼロからディープラーニングを作る"
+
+#: ../../documents/get_started_components/basic.rst:642
+msgid ""
+"Finally, you challenge this largest quest! We learned Machine Learning "
+"and Deep Learning here. Now, we get all needed for Deep Learning "
+"construction!"
+msgstr "ついに、最大のクエストに挑戦します！これまでに機械学習とディープラーニングを学んできました。今、ディープラーニングを構築するために必要なものは全てあなたの手の中にあります。"
+
+#: ../../documents/get_started_components/basic.rst:646
+msgid "Let's show the culmination of our effort!"
+msgstr "さぁ、努力の集大成をここで見せましょう！"
+
+#: ../../documents/get_started_components/basic.rst:647
+msgid ""
+"Some of the order of the implementation is different from the explanation"
+" to easily understand the flow."
+msgstr "なお、実装の流れを理解しやすくするために説明と順序を入れ替えています。"
+
+#: ../../documents/get_started_components/basic.rst:649
+msgid "We use :mod:`NumPy` to calculate the matrix operation."
+msgstr "行列計算のためにここでは :mod:`NumPy` を使います。"
+
+#: ../../documents/get_started_components/basic.rst:651
+msgid "Implement ReLU(Rectified Linear Unit)"
+msgstr "ReLU(Rectified Linear Unit(正規化線形ユニット、ランプ関数))を実装する"
+
+#: ../../documents/get_started_components/basic.rst:653
+#: ../../documents/get_started_components/basic.rst:688
+#: ../../documents/get_started_components/basic.rst:750
+msgid "The formula is"
+msgstr "この公式は以下のようになります。"
+
+#: ../../documents/get_started_components/basic.rst:655
+msgid ""
+"y = \\{x \\ \\textrm{(if x >= 0)}, 0 \\ \\textrm{(if x < 0)}\\}\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:681
+msgid ""
+"In the backward method, we use ``mask`` which depends on the forward "
+"input. This mask is mapped 0 as x(input) < 0, otherwise, 1."
+msgstr ""
+"``backward`` では、``forward`` 処理の入力から計算された ``mask`` を使っています。この ``mask`` は "
+"``forward`` の入力が0以上のものには `1` を、0未満のものには `1` を割り当てています。"
+
+#: ../../documents/get_started_components/basic.rst:684
+msgid "The ``backward`` returns the output differentiation with respect to `x`."
+msgstr "そして ``backward`` は最終的にxに対する出力の微分を返します。"
+
+#: ../../documents/get_started_components/basic.rst:686
+msgid "Implement Linear trans function"
+msgstr "線形変換を実装する"
+
+#: ../../documents/get_started_components/basic.rst:690
+msgid ""
+"y = x\\ @\\ w + b\\ \\textrm{(@ means dot product)}\n"
+"\n"
+msgstr ""
+"y = x\\ @\\ w + b\\ \\textrm{(``@`` は行列積を意味します)}\n"
+"\n"
+
+#: ../../documents/get_started_components/basic.rst:739
+msgid ""
+"``init_std`` controls the initial weight standard deviation. Default is "
+"0.01."
+msgstr "``init_std`` は初期の重みの標準偏差を指定します。デフォルトでは `0.01` です。"
+
+#: ../../documents/get_started_components/basic.rst:742
+msgid "``update`` method updates the layer parameters."
+msgstr "``update`` では層のパラメータを更新します。"
+
+#: ../../documents/get_started_components/basic.rst:744
+msgid ""
+"Do you remember what the optimizer's name is? This method updates the "
+"parameters based on only the latest gradient."
+msgstr "このオプティマイザーの名前を覚えていますか？今回の実装では最新の勾配のみを使ってパラメータを更新していますね。"
+
+#: ../../documents/get_started_components/basic.rst:746
+msgid "... Yes, this is SGD method!"
+msgstr "そうです！これはSGD(確率的勾配降下法)でしたね。"
+
+#: ../../documents/get_started_components/basic.rst:748
+msgid ""
+"Implement SoftmaxWithCrossEntropy which loss function for classification "
+"problems."
+msgstr "分類問題の損失関数として ``SoftmaxWithCrossEntropy`` を実装する"
+
+#: ../../documents/get_started_components/basic.rst:752
+msgid ""
+"Softmax = exp(x) / \\Sigma exp(x_k)\n"
+"\n"
+"CrossEntropy = -\\Sigma \\{t_k * log(x_k)\\}"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:798
+msgid ""
+"The ``x_clip`` is to prevent overflow. :math:`exp(x)` means :math:`e^x` "
+"so if the x is over 710, the result is ``inf``."
+msgstr ""
+"``x_clip`` は数値のオーバーフローを防ぎます。 :math:`exp(x)` は :math:`e^x` "
+"を意味しています。そして、Pythonの計算ではxが710を超えると数値オーバーフローとして ``inf`` が出力されてしまいます。"
+
+#: ../../documents/get_started_components/basic.rst:801
+msgid ""
+"In such a case, the computation can't be continued. In this class, "
+"subtracting the row max from all the row values deal with this issue."
+msgstr "こうなってしまうと、これ以上計算を続けることはできません。このような問題を避けるために各行の最大値をその行の全ての値から引きます。"
+
+#: ../../documents/get_started_components/basic.rst:805
+msgid "Why can we subtract the max from values? Can it change the result?"
+msgstr "最大値を引いてしまっても大丈夫なの？結果が変わってしまうのでは？"
+
+#: ../../documents/get_started_components/basic.rst:807
+msgid ""
+"Perhaps, you have such a question for this operation, but this operation "
+"can't change the outputs. Let's check this!"
+msgstr "もしかしたらそんな疑問を持った人もいるかもしれませんね。でも、この処理によって結果は変わりません。確認してみましょう！"
+
+#: ../../documents/get_started_components/basic.rst:810
+msgid "Originally, the ``softmax`` is a monotonically increasing function."
+msgstr "そもそも ``softmax`` とは単調増加の関数です。"
+
+#: ../../documents/get_started_components/basic.rst:815
+msgid ""
+"A monotonically increasing function does the scaling but not change the "
+"values relationship. Please remember, that the prediction score only "
+"depends on the magnitude relationship and softmax is monotonically "
+"increasing, so softmax is just scaling(value to relative probability), "
+"not changing the magnitude relations. The subtracting max value is also "
+"only scaling, not changing the magnitude relations so the final output "
+"isn't affected by this operation."
+msgstr "単調増加の関数はスケールを変更することはあっても値そのものの関係性を変更することはありません。思い出してください、予測スコアは大小関係のみに依存して結果を決めます。そして、softmaxは単調増加なのでsoftmaxは単にスケール(値を相対確率へ変換)しているに過ぎません。当然、大小関係は変化しません。今回の最大値による値のスケーリングです。行ごとには全て同じ値を引くので大小関係は変わりません。結局のところ分類問題は最も確率が高いものを予測値とするので、大小関係を変えないのであれば、これらの処理は最終的な出力に影響しません。"
+
+#: ../../documents/get_started_components/basic.rst:822
+msgid ""
+"And the ``1e-8`` in the loss variable is also to prevent overflow. If the"
+" log(x) receives 0, it returns ``-inf``."
+msgstr "損失計算の中の ``1e-8`` もオーバーフローを防ぐためのものです。log(x)が0を受け取ると、値は無限小に発散します。"
+
+#: ../../documents/get_started_components/basic.rst:826
+msgid "The ``SoftmaxWithCrossEntropy``'s backward can be calculated by"
+msgstr "``SoftmaxWithCrossEntropy`` の ``backward`` は以下のように計算されます。"
+
+#: ../../documents/get_started_components/basic.rst:828
+msgid ""
+"f(x) = exp(x) / \\Sigma exp(x_l) \\\\\n"
+"g(f(x_k)) = -\\Sigma \\{t_k * log(f(x_k))\\}"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:833
+msgid "So the composite function can be considered as"
+msgstr "つまり、これらの計算は合成関数と考えることができます。"
+
+#: ../../documents/get_started_components/basic.rst:835
+msgid "g(f(x_k)) = -\\sum_{k=0} \\{t_k * log(exp(x_k) / \\sum_{l=0} exp(x_l))\\}"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:839
+msgid "Expanding this function like below"
+msgstr "この式を展開すると、以下のようになります。"
+
+#: ../../documents/get_started_components/basic.rst:841
+msgid ""
+"\\begin{align}\n"
+"g(f(x_k)) &= -\\sum_{k=0} \\{t_k * log(exp(x_k) / \\sum_{l=0} "
+"exp(x_l))\\} \\\\\n"
+"&= -\\sum_{k=0} \\{t_k * (log(exp(x_k)) - log(\\sum_{l=0} exp(x_l)))\\} "
+"\\\\\n"
+"&= -\\sum_{k=0} \\{t_k * log(exp(x_k)) - t_k * log(\\sum_{l=0} "
+"exp(x_l))\\} \\\\\n"
+"&= -\\sum_{k=0} \\{t_k * x_k - t_k * log(\\sum_{l=0} exp(x_l))\\} \\\\\n"
+"&= \\sum_{k=0} \\{t_k * log(\\sum_{l=0} exp(x_l))\\} - \\sum_{k=0} \\{t_k"
+" * x_k\\} \\\\\n"
+"&= (\\sum_{k=0} t_k) * log(\\sum_{l=0} exp(x_l)) - \\sum_{k=0} (t_k * "
+"x_k) \\\\\n"
+"&\\text{$t_k$ is one-hot data so the $\\sum_{k=0}  t_k$ is 1.} \\\\\n"
+"&= log(\\Sigma exp(x_l)) - \\sum_{k=0} (t_k * x_k) \\\\\n"
+"\\end{align}\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:853
+msgid ""
+"The gradient of :math:`log(x)` is :math:`1/x` and the gradient of "
+":math:`\\sum_{l=0} exp(x_l)` is :math:`exp(x_k)`, so the gradient of "
+":math:`log(\\sum_{l=0} exp(x_l))` is :math:`exp(x_k)/\\sum_{l=0} "
+"exp(x_l)`."
+msgstr ""
+":math:`log(x)` の勾配は :math:`1/x` となり、 :math:`\\sum_{l=0} exp(x_l)` の勾配は "
+":math:`exp(x_k)` となります。つまり、 :math:`log(\\sum_{l=0} exp(x_l))` の勾配は "
+":math:`exp(x_k)/\\sum_{l=0} exp(x_l)` となるのです。"
+
+#: ../../documents/get_started_components/basic.rst:856
+msgid ""
+"And the :math:`\\sum_{k=0} (t_k * x_k)` means :math:`(t_1*x_1 + t_2*x_2 +"
+" ... + t_k*x_k + ... + t_n*x_n)`. The gradient is :math:`t_k` (This "
+"partial differentiation respects to :math:`x_k` so :math:`t_1*x_1`, "
+":math:`t_2*x_2`, and so are constant value (deleted by the partial "
+"differentiation).)"
+msgstr ""
+"また、 :math:`\\sum_{k=0} (t_k * x_k)` は :math:`(t_1*x_1 + t_2*x_2 + ... + "
+"t_k*x_k + ... + t_n*x_n)` を意味するので、この勾配は :math:`t_k` (この偏微分は :math:`x_k` "
+"に対するものである。そのため、 :math:`t_1*x_1` :math:`t_2*x_2` などは定数項となるため、偏微分で消去される。)"
+
+#: ../../documents/get_started_components/basic.rst:860
+msgid "Therefore, the gradient is"
+msgstr "したがって、この勾配は以下のようになる。"
+
+#: ../../documents/get_started_components/basic.rst:862
+msgid ""
+"\\begin{align}\n"
+"g'(f(x_k)) &= \\{exp(x_k) / \\sum_{l=0} exp(x_l)\\} - t_k \\\\\n"
+"&= f(x) - t_k\n"
+"\\end{align}\n"
+"\n"
+msgstr ""
+
+#: ../../documents/get_started_components/basic.rst:868
+msgid "Create a model object using implemented classes"
+msgstr "これまでに実装したクラスでモデルを構築する"
+
+#: ../../documents/get_started_components/basic.rst:870
+msgid ""
+"Now, we have all the components for deep learning construction but "
+"difficult to use it is now. Therefore, we create wrapping objects to use "
+"easily."
+msgstr "ここまででディープラーニングの全ての要素が出揃いました。しかし、このままでは扱いにくいため、これらを使いやすくするため、ラッパーオブジェクトを作成します。"
+
+#: ../../documents/get_started_components/basic.rst:936
+msgid ""
+"This class wraps the operation of the layer. Using this, the user should "
+"do only input the data and the label."
+msgstr "このクラスは層の処理をラップしています。これを使うことでユーザは単にデータと正解ラベルを入力するだけで処理を行えます。"
+
+#: ../../documents/get_started_components/basic.rst:939
+msgid ""
+"If you create some CLI app for Training model, it is kind for a user that"
+" display the proceed like loss value or accuracy or so. In this "
+"implementation, we display only the loss value, but if the epochs or "
+"iterations numbers are displayed in the output text, it is very helpful "
+"to a user!"
+msgstr "例えば、モデルを訓練するCLIアプリなどを作成している場合、現在の損失や精度、進捗などを表示してあげると親切に感じますよね。今回の実装では、損失の値のみを表示するようになっていますが、進捗を知らせるためにエポック数や反復数(iteration)を表示してあげるとユーザにより親切かもしれません。"
+
+#: ../../documents/get_started_components/basic.rst:944
+msgid "Let's try to modify this code as such new implements!"
+msgstr "そういった新たな実装をこのコードを修正して挑戦してみてください！"
+
+#: ../../documents/get_started_components/basic.rst:946
+msgid "Training the model"
+msgstr "モデルの訓練"
+
+#: ../../documents/get_started_components/basic.rst:948
+msgid ""
+"Finally, you create deep learning by your hand! Now, let's let it learn!!"
+" In this training, we use the ``trigonometric area separation problem`` "
+"which is created in the :doc:`./entrance`."
+msgstr ""
+"ついにディープラーニングのモデルを自分で作り上げましたね！さぁ、モデルを学習させてみましょう！今回の訓練では、 :doc:`./entrance`"
+" で作成した ``三角関数の領域分類問題`` のデータを使用します。"
+
+#: ../../documents/get_started_components/basic.rst:998
+msgid ""
+"Then, you can confirm the loss value is decreasing every displaying time."
+" And last, you can see a beautiful area separation!"
+msgstr "表示されている内容から損失が減っていっていることが確認できると思います。そして、最終的に綺麗な領域分類をみることができますね！"
+
+#: ../../documents/get_started_components/basic.rst:1005
+msgid ""
+"The model we created here is specialized to the classification problem "
+"only, not the regression problem. However, we can use this for various "
+"classification problems."
+msgstr "今回作成したモデルは分類問題に特化したものです。回帰問題には使用できません。しかし、様々な分類問題に使用できます。"
+
+#: ../../documents/get_started_components/basic.rst:1008
+msgid "Let's try and play various problems and modify the model!"
+msgstr "このモデルを編集したりして、色々な問題を楽しんでみてください！"
+
+#: ../../documents/get_started_components/basic.rst:1010
+msgid ""
+"Now, all program in this section is up! Thank you for your patience to "
+"the end!"
+msgstr "これでこのセクションの内容は全部終わりました。最後までお付き合いありがとうございました！"
+
+#: ../../documents/get_started_components/basic.rst:1012
+msgid ""
+"In this section, we started a question  ``What is the \"Learning\"?``. "
+"And we've been through some mechanisms. Finally, we created a neural "
+"network model by your hand without any Framework, and trained the model."
+msgstr ""
+"このセクションでは、私たちは ``\"学習\"とは何か？`` "
+"という疑問からスタートしました。そして様々なメカニズムをみてきて、最後にはフレームワークを使わずにニューラルネットワークモデルを作成し、そのモデルを実際に学習させてみました。"
+
+#: ../../documents/get_started_components/basic.rst:1015
+msgid "What do you think? If this paper helps your great journey!"
+msgstr "どうでしたか？この内容があなたの素晴らしい旅路の助けになれば幸いです！"
+
+#: ../../documents/get_started_components/basic.rst:1017
+msgid ""
+"Deep/Neural Network has a number of possibilities but the mechanisms are "
+"very simple. So I think it is wasted that people mistakenly think it's "
+"too difficult and dislike it. Probably, you didn't feel difficulty with "
+"each one components in this section. However, such models(Deep/Neural "
+"Network) are still the front line of this world. The world's top edge is "
+"also constructed by such simple function assembly. *(Of course, there are"
+" many difficult field of research too...)*"
+msgstr "ディープラーニングやニューラルネットワークは非常に多くの可能性を秘めていますが、その仕組みは存外シンプルです。僕はこれが難しいと勘違いされて嫌厭されてしまうのは勿体無いと思っています。多分、あなたもこのページの説明を通して難しすぎると感じたものはなかったのではないでしょうか？しかし、こういったディープラーニングなどは現在も世界の最先端にあります。言い換えれば、世界の最先端も突き詰めればこういったシンプルな関数によって組み立てられているのです。*(もちろん、非常に難解な研究分野が存在することも事実ではありますが...)*"
+
+#: ../../documents/get_started_components/basic.rst:1024
+msgid ""
+"Anyway, today you stepped out to one of the world's cutting-edge field! I"
+" hope you keep trying something in this field."
+msgstr "いずれにしろ、今日、あなたは世界最先端の領域の一つに足を踏み入れたのです！ぜひ、この領域で挑戦し続けてください。"
+
+#: ../../documents/get_started_components/basic.rst:1027
+msgid ""
+"Please don't forget, this is not a goal, you just stepped on the great "
+"journey."
+msgstr "忘れてはいけないのは、ここはゴールではありません。あなたはまだ偉大な旅路に足を踏み入れたに過ぎません。"
+
+#: ../../documents/get_started_components/basic.rst:1031
+msgid ""
+"I prepared the next step which tries a more practical problem using "
+"``Marquetry``. The first one is the ``Titanic Disaster`` prediction."
+msgstr "``Marquetry`` を使ったより実践的な問題を次のステップとして用意しました。"
+"最初は ``タイタニックの生存者予測`` です。楽しんで進めてください！"
+
+#: ../../documents/get_started_components/basic.rst:1034
+msgid "Titanic Disaster"
+msgstr ""

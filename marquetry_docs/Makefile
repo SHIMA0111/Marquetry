@@ -23,6 +23,10 @@ cleanup:
 
 build: cleanup
 	@$(SPHINXBUILD) -b html . ./_build
+	@make -e SPHINXOPTS='-D language="ja"' html
+	@cp -r _build/html _build/ja
+	@rm -rf _build/html
+
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

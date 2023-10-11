@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/evaluations/relative_absolute_error.rst:3
+msgid "Relative Absolute Error"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError:1
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:1
+#: of
+msgid ""
+"Calculate the Relative Absolute Error (RAE) between predicted values and "
+"true values."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:3
+#: of
+msgid ""
+"This function defines that calculates the Relative Absolute Error (RAE), "
+"a measure of the relative difference between predicted values and true "
+"values. RAE quantifies the average absolute difference between predicted "
+"and true values relative to the average absolute deviation of true values"
+" from their mean. It is used to assess the accuracy of regression models."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error
+#: of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:9
+#: of
+msgid "The predicted values."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:11
+#: of
+msgid "The true values."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:13
+#: of
+msgid "Specifies how to calculate the RAE for multi-output."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:20
+#: of
+msgid "multi_output:"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:19
+#: of
+msgid ""
+"\"uniform_average\": Compute the uniform average RAE over all samples. "
+"This is the default option."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:21
+#: of
+msgid "\"raw_values\": Return the raw RAE values for each sample."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error
+#: of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:23
+#: of
+msgid ""
+"The RAE based on the predicted values     and true values. Lower values "
+"indicate better accuracy."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:25
+#: of
+msgid "The RAE based on the predicted values"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:26
+#: of
+msgid "and true values. Lower values indicate better accuracy."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error
+#: of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.relative_absolute_error:27
+#: of
+msgid ":class:`marquetry.Container`"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError:1
+#: of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError:3
+#: of
+msgid ""
+"This class defines a function that calculates the Relative Absolute Error"
+" (RAE), a measure of the relative difference between predicted values and"
+" true values. RAE quantifies the average absolute difference between "
+"predicted and true values relative to the average absolute deviation of "
+"true values from their mean. It is used to assess the accuracy of "
+"regression models."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError:11
+#: of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward:1
+#: of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward:3
+#: of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward:6
+#: of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.evaluation.regression.relative_absolute_error.RelativeAbsoluteError.forward:9
+#: of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+

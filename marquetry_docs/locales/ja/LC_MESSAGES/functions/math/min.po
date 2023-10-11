@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/math/min.rst:3
+msgid "Min"
+msgstr ""
+
+#: marquetry.functions.math.min.Min:1 marquetry.functions.math.min.min:1 of
+msgid "Calculate the minimum along the specified axis."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward marquetry.functions.math.min.min of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.math.min.min:3 of
+msgid "The input tensor."
+msgstr ""
+
+#: marquetry.functions.math.min.min:5 of
+msgid "The axis or axes along which to find the minimum."
+msgstr ""
+
+#: marquetry.functions.math.min.min:7 of
+msgid ""
+"If True, the output has the same number of dimensions as the input, "
+"otherwise size 1's dimension is reduced."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward marquetry.functions.math.min.min of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.math.min.min:11 of
+msgid "The minimum value along the specified axis."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward marquetry.functions.math.min.min of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.math.min.min:12 of
+msgid ":class:`marquetry.Container`"
+msgstr ""
+
+#: marquetry.functions.math.min.min:15 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.math.min.Min:1 of
+msgid "Bases: :py:class:`~marquetry.functions.math.max.Max`"
+msgstr ""
+
+#: marquetry.functions.math.min.Min:5 of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.math.min.Min.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+
