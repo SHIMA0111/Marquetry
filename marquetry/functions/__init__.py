@@ -95,6 +95,10 @@ from marquetry.functions.math.min import min
 from marquetry.functions.math.min import Min
 from marquetry.functions.math.reciprocal import reciprocal
 from marquetry.functions.math.reciprocal import Reciprocal
+from marquetry.functions.math.square import square
+from marquetry.functions.math.square import Square
+from marquetry.functions.math.sqrt import sqrt
+from marquetry.functions.math.sqrt import Sqrt
 from marquetry.functions.math.sum import sum
 from marquetry.functions.math.sum import Sum
 from marquetry.functions.math.trigonometric import sin
@@ -106,6 +110,10 @@ from marquetry.functions.math.trigonometric import Tan
 
 from marquetry.functions.normalization.batch_normalization import batch_normalization
 from marquetry.functions.normalization.batch_normalization import BatchNormalization
+from marquetry.functions.normalization.l2_normalization import l2_normalization
+from marquetry.functions.normalization.l2_normalization import L2Normalization
+from marquetry.functions.normalization.layer_normalization import layer_normalization
+from marquetry.functions.normalization.layer_normalization import LayerNormalization
 
 from marquetry.functions.pooling.max_pooling2d import max_pooling_2d
 from marquetry.functions.pooling.max_pooling2d import MaxPooling2D

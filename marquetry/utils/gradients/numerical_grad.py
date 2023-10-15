@@ -8,7 +8,7 @@ from marquetry import Container
 
 def numerical_grad(func, x, *args, **kwargs):
     """Numerical Gradient calculator"""
-    eps = 1e-4
+    eps = 1e-7
 
     x = x.data if isinstance(x, Container) else x
     xp = cuda_backend.get_array_module(x)
