@@ -5,7 +5,7 @@ from marquetry import functions
 
 
 class BatchNormalization(Function):
-    """Apply batch normalization to the input tensor.
+    """Apply batch normalization to the input container.
 
         Batch normalization is a technique used in
         deep neural networks to stabilize and accelerate training.
