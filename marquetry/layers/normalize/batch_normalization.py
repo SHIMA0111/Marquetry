@@ -16,6 +16,8 @@ class BatchNormalization(Layer):
             decay (float): The weighting factor for the moving averages of mean and variance.
                 A smaller value will make the moving averages change more slowly.
                 Default is 0.9.
+            eps (float): A small constant value preventing zero-division.
+                Default is 1e-15.
 
         Attributes:
             gamma (marquetry.Parameter): The gamma parameter used for scaling.
@@ -33,22 +35,23 @@ class BatchNormalization(Layer):
             >>> y = batch_norm(x)
             >>> y.data.mean(axis=0)
             array([0.00000000e+00, 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,  0.00000000e+00])
-            (Depending on the computing environment, the mean is not 0.0 but the gap is very small
-            (generally under 1e-15).)
+            (Depending on the computing environment, the mean is not 0.0 but the gap is very small, generally under 1e-15).)
             >>> y.data.std(axis=0)
             array([1., 1., 1., 1., 1.])
 
 
     """
 
-    def __init__(self, decay=0.9):
+    def __init__(self, decay=0.9, eps=1e-15):
         super().__init__()
+
+        self.decay = decay
+        self.eps = eps
+
         self.avg_mean = Parameter(None, name="avg_mean")
         self.avg_var = Parameter(None, name="avg_var")
         self.gamma = Parameter(None, name="gamma")
         self.beta = Parameter(None, name="beta")
-
-        self.decay = decay
 
     def __call__(self, x):
         xp = cuda_backend.get_array_module(x)
@@ -63,4 +66,5 @@ class BatchNormalization(Layer):
             if self.beta.data is None:
                 self.beta.data = xp.zeros(input_shape, dtype=x.dtype)
 
-        return functions.batch_normalization(x, self.gamma, self.beta, self.avg_mean.data, self.avg_var.data, self.decay)
+        return functions.batch_normalization(x, self.gamma, self.beta, self.avg_mean.data,
+                                             self.avg_var.data, self.decay, self.eps)

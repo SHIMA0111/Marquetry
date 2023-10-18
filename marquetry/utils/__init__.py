@@ -8,6 +8,7 @@ from marquetry.utils.io.get_file import get_file
 from marquetry.utils.math.backward_utils import max_backward_shape
 from marquetry.utils.math.backward_utils import reshape_sum_backward
 from marquetry.utils.math.log_sum_exp import log_sum_exp
+from marquetry.utils.math.sigmoid_array import sigmoid_array
 from marquetry.utils.math.sum_to import sum_to
 from marquetry.utils.math.truncate_data import floor
 from marquetry.utils.math.truncate_data import ceil

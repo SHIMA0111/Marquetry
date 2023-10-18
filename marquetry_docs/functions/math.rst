@@ -10,6 +10,8 @@ Mathematics Function
    math/average
    math/absolute
    math/reciprocal
+   math/sqrt
+   math/square
    math/clip
    math/matmul
    math/exp
@@ -48,6 +50,16 @@ Mathematics Function
 
    .. grid-item-card:: Reciprocal
       :link: math/reciprocal
+      :link-type: doc
+      :text-align: center
+
+   .. grid-item-card:: Square Root
+      :link: math/sqrt
+      :link-type: doc
+      :text-align: center
+
+   .. grid-item-card:: Square
+      :link: math/square
       :link-type: doc
       :text-align: center
 

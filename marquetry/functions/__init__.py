@@ -1,17 +1,31 @@
 import marquetry.functions.evaluation
 
+from marquetry.functions.activations.gelu import gelu
+from marquetry.functions.activations.gelu import GELU
+from marquetry.functions.activations.glu import glu
+from marquetry.functions.activations.glu import GLU
 from marquetry.functions.activations.identity import identity
 from marquetry.functions.activations.identity import Identity
 from marquetry.functions.activations.leaky_relu import leaky_relu
 from marquetry.functions.activations.leaky_relu import LeakyReLU
 from marquetry.functions.activations.log_softmax import log_softmax
 from marquetry.functions.activations.log_softmax import LogSoftmax
+from marquetry.functions.activations.mish import mish
+from marquetry.functions.activations.mish import Mish
+from marquetry.functions.activations.prelu import prelu
+from marquetry.functions.activations.prelu import PReLU
 from marquetry.functions.activations.relu import relu
 from marquetry.functions.activations.relu import ReLU
 from marquetry.functions.activations.sigmoid import sigmoid
 from marquetry.functions.activations.sigmoid import Sigmoid
 from marquetry.functions.activations.softmax import softmax
 from marquetry.functions.activations.softmax import Softmax
+from marquetry.functions.activations.softplus import softplus
+from marquetry.functions.activations.softplus import Softplus
+from marquetry.functions.activations.swish import swish
+from marquetry.functions.activations.swish import dynamic_swish
+from marquetry.functions.activations.swish import Swish
+from marquetry.functions.activations.swish import DynamicSwish
 from marquetry.functions.activations.tanh import tanh
 from marquetry.functions.activations.tanh import Tanh
 
@@ -95,6 +109,10 @@ from marquetry.functions.math.min import min
 from marquetry.functions.math.min import Min
 from marquetry.functions.math.reciprocal import reciprocal
 from marquetry.functions.math.reciprocal import Reciprocal
+from marquetry.functions.math.square import square
+from marquetry.functions.math.square import Square
+from marquetry.functions.math.sqrt import sqrt
+from marquetry.functions.math.sqrt import Sqrt
 from marquetry.functions.math.sum import sum
 from marquetry.functions.math.sum import Sum
 from marquetry.functions.math.trigonometric import sin
@@ -106,6 +124,10 @@ from marquetry.functions.math.trigonometric import Tan
 
 from marquetry.functions.normalization.batch_normalization import batch_normalization
 from marquetry.functions.normalization.batch_normalization import BatchNormalization
+from marquetry.functions.normalization.l2_normalization import l2_normalization
+from marquetry.functions.normalization.l2_normalization import L2Normalization
+from marquetry.functions.normalization.layer_normalization import layer_normalization
+from marquetry.functions.normalization.layer_normalization import LayerNormalization
 
 from marquetry.functions.pooling.max_pooling2d import max_pooling_2d
 from marquetry.functions.pooling.max_pooling2d import MaxPooling2D

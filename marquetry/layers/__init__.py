@@ -1,8 +1,12 @@
+from marquetry.layers.activations.dynamic_swish import DynamicSwish
+from marquetry.layers.activations.prelu import PReLU
+
 from marquetry.layers.array.linear import Linear
 from marquetry.layers.array.convolution_2d import Convolution2D
 from marquetry.layers.array.deconvolution_2d import Deconvolution2D
 
 from marquetry.layers.normalize.batch_normalization import BatchNormalization
+from marquetry.layers.normalize.layer_normalization import LayerNormalization
 
 from marquetry.layers.recurrent.bi_lstm import BiLSTM
 from marquetry.layers.recurrent.embedding import Embedding

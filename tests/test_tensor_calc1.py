@@ -4,7 +4,7 @@ import numpy as np
 
 import marquetry.functions as funcs
 from marquetry import Container
-from marquetry.utils import gradient_check, array_close
+from marquetry.utils import gradient_check, array_close, array_equal
 
 
 class TestSum(unittest.TestCase):
@@ -177,3 +177,103 @@ class TestBroadcastTo(unittest.TestCase):
         f = lambda x: funcs.broadcast_to(x, (5, 5))
 
         self.assertTrue(gradient_check(f, x_data))
+
+
+class TestSquare(unittest.TestCase):
+
+    def test_forward1(self):
+        x = np.array([1, 2, 3])
+        y = funcs.square(x)
+
+        res = y.data
+        expected = np.array([1, 4, 9])
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_forward2(self):
+        x = np.array(3)
+        y = funcs.square(x)
+
+        res = y.data
+        expected = np.array(9)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_forward3(self):
+        x = np.array([[1, 2, 3], [2, 3, 4]])
+        y = funcs.square(x)
+
+        res = y.data
+        expected = np.array([[1, 4, 9], [4, 9, 16]])
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_backward1(self):
+        x = np.random.randn(3, 3)
+
+        self.assertTrue(gradient_check(funcs.square, x))
+
+    def test_backward2(self):
+        x = np.random.randn(3, 1)
+
+        self.assertTrue(gradient_check(funcs.square, x))
+
+    def test_backward3(self):
+        x = np.random.randn(1)
+
+        self.assertTrue(gradient_check(funcs.square, x))
+
+    def test_backward4(self):
+        x = np.random.randn(2, 3, 4, 4, 5)
+
+        self.assertTrue(gradient_check(funcs.square, x))
+
+
+class TestSqrt(unittest.TestCase):
+
+    def test_forward1(self):
+        x = np.array([1, 2, 3])
+        y = funcs.sqrt(x)
+
+        res = y.data
+        expected = np.sqrt(x)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_forward2(self):
+        x = np.array(3)
+        y = funcs.sqrt(x)
+
+        res = y.data
+        expected = np.sqrt(x)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_forward3(self):
+        x = np.array([[1, 2, 3], [2, 3, 4]])
+        y = funcs.sqrt(x)
+
+        res = y.data
+        expected = np.sqrt(x)
+
+        self.assertTrue(array_equal(res, expected))
+
+    def test_backward1(self):
+        x = abs(np.random.randn(3, 3))
+
+        self.assertTrue(gradient_check(funcs.sqrt, x))
+
+    def test_backward2(self):
+        x = abs(np.random.randn(3, 1))
+
+        self.assertTrue(gradient_check(funcs.sqrt, x))
+
+    def test_backward3(self):
+        x = abs(np.random.randn(1))
+
+        self.assertTrue(gradient_check(funcs.sqrt, x))
+
+    def test_backward4(self):
+        x = abs(np.random.rand(100, 12))
+
+        self.assertTrue(gradient_check(funcs.sqrt, x))

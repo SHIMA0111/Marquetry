@@ -50,13 +50,14 @@ class Squeeze(Function):
         return grad_x
 
 
-def squeeze(x, axis):
+def squeeze(x, axis=None):
     """Remove single-dimensional entries from the shape of an input array.
 
         Args:
             x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array  from which single-dimensional entries should be removed.
-            axis (int or tuple of ints or list of ints): The axis along which single-dimensional entries should be removed.
+            axis (int or tuple of ints or list of ints or None):
+                The axis along which single-dimensional entries should be removed.
 
         Returns:
             :class:`marquetry.Container`: The result of removing single-dimensional

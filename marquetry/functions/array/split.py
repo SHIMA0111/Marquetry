@@ -13,11 +13,9 @@ class Split(Function):
             You should use only ``__call__`` method.
     """
 
-    def __init__(self, indices, axis):
+    def __init__(self, indices_or_sections, axis):
         self.axis = axis
-        if np.isscalar(indices):
-            indices = (indices,)
-        self.indices = indices
+        self.indices = indices_or_sections
 
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
@@ -32,14 +30,14 @@ class Split(Function):
         return grad_x
 
 
-def split(x, indices, axis):
+def split(x, indices_or_sections, axis):
     """Split an input array or container into multiple parts along the specified axis and indices.
 
         Args:
             x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
                 The input array to be split.
-            indices (int or tuple of ints):
-                The indices at which to split the input array or container along the specified axis.
+            indices_or_sections (int or tuple of ints):
+                The indices or sections at which to split the input array or container along the specified axis.
             axis (int): The axis along which the input array or container should be split.
 
         Returns:
@@ -59,4 +57,4 @@ def split(x, indices, axis):
                         [8]])]
     """
 
-    return Split(indices, axis)(x)
+    return Split(indices_or_sections, axis)(x)
