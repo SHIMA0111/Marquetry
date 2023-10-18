@@ -4,7 +4,7 @@ import numpy as np
 
 from marquetry import dataset
 from marquetry.utils import get_file
-from marquetry.transformers import Compose, Flatten, ToFloat, Normalize
+from marquetry.transformers import Flatten
 
 
 class FashionMNIST(dataset.Dataset):

@@ -52,7 +52,7 @@ class LayerNormalization(Layer):
 
         if self.gamma.data is None:
             input_shape = int(x.size / x.shape[0])
-            self.gamma = xp.ones(input_shape, dtype=x.dtype)
-            self.beta = xp.zeros(input_shape, dtype=x.dtype)
+            self.gamma.data = xp.ones(input_shape, dtype=x.dtype)
+            self.beta.data = xp.zeros(input_shape, dtype=x.dtype)
 
         return functions.layer_normalization(x, self.gamma, self.beta, self.eps)

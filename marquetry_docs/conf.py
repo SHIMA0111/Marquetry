@@ -20,8 +20,8 @@ project = 'Marquetry'
 copyright = '2023, Little Tabby'
 author = 'SHIMA'
 
-version = 'v0.1.0'
-release = 'v0.1.0'
+version = 'v0.2.0-dev'
+release = 'v0.2.0-dev'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

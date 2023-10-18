@@ -28,16 +28,16 @@ class LeakyReLU(Function):
 
 
 def leaky_relu(x, slope=0.2):
-    """Leaky Rectified Linear Unit function.
+    """Leaky Rectified Linear Units function.
 
-        This function is improved version of the ReLU(Rectified Linear Unit).
+        This function is improved version of the ReLU(Rectified Linear Units).
 
         if x >= 0, :math:`f(x) = x` || if x < 0, :math:`f(x) = slope * x`
             - The ``slope`` is a small constant value the default value is `0.2`.
 
         Args:
             x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):
-                Input container that is float array.
+                Input container or ndarray that is float array.
             slope (float): small constant value. The default is 0.2.
 
         Returns:
