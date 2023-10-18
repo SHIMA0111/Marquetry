@@ -1,17 +1,31 @@
 import marquetry.functions.evaluation
 
+from marquetry.functions.activations.gelu import gelu
+from marquetry.functions.activations.gelu import GELU
+from marquetry.functions.activations.glu import glu
+from marquetry.functions.activations.glu import GLU
 from marquetry.functions.activations.identity import identity
 from marquetry.functions.activations.identity import Identity
 from marquetry.functions.activations.leaky_relu import leaky_relu
 from marquetry.functions.activations.leaky_relu import LeakyReLU
 from marquetry.functions.activations.log_softmax import log_softmax
 from marquetry.functions.activations.log_softmax import LogSoftmax
+from marquetry.functions.activations.mish import mish
+from marquetry.functions.activations.mish import Mish
+from marquetry.functions.activations.prelu import prelu
+from marquetry.functions.activations.prelu import PReLU
 from marquetry.functions.activations.relu import relu
 from marquetry.functions.activations.relu import ReLU
 from marquetry.functions.activations.sigmoid import sigmoid
 from marquetry.functions.activations.sigmoid import Sigmoid
 from marquetry.functions.activations.softmax import softmax
 from marquetry.functions.activations.softmax import Softmax
+from marquetry.functions.activations.softplus import softplus
+from marquetry.functions.activations.softplus import Softplus
+from marquetry.functions.activations.swish import swish
+from marquetry.functions.activations.swish import dynamic_swish
+from marquetry.functions.activations.swish import Swish
+from marquetry.functions.activations.swish import DynamicSwish
 from marquetry.functions.activations.tanh import tanh
 from marquetry.functions.activations.tanh import Tanh
 

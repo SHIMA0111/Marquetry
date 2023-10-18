@@ -47,11 +47,11 @@ class TestConcat(unittest.TestCase):
 class TestSplit(unittest.TestCase):
 
     def test_forward1(self):
-        x = np.array([[1, 2, 3, 4, 5], [2, 3, 4, 5, 6]])
+        x = np.array([[1, 2, 3, 4, 5, 6], [2, 3, 4, 5, 6, 7]])
         y0, y1 = funcs.split(x, 2, axis=1)
 
-        self.assertTrue(array_equal(x[:, :2], y0.data))
-        self.assertTrue(array_equal(x[:, 2:], y1.data))
+        self.assertTrue(array_equal(x[:, :3], y0.data))
+        self.assertTrue(array_equal(x[:, 3:], y1.data))
 
     def test_forward2(self):
         x = np.array([[1, 2, 3, 4, 5], [2, 3, 4, 5, 6], [3, 4, 5, 6, 7]])
@@ -65,8 +65,8 @@ class TestSplit(unittest.TestCase):
         x = np.random.randn(2, 10)
 
         def func(x):
-            y0, y1 = funcs.split(x, indices=5, axis=1)
-            return y0 + y1
+            y0, y1, y2, y3, y4 = funcs.split(x, indices_or_sections=5, axis=1)
+            return y0 + y1 + y2 + y3 + y4
 
         self.assertTrue(gradient_check(func, x))
 
@@ -74,7 +74,7 @@ class TestSplit(unittest.TestCase):
         x = np.random.randn(2, 10)
 
         def func(x):
-            y0, y1 = funcs.split(x, indices=1, axis=0)
+            y0, y1 = funcs.split(x, indices_or_sections=(1,), axis=0)
             return y0 * y1
 
         self.assertTrue(gradient_check(func, x))
@@ -83,7 +83,7 @@ class TestSplit(unittest.TestCase):
         x = np.random.randn(3, 12)
 
         def func(x):
-            y0, y1, y2 = funcs.split(x, indices=(4, 8), axis=1)
+            y0, y1, y2 = funcs.split(x, indices_or_sections=(4, 8), axis=1)
             return y0 - y1 - y2
 
         self.assertTrue(gradient_check(func, x))
@@ -116,12 +116,19 @@ class TestSqueeze(unittest.TestCase):
 
         self.assertTrue(gradient_check(f, x))
 
-    def test_shape_check(self):
+    def test_shape_check1(self):
         x = Container(np.random.randn(3, 1, 5))
         y = funcs.squeeze(x, axis=1)
         y.backward()
 
         self.assertTrue(x.grad.shape, x.shape)
+
+    def test_shape_check2(self):
+        x = Container(np.random.randn(1).reshape([1, 1, 1, 1]))
+        y = funcs.squeeze(x)
+        y.backward()
+
+        self.assertTrue(x.grad.shape == x.shape)
 
 
 class TestUnSqueeze(unittest.TestCase):
