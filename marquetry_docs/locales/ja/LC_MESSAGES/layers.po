@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,15 +23,19 @@ msgstr ""
 msgid "Layers"
 msgstr ""
 
-#: ../../layers.rst:16
+#: ../../layers.rst:17
+msgid "Activation"
+msgstr ""
+
+#: ../../layers.rst:22
 msgid "Array"
 msgstr ""
 
-#: ../../layers.rst:21
+#: ../../layers.rst:27
 msgid "Normalization"
 msgstr ""
 
-#: ../../layers.rst:26
+#: ../../layers.rst:32
 msgid "Recurrent"
 msgstr ""
 

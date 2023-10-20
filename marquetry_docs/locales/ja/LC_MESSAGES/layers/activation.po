@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Marquetry v0.1.0\n"
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -19,19 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: ../../functions/normalization.rst:3
-msgid "Normalization"
+#: ../../layers/activation.rst:3
+msgid "Activation"
 msgstr ""
 
-#: ../../functions/normalization.rst:16
-msgid "Batch Normalization"
+#: ../../layers/activation.rst:15
+msgid "Dynamic Swish"
 msgstr ""
 
-#: ../../functions/normalization.rst:21
-msgid "L2 Normalization"
-msgstr ""
-
-#: ../../functions/normalization.rst:26
-msgid "Layer Normalization"
+#: ../../layers/activation.rst:20
+msgid "PReLU"
 msgstr ""
 

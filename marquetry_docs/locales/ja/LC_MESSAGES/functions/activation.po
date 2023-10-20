@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,31 +23,61 @@ msgstr ""
 msgid "Activation"
 msgstr ""
 
-#: ../../functions/activation.rst:21
+#: ../../functions/activation.rst:27
+msgid "GELU (Gaussian Error Linear Units)"
+msgstr ""
+
+#: ../../functions/activation.rst:32
+msgid "GLU (Gated Linear Units)"
+msgstr ""
+
+#: ../../functions/activation.rst:37
 msgid "Identity function"
 msgstr ""
 
-#: ../../functions/activation.rst:26
-msgid "Leaky ReLU (Rectified Linear Unit)"
+#: ../../functions/activation.rst:42
+msgid "Leaky ReLU (Rectified Linear Units)"
 msgstr ""
 
-#: ../../functions/activation.rst:31
+#: ../../functions/activation.rst:47
 msgid "Log Softmax"
 msgstr ""
 
-#: ../../functions/activation.rst:36
-msgid "ReLU (Rectified Linear Unit)"
+#: ../../functions/activation.rst:52
+msgid "Mish"
 msgstr ""
 
-#: ../../functions/activation.rst:41
+#: ../../functions/activation.rst:57
+msgid "PReLU (Parametric Rectified Linear Units)"
+msgstr ""
+
+#: ../../functions/activation.rst:62
+msgid "ReLU (Rectified Linear Units)"
+msgstr ""
+
+#: ../../functions/activation.rst:67
 msgid "Logistic Sigmoid"
 msgstr ""
 
-#: ../../functions/activation.rst:46
+#: ../../functions/activation.rst:72
 msgid "Softmax"
 msgstr ""
 
-#: ../../functions/activation.rst:51
+#: ../../functions/activation.rst:77
+msgid "Softplus"
+msgstr ""
+
+#: ../../functions/activation.rst:82
+msgid "Swish (SiLU)"
+msgstr ""
+
+#: ../../functions/activation.rst:87
 msgid "Tanh (Hyperbolic Tangent)"
 msgstr ""
+
+#~ msgid "Leaky ReLU (Rectified Linear Unit)"
+#~ msgstr ""
+
+#~ msgid "ReLU (Rectified Linear Unit)"
+#~ msgstr ""
 

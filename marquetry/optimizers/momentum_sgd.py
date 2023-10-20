@@ -12,7 +12,7 @@ class MomentumSGD(Optimizer):
         This algorithm was inspired by momentum in physics.
 
         Args:
-            learning_rate (float): The learning rate for updating parameters.
+            lr (float): The learning rate for updating parameters.
                 Default is 0.01.
             decay (float): The momentum decay factor, controlling the influence of past gradients.
                 Default is 0.9.
@@ -29,9 +29,9 @@ class MomentumSGD(Optimizer):
 
     """
 
-    def __init__(self, learning_rate=0.01, decay=0.9):
+    def __init__(self, lr=0.01, decay=0.9):
         super().__init__()
-        self.lr = learning_rate
+        self.lr = lr
         self.momentum = decay
 
         self.momentum_vector = {}

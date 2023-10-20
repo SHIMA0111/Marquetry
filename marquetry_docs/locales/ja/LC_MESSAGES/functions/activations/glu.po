@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/activations/glu.rst:3
+msgid "GLU (Gated Linear Units)"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU:1
+#: marquetry.functions.activations.glu.glu:1 of
+msgid "Gated Linear Units (GLU) Function."
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:3 of
+msgid ""
+"This function implements the Gated Linear Units activation function, "
+"which is used in neural networks."
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:6 of
+msgid "This function is obtained by:"
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:8 of
+msgid ":math:`GLU(a, b) = a \\cdot \\sigma (b)`"
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:10 of
+msgid ""
+"(`a` and `b` are splited from x as the same size. From this "
+"specification, the input data's specified axis should be even.)"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward
+#: marquetry.functions.activations.glu.GLU.forward
+#: marquetry.functions.activations.glu.glu of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:13 of
+msgid "Input container or ndarray that is float array."
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:15 of
+msgid "The direction for splitting the `a` and `b`"
+msgstr ""
+
+#: marquetry.functions.activations.glu.glu:19 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU:1 of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU:3 of
+msgid ""
+"This class implements the Gated Linear Units activation function, which "
+"is used in neural networks."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward:1 of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward:3 of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward
+#: marquetry.functions.activations.glu.GLU.forward of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward:6 of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward
+#: marquetry.functions.activations.glu.GLU.forward of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.backward:11 of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.glu.GLU.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+
