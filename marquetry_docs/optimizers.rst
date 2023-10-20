@@ -38,7 +38,7 @@ Optimizers
       :text-align: center
 
    .. grid-item-card:: AdamW (Adam with Weight Decay)
-      :link: optimizers/adagrad
+      :link: optimizers/adam_w
       :link-type: doc
       :text-align: center
 
@@ -58,7 +58,7 @@ Optimizers
       :text-align: center
 
    .. grid-item-card:: Nadam (Nesterov Adaptive Momentum Estimation)
-      :link: optimizers/adagrad
+      :link: optimizers/nadam
       :link-type: doc
       :text-align: center
 
