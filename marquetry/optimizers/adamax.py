@@ -34,7 +34,7 @@ class AdaMax(Optimizer):
     def __init__(self, lr=0.002, first_decay=0.9, second_decay=0.999, eps=1e-7):
         super().__init__()
 
-        self.base_lr = lr
+        self.blr = lr
         self.fd = first_decay
         self.sd = second_decay
         self.eps = eps
@@ -72,4 +72,4 @@ class AdaMax(Optimizer):
     def lr(self):
         adoptive_param = 1. - math.pow(self.fd, self.iters)
 
-        return self.base_lr / (adoptive_param + self.eps)
+        return self.blr / (adoptive_param + self.eps)

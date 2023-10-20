@@ -16,7 +16,7 @@ class Adam(Optimizer):
 
 
         Args:
-            base_learning_rate (float): The base learning rate for updating parameters.
+            lr (float): The base learning rate for updating parameters.
                 Default is 0.001.
             first_decay (float): The decay rate for the first moment estimate (momentum).
                 Default is 0.9.
@@ -37,9 +37,9 @@ class Adam(Optimizer):
 
     """
 
-    def __init__(self, base_learning_rate=0.001, first_decay=0.9, second_decay=0.999, eps=1e-8):
+    def __init__(self, lr=0.001, first_decay=0.9, second_decay=0.999, eps=1e-8):
         super().__init__()
-        self.blr = base_learning_rate
+        self.blr = lr
         self.fd = first_decay
         self.sd = second_decay
         self.eps = eps

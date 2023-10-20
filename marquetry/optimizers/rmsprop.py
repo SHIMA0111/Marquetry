@@ -12,7 +12,7 @@ class RMSProp(Optimizer):
         The `decay` parameter controls the rate of decay for the moving average.
 
         Args:
-            learning_rate (float): The learning rate for updating parameters.
+            lr (float): The learning rate for updating parameters.
                 Default is 0.01.
             decay (float): The decay rate for the moving average of past gradients.
                 Default is 0.99.
@@ -31,9 +31,9 @@ class RMSProp(Optimizer):
 
     """
 
-    def __init__(self, learning_rate=0.01, decay=0.99, eps=1e-8):
+    def __init__(self, lr=0.01, decay=0.99, eps=1e-8):
         super().__init__()
-        self.lr = learning_rate
+        self.lr = lr
         self.decay = decay
         self.eps = eps
 

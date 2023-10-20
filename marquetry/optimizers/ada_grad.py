@@ -11,7 +11,7 @@ class AdaGrad(Optimizer):
         The learning rate is adjusted based on the historical gradient information.
 
         Args:
-            learning_rate (float): The learning rate for updating parameters.
+            lr (float): The learning rate for updating parameters.
                 Default is 0.001.
             eps (float): A small value (epsilon) added to the denominator to prevent division by zero.
                 Default is 1e-8.
@@ -28,9 +28,9 @@ class AdaGrad(Optimizer):
 
     """
 
-    def __init__(self, learning_rate=0.001, eps=1e-8):
+    def __init__(self, lr=0.001, eps=1e-8):
         super().__init__()
-        self.lr = learning_rate
+        self.lr = lr
         self.eps = eps
 
         self.histories = {}
