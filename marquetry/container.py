@@ -1030,7 +1030,7 @@ def as_container(obj):
 
     if isinstance(obj, Container):
         return obj
-    return Container(obj)
+    return array(obj)
 
 
 def as_array(x, array_type=np):
@@ -1089,6 +1089,9 @@ def array(x, name=None):
 
     elif isinstance(x, (int, float)):
         x = np.array(x)
+
+    elif x is None:
+        pass
 
     elif not isinstance(x, allow_array):
         raise ValueError("x for array() should be list of ints or ndarray, but got {}".format(type(x)))
