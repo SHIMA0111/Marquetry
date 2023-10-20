@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../optimizers/nadam.rst:3
+msgid "Nadam (Nesterov Adaptive Momentum Estimation)"
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:1 of
+msgid "Bases: :py:class:`~marquetry.optimizer.Optimizer`"
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:1 of
+msgid ""
+"Nesterov Adaptive Moment Estimation (Nadam) optimizer for updating model "
+"parameters during training."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:3 of
+msgid ""
+"Nadam is an optimization algorithm that uses a combination of adaptive "
+"moment estimation (Adam) and Nesterov accelerated gradient (NAG) methods "
+"to update model parameters. It adapts the learning rates for each "
+"parameter to accelerate convergence and avoid locally optimal solutions."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:7 of
+msgid "This algorithm was inspired by momentum in physics."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:9 of
+msgid "The learning rate for updating parameters. Default is 0.001."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:12 of
+msgid "The decay factor for the first moment (momentum). Default is 0.9."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:15 of
+msgid ""
+"The decay factor for the second moment (moving average of squared "
+"gradients). Default is 0.999."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:18 of
+msgid ""
+"The time decay factor for the first_decay with time consideration. "
+"Default is 0.95."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:21 of
+msgid "A small constant to prevent division by zero. Default is 1e-7."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:27 of
+msgid ""
+"When you would like to optimize your model's parameter, please set the "
+"model to this using ``prepare`` method."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam:31 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam.update:1 of
+msgid "Updates the parameters."
+msgstr ""
+
+#: marquetry.optimizers.nadam.Nadam.update:3 of
+msgid "When user optimize the model parameter, user call this method."
+msgstr ""
+

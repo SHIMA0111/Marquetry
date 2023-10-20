@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,11 +24,11 @@ msgid "Leaky ReLU (Rectified Linear Unit)"
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:1 of
-msgid "Leaky Rectified Linear Unit function."
+msgid "Leaky Rectified Linear Units function."
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:3 of
-msgid "This function is improved version of the ReLU(Rectified Linear Unit)."
+msgid "This function is improved version of the ReLU(Rectified Linear Units)."
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:6 of
@@ -46,7 +46,7 @@ msgid "Parameters"
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:8 of
-msgid "Input container that is float array."
+msgid "Input container or ndarray that is float array."
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:10 of
@@ -123,4 +123,13 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Leaky Rectified Linear Unit function."
+#~ msgstr ""
+
+#~ msgid "This function is improved version of the ReLU(Rectified Linear Unit)."
+#~ msgstr ""
+
+#~ msgid "Input container that is float array."
+#~ msgstr ""
 

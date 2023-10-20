@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/activations/gelu.rst:3
+msgid "GELU (Gaussian Error Linear Units)"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU:1
+#: marquetry.functions.activations.gelu.gelu:1 of
+msgid "Gaussian Error Linear Units (GELU) Function."
+msgstr "ガウス誤差線形ユニット(GELU)関数"
+
+#: marquetry.functions.activations.gelu.gelu:3 of
+msgid ""
+"This function implements the Gaussian Error Linear Units activation "
+"function, which is used in neural networks. GELU is often used with Large"
+" Transformer models. It provides the GELU function with different "
+"approximation options:"
+msgstr ""
+"この関数はニューラルネットワークに使用される\"ガウス誤差線形ユニット\"活性化関数を実装しています。"
+"GELUはLLMなどでもよく使われている活性化関数であり、様々な近似オプションが用意されています。"
+
+#: marquetry.functions.activations.gelu.gelu:8 of
+msgid "\"none\""
+msgstr ""
+
+#: marquetry.functions.activations.gelu.gelu:9 of
+msgid "\"tanh\""
+msgstr ""
+
+#: marquetry.functions.activations.gelu.gelu:10 of
+msgid "\"sigmoid\""
+msgstr ""
+
+#: marquetry.functions.activations.gelu.gelu:12 of
+msgid ""
+"The choice of approximation affects the computational performance and "
+"accuracy."
+msgstr ""
+"近似関数の選択によって、精度や計算パフォーマンスが変動する可能性があります。"
+
+#: marquetry.functions.activations.gelu.gelu:14 of
+msgid "This function is obtained by:"
+msgstr "この関数は以下のように定義されます。"
+
+#: marquetry.functions.activations.gelu.gelu:16 of
+msgid ""
+":math:`f(x) = x \\cdot \\Phi (x)` (:math:`\\Phi (x)` is the standard "
+"Gaussian cumulative distribution function.)"
+msgstr ""
+":math:`f(x) = x \\cdot \\Phi (x)` (:math:`\\Phi (x)` は標準ガウス累積分布関数です)"
+
+#: marquetry.functions.activations.gelu.gelu:19 of
+msgid ""
+"The :math:`\\Phi (x)` is a special function so sometimes the function is "
+"approximated by the below functions."
+msgstr ""
+":math:`\\Phi (x)` は特殊関数なので以下の関数で近似されることもあります。"
+
+#: marquetry.functions.activations.gelu.gelu:21 of
+msgid ""
+":math:`f(x) = \\frac{1}{2} x \\cdot (1 + Tanh[ \\sqrt{ \\frac{2}{\\pi}} "
+"\\cdot (x + 0.04715x^3)])`"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.gelu:23 of
+msgid "or"
+msgstr "または"
+
+#: marquetry.functions.activations.gelu.gelu:25 of
+msgid ":math:`f(x) = x \\cdot \\sigma (1.702x)`"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU.backward
+#: marquetry.functions.activations.gelu.GELU.forward
+#: marquetry.functions.activations.gelu.gelu of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.gelu:27 of
+msgid "Input container or ndarray that is float array."
+msgstr "入力する浮動小数点数のcontainerまたはndarray配列"
+
+#: marquetry.functions.activations.gelu.gelu:29 of
+msgid ""
+"The approximation method to use. Options are \"none\" for the exact GELU "
+"function, \"tanh\" for the tanh-based approximation, and \"sigmoid\" for "
+"the sigmoid-based approximation."
+msgstr ""
+"使用する近似手法。\"none\"の時は真のGELU関数を使用し、\"tanh\"ではtanh関数ベースの近似、"
+"\"sigmoid\"ではシグモイド関数ベースの近似を使用します。"
+
+#: marquetry.functions.activations.gelu.gelu:35 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU:1 of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU:3 of
+msgid ""
+"This class implements the Gaussian Error Linear Units activation "
+"function, which is used in neural networks. GELU is often used with Large"
+" Transformer models."
+msgstr ""
+"このクラスはニューラルネットワークで使用される\"ガウス誤差線形ユニット\"活性化関数を定義しています。"
+"GELUはよく大規模言語モデルなどの活性化関数として使用されます。"
+
+#: marquetry.functions.activations.gelu.GELU:9 of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+"``forward`` と ``backward`` メソッドを手動で実行せずに、単に処理を呼び出すようにしてください。"
+
+#: marquetry.functions.activations.gelu.GELU.backward:1 of
+msgid "Perform the backward computation of the function."
+msgstr "関数の逆伝播処理を実行します。"
+
+#: marquetry.functions.activations.gelu.GELU.backward:3 of
+msgid "Gradient data arrays."
+msgstr "勾配データの配列"
+
+#: marquetry.functions.activations.gelu.GELU.backward
+#: marquetry.functions.activations.gelu.GELU.forward of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU.backward:6 of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr "入力データ配列に対する勾配データ配列"
+
+#: marquetry.functions.activations.gelu.GELU.backward
+#: marquetry.functions.activations.gelu.GELU.forward of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.activations.gelu.GELU.backward:11 of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+"関数の逆伝播はmarquetryによって自動で呼ばれます。(そのため、ユーザは呼び出す必要がありません)"
+"ユーザはモデルの出力の :class:`marquetry.Container` のbackwardメソッドを呼ぶようにしてください。"
+
+#: marquetry.functions.activations.gelu.GELU.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr "関数の順伝播の計算を行います。"
+
+#: marquetry.functions.activations.gelu.GELU.forward:3 of
+msgid "Input data arrays."
+msgstr "入力データの配列"
+
+#: marquetry.functions.activations.gelu.GELU.forward:6 of
+msgid "Output data arrays."
+msgstr "出力データの配列"
+
+#: marquetry.functions.activations.gelu.GELU.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+"一般に、このクラスの `forward` を直接呼ばずに `__call__` を通して呼ぶようにしてください。"
+

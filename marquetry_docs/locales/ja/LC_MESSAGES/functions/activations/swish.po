@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../functions/activations/swish.rst:3
+msgid "Swish (a.k.a SiLU (Sigmoid-weighted Linear Unit))"
+msgstr ""
+
+#: ../../functions/activations/swish.rst:6
+msgid "Constant Swish"
+msgstr ""
+
+#: marquetry.functions.activations.swish.Swish:1
+#: marquetry.functions.activations.swish.swish:1 of
+msgid "Swish Function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.swish:3 of
+msgid ""
+"This function implements the Swish activation function, which is also "
+"known as ``SiLU (Sigmoid-weighted Linear Unit)``. Swish is anticipated as"
+" a successor of the ReLU(:class:`marquetry.function.relu`)."
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:5
+#: marquetry.functions.activations.swish.swish:7 of
+msgid "This function is obtained by:"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:8
+#: marquetry.functions.activations.swish.swish:9 of
+msgid ":math:`f(x) = x * \\sigma (beta \\cdot x)`"
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward
+#: marquetry.functions.activations.swish.DynamicSwish.forward
+#: marquetry.functions.activations.swish.Swish.backward
+#: marquetry.functions.activations.swish.Swish.forward
+#: marquetry.functions.activations.swish.dynamic_swish
+#: marquetry.functions.activations.swish.swish of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:10
+#: marquetry.functions.activations.swish.swish:11 of
+msgid "Input container or ndarray that is float array."
+msgstr ""
+
+#: marquetry.functions.activations.swish.swish:13 of
+msgid "A learnable parameter for swish function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.swish:18 of
+msgid ""
+"This activation has learnable parameter (if the ``beta`` is constant "
+"value, it is the same as :meth:`swish`). In generally, we suggest to use "
+":class:`marquetry.layers.DynamicSwish` instead of this."
+msgstr ""
+
+#: marquetry.functions.activations.swish.swish:22 of
+msgid ""
+"The layers object manages the leanable parameter itself so in Swish, the "
+"`beta` is managed by the object."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward
+#: marquetry.functions.activations.swish.DynamicSwish.forward
+#: marquetry.functions.activations.swish.Swish.backward
+#: marquetry.functions.activations.swish.Swish.forward
+#: marquetry.functions.activations.swish.dynamic_swish
+#: marquetry.functions.activations.swish.swish of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:15
+#: marquetry.functions.activations.swish.swish:24 of
+msgid "Output container. A float array."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward
+#: marquetry.functions.activations.swish.DynamicSwish.forward
+#: marquetry.functions.activations.swish.Swish.backward
+#: marquetry.functions.activations.swish.Swish.forward
+#: marquetry.functions.activations.swish.dynamic_swish
+#: marquetry.functions.activations.swish.swish of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:19
+#: marquetry.functions.activations.swish.swish:28 of
+msgid "References"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:20
+#: marquetry.functions.activations.swish.swish:29 of
+msgid "Searching for Activation Functions (https://arxiv.org/abs/1710.05941)"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:21
+#: marquetry.functions.activations.swish.swish:30 of
+msgid ""
+"Swish: a Self-Gated Activation Function "
+"(https://arxiv.org/abs/1710.05941v1)"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:24
+#: marquetry.functions.activations.swish.swish:33 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish:1
+#: marquetry.functions.activations.swish.Swish:1 of
+msgid "Bases: :py:class:`~marquetry.function.Function`"
+msgstr ""
+
+#: marquetry.functions.activations.swish.Swish:3 of
+msgid ""
+"This class implements the Swish activation function, which is also known "
+"as ``SiLU (Sigmoid-weighted Linear Unit)``. Swish is anticipated as a "
+"successor of the ReLU(:class:`marquetry.function.relu`)."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish:7
+#: marquetry.functions.activations.swish.Swish:9 of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward:1
+#: marquetry.functions.activations.swish.Swish.backward:1 of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward:3
+#: marquetry.functions.activations.swish.Swish.backward:3 of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward:6
+#: marquetry.functions.activations.swish.Swish.backward:6 of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.backward:11
+#: marquetry.functions.activations.swish.Swish.backward:11 of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.forward:1
+#: marquetry.functions.activations.swish.Swish.forward:1 of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.forward:3
+#: marquetry.functions.activations.swish.Swish.forward:3 of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.forward:6
+#: marquetry.functions.activations.swish.Swish.forward:6 of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish.forward:9
+#: marquetry.functions.activations.swish.Swish.forward:9 of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+
+#: ../../functions/activations/swish.rst:16
+msgid "Dynamic Swish"
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish:1
+#: marquetry.functions.activations.swish.dynamic_swish:1 of
+msgid "Dynamic Swish Function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:3 of
+msgid ""
+"This function implements the Swish activation function with learnable "
+"`beta`."
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:8 of
+msgid "``beta`` is learnable value"
+msgstr ""
+
+#: marquetry.functions.activations.swish.dynamic_swish:12 of
+msgid "A hyperparameter for swish function."
+msgstr ""
+
+#: marquetry.functions.activations.swish.DynamicSwish:3 of
+msgid "This class implements the Swish activation function with learnable `beta`."
+msgstr ""
+

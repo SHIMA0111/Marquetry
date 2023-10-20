@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -28,7 +28,7 @@ msgid "Softmax function."
 msgstr ""
 
 #: marquetry.functions.activations.softmax.softmax:3 of
-msgid ":math:`f(x) = exp(x) / Σexp(x)`"
+msgid ":math:`f(x) = exp(x) / \\Sigma exp(x)`"
 msgstr ""
 
 #: marquetry.functions.activations.softmax.Softmax.backward
@@ -115,4 +115,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid ":math:`f(x) = exp(x) / Σexp(x)`"
+#~ msgstr ""
 

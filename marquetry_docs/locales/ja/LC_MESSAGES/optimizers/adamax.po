@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../optimizers/adamax.rst:3
+msgid "Adamax"
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:1 of
+msgid "Bases: :py:class:`~marquetry.optimizer.Optimizer`"
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:1 of
+msgid "AdaMax optimizer for updating model parameters during training."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:3 of
+msgid ""
+"AdaMax is an optimization algorithm that extends the ideas of Adam by "
+"using the L-infinity norm of the gradient rather than the L-2 norm for "
+"weight updates. It provides a robust alternative to Adam with a stable "
+"learning rate."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:7 of
+msgid "The learning rate for updating parameters. Default is 0.002."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:9 of
+msgid ""
+"The first moment decay factor for controlling the influence of past "
+"gradients. Default is 0.9."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:12 of
+msgid ""
+"The second moment decay factor for controlling the influence of past "
+"absolute gradients. Default is 0.999."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:15 of
+msgid "A small constant added to prevent division by zero. Default is 1e-7."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:20 of
+msgid ""
+"When you would like to optimize your model's parameter, please set the "
+"model to this using ``prepare`` method."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax:24 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax.update:1 of
+msgid "Updates the parameters."
+msgstr ""
+
+#: marquetry.optimizers.adamax.AdaMax.update:3 of
+msgid "When user optimize the model parameter, user call this method."
+msgstr ""
+

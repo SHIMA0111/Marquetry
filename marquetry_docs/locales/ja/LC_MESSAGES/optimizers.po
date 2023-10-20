@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,23 +23,50 @@ msgstr ""
 msgid "Optimizers"
 msgstr ""
 
-#: ../../optimizers.rst:18
+#: ../../optimizers.rst:24
+msgid "AdaDelta"
+msgstr ""
+
+#: ../../optimizers.rst:30
 msgid "AdaGrad (Adaptive Gradient Algorithm)"
 msgstr ""
 
-#: ../../optimizers.rst:23
-msgid "Adam (Adaptive Moment)"
+#: ../../optimizers.rst:35
+msgid "Adam (Adaptive Moment Estimation)"
 msgstr ""
 
-#: ../../optimizers.rst:28
+#: ../../optimizers.rst:40
+msgid "AdamW (Adam with Weight Decay)"
+msgstr ""
+
+#: ../../optimizers.rst:45
+msgid "AdaMax"
+msgstr ""
+
+#: ../../optimizers.rst:50
+msgid "LION (EvoLved Sign Momentum)"
+msgstr ""
+
+#: ../../optimizers.rst:55
 msgid "Momentum SGD"
 msgstr ""
 
-#: ../../optimizers.rst:33
+#: ../../optimizers.rst:60
+msgid "Nadam (Nesterov Adaptive Momentum Estimation)"
+msgstr ""
+
+#: ../../optimizers.rst:65
+msgid "Nesterov Accelerate Gradient Descent"
+msgstr ""
+
+#: ../../optimizers.rst:70
 msgid "RMSProp (Root Mean Squared Prop)"
 msgstr ""
 
-#: ../../optimizers.rst:38
+#: ../../optimizers.rst:75
 msgid "SGD (Stochastic Gradient Descent)"
 msgstr ""
+
+#~ msgid "Adam (Adaptive Moment)"
+#~ msgstr ""
 
