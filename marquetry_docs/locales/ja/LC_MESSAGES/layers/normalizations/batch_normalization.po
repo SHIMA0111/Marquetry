@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -51,7 +51,11 @@ msgid ""
 "is 0.9."
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:15 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:12 of
+msgid "A small constant value preventing zero-division. Default is 1e-15."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:18 of
 msgid "The gamma parameter used for scaling."
 msgstr ""
 
@@ -59,26 +63,26 @@ msgstr ""
 msgid "type"
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:17
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:23
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:29
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:35 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:20
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:26
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:32
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:38 of
 msgid "marquetry.Parameter"
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:21 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:24 of
 msgid "The beta parameter used for shifting."
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:27 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:30 of
 msgid "The moving average of the mean."
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:33 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:36 of
 msgid "The moving average of the variance."
 msgstr ""
 
-#: marquetry.layers.normalize.batch_normalization.BatchNormalization:38 of
+#: marquetry.layers.normalize.batch_normalization.BatchNormalization:41 of
 msgid "Examples"
 msgstr ""
 

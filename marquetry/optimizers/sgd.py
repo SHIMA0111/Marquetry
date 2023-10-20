@@ -10,7 +10,7 @@ class SGD(Optimizer):
         The learning rate controls the step size for parameter updates.
 
         Args:
-            learning_rate (float): The learning rate for updating parameters.
+            lr (float): The learning rate for updating parameters.
 
         Tip:
             When you would like to optimize your model's parameter,
@@ -24,9 +24,9 @@ class SGD(Optimizer):
 
     """
 
-    def __init__(self, learning_rate=0.01):
+    def __init__(self, lr=0.01):
         super().__init__()
-        self.lr = learning_rate
+        self.lr = lr
 
     def _update_one(self, param):
         param.data -= self.lr * param.grad.data

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,87 +23,95 @@ msgstr ""
 msgid "Mathematics Function"
 msgstr ""
 
-#: ../../functions/math.rst:34
+#: ../../functions/math.rst:36
 msgid "Sum"
 msgstr ""
 
-#: ../../functions/math.rst:39
+#: ../../functions/math.rst:41
 msgid "Average"
 msgstr ""
 
-#: ../../functions/math.rst:44
+#: ../../functions/math.rst:46
 msgid "Absolute"
 msgstr ""
 
-#: ../../functions/math.rst:49
+#: ../../functions/math.rst:51
 msgid "Reciprocal"
 msgstr ""
 
-#: ../../functions/math.rst:54
+#: ../../functions/math.rst:56
+msgid "Square Root"
+msgstr ""
+
+#: ../../functions/math.rst:61
+msgid "Square"
+msgstr ""
+
+#: ../../functions/math.rst:66
 msgid "Clip"
 msgstr ""
 
-#: ../../functions/math.rst:59
+#: ../../functions/math.rst:71
 msgid "MatMul"
 msgstr ""
 
-#: ../../functions/math.rst:64
+#: ../../functions/math.rst:76
 msgid "Exp"
 msgstr ""
 
-#: ../../functions/math.rst:69
+#: ../../functions/math.rst:81
 msgid "Log (Natural Logarithmic)"
 msgstr ""
 
-#: ../../functions/math.rst:74
+#: ../../functions/math.rst:86
 msgid "Log2"
 msgstr ""
 
-#: ../../functions/math.rst:79
+#: ../../functions/math.rst:91
 msgid "Log10"
 msgstr ""
 
-#: ../../functions/math.rst:84
+#: ../../functions/math.rst:96
 msgid "Max"
 msgstr ""
 
-#: ../../functions/math.rst:89
+#: ../../functions/math.rst:101
 msgid "Min"
 msgstr ""
 
-#: ../../functions/math.rst:94
+#: ../../functions/math.rst:106
 msgid "Sin"
 msgstr ""
 
-#: ../../functions/math.rst:99
+#: ../../functions/math.rst:111
 msgid "Cos"
 msgstr ""
 
-#: ../../functions/math.rst:104
+#: ../../functions/math.rst:116
 msgid "Tan"
 msgstr ""
 
-#: ../../functions/math.rst:109
+#: ../../functions/math.rst:121
 msgid "Add"
 msgstr ""
 
-#: ../../functions/math.rst:114
+#: ../../functions/math.rst:126
 msgid "Sub"
 msgstr ""
 
-#: ../../functions/math.rst:119
+#: ../../functions/math.rst:131
 msgid "Mul"
 msgstr ""
 
-#: ../../functions/math.rst:124
+#: ../../functions/math.rst:136
 msgid "Div"
 msgstr ""
 
-#: ../../functions/math.rst:129
+#: ../../functions/math.rst:141
 msgid "Neg"
 msgstr ""
 
-#: ../../functions/math.rst:134
+#: ../../functions/math.rst:146
 msgid "Pow"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-20 11:24+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -42,8 +42,8 @@ msgstr ""
 
 #: marquetry.functions.array.split.split:5 of
 msgid ""
-"The indices at which to split the input array or container along the "
-"specified axis."
+"The indices or sections at which to split the input array or container "
+"along the specified axis."
 msgstr ""
 
 #: marquetry.functions.array.split.split:7 of
@@ -117,4 +117,10 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid ""
+#~ "The indices at which to split the"
+#~ " input array or container along the"
+#~ " specified axis."
+#~ msgstr ""
 
