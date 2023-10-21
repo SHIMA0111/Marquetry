@@ -24,6 +24,7 @@ class Config(object):
     train = True
     CUDA_ENABLE = cuda_backend.GPU_ENABLE
     CACHE_DIR = os.path.join(os.path.expanduser("~"), ".marquetry")
+    MAX_SIZE = 1e+9
 
     def show(self, file=sys.stdout):
         keys = sorted(self.__dict__)

@@ -96,16 +96,15 @@ class MissImputation(Preprocess):
                 if pd.isna(self._statistic_data[column][self._category_method]):
                     raise TypeError("{} has no '{}' statistic due to the value can't convert Numeric value"
                                     .format(column, self._category_method))
-
-                imputation_data.loc[:, column] = (
-                    data.loc[:, column].fillna(self._statistic_data[column][self._category_method]))
+                tmp_data = data.loc[:, column].fillna(self._statistic_data[column][self._category_method])
+                imputation_data[column] = tmp_data
             elif column in self._numeric_column:
                 if pd.isna(self._statistic_data[column][self._numeric_method]):
                     raise TypeError("{} has no '{}' statistic due to the value can't convert Numeric value"
                                     .format(column, self._numeric_method))
 
-                imputation_data.loc[:, column] = (
-                    data.loc[:, column].fillna(self._statistic_data[column][self._numeric_method]))
+                tmp_data = data.loc[:, column].fillna(self._statistic_data[column][self._category_method])
+                imputation_data[column] = tmp_data
             else:
                 continue
 
