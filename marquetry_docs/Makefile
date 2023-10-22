@@ -31,6 +31,8 @@ poupdate:
 	@make gettext
 	@sphinx-intl update -p _build/gettext -l ja
 
+upload:
+	@aws s3 cp ./_build s3://marquetry-doc/$(VERSION)/ --recursive
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

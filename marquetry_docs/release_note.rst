@@ -1,6 +1,43 @@
 Release Note
 =============
 
+Version 0.2.0 (Released: 2023/10/22)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:new features:
+
+   - Add Layer Normalizer (:meth:`marquetry.functions.layer_normalization` and :class:`marquetry.layers.LayerNormalization`)
+   - Add L2 Normalizer (:class:`marquetry.functions.l2_normalization`)
+   - Add new activation functions
+      - GELU (Gaussian Error Linear Units)
+      - GLU (Gated Linear Units)
+      - Mish (https://arxiv.org/abs/1908.08681 )
+      - Swish (https://arxiv.org/abs/1710.05941 )
+      - PReLU (Parametric Rectified Linear Units)
+      - Softplus
+   - Add new optimizer functions
+      - AdaDelta
+      - AdamW
+      - AdaMax
+      - Lion (EvoLved Sign Momentum https://arxiv.org/abs/2302.06675 )
+      - NAdam (Nesterov Adoptive Moment Estimation)
+      - Nesterov (Nesterov Accelerate Gradient Descent)
+   - Add new mathmatics functions
+      - Square (:class:`marquetry.functions.square`)
+      - Sqrt (:class:`marquetry.functions.sqrt`)
+   - Support custom csv file import (Beta)
+      - CsvLoader (:class:`marquetry.datasets.CsvLoader`)
+      - CustomDataset (:class:`marquetry.datasets.CustomDataset`)
+
+:changes:
+   - Batch Normalization support custom `eps` by the initializer
+   - split function support section split and the argument is renamed as ``indices_or_sections``
+   - Learning Rate argument's name is unified as ``lr`` for all optimizers
+
+:bug fixes:
+   - :meth:`marquetry.array` can't work when input `None`
+   - :class:`marquetry.preprocesses.MissImputation` raise FutureWarning
+
 Version 0.1.0 (Released: 2023/10/05)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

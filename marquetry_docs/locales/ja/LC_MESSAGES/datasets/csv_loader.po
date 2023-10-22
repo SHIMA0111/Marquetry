@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-22 07:49+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,11 +23,21 @@ msgstr ""
 msgid "CSV Loader"
 msgstr ""
 
-#: ../../datasets/csv_loader.rst:6
-msgid "Not implemented yet."
+#: ../../datasets/csv_loader.rst:16
+msgid "CSV Loader (Custom dataset loader)"
 msgstr ""
 
-#: marquetry.datasets.csv_loader.CsvLoader:1 of
-msgid "Bases: :py:class:`~marquetry.dataset.Dataset`"
+#: ../../datasets/csv_loader.rst:21
+msgid "Custom Dataset (Using loaded dataset)"
 msgstr ""
+
+#: ../../datasets/csv_loader.rst:26
+msgid "Custom Csv Helper"
+msgstr ""
+
+#~ msgid "Not implemented yet."
+#~ msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.dataset.Dataset`"
+#~ msgstr ""
 

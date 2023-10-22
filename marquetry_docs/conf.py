@@ -20,8 +20,8 @@ project = 'Marquetry'
 copyright = '2023, Little Tabby'
 author = 'SHIMA'
 
-version = 'v0.2.0-dev'
-release = 'v0.2.0-dev'
+version = 'v0.2.0'
+release = 'v0.2.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -54,6 +54,10 @@ html_context = {
     "support_languages": {
         "en": "English",
         "ja": "日本語",
+    },
+    "versions": {
+        "0.1.0": "v0.1.0",
+        "0.2.0": "v0.2.0",
     }
 }
 

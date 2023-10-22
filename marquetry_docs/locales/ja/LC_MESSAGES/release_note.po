@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2023-10-22 07:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,305 +24,430 @@ msgid "Release Note"
 msgstr "リリースノート"
 
 #: ../../release_note.rst:5
-msgid "Version 0.1.0 (Released: 2023/10/05)"
-msgstr "バージョン0.1.0 (2023/10/05リリース)"
+msgid "Version 0.2.0 (Released: 2023/10/22)"
+msgstr "バージョン0.2.0 (2023/10/22 リリース)"
 
 #: ../../release_note.rst
 msgid "new features"
 msgstr "新機能"
 
 #: ../../release_note.rst:9
-msgid "Release Official docs"
-msgstr "公式ドキュメントのリリース"
+msgid ""
+"Add Layer Normalizer (:meth:`marquetry.functions.layer_normalization` and"
+" :class:`marquetry.layers.LayerNormalization`)"
+msgstr ""
+"レイヤー正規化を追加 (:meth:`marquetry.functions.layer_normalization` と :class:`marquetry.layers.LayerNormalization` )"
 
 #: ../../release_note.rst:10
-msgid ""
-"Support directly set :class:`list`, :class:`int`, :class:`float` to "
-"container by :meth:`marquetry.array`"
-msgstr ""
-":class:`list` や :class:`int` 、 :class:`float` といったデータを直接 ``Container`` に代入する :meth:`marquetry.array` を実装"
+msgid "Add L2 Normalizer (:class:`marquetry.functions.l2_normalization`)"
+msgstr "L2ノルム正規化を追加 (:class:`marquetry.functions.l2_normalization`)"
 
-#: ../../release_note.rst:11
-msgid ""
-"Support random generator using :meth:`marquetry.random`, "
-":meth:`marquetry.random_int`, and :meth:`marquetry.random_gen`"
-msgstr ""
-":meth:`marquetry.random` 、 :meth:`marquetry.random_int` 、 :meth:`marquetry.random_gen` を使用した乱数生成をサポート"
+#: ../../release_note.rst:16
+msgid "Add new activation functions"
+msgstr "新たに活性化関数を追加"
 
 #: ../../release_note.rst:12
-msgid "Support tree model in :mod:`ml.tree`"
-msgstr ":mod:`ml.tree` に木モデルを実装"
+msgid "GELU (Gaussian Error Linear Units)"
+msgstr "GELU (ガウス誤差線形ユニット)"
 
 #: ../../release_note.rst:13
-msgid "Add :class:`Spiral` dataset"
-msgstr ":class:`Spiral` データセットが追加"
+msgid "GLU (Gated Linear Units)"
+msgstr "GLU (ゲート付き線形ユニット)"
 
-#: ../../release_note.rst:16
-msgid "Support functions for helping the calculation"
-msgstr "計算を補助する以下の関数の実装"
+#: ../../release_note.rst:14
+msgid "Mish (https://arxiv.org/abs/1908.08681 )"
+msgstr ""
 
 #: ../../release_note.rst:15
-msgid ":meth:`absolute`"
+msgid "Swish (https://arxiv.org/abs/1710.05941 )"
 msgstr ""
 
 #: ../../release_note.rst:16
-msgid ":meth:`tan`"
-msgstr ""
+msgid "PReLU (Parametric Rectified Linear Units)"
+msgstr "PReLU (パラメータ型正規化線形ユニット)"
 
 #: ../../release_note.rst:17
-msgid ":meth:`clip`"
-msgstr ""
-
-#: ../../release_note.rst:19
-msgid "Add evaluation functions"
-msgstr "評価関数を追加"
-
-#: ../../release_note.rst:19
-msgid ""
-"For classification, ``accuracy, classification_error, f_score, precision,"
-" recall``"
-msgstr ""
-"分類問題向け: ``accuracy, classification_error, f_score, precision, recall`` "
-
-#: ../../release_note.rst:20
-msgid ""
-"For regression, ``mean_absolute_error, mean_squared_error, r2_score, "
-"relative_absolute_error, relative_squared_error, "
-"root_mean_squared_error``"
-msgstr ""
-"回帰問題向け: ``mean_absolute_error, mean_squared_error, r2_score, relative_absolute_error, relative_squared_error, "
-"root_mean_squared_error``"
-
-#: ../../release_note.rst:21
-msgid "Add loss functions for regression"
-msgstr "回帰問題向けの新たな損失関数を追加"
-
-#: ../../release_note.rst:22
-msgid ":meth:`mean_absolute_error`"
+msgid "Softplus"
 msgstr ""
 
 #: ../../release_note.rst:23
-msgid "Add docstring for all functions and classes"
-msgstr "全ての関数とクラスにdocstringを追加"
+#, fuzzy
+msgid "Add new optimizer functions"
+msgstr "新たな最適化関数を追加"
+
+#: ../../release_note.rst:19
+msgid "AdaDelta"
+msgstr ""
+
+#: ../../release_note.rst:20
+msgid "AdamW"
+msgstr ""
+
+#: ../../release_note.rst:21
+msgid "AdaMax"
+msgstr ""
+
+#: ../../release_note.rst:22
+msgid "Lion (EvoLved Sign Momentum https://arxiv.org/abs/2302.06675 )"
+msgstr ""
+
+#: ../../release_note.rst:23
+msgid "NAdam (Nesterov Adoptive Moment Estimation)"
+msgstr ""
 
 #: ../../release_note.rst:24
-msgid ""
-"Memory usage reducing mechanism called as \"Aggressive Buffer Release\" "
-"installing to the Container and the Function"
+msgid "Nesterov (Nesterov Accelerate Gradient Descent)"
 msgstr ""
-"\"Aggressive Buffer Release\"として知られるメモリ最適化機構をContainerとFunctionに導入"
-
-#: ../../release_note.rst:25
-msgid "Support user managed vector for :class:`Embedding` class"
-msgstr ":class:`Embedding` がユーザ提供のベクトルに対応"
 
 #: ../../release_note.rst:26
-msgid ""
-":class:`RNN` and :class:`LSTM`, and :class:`GRU` supports setting the "
-"hidden state via :meth:`set_state`"
+msgid "Add new mathmatics functions"
+msgstr "新たに関数を追加"
+
+#: ../../release_note.rst:26
+msgid "Square (:class:`marquetry.functions.square`)"
 msgstr ""
-":class:`RNN` や :class:`LSTM` 、 :class:`GRU` が :meth:`set_state` を通じて任意の隠れ状態を設定することに対応"
 
 #: ../../release_note.rst:27
-msgid ""
-"ML model and Preprocess functions inherits their base class (in 0.0.1, "
-"these don't have base class)"
-msgstr "MLモデルと前処理がそれぞれの基底クラスを継承するようになった (v0.0.1では基底クラスが存在していなかった)"
+msgid "Sqrt (:class:`marquetry.functions.sqrt`)"
+msgstr ""
+
+#: ../../release_note.rst:30
+msgid "Support custom csv file import (Beta)"
+msgstr "カスタムCSVの読み込みをサポート (ベータ実装)"
+
+#: ../../release_note.rst:29
+msgid "CsvLoader (:class:`marquetry.datasets.CsvLoader`)"
+msgstr ""
+
+#: ../../release_note.rst:30
+msgid "CustomDataset (:class:`marquetry.datasets.CustomDataset`)"
+msgstr ""
 
 #: ../../release_note.rst
 msgid "changes"
 msgstr "変更点"
 
-#: ../../release_note.rst:31
-msgid ""
-"Refactoring the source code to more clear directory structure from the "
-"one sheet implementation"
-msgstr ""
-"ソースコードを一枚実装からより明確なディレクトリ構造にリファクタリング"
-
-#: ../../release_note.rst:32
-msgid ""
-"The marquetry defined variable :class:`Variable` was renamed as "
-":class:`Container`"
-msgstr ""
-"Marquetryが定義する変数である :class:`Variable` は :class:`Container` に変更"
-
 #: ../../release_note.rst:33
-msgid ""
-"Titanic can use without considering the past statistic file (delete the "
-"``remove_old_static`` argument)"
-msgstr ""
-"Titanicデータセットが過去の統計情報ファイルをユーザで考慮する必要がなくなった"
+msgid "Batch Normalization support custom `eps` by the initializer"
+msgstr "バッチ正規化が`eps`を独自に指定できるようになった"
 
 #: ../../release_note.rst:34
-msgid ":class:`SinCurve` dataset was renamed to :class:`TrigonometricCurve`"
-msgstr ":class:`SinCurve` データセットは :class:`TrigonometricCurve` に変更"
+msgid ""
+"split function support section split and the argument is renamed as "
+"``indices_or_sections``"
+msgstr ""
+"split関数がセクション分割をサポートするようになり、引数名が ``indices_or_sections`` に変更された"
 
 #: ../../release_note.rst:35
-msgid ":mod:`marquetry.preprocess` was renamed to :mod:`marquetry.preprocesses`"
-msgstr ":mod:`marquetry.preprocess` は :mod:`marquetry.preprocesses` に変更"
-
-#: ../../release_note.rst:36
-msgid ""
-"Preprocess functions improve user experience (auto detect the changing "
-"prerequisite in the same dataset and so)"
-msgstr ""
-"前処理の面倒な処理をフレームワーク側で吸収"
-
-#: ../../release_note.rst:37
-msgid "Rename :meth:`logsumexp` to :meth:`log_sum_exp`"
-msgstr ":meth:`logsumexp` は :meth:`log_sum_exp` に変更"
-
-#: ../../release_note.rst:38
-msgid ""
-":meth:`repeat` support multi axis and ``repeat_num`` was renamed to "
-"``repeats``"
-msgstr ""
-":meth:`repeat` は多軸をサポートし、 ``repeat_num`` は ``repeats`` に変更"
-
-#: ../../release_note.rst:39
-msgid ""
-":class:`MatMul` and :meth:`matmul`'s arguments was renamed to `x0` and "
-"`x1` from `x1` and `x2`"
-msgstr ""
-":class:`MatMul` と :meth:`matmul` の引数は `x1` と `x2` から `x0` と `x1` に変更"
-
-#: ../../release_note.rst:40
-msgid ""
-":class:`Layer`'s save/load params method was renamed to "
-":meth:`save_params` and :meth:`load_params`"
-msgstr ""
-":class:`Layer` のパラメータの保存と読込のメソッドを :meth:`save_params` と :meth:`load_params` に変更"
-
-#: ../../release_note.rst:41
-msgid ""
-"Configurations are managed in :class:`Config`, and support the cache "
-"directory(default is ``~/.marquetry``) changing by user."
-msgstr ""
-"設定値は :class:`Config` によって管理されるようになり、キャッシュディレクトリをユーザーが指定することができるようになった"
-"(デフォルトは ``~/.marquetry`` )"
-
-#: ../../release_note.rst:42
-msgid ""
-"Change the module name for conventional_ml models from "
-"``conventional_ml`` to ``ml``"
-msgstr ""
-"``convolutional_ml`` は ``ml`` に変更された"
-
-#: ../../release_note.rst:43
-msgid ""
-"ML model like :class:`RegressionTree`'s score method changed from the "
-"evaluator is only accuracy to user defined method."
-msgstr ""
-"回帰木( :class:`RegressionTree` )などでは精度評価にユーザが指定した指標を使うことができるようになった"
+msgid "Learning Rate argument's name is unified as ``lr`` for all optimizers"
+msgstr "最適化関数の学習率の引数名が ``lr`` に統一された"
 
 #: ../../release_note.rst
 msgid "bug fixes"
 msgstr "バグ修正"
 
+#: ../../release_note.rst:38
+msgid ":meth:`marquetry.array` can't work when input `None`"
+msgstr ":meth:`marquetry.array` が `None` を入力するとエラーになる"
+
+#: ../../release_note.rst:39
+msgid ":class:`marquetry.preprocesses.MissImputation` raise FutureWarning"
+msgstr ":class:`marquetry.preprocesses.MissImputation` がFutureWarningを発する実装になっている"
+
+#: ../../release_note.rst:42
+msgid "Version 0.1.0 (Released: 2023/10/05)"
+msgstr "バージョン0.1.0 (2023/10/05リリース)"
+
+#: ../../release_note.rst:46
+msgid "Release Official docs"
+msgstr "公式ドキュメントのリリース"
+
 #: ../../release_note.rst:47
+msgid ""
+"Support directly set :class:`list`, :class:`int`, :class:`float` to "
+"container by :meth:`marquetry.array`"
+msgstr ""
+":class:`list` や :class:`int` 、 :class:`float` といったデータを直接 ``Container`` "
+"に代入する :meth:`marquetry.array` を実装"
+
+#: ../../release_note.rst:48
+msgid ""
+"Support random generator using :meth:`marquetry.random`, "
+":meth:`marquetry.random_int`, and :meth:`marquetry.random_gen`"
+msgstr ""
+":meth:`marquetry.random` 、 :meth:`marquetry.random_int` 、 "
+":meth:`marquetry.random_gen` を使用した乱数生成をサポート"
+
+#: ../../release_note.rst:49
+msgid "Support tree model in :mod:`ml.tree`"
+msgstr ":mod:`ml.tree` に木モデルを実装"
+
+#: ../../release_note.rst:50
+msgid "Add :class:`Spiral` dataset"
+msgstr ":class:`Spiral` データセットが追加"
+
+#: ../../release_note.rst:53
+msgid "Support functions for helping the calculation"
+msgstr "計算を補助する以下の関数の実装"
+
+#: ../../release_note.rst:52
+msgid ":meth:`absolute`"
+msgstr ""
+
+#: ../../release_note.rst:53
+msgid ":meth:`tan`"
+msgstr ""
+
+#: ../../release_note.rst:54
+msgid ":meth:`clip`"
+msgstr ""
+
+#: ../../release_note.rst:56
+msgid "Add evaluation functions"
+msgstr "評価関数を追加"
+
+#: ../../release_note.rst:56
+msgid ""
+"For classification, ``accuracy, classification_error, f_score, precision,"
+" recall``"
+msgstr "分類問題向け: ``accuracy, classification_error, f_score, precision, recall`` "
+
+#: ../../release_note.rst:57
+msgid ""
+"For regression, ``mean_absolute_error, mean_squared_error, r2_score, "
+"relative_absolute_error, relative_squared_error, "
+"root_mean_squared_error``"
+msgstr ""
+"回帰問題向け: ``mean_absolute_error, mean_squared_error, r2_score, "
+"relative_absolute_error, relative_squared_error, "
+"root_mean_squared_error``"
+
+#: ../../release_note.rst:58
+msgid "Add loss functions for regression"
+msgstr "回帰問題向けの新たな損失関数を追加"
+
+#: ../../release_note.rst:59
+msgid ":meth:`mean_absolute_error`"
+msgstr ""
+
+#: ../../release_note.rst:60
+msgid "Add docstring for all functions and classes"
+msgstr "全ての関数とクラスにdocstringを追加"
+
+#: ../../release_note.rst:61
+msgid ""
+"Memory usage reducing mechanism called as \"Aggressive Buffer Release\" "
+"installing to the Container and the Function"
+msgstr "\"Aggressive Buffer Release\"として知られるメモリ最適化機構をContainerとFunctionに導入"
+
+#: ../../release_note.rst:62
+msgid "Support user managed vector for :class:`Embedding` class"
+msgstr ":class:`Embedding` がユーザ提供のベクトルに対応"
+
+#: ../../release_note.rst:63
+msgid ""
+":class:`RNN` and :class:`LSTM`, and :class:`GRU` supports setting the "
+"hidden state via :meth:`set_state`"
+msgstr ""
+":class:`RNN` や :class:`LSTM` 、 :class:`GRU` が :meth:`set_state` "
+"を通じて任意の隠れ状態を設定することに対応"
+
+#: ../../release_note.rst:64
+msgid ""
+"ML model and Preprocess functions inherits their base class (in 0.0.1, "
+"these don't have base class)"
+msgstr "MLモデルと前処理がそれぞれの基底クラスを継承するようになった (v0.0.1では基底クラスが存在していなかった)"
+
+#: ../../release_note.rst:68
+msgid ""
+"Refactoring the source code to more clear directory structure from the "
+"one sheet implementation"
+msgstr "ソースコードを一枚実装からより明確なディレクトリ構造にリファクタリング"
+
+#: ../../release_note.rst:69
+msgid ""
+"The marquetry defined variable :class:`Variable` was renamed as "
+":class:`Container`"
+msgstr "Marquetryが定義する変数である :class:`Variable` は :class:`Container` に変更"
+
+#: ../../release_note.rst:70
+msgid ""
+"Titanic can use without considering the past statistic file (delete the "
+"``remove_old_static`` argument)"
+msgstr "Titanicデータセットが過去の統計情報ファイルをユーザで考慮する必要がなくなった"
+
+#: ../../release_note.rst:71
+msgid ":class:`SinCurve` dataset was renamed to :class:`TrigonometricCurve`"
+msgstr ":class:`SinCurve` データセットは :class:`TrigonometricCurve` に変更"
+
+#: ../../release_note.rst:72
+msgid ":mod:`marquetry.preprocess` was renamed to :mod:`marquetry.preprocesses`"
+msgstr ":mod:`marquetry.preprocess` は :mod:`marquetry.preprocesses` に変更"
+
+#: ../../release_note.rst:73
+msgid ""
+"Preprocess functions improve user experience (auto detect the changing "
+"prerequisite in the same dataset and so)"
+msgstr "前処理の面倒な処理をフレームワーク側で吸収"
+
+#: ../../release_note.rst:74
+msgid "Rename :meth:`logsumexp` to :meth:`log_sum_exp`"
+msgstr ":meth:`logsumexp` は :meth:`log_sum_exp` に変更"
+
+#: ../../release_note.rst:75
+msgid ""
+":meth:`repeat` support multi axis and ``repeat_num`` was renamed to "
+"``repeats``"
+msgstr ":meth:`repeat` は多軸をサポートし、 ``repeat_num`` は ``repeats`` に変更"
+
+#: ../../release_note.rst:76
+msgid ""
+":class:`MatMul` and :meth:`matmul`'s arguments was renamed to `x0` and "
+"`x1` from `x1` and `x2`"
+msgstr ":class:`MatMul` と :meth:`matmul` の引数は `x1` と `x2` から `x0` と `x1` に変更"
+
+#: ../../release_note.rst:77
+msgid ""
+":class:`Layer`'s save/load params method was renamed to "
+":meth:`save_params` and :meth:`load_params`"
+msgstr ""
+":class:`Layer` のパラメータの保存と読込のメソッドを :meth:`save_params` と "
+":meth:`load_params` に変更"
+
+#: ../../release_note.rst:78
+msgid ""
+"Configurations are managed in :class:`Config`, and support the cache "
+"directory(default is ``~/.marquetry``) changing by user."
+msgstr ""
+"設定値は :class:`Config` "
+"によって管理されるようになり、キャッシュディレクトリをユーザーが指定することができるようになった(デフォルトは ``~/.marquetry`` "
+")"
+
+#: ../../release_note.rst:79
+msgid ""
+"Change the module name for conventional_ml models from "
+"``conventional_ml`` to ``ml``"
+msgstr "``convolutional_ml`` は ``ml`` に変更された"
+
+#: ../../release_note.rst:80
+msgid ""
+"ML model like :class:`RegressionTree`'s score method changed from the "
+"evaluator is only accuracy to user defined method."
+msgstr "回帰木( :class:`RegressionTree` )などでは精度評価にユーザが指定した指標を使うことができるようになった"
+
+#: ../../release_note.rst:84
 msgid "Normalize implementation wasn't correct"
 msgstr "標準化の実装が正しくなかった"
 
-#: ../../release_note.rst:48
+#: ../../release_note.rst:85
 msgid ""
 ":class:`UnSqueeze` doesn't work expectedly when the axis is specified "
 "multiple type (tuple or list)"
 msgstr ":class:`UnSqueeze` のaxisに複数値を指定すると正しく動作しない"
 
-#: ../../release_note.rst:49
+#: ../../release_note.rst:86
 msgid ""
 ":class:`Max` (and :class:`Min` which inherits the :class:`Max`) returns a"
 " strange form of values' array it can't compare with the native numpy "
 "ndarray"
 msgstr ""
-":class:`Max` とこの :class:`Max` を継承する :class:`Min` はndarrayと比較することのできない形式の値を返す"
+":class:`Max` とこの :class:`Max` を継承する :class:`Min` "
+"はndarrayと比較することのできない形式の値を返す"
 
-#: ../../release_note.rst:52
+#: ../../release_note.rst:89
 msgid "Initial Version (Not official release)"
 msgstr "初期バージョン (正式リリースなし)"
 
-#: ../../release_note.rst:56
+#: ../../release_note.rst:93
 msgid "Variable which is the base class holding the values"
 msgstr "``Variable`` という値を保持するクラスを実装"
 
-#: ../../release_note.rst:57
+#: ../../release_note.rst:94
 msgid "Functions which are basic for deep learning"
 msgstr "``functions`` というディープラーニングの基本の処理群を実装"
 
-#: ../../release_note.rst:58
+#: ../../release_note.rst:95
 msgid "Layers which are wrapping parameters of the layer"
 msgstr "レイヤーのパラメータを含めた ``layers`` という関数のラッパーを実装"
 
-#: ../../release_note.rst:62
+#: ../../release_note.rst:99
 msgid "Built-in Datasets"
 msgstr "ビルトインのデータベースを実装"
 
-#: ../../release_note.rst:60
+#: ../../release_note.rst:97
 msgid "MNIST"
 msgstr ""
 
-#: ../../release_note.rst:61
+#: ../../release_note.rst:98
 msgid "FashionMNIST"
 msgstr ""
 
-#: ../../release_note.rst:62
+#: ../../release_note.rst:99
 msgid "SinCurve"
 msgstr ""
 
-#: ../../release_note.rst:63
+#: ../../release_note.rst:100
 msgid "Titanic"
 msgstr ""
 
-#: ../../release_note.rst:64
+#: ../../release_note.rst:101
 msgid "CUDA support using :mod:`CuPy`"
 msgstr ":mod:`CuPy` によってCUDAをサポート"
 
-#: ../../release_note.rst:67
+#: ../../release_note.rst:104
 msgid "Models"
 msgstr ""
 
-#: ../../release_note.rst:66
+#: ../../release_note.rst:103
 msgid "Sequential which helps a user create own model"
 msgstr "ユーザが独自のモデルを生成することを助ける ``Sequential``"
 
-#: ../../release_note.rst:67
+#: ../../release_note.rst:104
 msgid "MLP (Multi Layer Perceptron)"
 msgstr "MLP (多層パーセプトロン)"
 
-#: ../../release_note.rst:68
+#: ../../release_note.rst:105
 msgid "CNN"
 msgstr ""
 
-#: ../../release_note.rst:74
+#: ../../release_note.rst:111
 msgid "Optimizers"
 msgstr ""
 
-#: ../../release_note.rst:70
+#: ../../release_note.rst:107
 msgid "SGD"
 msgstr ""
 
-#: ../../release_note.rst:71
+#: ../../release_note.rst:108
 msgid "MomentumSGD"
 msgstr ""
 
-#: ../../release_note.rst:72
+#: ../../release_note.rst:109
 msgid "AdaGrad"
 msgstr ""
 
-#: ../../release_note.rst:73
+#: ../../release_note.rst:110
 msgid "RMSProp"
 msgstr ""
 
-#: ../../release_note.rst:74
+#: ../../release_note.rst:111
 msgid "Adam"
 msgstr ""
 
-#: ../../release_note.rst:76
+#: ../../release_note.rst:113
 msgid "And other of the Marquetry components. This is the first of the Marquetry."
 msgstr "その他、様々なMarquetryの要素。ここがMarquetryの始まりです。"
 
-#: ../../release_note.rst:79 ../../release_note.rst:82
+#: ../../release_note.rst:116 ../../release_note.rst:119
 msgid "N/A"
 msgstr "なし"
+
+#~ msgid "Mish (:ref:`https://arxiv.org/abs/1908.08681`)"
+#~ msgstr ""
+
+#~ msgid "Swish (:ref:`https://arxiv.org/abs/1710.05941`)"
+#~ msgstr ""
+
+#~ msgid "Lion (EvoLved Sign Momentum :ref:`https://arxiv.org/abs/2302.06675`)"
+#~ msgstr ""
 
