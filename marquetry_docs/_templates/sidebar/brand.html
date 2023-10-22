@@ -50,3 +50,24 @@ Hope your day's going well. :)
     {%- endfor %}
   </select>
 </div>
+<div style="padding: 4px 0 0 16px;">
+  {%- if language == "en" %}
+    Version
+  {%- else %}
+    バージョン
+  {%- endif %}
+  :
+  <select name="version" onchange="location.href=value;" style="border-radius: 5%;">
+    {%- for version, code in versions.items() %}
+      {%- if code == "en" %}
+        <option value="{{ pathto('../../' + version + '/', 1) }}{{ pathto(pagename, 0, '.') }}"
+      {%- else %}
+        <option value="{{ pathto('../../' + version + '/ja/', 1) }}{{ pathto(pagename, 0, '.') }}"
+      {%- endif %}
+        {%- if code == release %}
+          selected
+        {%- endif %}
+      >{{ version }}</option>
+    {%- endfor %}
+  </select>
+</div>

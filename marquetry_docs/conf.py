@@ -54,6 +54,10 @@ html_context = {
     "support_languages": {
         "en": "English",
         "ja": "日本語",
+    },
+    "versions": {
+        "0.1.0": "v0.1.0",
+        "0.2.0": "v0.2.0"
     }
 }
 
