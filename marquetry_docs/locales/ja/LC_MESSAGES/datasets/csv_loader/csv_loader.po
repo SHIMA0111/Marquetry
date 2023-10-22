@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Little Tabby
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.2.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-22 07:49+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: ../../datasets/csv_loader/csv_loader.rst:3
+msgid "CSV Loader"
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:1 of
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:1 of
+msgid "Load CSV file as your custom dataset."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:3 of
+msgid "CsvLoader loads your custom dataset formatted csv."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:5 of
+msgid ""
+"If you want to use your original data as a train data, you can use this "
+"class. The data will be stored as your input `data_name`."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:8 of
+msgid "A name for your custom dataset."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:10 of
+msgid "The file path to your CSV dataset."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:12 of
+msgid "The name of the target column in the CSV dataset."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:14 of
+msgid "A list of column names that contain categorical data."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:16 of
+msgid "A list of column names that contain numerical data."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:18 of
+msgid "The file path to a target CSV dataset (if separate from the main dataset)."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:20 of
+msgid "A method for normalizing or standardizing data. Default is \"normalize\"."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:24 of
+msgid "Examples"
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:39 of
+msgid ""
+"The `data_name` needs to be a unique if you want to import the same name "
+"data, please execute :meth:`marquetry.datasets.delete_loaded_data`."
+msgstr ""
+
+#: marquetry.datasets.csv_loader.CsvLoader:42 of
+msgid ""
+"And you can confirm the imported data by "
+":meth:`marquetry.datasets.delete_loaded_data`."
+msgstr ""
+
