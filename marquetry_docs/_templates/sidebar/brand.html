@@ -38,7 +38,7 @@ Hope your day's going well. :)
   :
   <select name="lang" onchange="location.href=value;" style="border-radius: 5%;">
     {%- for code, display in support_languages.items() %}
-      {%- if language == "en" %}
+      {%- if code == "en" %}
         <option value="{{ pathto('../', 1) }}{{ pathto(pagename, 0, '.') }}"
       {%- else %}
         <option value="{{ pathto('./' + code + '/', 1) }}{{ pathto(pagename, 0, '.') }}"
@@ -59,7 +59,7 @@ Hope your day's going well. :)
   :
   <select name="version" onchange="location.href=value;" style="border-radius: 5%;">
     {%- for version, code in versions.items() %}
-      {%- if code == "en" %}
+      {%- if language == "en" %}
         <option value="{{ pathto('../../' + version + '/', 1) }}{{ pathto(pagename, 0, '.') }}"
       {%- else %}
         <option value="{{ pathto('../../' + version + '/ja/', 1) }}{{ pathto(pagename, 0, '.') }}"
