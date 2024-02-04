@@ -989,7 +989,7 @@ msgstr ""
 msgid ""
 "This model can't learn this data correctly. In the model without "
 "activation, the model expression isn't enough..."
-msgstr "このモデルでは正常にデータを学習できていませんね。活性化関数がない場合、モデルの表現力が十分では内容です..."
+msgstr "このモデルでは正常にデータを学習できていませんね。活性化関数がない場合、モデルの表現力が十分では無いです..."
 
 #: ../../documents/get_started_components/basic.rst:552
 msgid ""
