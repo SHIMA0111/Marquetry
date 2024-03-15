@@ -25,7 +25,7 @@ setup(
     install_requires=[
         "numpy>=1.20.0",
         "pandas>=1.5.0",
-        "Pillow>=9.2.0",
+        "Pillow>=9.3.0",
         "scipy>=1.0.0"
     ],
     description="Simple Machine Learning Framework",
