@@ -19,7 +19,7 @@ I hope to enjoy your journey!
 ```shell
 pip install marquetry
 ```
-More detail installation is in the [document](https://marquetry.little-tabby.com/)
+If you want to know more detail installation, please download and check [document](https://app.box.com/s/o71b0lhzps15ioskej800x5799njg0pn)
 
 ### Dependencies
 You need to fill the below version requirement and import external libraries.
