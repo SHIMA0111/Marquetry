@@ -20,12 +20,12 @@ I hope to enjoy your journey!"""
 
 setup(
     name="marquetry",
-    version="0.2.0",
+    version="0.3.0",
     license="MIT",
     install_requires=[
         "numpy>=1.20.0",
         "pandas>=1.5.0",
-        "Pillow>=9.3.0",
+        "pillow>=10.3.0",
         "scipy>=1.0.0"
     ],
     description="Simple Machine Learning Framework",
