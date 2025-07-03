@@ -33,6 +33,36 @@ extensions = [
     'sphinx_design'
 ]
 
+# -- Options for LaTeX output ---------------------------------------------
+latex_elements = {
+    # The paper size ('letterpaper' or 'a4paper')
+    'papersize': 'a4paper',
+
+    # The font size ('10pt', '11pt' or '12pt')
+    'pointsize': '10pt',
+
+    # Additional stuff for the LaTeX preamble
+    'preamble': r'''
+        \usepackage{xeCJK}
+        \usepackage{fontspec}
+        \setCJKmainfont{IPAexGothic}
+        \setCJKsansfont{IPAexGothic}
+        \setCJKmonofont{IPAexGothic}
+    ''',
+
+    # Latex figure (float) alignment
+    'figure_align': 'htbp',
+
+    # Use XeLaTeX for better CJK support
+    'latex_engine': 'xelatex',
+}
+
+# Grouping the document tree into LaTeX files
+latex_documents = [
+    (master_doc := 'index', 'Marquetry.tex', 'Marquetry Documentation',
+     'Little Tabby', 'manual'),
+]
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
@@ -41,7 +71,7 @@ language = 'en'
 html_theme = 'furo'
 html_static_path = ['_static']
 suppress_warnings = ["design.fa-build"]
-sd_fontawesome_latex = True
+sd_fontawesome_latex = False
 
 todo_include_todos = False
 html_show_sphinx = False
