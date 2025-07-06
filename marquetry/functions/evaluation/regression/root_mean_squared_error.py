@@ -28,7 +28,12 @@ class RootMeanSquaredError(Function):
             t = t.reshape((-1, 1))
         y = y.reshape(t.shape)
 
-        mean_squared_error = xp.square(y - t).mean(axis=0)
+
+        if self.multi_output == "uniform_average":
+            mean_squared_error = xp.square(y - t).mean()
+        else:
+            mean_squared_error = xp.square(y - t).mean(axis=0)
+
         root_mean_squared_error_value = xp.sqrt(mean_squared_error)
 
         self.retain_inputs(())
