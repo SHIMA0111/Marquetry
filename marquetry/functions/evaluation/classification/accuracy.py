@@ -25,7 +25,7 @@ class Accuracy(Function):
 
         self.retain_inputs(())
         if self.ignore_label is not None:
-            mask = xp.asarray(t == self.ignore_label).astype("f")
+            mask = xp.asarray(t == self.ignore_label).astype(self.dtype)
             ignore_cnt = mask.sum()
 
             pred = xp.where(mask, self.ignore_label, y.argmax(axis=1).reshape(t.shape))

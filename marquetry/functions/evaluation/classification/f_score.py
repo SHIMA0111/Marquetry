@@ -1,3 +1,5 @@
+import numpy as np
+
 from marquetry import cuda_backend
 from marquetry import Function
 
@@ -28,11 +30,11 @@ class FScore(Function):
 
         assert len(xp.unique(t)) <= 2
 
-        pred = xp.asarray((y >= self.threshold), dtype="f").reshape(t.shape)
+        pred = xp.asarray((y >= self.threshold), dtype=self.dtype).reshape(t.shape)
 
         true_positive_num = pred[t == 1].sum()
         pred_positive_num = pred.sum()
-        target_positive_num = xp.asarray((t == 1), dtype="f").sum()
+        target_positive_num = xp.asarray((t == 1), dtype=self.dtype).sum()
 
         precision_value, recall_value = _precision_recall_validator(true_positive_num, pred_positive_num,
                                                                     target_positive_num, xp=xp)
@@ -105,12 +107,12 @@ class MultiFScore(Function):
         else:
             pred = y
 
-        pred_positive = xp.asarray(pred == self.target_class, dtype="f")
-        true_map = xp.asarray(pred == t, dtype="f")
+        pred_positive = xp.asarray(pred == self.target_class, dtype=self.dtype)
+        true_map = xp.asarray(pred == t, dtype=self.dtype)
 
-        true_positive_num = xp.asarray(pred_positive * true_map, dtype="f").sum()
+        true_positive_num = xp.asarray(pred_positive * true_map, dtype=self.dtype).sum()
         pred_positive_num = pred_positive.sum()
-        target_positive_num = xp.asarray(t == self.target_class, dtype="f").sum()
+        target_positive_num = xp.asarray(t == self.target_class, dtype=self.dtype).sum()
 
         precision_value, recall_value = _precision_recall_validator(true_positive_num, pred_positive_num,
                                                                     target_positive_num, xp=xp)

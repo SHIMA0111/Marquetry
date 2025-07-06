@@ -327,7 +327,7 @@ class TestRMSE(unittest.TestCase):
         y = np.array([1001.2, 211.3, 4500.1, 200.0])
         t = np.array([1231., 199.2, 4328., 176.])
 
-        sk_rmse = metrics.mean_squared_error(t, y, squared=False)
+        sk_rmse = np.sqrt(metrics.mean_squared_error(t, y))
         rmse = functions.evaluation.root_mean_squared_error(y, t)
 
         self.assertEqual(sk_rmse, rmse.data)
@@ -336,7 +336,7 @@ class TestRMSE(unittest.TestCase):
         y = np.array([[1001.2, 211.3, 4500.1, 200.0], [1421.2, 231.3, 40.1, 140.0]])
         t = np.array([[1231., 199.2, 4328., 176.], [1312., 220.2, 43.4, 116.]])
 
-        sk_rmse = metrics.mean_squared_error(t, y, multioutput="raw_values", squared=False)
+        sk_rmse = np.sqrt(metrics.mean_squared_error(t, y, multioutput="raw_values"))
         rmse = functions.evaluation.root_mean_squared_error(y, t, multi_output="raw_values")
 
         self.assertTrue(array_close(sk_rmse, rmse.data))
@@ -345,10 +345,10 @@ class TestRMSE(unittest.TestCase):
         y = np.array([[1001.2, 211.3, 4500.1, 200.0], [1421.2, 231.3, 40.1, 140.0]])
         t = np.array([[1231., 199.2, 4328., 176.], [1312., 220.2, 43.4, 116.]])
 
-        sk_rmse = metrics.mean_squared_error(t, y, squared=False)
+        sklearn_rmse = np.sqrt(metrics.mean_squared_error(t, y))
         rmse = functions.evaluation.root_mean_squared_error(y, t)
 
-        self.assertTrue(array_close(sk_rmse, rmse.data))
+        self.assertEqual(sklearn_rmse, rmse.data)
 
 
 class TestRAE(unittest.TestCase):
