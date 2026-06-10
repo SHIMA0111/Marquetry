@@ -1,8 +1,8 @@
 Release Note
 =============
 
-Version 0.3.0 (Unreleased)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Version 0.3.0 (Released: 2026/06/11)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is the final feature release of the pure-Python Marquetry.
 

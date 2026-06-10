@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/evaluations/precision.rst:3
 msgid "Precision"
@@ -38,7 +38,7 @@ msgid ""
 "positive prediction compare the all positive prediction."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.precision.precision:9 of
+#: marquetry.functions.evaluation.classification.precision.precision:7 of
 msgid "Precision is calculated as:"
 msgstr ""
 
@@ -46,8 +46,7 @@ msgstr ""
 msgid ":math:`Precision = TP / TP + FP` (TP -> TruePositive, FP -> FalsePositive)"
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.precision.Precision.forward
-#: marquetry.functions.evaluation.classification.precision.precision of
+#: ../../functions/evaluations/precision.rst
 msgid "Parameters"
 msgstr ""
 
@@ -69,8 +68,7 @@ msgid ""
 "value."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.precision.Precision.forward
-#: marquetry.functions.evaluation.classification.precision.precision of
+#: ../../functions/evaluations/precision.rst
 msgid "Returns"
 msgstr ""
 
@@ -88,17 +86,12 @@ msgstr ""
 msgid "and predicted values using the specified threshold."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.precision.Precision.forward
-#: marquetry.functions.evaluation.classification.precision.precision of
+#: ../../functions/evaluations/precision.rst
 msgid "Return type"
 msgstr ""
 
 #: marquetry.functions.evaluation.classification.precision.precision:25 of
 msgid ":class:`marquetry.Container`"
-msgstr ""
-
-#: marquetry.functions.evaluation.classification.precision.Precision:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.evaluation.classification.precision.Precision:3 of
@@ -136,4 +129,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../layers/recurrents/bi_lstm.rst:3
 msgid "Bi-Directional LSTM (Bi-LSTM)"
-msgstr ""
-
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:1 of
-msgid "Bases: :py:class:`~marquetry.layer.Layer`"
 msgstr ""
 
 #: marquetry.layers.recurrent.bi_lstm.BiLSTM:1 of
@@ -33,16 +29,14 @@ msgstr ""
 
 #: marquetry.layers.recurrent.bi_lstm.BiLSTM:3 of
 msgid ""
-"The BiLSTM layer is a variation of the standard LSTM layer that processes"
-" input data in both forward and reverse directions. This allows the "
-"network to capture information from both past and future context, "
-"resulting in richer representations. About LSTM, please see "
-":class:`marquetry.layers.LSTM`."
+"The BiLSTM layer processes a whole sequence in both the forward and the "
+"reverse time direction and concatenates the hidden states of both "
+"directions per step. This allows the network to capture information from "
+"both past and future context, resulting in richer representations. About "
+"LSTM, please see :class:`marquetry.layers.LSTM`."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state of
+#: ../../layers/recurrents/bi_lstm.rst
 msgid "Parameters"
 msgstr ""
 
@@ -54,7 +48,7 @@ msgstr ""
 msgid "The size of the input data."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:17 of
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:16 of
 msgid "in_size:"
 msgstr ""
 
@@ -64,7 +58,16 @@ msgid ""
 "need to be specified except a special use case."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:22 of
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:20 of
+msgid ""
+"Unlike the step-wise :class:`marquetry.layers.LSTM`, this layer takes the"
+" **whole sequence at once** as a 3-dim array ``(batch, time, features)`` "
+"because the reverse direction needs the future steps. The internal states"
+" are reset at the beginning of every call, so each call processes its "
+"sequence independently."
+msgstr ""
+
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:28 of
 msgid "Forward LSTM layer."
 msgstr ""
 
@@ -72,16 +75,16 @@ msgstr ""
 msgid "type"
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:24
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:30 of
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:30
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:36 of
 msgid ":class:`marquetry.layers.LSTM`"
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:28 of
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:34 of
 msgid "Reverse LSTM layer."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM:33 of
+#: marquetry.layers.recurrent.bi_lstm.BiLSTM:39 of
 msgid "Examples"
 msgstr ""
 
@@ -95,7 +98,7 @@ msgstr ""
 msgid "Input data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward of
+#: ../../layers/recurrents/bi_lstm.rst
 msgid "Returns"
 msgstr ""
 
@@ -103,7 +106,7 @@ msgstr ""
 msgid "Output data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.forward of
+#: ../../layers/recurrents/bi_lstm.rst
 msgid "Return type"
 msgstr ""
 
@@ -113,23 +116,37 @@ msgid ""
 "is called by `__call__`."
 msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:1 of
-msgid "Set the hidden state and cell state to a custom value."
-msgstr ""
+#~ msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+#~ msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:3 of
-msgid "The custom hidden state."
-msgstr ""
+#~ msgid ""
+#~ "The BiLSTM layer is a variation of"
+#~ " the standard LSTM layer that "
+#~ "processes input data in both forward "
+#~ "and reverse directions. This allows the"
+#~ " network to capture information from "
+#~ "both past and future context, resulting"
+#~ " in richer representations. About LSTM, "
+#~ "please see :class:`marquetry.layers.LSTM`."
+#~ msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:5 of
-msgid "The custom cell state."
-msgstr ""
+#~ msgid "Set the hidden state and cell state to a custom value."
+#~ msgstr ""
 
-#: marquetry.layers.recurrent.bi_lstm.BiLSTM.set_state:10 of
-msgid ""
-"Almost general use case, the cell state should NOT set custom value "
-"because cell state in LSTM is used only internal information connection, "
-"and it should be managed automatically. If you don't have any special "
-"reason, you should set only hidden state."
-msgstr ""
+#~ msgid "The custom hidden state."
+#~ msgstr ""
+
+#~ msgid "The custom cell state."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Almost general use case, the cell "
+#~ "state should NOT set custom value "
+#~ "because cell state in LSTM is used"
+#~ " only internal information connection, and"
+#~ " it should be managed automatically. "
+#~ "If you don't have any special "
+#~ "reason, you should set only hidden "
+#~ "state."
+#~ msgstr ""
 

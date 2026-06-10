@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../baseclasses/baseclass_model.rst:3
 msgid "Model"
@@ -35,5 +35,58 @@ msgstr ""
 
 #: marquetry.model.Model:6 of
 msgid "More details to see :class:`Layer`."
+msgstr ""
+
+#: marquetry.model.Model.export_archive:1 of
+msgid "Save this model as a marquetry archive (graph + weights, ``.mq``)."
+msgstr ""
+
+#: marquetry.model.Model.export_archive:3 of
+msgid ""
+"Unlike :meth:`Layer.save_params` (weights only), the archive stores the "
+"traced computation graph as well, so it can be loaded with "
+":func:`marquetry.model_archive.load_archive` and executed (or trained "
+"further) without the original model class."
+msgstr ""
+
+#: ../../baseclasses/baseclass_model.rst
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.model.Model.export_archive:8 marquetry.model.Model.export_onnx:6
+#: of
+msgid ""
+"A sample input array (or :class:`marquetry.Container`), or a tuple/list "
+"of them for multi-input models."
+msgstr ""
+
+#: marquetry.model.Model.export_archive:10 of
+msgid "Destination path. ``.mq`` is the recommended extension."
+msgstr ""
+
+#: marquetry.model.Model.export_onnx:1 of
+msgid "Export this model to an ONNX inference graph."
+msgstr ""
+
+#: marquetry.model.Model.export_onnx:3 of
+msgid ""
+"This requires the ``onnx`` package. See "
+":func:`marquetry.onnx_export.export_onnx` for the details and options."
+msgstr ""
+
+#: marquetry.model.Model.export_onnx:8 of
+msgid "If given, the model is also serialized to this path."
+msgstr ""
+
+#: ../../baseclasses/baseclass_model.rst
+msgid "Returns"
+msgstr ""
+
+#: marquetry.model.Model.export_onnx:11 of
+msgid "The exported model."
+msgstr ""
+
+#: ../../baseclasses/baseclass_model.rst
+msgid "Return type"
 msgstr ""
 

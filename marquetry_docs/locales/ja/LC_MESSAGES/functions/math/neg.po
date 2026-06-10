@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/math/neg.rst:3
 msgid "Neg"
@@ -31,9 +31,7 @@ msgstr ""
 msgid "This function computes the element-wise negation arrays `x`."
 msgstr ""
 
-#: marquetry.functions.math.basic.Neg.backward
-#: marquetry.functions.math.basic.Neg.forward
-#: marquetry.functions.math.basic.neg of
+#: ../../functions/math/neg.rst marquetry.functions.math.basic.neg of
 msgid "Parameters"
 msgstr ""
 
@@ -41,9 +39,7 @@ msgstr ""
 msgid "The input array."
 msgstr ""
 
-#: marquetry.functions.math.basic.Neg.backward
-#: marquetry.functions.math.basic.Neg.forward
-#: marquetry.functions.math.basic.neg of
+#: ../../functions/math/neg.rst marquetry.functions.math.basic.neg of
 msgid "Returns"
 msgstr ""
 
@@ -51,9 +47,7 @@ msgstr ""
 msgid "The result of element-wise negation."
 msgstr ""
 
-#: marquetry.functions.math.basic.Neg.backward
-#: marquetry.functions.math.basic.Neg.forward
-#: marquetry.functions.math.basic.neg of
+#: ../../functions/math/neg.rst marquetry.functions.math.basic.neg of
 msgid "Return type"
 msgstr ""
 
@@ -63,10 +57,6 @@ msgstr ""
 
 #: marquetry.functions.math.basic.neg:12 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.math.basic.Neg:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.math.basic.Neg:3 of
@@ -115,4 +105,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

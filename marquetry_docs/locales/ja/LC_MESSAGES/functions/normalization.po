@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,21 +17,25 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/normalization.rst:3
 msgid "Normalization"
 msgstr ""
 
-#: ../../functions/normalization.rst:16
+#: ../../functions/normalization.rst:17
 msgid "Batch Normalization"
 msgstr ""
 
-#: ../../functions/normalization.rst:21
+#: ../../functions/normalization.rst:22
+msgid "Batch Renormalization"
+msgstr ""
+
+#: ../../functions/normalization.rst:27
 msgid "L2 Normalization"
 msgstr ""
 
-#: ../../functions/normalization.rst:26
+#: ../../functions/normalization.rst:32
 msgid "Layer Normalization"
 msgstr ""
 

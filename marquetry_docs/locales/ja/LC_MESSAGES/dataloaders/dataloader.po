@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../dataloaders/dataloader.rst:3
 msgid "DataLoader"
-msgstr ""
-
-#: marquetry.dataloaders.dataloader.DataLoader:1 of
-msgid "Bases: :py:class:`object`"
 msgstr ""
 
 #: marquetry.dataloaders.dataloader.DataLoader:1 of
@@ -39,7 +35,7 @@ msgid ""
 "that provides batches of data."
 msgstr ""
 
-#: marquetry.dataloaders.dataloader.DataLoader of
+#: ../../dataloaders/dataloader.rst
 msgid "Parameters"
 msgstr ""
 
@@ -68,4 +64,7 @@ msgid ""
 "Generally, DataLoader object is used with ``for`` statement. If you have "
 "no special reason, you don't need ``reset`` or ``next`` method."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`object`"
+#~ msgstr ""
 

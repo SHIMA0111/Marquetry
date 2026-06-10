@@ -68,7 +68,7 @@ model.export_archive(x, "spiral.mq")    # marquetry archive: graph + weights
 More runnable examples live in [`samples/`](samples/README.md) — autograd basics,
 FashionMNIST training, LSTM time-series forecasting, classic ML, and model export.
 
-# Installation
+## Installation
 ```shell
 pip install marquetry
 ```
@@ -98,5 +98,5 @@ For running the test suite
 
 The test suite runs on Python 3.10 through 3.14 in CI.
 
-### License
+## License
 This project is licensed under the [MIT License](LICENSE.md).

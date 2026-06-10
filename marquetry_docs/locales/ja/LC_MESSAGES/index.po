@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../index.rst:52
 msgid "Contents:"
@@ -29,15 +29,15 @@ msgstr "ようこそ、Marquetry |version| へ！"
 
 #: ../../index.rst:10
 msgid "Marquetry"
-msgstr ""
+msgstr "Marquetry"
 
 #: ../../index.rst:11
 msgid ""
-"Marquetry is developed by only Python! If you want to see the source "
-"code, let's see `GitHub <https://github.com/little-tabby/Marquetry>`_!"
+"Marquetry is developed by only Python! If you want to see the source code, "
+"let's see `GitHub <https://github.com/SHIMA0111/Marquetry>`_!"
 msgstr ""
-"MarquetryはPythonのみで開発されたフレームワークです！"
-"もし、ソースコードを見たいという場合は `GitHub <https://github.com/little-tabby/Marquetry>`_ をご覧ください！"
+"MarquetryはPythonのみで開発されたフレームワークです！もし、ソースコードを見たいという場合は `GitHub "
+"<https://github.com/SHIMA0111/Marquetry>`_ をご覧ください！"
 
 #: ../../index.rst:14
 msgid "The source code can read easy if you are familiar with Python."
@@ -45,18 +45,16 @@ msgstr "ソースコードはPythonエンジニアであれば簡単に読み解
 
 #: ../../index.rst:16
 msgid ""
-"Our purpose is create Deep Learning framework focus on the ``education`` "
-"so complex implementation is minimized as much as possible."
+"Our purpose is create Deep Learning framework focus on the ``education`` so "
+"complex implementation is minimized as much as possible."
 msgstr ""
-"このフレームワークは主に ``学習`` に焦点を当てています。"
-"そのため、複雑な最適化などの実装をせずに可能な限りシンプルに実装されています。"
+"このフレームワークは主に ``学習`` に焦点を当てています。そのため、複雑な最適化などの実装をせずに可能な限りシンプルに実装されています。"
 
 #: ../../index.rst:19
 msgid ""
-"After learning the basic, anyone can learn the mechanism of framework "
-"from the source code."
-msgstr ""
-"ディープラーニングの基礎の学習を終えた後に、フレームワークの仕組みに興味があれば、是非ソースコードを読んでみてくださいな。"
+"After learning the basic, anyone can learn the mechanism of framework from "
+"the source code."
+msgstr "ディープラーニングの基礎の学習を終えた後に、フレームワークの仕組みに興味があれば、是非ソースコードを読んでみてくださいな。"
 
 #: ../../index.rst:21
 msgid "For the simple implementation, there are some inefficient algorithms."
@@ -68,17 +66,14 @@ msgid ""
 "please consider to use other framework. (I suggest to use `PyTorch "
 "<https://pytorch.org/>`_.)"
 msgstr ""
-"そのため、もしこれをご覧のあなたがこのフレームワークを業務で使用しようとしているのであれば、申し訳ありません..."
-"このフレームワークはあなたのニーズを満たすことができないと思います..."
-"その場合は、他のフレームワークを使用することを検討してみてください。"
-"(個人的には `PyTorch <https://pytorch.org/>`_ がオススメです。)"
+"そのため、もしこれをご覧のあなたがこのフレームワークを業務で使用しようとしているのであれば、申し訳ありません...このフレームワークはあなたのニーズを満たすことができないと思います...その場合は、他のフレームワークを使用することを検討してみてください。(個人的には"
+" `PyTorch <https://pytorch.org/>`_ がオススメです。)"
 
 #: ../../index.rst:26
 msgid ""
 "If you are beginner of deep learning or deep learning learner, this "
 "framework always besides of you!"
-msgstr ""
-"ですが、もしあなたがディープラーニングを学ぼうとしている初心者であればこのフレームワークはきっとあなたの助けになるでしょう！"
+msgstr "ですが、もしあなたがディープラーニングを学ぼうとしている初心者であればこのフレームワークはきっとあなたの助けになるでしょう！"
 
 #: ../../index.rst:29
 msgid "Logical construction"
@@ -89,40 +84,42 @@ msgid "Marquetry core construction is the below."
 msgstr "Marquetryのコア機能は以下のように実装されています。"
 
 #: ../../index.rst:35
-msgid "Marquetry's core components are :class:`Container` and :class:`Function`."
-msgstr "このフレームワークのコア機能は :class:`Container` という独自のデータ保持機構と :class:`Function` という関数群で構成されます。"
+msgid ""
+"Marquetry's core components are :class:`Container` and :class:`Function`."
+msgstr ""
+"このフレームワークのコア機能は :class:`Container` という独自のデータ保持機構と :class:`Function` "
+"という関数群で構成されます。"
 
 #: ../../index.rst:37
 msgid ""
-"Container has ``data`` and ``gradient`` which is actual values. So "
-"Container seems like a box of the values. Function applies the function "
-"to the ``Container``, and returns the new ``Container`` which has "
-"``data`` from the ``Function`` outputs."
-msgstr "Containerは基本的には元となる ``データ`` と計算された ``勾配`` が格納されます。"
-"つまり、Containerは文字通り、データを格納するコンテナとなります。"
-"Functionはこの ``Container`` に対してその関数が持つ計算を実行します。そして、その結果を持つ ``Container`` を生成して返り値とします。"
+"Container has ``data`` and ``gradient`` which is actual values. So Container"
+" seems like a box of the values. Function applies the function to the "
+"``Container``, and returns the new ``Container`` which has ``data`` from the"
+" ``Function`` outputs."
+msgstr ""
+"Containerは基本的には元となる ``データ`` と計算された ``勾配`` "
+"が格納されます。つまり、Containerは文字通り、データを格納するコンテナとなります。Functionはこの ``Container`` "
+"に対してその関数が持つ計算を実行します。そして、その結果を持つ ``Container`` を生成して返り値とします。"
 
 #: ../../index.rst:41
 msgid ""
 "Please note, Marquetry is a dynamic computational graph framework so the "
-"``Container`` records the passed functions in the forward process, and it"
-" will gone back in the ``backward`` process. In the backward, the "
-"backward function return the gradient, and it stored in the "
-"``Container``'s gradient."
+"``Container`` records the passed functions in the forward process, and it "
+"will gone back in the ``backward`` process. In the backward, the backward "
+"function return the gradient, and it stored in the ``Container``'s gradient."
 msgstr ""
-"Marquetryは動的計算グラフの構造を持つフレームワークです。"
-"つまり、この新たにFunctionによって生成された ``Container`` には生成したFunction自体も記録されて繋がりを保持します。"
-"これによって、ユーザが管理することなく逆伝播のプロセスを簡単に実行することができるのです。"
-"そして、その逆伝播のプロセスによって関数の勾配を計算し、その値を ``Container`` の ``gradient`` というプロパティに保持します。"
+"Marquetryは動的計算グラフの構造を持つフレームワークです。つまり、この新たにFunctionによって生成された ``Container`` "
+"には生成したFunction自体も記録されて繋がりを保持します。これによって、ユーザが管理することなく逆伝播のプロセスを簡単に実行することができるのです。そして、その逆伝播のプロセスによって関数の勾配を計算し、その値を"
+" ``Container`` の ``gradient`` というプロパティに保持します。"
 
 #: ../../index.rst:45
 msgid ""
 "In generally, the model parameters is stored :class:`Parameter` which "
-"inherit the ``Container`` completely. (In short, ``Parameter`` has the "
-"same methods as ``Container``.)"
+"inherit the ``Container`` completely. (In short, ``Parameter`` has the same "
+"methods as ``Container``.)"
 msgstr ""
-"通常、モデルのパラメータは :class:`Parameter` という ``Container`` を継承した構造の中に保持されています。"
-"( ``継承`` とはこの文脈において、``Parameter`` は ``Container`` と同じ機能を持っていることを意味します。)"
+"通常、モデルのパラメータは :class:`Parameter` という ``Container`` を継承した構造の中に保持されています。( "
+"``継承`` とはこの文脈において、``Parameter`` は ``Container`` と同じ機能を持っていることを意味します。)"
 
 #: ../../index.rst:50
 msgid "More information"
@@ -151,4 +148,3 @@ msgstr "APIリファレンス"
 #: ../../index.rst:84
 msgid "All you needed is here!"
 msgstr "Marquetryの機能は全てここに記載されています！"
-

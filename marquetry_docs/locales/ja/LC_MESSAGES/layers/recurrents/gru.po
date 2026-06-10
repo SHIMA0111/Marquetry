@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../layers/recurrents/gru.rst:3
 msgid "GRU (Gated Recurrent Unit)"
-msgstr ""
-
-#: marquetry.layers.recurrent.gru.GRU:1 of
-msgid "Bases: :py:class:`~marquetry.layer.Layer`"
 msgstr ""
 
 #: marquetry.layers.recurrent.gru.GRU:1 of
@@ -39,9 +35,7 @@ msgid ""
 "sequential data."
 msgstr ""
 
-#: marquetry.layers.recurrent.gru.GRU
-#: marquetry.layers.recurrent.gru.GRU.forward
-#: marquetry.layers.recurrent.gru.GRU.set_state of
+#: ../../layers/recurrents/gru.rst
 msgid "Parameters"
 msgstr ""
 
@@ -53,7 +47,7 @@ msgstr ""
 msgid "The size of the input data."
 msgstr ""
 
-#: marquetry.layers.recurrent.gru.GRU:14 of
+#: marquetry.layers.recurrent.gru.GRU:13 of
 msgid "in_size:"
 msgstr ""
 
@@ -89,7 +83,7 @@ msgstr ""
 msgid "Input data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.gru.GRU.forward of
+#: ../../layers/recurrents/gru.rst
 msgid "Returns"
 msgstr ""
 
@@ -97,7 +91,7 @@ msgstr ""
 msgid "Output data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.gru.GRU.forward of
+#: ../../layers/recurrents/gru.rst
 msgid "Return type"
 msgstr ""
 
@@ -118,4 +112,7 @@ msgstr ""
 #: marquetry.layers.recurrent.gru.GRU.set_state:3 of
 msgid "The custom hidden state."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+#~ msgstr ""
 

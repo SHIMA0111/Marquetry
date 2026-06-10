@@ -17,8 +17,8 @@ Let's start your journey with your curiosity! All ways are open to you!!
 
 In addition to the examples below, the repository ships runnable scripts under
 `samples/ <https://github.com/SHIMA0111/Marquetry/tree/main/samples>`_ --
-autograd basics, FashionMNIST training, LSTM forecasting, classic ML,
-and model export (npz / marquetry archive / ONNX).
+autograd basics, spiral classification, FashionMNIST training, LSTM forecasting,
+classic ML, and model export (npz / marquetry archive / ONNX).
 
 .. toctree::
    :maxdepth: 1

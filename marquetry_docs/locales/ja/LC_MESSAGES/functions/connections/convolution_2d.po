@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/connections/convolution_2d.rst:3
 msgid "Convolution2D"
@@ -35,8 +35,7 @@ msgid ""
 "bias."
 msgstr ""
 
-#: marquetry.functions.connection.convolution_2d.Convolution2D.backward
-#: marquetry.functions.connection.convolution_2d.Convolution2D.forward
+#: ../../functions/connections/convolution_2d.rst
 #: marquetry.functions.connection.convolution_2d.convolution_2d of
 msgid "Parameters"
 msgstr ""
@@ -67,8 +66,7 @@ msgid ""
 " dimensions. Defaults to 0."
 msgstr ""
 
-#: marquetry.functions.connection.convolution_2d.Convolution2D.backward
-#: marquetry.functions.connection.convolution_2d.Convolution2D.forward
+#: ../../functions/connections/convolution_2d.rst
 #: marquetry.functions.connection.convolution_2d.convolution_2d of
 msgid "Returns"
 msgstr ""
@@ -79,8 +77,7 @@ msgid ""
 " and bias (if any)."
 msgstr ""
 
-#: marquetry.functions.connection.convolution_2d.Convolution2D.backward
-#: marquetry.functions.connection.convolution_2d.Convolution2D.forward
+#: ../../functions/connections/convolution_2d.rst
 #: marquetry.functions.connection.convolution_2d.convolution_2d of
 msgid "Return type"
 msgstr ""
@@ -91,10 +88,6 @@ msgstr ""
 
 #: marquetry.functions.connection.convolution_2d.convolution_2d:26 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.connection.convolution_2d.Convolution2D:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.connection.convolution_2d.Convolution2D:1 of
@@ -143,4 +136,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

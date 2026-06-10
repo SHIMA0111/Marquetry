@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../optimizers/adam_w.rst:3
 msgid "AdamW (Adam with Weight Decay)"
-msgstr ""
-
-#: marquetry.optimizers.adam_w.AdamW:1 of
-msgid "Bases: :py:class:`~marquetry.optimizer.Optimizer`"
 msgstr ""
 
 #: marquetry.optimizers.adam_w.AdamW:1 of
@@ -39,7 +35,7 @@ msgid ""
 "large weights in the model."
 msgstr ""
 
-#: marquetry.optimizers.adam_w.AdamW of
+#: ../../optimizers/adam_w.rst
 msgid "Parameters"
 msgstr ""
 
@@ -84,4 +80,7 @@ msgstr ""
 #: marquetry.optimizers.adam_w.AdamW.update:3 of
 msgid "When user optimize the model parameter, user call this method."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.optimizer.Optimizer`"
+#~ msgstr ""
 

@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2026, SHIMA0111
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../functions/normalizations/batch_renormalization.rst:3
+msgid "Batch Renormalization"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:1
+#: of
+msgid "Apply batch renormalization to the input tensor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:3
+#: of
+msgid ""
+"Batch renormalization corrects the batch statistics toward the running "
+"statistics using the clipped factors ``r`` and ``d``, which keeps the "
+"train-time behavior close to the inference-time behavior even with small "
+"mini-batches."
+msgstr ""
+
+#: ../../functions/normalizations/batch_renormalization.rst
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization
+#: of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:7
+#: of
+msgid "The input tensor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:9
+#: of
+msgid "The scale factor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:11
+#: of
+msgid "The shift factor."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:13
+#: of
+msgid "The running mean which is updated in train mode and used in test mode."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:15
+#: of
+msgid "The running variance which is updated in train mode and used in test mode."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:17
+#: of
+msgid ""
+"The clipping bound of the std correction factor ``r``. ``1.0`` (default) "
+"disables the correction which means the behavior is identical to batch "
+"normalization. The paper suggests increasing this gradually from 1 during"
+" training."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:22
+#: of
+msgid ""
+"The clipping bound of the mean correction factor ``d``. ``0.0`` (default)"
+" disables the correction."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:25
+#: of
+msgid "The decay rate of the running statistics. Default is 0.9."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:27
+#: of
+msgid "A small value to prevent division by zero. Default is 1e-15."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:32
+#: of
+msgid ""
+"Generally use case, you can use BatchRenormalization in "
+":mod:`marquetry.layers`. The layer component manages gamma, beta, and the"
+" running statistics itself."
+msgstr ""
+
+#: ../../functions/normalizations/batch_renormalization.rst
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization
+#: of
+msgid "Returns"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:35
+#: of
+msgid "The renormalized and scaled input tensor."
+msgstr ""
+
+#: ../../functions/normalizations/batch_renormalization.rst
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization
+#: of
+msgid "Return type"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:24
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:39
+#: of
+msgid "References"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:25
+#: marquetry.functions.normalization.batch_renormalization.batch_renormalization:40
+#: of
+msgid ""
+"Batch Renormalization: Towards Reducing Minibatch Dependence in Batch-"
+"Normalized Models (https://arxiv.org/abs/1702.03275)"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:1
+#: of
+msgid "Apply batch renormalization to the input container."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:3
+#: of
+msgid ""
+"Batch renormalization extends batch normalization so that train-time "
+"normalization stays close to the inference-time normalization even with "
+"small or non-i.i.d. mini-batches. The batch statistics are corrected "
+"toward the running statistics by the clipped factors ``r`` and ``d``:"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:8
+#: of
+msgid ""
+"``r = clip(sigma_batch / sigma_running, 1 / rmax, rmax)`` ``d = "
+"clip((mu_batch - mu_running) / sigma_running, -dmax, dmax)``"
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:11
+#: of
+msgid ""
+"and the output is ``y = gamma * (x_hat * r + d) + beta`` where ``x_hat`` "
+"is the batch-normalized input. ``r`` and ``d`` are treated as constants "
+"in the backward computation as defined in the paper."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:15
+#: of
+msgid ""
+"With ``rmax=1`` and ``dmax=0`` this is mathematically identical to "
+":class:`marquetry.functions.BatchNormalization`."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization:20
+#: of
+msgid ""
+"Generally, you don't need to execute ``forward`` and ``backward`` method "
+"manually. You should use only ``__call__`` method."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.backward:1
+#: of
+msgid "Perform the backward computation of the function."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.backward:3
+#: of
+msgid "Gradient data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.backward:6
+#: of
+msgid "Gradient data arrays with respect to the input data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.backward:11
+#: of
+msgid ""
+"Function backward should be called by only marquetry (user shouldn't call"
+" this method). Generally, a user should call the backward method in "
+":class:`marquetry.Container` of the model output."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.forward:1
+#: of
+msgid "Perform the forward computation of the function."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.forward:3
+#: of
+msgid "Input data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.forward:6
+#: of
+msgid "Output data arrays."
+msgstr ""
+
+#: marquetry.functions.normalization.batch_renormalization.BatchRenormalization.forward:9
+#: of
+msgid ""
+"Generally, this class shouldn't be called by manually because `forward` "
+"is called via `__call__`."
+msgstr ""
+
