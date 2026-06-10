@@ -8,7 +8,7 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-VERSION		  = 0.2.0
+VERSION		  = 0.3.0
 
 # Put it first so that "make" without argument is like "make help".
 help:
