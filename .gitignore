@@ -6,6 +6,9 @@ __pycache__/
 # Local test files
 check_scripts/
 
+# Sample script artifacts
+samples/output/
+
 # Depnds on env meta files
 .DS_Store
 .idea
