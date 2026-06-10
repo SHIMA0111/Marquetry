@@ -197,8 +197,8 @@ msgid ""
 "If you want to use CuPy, you need to install CUDA tools listed in "
 "https://docs.cupy.dev/en/stable/install.html#additional-cuda-libraries."
 msgstr ""
-"CuPyを使用したい場合はPCに以下のページに記載されたCUDAツールをインストールする必要があります。https://docs.cupy.dev/en/stable/install.html#additional-"
-"cuda-libraries ."
+"CuPyを使用したい場合はPCに以下のページに記載されたCUDAツールをインストールする必要があります。"
+"https://docs.cupy.dev/en/stable/install.html#additional-cuda-libraries"
 
 #: ../../documents/get_started_components/install.rst:68
 msgid ""
