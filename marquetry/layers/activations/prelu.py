@@ -41,10 +41,10 @@ class PReLU(Layer):
                        [ 1.16250809e+00 -8.42350188e-04 -8.15572916e-03 -2.16238255e-05 6.29149104e-01]])
     """
 
-    def __init__(self, num_parameter=1, init=0.01):
+    def __init__(self, num_parameter=1, init=0.01, dtype=np.float32):
         super().__init__()
 
-        alpha = np.zeros(num_parameter) + init
+        alpha = np.zeros(num_parameter, dtype=dtype) + init
         self.alpha = Parameter(alpha)
 
     def forward(self, x):

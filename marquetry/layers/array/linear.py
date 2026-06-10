@@ -55,7 +55,7 @@ class Linear(Layer):
 
     def _init_w(self, xp=np):
         in_size, out_size = self.in_size, self.outsize
-        w_data = xp.random.randn(in_size, out_size).astype(self.dtype) * xp.sqrt(1 / in_size)
+        w_data = (xp.random.randn(in_size, out_size) * xp.sqrt(1 / in_size)).astype(self.dtype)
         self.w.data = w_data
         if self.b is not None and xp is not np:
             self.b.to_gpu()

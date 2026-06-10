@@ -35,8 +35,17 @@ class GELU(Function):
     def forward(self, x):
         xp = cuda_backend.get_array_module(x)
 
+        # NumPy scalars promote float32 arrays to float64, so align the constants
+        # with the input dtype to keep the output dtype unchanged.
+        if x.dtype.kind == "f":
+            def scalar(value):
+                return x.dtype.type(value)
+        else:
+            def scalar(value):
+                return value
+
         if self.approximate == "tanh":
-            tanh = xp.tanh(xp.sqrt(2 / xp.pi) * (x + 0.044715 * xp.power(x, 3)))
+            tanh = xp.tanh(scalar(np.sqrt(2 / np.pi)) * (x + 0.044715 * xp.power(x, 3)))
             y = 0.5 * x * (1 + tanh)
 
             self.tanh = tanh
@@ -49,9 +58,9 @@ class GELU(Function):
 
         else:
             if xp is np:
-                gauss = (1 + scipy.special.erf(x / xp.sqrt(2))) / 2
+                gauss = (1 + scipy.special.erf(x / scalar(np.sqrt(2)))) / 2
             else:
-                gauss = (1 + cuda_backend.cpx.scipy.special.erf(x / xp.sqrt(2))) / 2
+                gauss = (1 + cuda_backend.cpx.scipy.special.erf(x / scalar(np.sqrt(2)))) / 2
 
             y = x * gauss
 

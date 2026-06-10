@@ -2,7 +2,7 @@ import marquetry
 from marquetry import cuda_backend
 
 
-def im2col_array(img, kernel_size, stride, pad, to_matrix=True):
+def im2col_array(img, kernel_size, stride, pad, to_matrix=True, pad_value=0):
     """The util of im2col main process"""
 
     batch_size, channels, height, weight = img.shape
@@ -19,7 +19,7 @@ def im2col_array(img, kernel_size, stride, pad, to_matrix=True):
     img = xp.pad(img, (
         (0, 0), (0, 0),
         (padding_height, padding_height + stride_height - 1),
-        (padding_width, padding_width + stride_width - 1)), mode="constant", constant_values=(0,))
+        (padding_width, padding_width + stride_width - 1)), mode="constant", constant_values=(pad_value,))
 
     # output array which has 6-dims to handle the local area extraction.
     col = xp.ndarray((batch_size, channels, kernel_height, kernel_width, out_height, out_width), dtype=img.dtype)

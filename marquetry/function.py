@@ -111,7 +111,7 @@ class Function(object):
             self.outputs = tuple([weakref.ref(output.node) for output in outputs])
 
             input_indexes_to_retain = self._input_indexes_to_retain
-            if input_indexes_to_retain is None:
+            if input_indexes_to_retain is None or marquetry.configuration.config.retain_graph_inputs:
                 input_indexes_to_retain = range(len(inputs))
             for index in input_indexes_to_retain:
                 inputs[index].retain_data()

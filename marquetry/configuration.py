@@ -22,6 +22,10 @@ class Config(object):
 
     enable_backprop = True
     train = True
+    # When True, every function keeps all of its input data on the recorded graph
+    # even if the function declares it unnecessary for backprop.
+    # The ONNX export uses this to read constants back from the traced graph.
+    retain_graph_inputs = False
     CUDA_ENABLE = cuda_backend.GPU_ENABLE
     CACHE_DIR = os.path.join(os.path.expanduser("~"), ".marquetry")
     MAX_SIZE = 1e+9
