@@ -121,3 +121,11 @@ class TestColumnNormalize(PreprocessTestCase):
 
         expected = (5.0 - train["a"].mean()) / train["a"].std()
         np.testing.assert_allclose(result["a"].to_numpy(), [expected])
+
+    def test_zero_std_keeps_nan(self):
+        data = pd.DataFrame({"a": [3.0, 3.0, np.nan]})
+        normalize = ColumnNormalize(["a"], "test_normalize_zero_std_nan", True)
+
+        result = normalize(data)
+
+        np.testing.assert_array_equal(result["a"].to_numpy(), [0.0, 0.0, np.nan])

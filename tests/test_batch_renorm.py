@@ -118,6 +118,24 @@ class TestBatchRenormFunction(unittest.TestCase):
         self.assertTrue(array_close(x.grad.data, expected))
 
 
+class TestBatchRenormHyperparameters(unittest.TestCase):
+
+    def test_invalid_hyperparameters_rejected(self):
+        x = np.random.randn(4, 2)
+        gamma, beta, mean, var = get_params(2)
+
+        invalid_kwargs = (
+            {"rmax": 0.5},      # the clip range [1/rmax, rmax] must contain 1
+            {"dmax": -1.0},
+            {"decay": 1.5},
+            {"decay": float("nan")},
+            {"eps": -1e-3},
+        )
+        for kwargs in invalid_kwargs:
+            with self.assertRaises(ValueError, msg=kwargs):
+                funcs.batch_renormalization(x, gamma, beta, mean.copy(), var.copy(), **kwargs)
+
+
 class TestBatchRenormLayer(unittest.TestCase):
 
     def test_default_equals_batch_norm_layer(self):

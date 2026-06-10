@@ -558,7 +558,7 @@ class Container(object):
         """
 
         if inplace:
-            self._data = self._data.astype(dtype)
+            self.data = self._data.astype(dtype)
         else:
             return Container(self._data.astype(dtype), name=self._name)
 

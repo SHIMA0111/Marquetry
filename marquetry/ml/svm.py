@@ -34,8 +34,12 @@ class SVM(MachineLearning):
     """
 
     def __init__(self, c=1.0, learn_rate=0.001, epoch=1000, random_state=2023):
-        if c is not None and c <= 0:
+        if c is not None and not c > 0:
             raise ValueError("c should be a positive value or None(hard margin), but got {}".format(c))
+        if not learn_rate > 0:
+            raise ValueError("learn_rate should be a positive value, but got {}".format(learn_rate))
+        if not isinstance(epoch, (int, np.integer)) or epoch <= 0:
+            raise ValueError("epoch should be a positive integer, but got {}".format(epoch))
 
         self.c = c
         self.lr = learn_rate

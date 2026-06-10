@@ -32,6 +32,16 @@ class BatchRenormalization(Function):
     """
 
     def __init__(self, mean, var, decay, eps, rmax, dmax):
+        if not 0.0 <= decay <= 1.0:
+            raise ValueError("decay should be in [0, 1], but got {}".format(decay))
+        if not eps >= 0.0:
+            raise ValueError("eps should be a non-negative value, but got {}".format(eps))
+        if not rmax >= 1.0:
+            raise ValueError("rmax should be 1 or greater because r is clipped to [1/rmax, rmax], "
+                             "but got {}".format(rmax))
+        if not dmax >= 0.0:
+            raise ValueError("dmax should be a non-negative value, but got {}".format(dmax))
+
         self.avg_mean = mean
         self.avg_var = var
         self.decay = decay

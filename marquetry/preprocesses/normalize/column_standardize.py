@@ -72,7 +72,8 @@ class ColumnStandardize(Preprocess):
 
             value_range = tmp_dict["max_value"] - tmp_dict["min_value"]
             if value_range == 0:
-                standardized_data.loc[:, column] = 0.0
+                # assign only non-missing entries so NaNs stay for downstream imputation
+                standardized_data.loc[data[column].notna(), column] = 0.0
             else:
                 standardized_data.loc[:, column] = (data.loc[:, column] - tmp_dict["min_value"]) / value_range
 

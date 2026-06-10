@@ -99,3 +99,13 @@ class TestSVM(unittest.TestCase):
     def test_invalid_c_rejected(self):
         with self.assertRaises(ValueError):
             SVM(c=-1.0)
+
+    def test_invalid_learn_rate_rejected(self):
+        for learn_rate in (0.0, -0.001, float("nan")):
+            with self.assertRaises(ValueError, msg=learn_rate):
+                SVM(learn_rate=learn_rate)
+
+    def test_invalid_epoch_rejected(self):
+        for epoch in (0, -10, 100.5):
+            with self.assertRaises(ValueError, msg=epoch):
+                SVM(epoch=epoch)

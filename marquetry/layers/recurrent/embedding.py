@@ -50,6 +50,24 @@ class Embedding(Layer):
         if not self._fixed_embedding:
             yield from super().params()
 
+    def to_cpu(self):
+        """Move all parameters to the CPU, including the fixed embedding vector."""
+        super().to_cpu()
+        if self._fixed_embedding:
+            self.w.to_cpu()
+
+    def to_gpu(self):
+        """Move all parameters to the GPU, including the fixed embedding vector."""
+        super().to_gpu()
+        if self._fixed_embedding:
+            self.w.to_gpu()
+
+    def clear_grads(self):
+        """Clear gradients of all parameters, including the fixed embedding vector."""
+        super().clear_grads()
+        if self._fixed_embedding:
+            self.w.clear_grad()
+
     def set_embedding_vector(self, vector):
         """Set custom embedding vectors for the layer.
 

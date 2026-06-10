@@ -205,6 +205,17 @@ class TestEmbeddingFreeze(unittest.TestCase):
 
         self.assertTrue(array_equal(restored.w.data, vector))
 
+    def test_frozen_embedding_grads_still_clearable(self):
+        embedding = marquetry.layers.Embedding(10, 4)
+        embedding.set_embedding_vector(np.random.randn(10, 4))
+
+        loss = funcs.sum(embedding(np.array([0, 1, 2])))
+        loss.backward()
+        self.assertIsNotNone(embedding.w.grad)
+
+        embedding.clear_grads()
+        self.assertIsNone(embedding.w.grad)
+
 
 class TestLog2Backward(unittest.TestCase):
     """Log2/Log10 backward built graph nodes for ln(2) and promoted float32 to float64."""
@@ -337,6 +348,19 @@ class TestSoftmaxCrossEntropyGradDtype(unittest.TestCase):
 
 class TestBinaryMultiMetrics(unittest.TestCase):
     """Multi-class metrics rejected two-class logits via `assert unique > 2`."""
+
+    def test_single_class_batch_accepted(self):
+        # all targets being one class is a legitimate evaluation slice;
+        # the zero-denominator guards return 0.0 instead of crashing
+        y = np.array([[2.0, 1.0], [0.5, 3.0], [1.5, 0.2]])
+        t = np.array([0, 0, 0])
+
+        for metric in (funcs.evaluation.multi_precision,
+                       funcs.evaluation.multi_recall,
+                       funcs.evaluation.multi_f_score):
+            value = metric(y, t, target_class=1)
+            self.assertGreaterEqual(float(value.data), 0.0)
+            self.assertLessEqual(float(value.data), 1.0)
 
     def test_two_class_logits_accepted(self):
         y = np.array([[2.0, 1.0], [0.5, 3.0], [1.5, 0.2], [0.1, 2.2]])

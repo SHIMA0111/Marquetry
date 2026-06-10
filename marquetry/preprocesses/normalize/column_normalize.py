@@ -73,7 +73,8 @@ class ColumnNormalize(Preprocess):
 
             std_value = tmp_dict["standard_deviation"]
             if std_value == 0:
-                normalized_data.loc[:, column] = 0.0
+                # assign only non-missing entries so NaNs stay for downstream imputation
+                normalized_data.loc[data[column].notna(), column] = 0.0
             else:
                 normalized_data.loc[:, column] = (data.loc[:, column] - tmp_dict["average_value"]) / std_value
 

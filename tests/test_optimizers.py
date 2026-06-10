@@ -18,7 +18,6 @@ def run_optimization(optimizer, iterations=200):
     optimizer.prepare(layer)
 
     initial_loss = None
-    final_loss = None
     for _ in range(iterations):
         layer.clear_grads()
         loss = funcs.mean_squared_error(layer.p, target)
@@ -28,7 +27,8 @@ def run_optimization(optimizer, iterations=200):
             initial_loss = float(loss.data)
 
         optimizer.update()
-        final_loss = float(loss.data)
+
+    final_loss = float(funcs.mean_squared_error(layer.p, target).data)
 
     return initial_loss, final_loss
 

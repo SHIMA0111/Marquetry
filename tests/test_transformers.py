@@ -57,6 +57,6 @@ class TestCompose(unittest.TestCase):
         self.assertEqual(compose(1), 20)
 
     def test_empty_compose_is_identity(self):
-        compose = Compose([])
-
-        self.assertEqual(compose(5), 5)
+        self.assertEqual(Compose([])(5), 5)
+        self.assertEqual(Compose(None)(5), 5)
+        self.assertEqual(Compose()(5), 5)

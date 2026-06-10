@@ -54,6 +54,10 @@ class TestDataLoader(unittest.TestCase):
 
 class TestSeqDataLoader(unittest.TestCase):
 
+    def test_batch_size_larger_than_dataset_rejected(self):
+        with self.assertRaises(ValueError):
+            SeqDataLoader(ArangeDataset(), batch_size=11)
+
     def test_jump_ordering(self):
         loader = SeqDataLoader(ArangeDataset(), batch_size=2)
 

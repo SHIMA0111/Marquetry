@@ -36,9 +36,8 @@ class TestClassificationTree(unittest.TestCase):
         self.assertGreater(accuracy, 0.9)
 
     def test_invalid_criterion_rejected(self):
-        with self.assertRaises(Exception):
-            tree = ClassificationTree(criterion="rss")
-            tree.fit(*linearly_separable_classification())
+        with self.assertRaises(ValueError):
+            ClassificationTree(criterion="rss")
 
 
 class TestRegressionTree(unittest.TestCase):
