@@ -6,8 +6,8 @@ from marquetry import Layer
 class BiLSTM(Layer):
     """Bidirectional Long Short-Term Memory (BiLSTM) layer for sequence modeling.
 
-        The BiLSTM layer is a variation of the standard LSTM layer
-        that processes input data in both forward and reverse directions.
+        The BiLSTM layer processes a whole sequence in both the forward and the reverse
+        time direction and concatenates the hidden states of both directions per step.
         This allows the network to capture information from both past and future context,
         resulting in richer representations.
         About LSTM, please see :class:`marquetry.layers.LSTM`.
@@ -21,21 +21,22 @@ class BiLSTM(Layer):
                 This is automatically determined from the input data shape
                 and does not need to be specified except a special use case.
 
+            Unlike the step-wise :class:`marquetry.layers.LSTM`, this layer takes the
+            **whole sequence at once** as a 3-dim array ``(batch, time, features)``
+            because the reverse direction needs the future steps.
+            The internal states are reset at the beginning of every call,
+            so each call processes its sequence independently.
+
         Attributes:
             forward_lstm (:class:`marquetry.layers.LSTM`): Forward LSTM layer.
             reverse_lstm (:class:`marquetry.layers.LSTM`): Reverse LSTM layer.
 
         Examples:
-            >>> dataset = marquetry.datasets.SinCurve()
-            >>> dataloader = marquetry.dataloaders.SeqDataLoader(dataset, batch_size=32)
-            >>> model = (BiLSTM(128), marquetry.layers.Linear(1))
-            >>> loss = 0
-            >>> for x, t in dataloader:
-            >>>     for layer in model:
-            >>>         x = layer(x)
-            >>>     loss += functions.mean_squared_error(x, t)
-            >>> loss
-            container(36.87500179632384)
+            >>> x = np.random.randn(8, 20, 4).astype("f")  # (batch, time, features)
+            >>> bi_lstm = BiLSTM(32)
+            >>> y = bi_lstm(x)
+            >>> y.shape
+            (8, 20, 64)
 
     """
 
@@ -48,29 +49,24 @@ class BiLSTM(Layer):
         self.forward_lstm.reset_state()
         self.reverse_lstm.reset_state()
 
-    def set_state(self, h, c=None):
-        """Set the hidden state and cell state to a custom value.
-
-            Args:
-                h (marquetry.Container): The custom hidden state.
-                c (marquetry.Container or None): The custom cell state.
-
-            Caution:
-                Almost general use case, the cell state should NOT set custom value
-                because cell state in LSTM is used only internal information connection,
-                and it should be managed automatically.
-                If you don't have any special reason, you should set only hidden state.
-
-        """
-
-        self.forward_lstm.set_state(h, c)
-        self.reverse_lstm.set_state(h, c)
-
     def forward(self, x):
-        out1 = self.forward_lstm(x)
-        out2 = self.reverse_lstm(x[:, ::-1])
-        out2 = out2[:, ::-1]
+        if x.ndim != 3:
+            raise ValueError("BiLSTM expects a sequence input shaped (batch, time, features), "
+                             "but got {}-dim input.".format(x.ndim))
 
-        output = functions.concat((out1, out2), axis=-1)
+        self.reset_state()
 
-        return output
+        time_steps = x.shape[1]
+
+        forward_outputs = []
+        reverse_outputs = []
+        for step in range(time_steps):
+            forward_outputs.append(self.forward_lstm(x[:, step]))
+            reverse_outputs.append(self.reverse_lstm(x[:, time_steps - 1 - step]))
+
+        reverse_outputs.reverse()
+
+        step_outputs = [functions.unsqueeze(functions.concat((forward_out, reverse_out), axis=1), 1)
+                        for forward_out, reverse_out in zip(forward_outputs, reverse_outputs)]
+
+        return functions.concat(step_outputs, axis=1)

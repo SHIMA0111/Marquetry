@@ -30,6 +30,10 @@ class SeqDataLoader(dataloaders.DataLoader):
     def __init__(self, dataset, batch_size, cuda=False):
         super().__init__(dataset=dataset, batch_size=batch_size, shuffle=False, cuda=cuda)
 
+        # each of the `batch_size` parallel streams advances `jump` steps per epoch,
+        # so the iteration count must stay floor-based even though DataLoader uses ceil
+        self.max_iters = self.data_size // batch_size
+
     def __next__(self):
         if self.iterations >= self.max_iters:
             self.reset()

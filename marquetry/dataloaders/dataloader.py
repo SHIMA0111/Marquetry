@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 
 from marquetry import cuda_backend
@@ -34,7 +36,7 @@ class DataLoader(object):
         self.cuda = cuda
 
         self.data_size = len(dataset)
-        self.max_iters = self.data_size // batch_size
+        self.max_iters = math.ceil(self.data_size / batch_size)
 
         self.iterations = 0
         self.index = None
