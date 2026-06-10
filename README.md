@@ -19,7 +19,8 @@ I hope to enjoy your journey!
  - **Define-by-run automatic differentiation** — the computation graph is recorded
    while your Python code runs, so any control flow just works
  - **Neural network building blocks** — layers (Linear, Convolution2D, Deconvolution2D,
-   BatchNormalization, LayerNormalization, RNN/LSTM/BiLSTM/GRU, Embedding, ...),
+   BatchNormalization, BatchRenormalization, LayerNormalization, RNN/LSTM/BiLSTM/GRU,
+   Embedding, ...),
    70+ functions (activations, losses, evaluation metrics, ...), and ready-made models
    (MLP, CNN, Sequential)
  - **Optimizers** — SGD, MomentumSGD, Nesterov, AdaGrad, AdaDelta, RMSProp,

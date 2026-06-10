@@ -1,6 +1,104 @@
 Release Note
 =============
 
+Version 0.3.0 (Unreleased)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is the final feature release of the pure-Python Marquetry.
+
+:new features:
+
+   - **ONNX export** (:meth:`marquetry.Model.export_onnx` / :func:`marquetry.onnx_export.export_onnx`)
+      - Exports the traced inference graph (opset 21 / IR version 10 by default)
+      - Dynamic batch axis support, validated against ONNX Runtime
+      - Install the dependency with ``pip install "marquetry[onnx]"``
+   - **Marquetry archive** ``.mq`` (:meth:`marquetry.Model.export_archive` / :func:`marquetry.model_archive.save_archive` / :func:`marquetry.model_archive.load_archive`)
+      - Stores the computation graph and the weights in one file (zip of JSON + npz, no pickle)
+      - The archive loads back without the original model class, and the restored
+        model supports inference **and further training**
+   - **SVM** (:class:`marquetry.ml.SVM`): linear support vector machine on the
+     ``MachineLearning`` interface (soft margin by default, ``c=None`` for hard margin,
+     accepts ``{0, 1}`` / ``{-1, 1}`` labels, save/load support)
+   - **Batch Renormalization** (:class:`marquetry.functions.BatchRenormalization` /
+     :class:`marquetry.layers.BatchRenormalization`, https://arxiv.org/abs/1702.03275 );
+     ``rmax=1`` / ``dmax=0`` reduces exactly to batch normalization
+   - Add runnable example scripts under ``samples/`` in the repository
+   - Add ``Config.retain_graph_inputs`` which keeps all function inputs
+     on the recorded graph (used by the exporters)
+
+:changes:
+
+   - **(Breaking)** :class:`marquetry.layers.BiLSTM` is reworked into a true bidirectional
+     LSTM over ``(batch, time, features)`` sequences. The previous implementation reversed
+     the feature axis, which was a no-op for the documented usage
+   - **(Breaking)** :class:`marquetry.functions.MaxPooling2D` now pads with the lowest
+     value instead of zero, following the standard max pooling semantics
+     (PyTorch/Chainer/ONNX). Outputs change when ``pad > 0`` and a window contains
+     only negative values; gradients no longer leak into padding cells
+   - **(Breaking)** Supported Python versions are now 3.10 - 3.14 (was 3.8+)
+   - :class:`marquetry.dataloaders.DataLoader` now returns the final partial batch
+     (the PyTorch/Chainer default); ``SeqDataLoader`` keeps floor-based iteration
+     for its parallel streams
+   - Dependency floors are raised to the first NumPy-2-compatible line:
+     ``numpy>=2.0`` / ``pandas>=2.2`` / ``Pillow>=10.4`` / ``scipy>=1.13``
+   - Weight initialization now respects the declared ``dtype``:
+     :class:`marquetry.layers.Linear`, :class:`marquetry.layers.Convolution2D` and
+     :class:`marquetry.layers.Deconvolution2D` create float32 weights as documented
+     (under NumPy 2 they were silently promoted to float64)
+   - :class:`marquetry.layers.PReLU` and :class:`marquetry.layers.DynamicSwish`
+     parameters default to float32 (``dtype`` argument added)
+   - Hyperparameters are validated across components
+     (``batch_size``, ``decay``, ``epoch``, ``learn_rate``, ``rmax``, ``dmax``, ...)
+   - ``ColumnNormalize`` / ``ColumnStandardize`` preserve NaNs in zero-variance columns
+     for downstream imputation
+   - Remove the ``pre_implemetation`` directory (its drafts graduated to
+     :mod:`marquetry.ml` and :mod:`marquetry.functions`)
+   - The test suite grew from 318 to 613 tests and runs on Python 3.10 - 3.14 in CI
+
+:bug fixes:
+
+   **Autodiff engine**
+
+   - ``Container.__gt__`` compared in the inverted direction
+   - Non-inplace ``Container.astype`` returned a raw ndarray instead of a Container
+   - ``Container.unchain_backward`` left the starting container chained and crashed
+     on leaf containers
+   - :meth:`marquetry.random_int` couldn't omit the ``high`` argument as documented
+   - Python-scalar operands silently upcast float32 data to float64 under NumPy 2
+     (weak-scalar promotion is now preserved)
+
+   **Gradients**
+
+   - ``MeanSquaredError`` backward multiplied the upstream gradient twice into one input
+   - ``Dropout`` backward dropped the ``1/(1-rate)`` scale; eval-mode backward now passes
+     gradients through
+   - ``BatchNormalization`` 4D backward divided by ``N`` instead of ``N*H*W``;
+     eval-mode backward used stale statistics
+   - ``Conv2DGradW`` double-backward ignored the upstream gradient
+   - ``softmax_cross_entropy`` backward built the one-hot matrix with the integer target dtype
+   - Max pooling gradients routed into padding cells were silently dropped
+     (fixed by the lowest-value padding change)
+   - :class:`marquetry.functions.GELU` (``none`` / ``tanh``) upcast float32 inputs to float64
+
+   **Optimizers / Layers**
+
+   - ``MomentumSGD`` never used its learning rate
+   - ``GRU`` skipped the update gate on the first step
+   - ``Embedding.set_embedding_vector`` broke ``save_params`` while freezing the vectors
+
+   **Preprocesses / ML / Misc**
+
+   - ``MissImputation`` used the category statistic for numeric columns
+   - ``ColumnStandardize`` swapped min/max (inverted scaling); zero-division guards
+     added to normalize/standardize
+   - ``LabelEncode`` / ``OneHotEncode`` treated subset categories at inference as unknown,
+     and no longer emit pandas ``FutureWarning`` about ``replace`` downcasting on pandas 2.x
+   - ``Compose()`` crashed with the default argument
+   - ``RandomForest`` used class labels as column indexes and the same seed for every tree
+   - Multi-class metrics rejected two-class logits; single-class evaluation batches are
+     supported with proper zero-denominator handling
+   - ``get_file`` failed on nested cache directories
+
 Version 0.2.0 (Released: 2023/10/22)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

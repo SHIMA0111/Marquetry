@@ -282,7 +282,7 @@ Let's try it as a challenge yourself to reach 99.5%!
    using :class:`marquetry.Model` base class.
 
    If you want to check how to build your own model, please reference the :class:`marquetry.models.CNN`
-   source code. (`CNN <https://github.com/little-tabby/Marquetry/blob/main/marquetry/models/cnn/cnn.py>`_)
+   source code. (`CNN <https://github.com/SHIMA0111/Marquetry/blob/main/marquetry/models/cnn/cnn.py>`_)
 
    It is not difficult, when you want to build a model, you should do only the below 2 steps.
 
