@@ -1,3 +1,5 @@
+import warnings
+
 import numpy as np
 import pandas as pd
 
@@ -78,7 +80,12 @@ class OneHotEncode(Preprocess):
 
         self._validate_values(data)
 
-        replaced_data = data.replace(self._statistic_data)
+        with warnings.catch_warnings():
+            # pandas 2.x warns that `replace` will stop silently downcasting;
+            # the pandas 3 behavior is already supported, so the transitional
+            # warning is noise for users on the 2.x line.
+            warnings.filterwarnings("ignore", category=FutureWarning, message=".*[Dd]owncasting.*")
+            replaced_data = data.replace(self._statistic_data)
         replaced_data = replaced_data[self._category_column]
 
         one_hot_data = None

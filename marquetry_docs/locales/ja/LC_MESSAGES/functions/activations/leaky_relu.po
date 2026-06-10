@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/activations/leaky_relu.rst:3
 msgid "Leaky ReLU (Rectified Linear Unit)"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "This function is improved version of the ReLU(Rectified Linear Units)."
 msgstr ""
 
-#: marquetry.functions.activations.leaky_relu.leaky_relu:6 of
+#: marquetry.functions.activations.leaky_relu.leaky_relu:5 of
 msgid "if x >= 0, :math:`f(x) = x` || if x < 0, :math:`f(x) = slope * x`"
 msgstr ""
 
@@ -39,8 +39,7 @@ msgstr ""
 msgid "The ``slope`` is a small constant value the default value is `0.2`."
 msgstr ""
 
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.backward
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.forward
+#: ../../functions/activations/leaky_relu.rst
 #: marquetry.functions.activations.leaky_relu.leaky_relu of
 msgid "Parameters"
 msgstr ""
@@ -53,8 +52,7 @@ msgstr ""
 msgid "small constant value. The default is 0.2."
 msgstr ""
 
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.backward
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.forward
+#: ../../functions/activations/leaky_relu.rst
 #: marquetry.functions.activations.leaky_relu.leaky_relu of
 msgid "Returns"
 msgstr ""
@@ -63,18 +61,13 @@ msgstr ""
 msgid "Output container. A float array."
 msgstr ""
 
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.backward
-#: marquetry.functions.activations.leaky_relu.LeakyReLU.forward
+#: ../../functions/activations/leaky_relu.rst
 #: marquetry.functions.activations.leaky_relu.leaky_relu of
 msgid "Return type"
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.leaky_relu:17 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.activations.leaky_relu.LeakyReLU:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.activations.leaky_relu.LeakyReLU:1 of
@@ -131,5 +124,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Input container that is float array."
+#~ msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
 #~ msgstr ""
 

@@ -1,47 +1,44 @@
 import setuptools
 from setuptools import setup
 
-long_description = """# Marquetry
-Marquetry means **Yosegi-zaiku**, a traditional Japanese woodworking technique, in Japan.
-It is a beautiful culture craft originated in Japan, which is a box or ornament or so by small wooden pieces.
-The design is UNIQUE, it depends on the arrangement of the wood tips.
-I believe Deep Learning is similar with the concept.
-Deep Learning models are constructed through the combination of the layers or functions.
-Just as a slight variation in arrangement can result in a completely distinct model.
-I want you can enjoy the deep/machine learning journey like
-you craft a **Marquetry** from combination of various wood tips.
+import os
 
-## About this Framework
-You can use this framework for help your learning **Machine/Deep Learning**.
-This framework is written only **Python**, so you can understand the implementation easily if you are python engineer.
-For simplify the construct, there are un-efficiency implementation.
-I develop this framework to enjoy learning the construction of the machine/machine learning not **Practical Usage**.
-I hope to enjoy your journey!"""
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
     name="marquetry",
-    version="0.2.0",
+    version="0.3.0",
     license="MIT",
     install_requires=[
-        "numpy>=1.20.0",
-        "pandas>=1.5.0",
-        "Pillow>=9.3.0",
-        "scipy>=1.0.0"
+        # Floors are the first NumPy-2-compatible line of each dependency;
+        # the framework itself assumes NumPy 2 (NEP 50) promotion semantics.
+        "numpy>=2.0.0",
+        "pandas>=2.2.0",
+        "Pillow>=10.4.0",
+        "scipy>=1.13.0"
     ],
-    description="Simple Machine Learning Framework",
+    extras_require={
+        "onnx": ["onnx>=1.16.0"],
+    },
+    description="Pure Python Deep/Machine Learning Framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="SHIMA",
-    maintainer="Little Tabby",
+    author="SHIMA0111",
+    maintainer="SHIMA0111",
     author_email="shima@little-tabby.com",
     maintainer_email="engineer@little-tabby.com",
-    url="https://github.com/little-tabby/Marquetry",
-    download_url="https://github.com/little-tabby/Marquetry",
+    url="https://github.com/SHIMA0111/Marquetry",
+    download_url="https://github.com/SHIMA0111/Marquetry",
     packages=setuptools.find_packages(),
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     keywords="deeplearning ml neuralnetwork",
     classifiers=[
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ]

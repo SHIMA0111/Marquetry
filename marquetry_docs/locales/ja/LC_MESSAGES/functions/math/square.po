@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/math/square.rst:3
 msgid "Square"
@@ -31,9 +31,7 @@ msgstr ""
 msgid "This function computes the squared value of the input."
 msgstr ""
 
-#: marquetry.functions.math.square.Square.backward
-#: marquetry.functions.math.square.Square.forward
-#: marquetry.functions.math.square.square of
+#: ../../functions/math/square.rst marquetry.functions.math.square.square of
 msgid "Parameters"
 msgstr ""
 
@@ -41,9 +39,7 @@ msgstr ""
 msgid "The input values."
 msgstr ""
 
-#: marquetry.functions.math.square.Square.backward
-#: marquetry.functions.math.square.Square.forward
-#: marquetry.functions.math.square.square of
+#: ../../functions/math/square.rst marquetry.functions.math.square.square of
 msgid "Returns"
 msgstr ""
 
@@ -51,9 +47,7 @@ msgstr ""
 msgid "The squared result of the input values."
 msgstr ""
 
-#: marquetry.functions.math.square.Square.backward
-#: marquetry.functions.math.square.Square.forward
-#: marquetry.functions.math.square.square of
+#: ../../functions/math/square.rst marquetry.functions.math.square.square of
 msgid "Return type"
 msgstr ""
 
@@ -63,10 +57,6 @@ msgstr ""
 
 #: marquetry.functions.math.square.square:12 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.math.square.Square:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.math.square.Square:1 of
@@ -119,4 +109,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

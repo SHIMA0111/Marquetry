@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/losses/softmax_cross_entropy.rst:3
 msgid "Softmax CrossEntropy"
@@ -41,10 +41,7 @@ msgid ""
 "labels."
 msgstr ""
 
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.backward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.forward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.softmax_cross_entropy
-#: of
+#: ../../functions/losses/softmax_cross_entropy.rst
 msgid "Parameters"
 msgstr ""
 
@@ -58,10 +55,7 @@ msgstr ""
 msgid "The true labels."
 msgstr ""
 
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.backward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.forward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.softmax_cross_entropy
-#: of
+#: ../../functions/losses/softmax_cross_entropy.rst
 msgid "Returns"
 msgstr ""
 
@@ -70,21 +64,13 @@ msgstr ""
 msgid "The Softmax Cross-Entropy loss."
 msgstr ""
 
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.backward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy.forward
-#: marquetry.functions.loss.classification.softmax_cross_entropy.softmax_cross_entropy
-#: of
+#: ../../functions/losses/softmax_cross_entropy.rst
 msgid "Return type"
 msgstr ""
 
 #: marquetry.functions.loss.classification.softmax_cross_entropy.softmax_cross_entropy:16
 #: of
 msgid ":class:`marquetry.Container`"
-msgstr ""
-
-#: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy:1
-#: of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.loss.classification.softmax_cross_entropy.SoftmaxCrossEntropy:3
@@ -148,4 +134,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/activations/swish.rst:3
 msgid "Swish (a.k.a SiLU (Sigmoid-weighted Linear Unit))"
@@ -44,15 +44,12 @@ msgstr ""
 msgid "This function is obtained by:"
 msgstr ""
 
-#: marquetry.functions.activations.swish.dynamic_swish:8
+#: marquetry.functions.activations.swish.dynamic_swish:7
 #: marquetry.functions.activations.swish.swish:9 of
 msgid ":math:`f(x) = x * \\sigma (beta \\cdot x)`"
 msgstr ""
 
-#: marquetry.functions.activations.swish.DynamicSwish.backward
-#: marquetry.functions.activations.swish.DynamicSwish.forward
-#: marquetry.functions.activations.swish.Swish.backward
-#: marquetry.functions.activations.swish.Swish.forward
+#: ../../functions/activations/swish.rst
 #: marquetry.functions.activations.swish.dynamic_swish
 #: marquetry.functions.activations.swish.swish of
 msgid "Parameters"
@@ -80,10 +77,7 @@ msgid ""
 "`beta` is managed by the object."
 msgstr ""
 
-#: marquetry.functions.activations.swish.DynamicSwish.backward
-#: marquetry.functions.activations.swish.DynamicSwish.forward
-#: marquetry.functions.activations.swish.Swish.backward
-#: marquetry.functions.activations.swish.Swish.forward
+#: ../../functions/activations/swish.rst
 #: marquetry.functions.activations.swish.dynamic_swish
 #: marquetry.functions.activations.swish.swish of
 msgid "Returns"
@@ -94,10 +88,7 @@ msgstr ""
 msgid "Output container. A float array."
 msgstr ""
 
-#: marquetry.functions.activations.swish.DynamicSwish.backward
-#: marquetry.functions.activations.swish.DynamicSwish.forward
-#: marquetry.functions.activations.swish.Swish.backward
-#: marquetry.functions.activations.swish.Swish.forward
+#: ../../functions/activations/swish.rst
 #: marquetry.functions.activations.swish.dynamic_swish
 #: marquetry.functions.activations.swish.swish of
 msgid "Return type"
@@ -123,11 +114,6 @@ msgstr ""
 #: marquetry.functions.activations.swish.dynamic_swish:24
 #: marquetry.functions.activations.swish.swish:33 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.activations.swish.DynamicSwish:1
-#: marquetry.functions.activations.swish.Swish:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.activations.swish.Swish:3 of
@@ -215,4 +201,7 @@ msgstr ""
 #: marquetry.functions.activations.swish.DynamicSwish:3 of
 msgid "This class implements the Swish activation function with learnable `beta`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

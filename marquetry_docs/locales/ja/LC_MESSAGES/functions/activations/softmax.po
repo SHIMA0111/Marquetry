@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/activations/softmax.rst:3
 msgid "Softmax"
@@ -31,8 +31,7 @@ msgstr ""
 msgid ":math:`f(x) = exp(x) / \\Sigma exp(x)`"
 msgstr ""
 
-#: marquetry.functions.activations.softmax.Softmax.backward
-#: marquetry.functions.activations.softmax.Softmax.forward
+#: ../../functions/activations/softmax.rst
 #: marquetry.functions.activations.softmax.softmax of
 msgid "Parameters"
 msgstr ""
@@ -45,8 +44,7 @@ msgstr ""
 msgid "The softmax sum axis"
 msgstr ""
 
-#: marquetry.functions.activations.softmax.Softmax.backward
-#: marquetry.functions.activations.softmax.Softmax.forward
+#: ../../functions/activations/softmax.rst
 #: marquetry.functions.activations.softmax.softmax of
 msgid "Returns"
 msgstr ""
@@ -55,18 +53,13 @@ msgstr ""
 msgid "Output container. A float array."
 msgstr ""
 
-#: marquetry.functions.activations.softmax.Softmax.backward
-#: marquetry.functions.activations.softmax.Softmax.forward
+#: ../../functions/activations/softmax.rst
 #: marquetry.functions.activations.softmax.softmax of
 msgid "Return type"
 msgstr ""
 
 #: marquetry.functions.activations.softmax.softmax:14 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.activations.softmax.Softmax:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.activations.softmax.Softmax:1 of
@@ -117,5 +110,8 @@ msgid ""
 msgstr ""
 
 #~ msgid ":math:`f(x) = exp(x) / Σexp(x)`"
+#~ msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
 #~ msgstr ""
 

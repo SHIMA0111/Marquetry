@@ -1,3 +1,4 @@
+import warnings
 from typing import Literal
 
 import numpy as np
@@ -108,7 +109,12 @@ class LabelEncode(Preprocess):
 
                 self._statistic_data[column].update(unknown_dict)
 
-        labeled_data = data.replace(self._statistic_data)
+        with warnings.catch_warnings():
+            # pandas 2.x warns that `replace` will stop silently downcasting;
+            # the pandas 3 behavior is already supported, so the transitional
+            # warning is noise for users on the 2.x line.
+            warnings.filterwarnings("ignore", category=FutureWarning, message=".*[Dd]owncasting.*")
+            labeled_data = data.replace(self._statistic_data)
         labeled_data = labeled_data[self._category_column]
 
         return labeled_data

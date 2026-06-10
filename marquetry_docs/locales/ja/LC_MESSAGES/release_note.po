@@ -8,169 +8,497 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-22 07:51+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: ja\n"
 "Language-Team: ja <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../release_note.rst:2
 msgid "Release Note"
 msgstr "リリースノート"
 
 #: ../../release_note.rst:5
-msgid "Version 0.2.0 (Released: 2023/10/22)"
-msgstr "バージョン0.2.0 (2023/10/22 リリース)"
+msgid "Version 0.3.0 (Released: 2026/06/11)"
+msgstr "バージョン0.3.0 (2026/06/11 リリース)"
+
+#: ../../release_note.rst:7
+msgid "This is the final feature release of the pure-Python Marquetry."
+msgstr "これはピュアPython版Marquetryの最後の機能リリースです。"
 
 #: ../../release_note.rst
 msgid "new features"
 msgstr "新機能"
 
-#: ../../release_note.rst:9
+#: ../../release_note.rst:11
 msgid ""
-"Add Layer Normalizer (:meth:`marquetry.functions.layer_normalization` and"
-" :class:`marquetry.layers.LayerNormalization`)"
+"**ONNX export** (:meth:`marquetry.Model.export_onnx` / "
+":func:`marquetry.onnx_export.export_onnx`)"
 msgstr ""
-"レイヤー正規化を追加 (:meth:`marquetry.functions.layer_normalization` と :class:`marquetry.layers.LayerNormalization` )"
-
-#: ../../release_note.rst:10
-msgid "Add L2 Normalizer (:class:`marquetry.functions.l2_normalization`)"
-msgstr "L2ノルム正規化を追加 (:class:`marquetry.functions.l2_normalization`)"
-
-#: ../../release_note.rst:16
-msgid "Add new activation functions"
-msgstr "新たに活性化関数を追加"
+"**ONNXエクスポート** (:meth:`marquetry.Model.export_onnx` / "
+":func:`marquetry.onnx_export.export_onnx`)"
 
 #: ../../release_note.rst:12
-msgid "GELU (Gaussian Error Linear Units)"
-msgstr "GELU (ガウス誤差線形ユニット)"
+msgid ""
+"Exports the traced inference graph (opset 21 / IR version 10 by default)"
+msgstr "トレースした推論グラフをエクスポートします(デフォルトは opset 21 / IR version 10)"
 
 #: ../../release_note.rst:13
-msgid "GLU (Gated Linear Units)"
-msgstr "GLU (ゲート付き線形ユニット)"
+msgid "Dynamic batch axis support, validated against ONNX Runtime"
+msgstr "動的バッチ軸をサポートし、ONNX Runtime で検証済みです"
 
 #: ../../release_note.rst:14
-msgid "Mish (https://arxiv.org/abs/1908.08681 )"
-msgstr ""
+msgid "Install the dependency with ``pip install \"marquetry[onnx]\"``"
+msgstr "依存関係は ``pip install \"marquetry[onnx]\"`` でインストールできます"
 
 #: ../../release_note.rst:15
-msgid "Swish (https://arxiv.org/abs/1710.05941 )"
+msgid ""
+"**Marquetry archive** ``.mq`` (:meth:`marquetry.Model.export_archive` / "
+":func:`marquetry.model_archive.save_archive` / "
+":func:`marquetry.model_archive.load_archive`)"
 msgstr ""
+"**Marquetryアーカイブ** ``.mq`` (:meth:`marquetry.Model.export_archive` / "
+":func:`marquetry.model_archive.save_archive` / "
+":func:`marquetry.model_archive.load_archive`)"
 
 #: ../../release_note.rst:16
-msgid "PReLU (Parametric Rectified Linear Units)"
-msgstr "PReLU (パラメータ型正規化線形ユニット)"
+msgid ""
+"Stores the computation graph and the weights in one file (zip of JSON + npz,"
+" no pickle)"
+msgstr "計算グラフと重みを1つのファイルに保存します(JSON + npz の zip、pickle 不使用)"
 
 #: ../../release_note.rst:17
-msgid "Softplus"
-msgstr ""
-
-#: ../../release_note.rst:23
-#, fuzzy
-msgid "Add new optimizer functions"
-msgstr "新たな最適化関数を追加"
+msgid ""
+"The archive loads back without the original model class, and the restored "
+"model supports inference **and further training**"
+msgstr "アーカイブは元のモデルクラスなしで読み込み可能で、復元したモデルは推論に加えて**追加学習**もサポートします"
 
 #: ../../release_note.rst:19
-msgid "AdaDelta"
+#, python-brace-format
+msgid ""
+"**SVM** (:class:`marquetry.ml.SVM`): linear support vector machine on the "
+"``MachineLearning`` interface (soft margin by default, ``c=None`` for hard "
+"margin, accepts ``{0, 1}`` / ``{-1, 1}`` labels, save/load support)"
 msgstr ""
-
-#: ../../release_note.rst:20
-msgid "AdamW"
-msgstr ""
-
-#: ../../release_note.rst:21
-msgid "AdaMax"
-msgstr ""
+"**SVM** (:class:`marquetry.ml.SVM`): ``MachineLearning`` "
+"インターフェースに準拠した線形サポートベクタマシン(デフォルトはソフトマージン、``c=None`` でハードマージン、``{0, 1}`` / "
+"``{-1, 1}`` ラベルに対応、保存/読み込みをサポート)"
 
 #: ../../release_note.rst:22
-msgid "Lion (EvoLved Sign Momentum https://arxiv.org/abs/2302.06675 )"
+msgid ""
+"**Batch Renormalization** (:class:`marquetry.functions.BatchRenormalization`"
+" / :class:`marquetry.layers.BatchRenormalization`, "
+"https://arxiv.org/abs/1702.03275 ); ``rmax=1`` / ``dmax=0`` reduces exactly "
+"to batch normalization"
 msgstr ""
+"**Batch Renormalization** (:class:`marquetry.functions.BatchRenormalization`"
+" / :class:`marquetry.layers.BatchRenormalization`、 "
+"https://arxiv.org/abs/1702.03275 ); ``rmax=1`` / ``dmax=0`` "
+"のときバッチ正規化と完全に一致します"
 
-#: ../../release_note.rst:23
-msgid "NAdam (Nesterov Adoptive Moment Estimation)"
-msgstr ""
-
-#: ../../release_note.rst:24
-msgid "Nesterov (Nesterov Accelerate Gradient Descent)"
-msgstr ""
+#: ../../release_note.rst:25
+msgid "Add runnable example scripts under ``samples/`` in the repository"
+msgstr "リポジトリの ``samples/`` 配下に実行可能なサンプルスクリプトを追加"
 
 #: ../../release_note.rst:26
-msgid "Add new mathmatics functions"
-msgstr "新たに関数を追加"
-
-#: ../../release_note.rst:26
-msgid "Square (:class:`marquetry.functions.square`)"
-msgstr ""
-
-#: ../../release_note.rst:27
-msgid "Sqrt (:class:`marquetry.functions.sqrt`)"
-msgstr ""
-
-#: ../../release_note.rst:30
-msgid "Support custom csv file import (Beta)"
-msgstr "カスタムCSVの読み込みをサポート (ベータ実装)"
-
-#: ../../release_note.rst:29
-msgid "CsvLoader (:class:`marquetry.datasets.CsvLoader`)"
-msgstr ""
-
-#: ../../release_note.rst:30
-msgid "CustomDataset (:class:`marquetry.datasets.CustomDataset`)"
-msgstr ""
+msgid ""
+"Add ``Config.retain_graph_inputs`` which keeps all function inputs on the "
+"recorded graph (used by the exporters)"
+msgstr "すべての関数入力を記録済みグラフ上に保持する ``Config.retain_graph_inputs`` を追加(エクスポータが使用)"
 
 #: ../../release_note.rst
 msgid "changes"
 msgstr "変更点"
 
-#: ../../release_note.rst:33
-msgid "Batch Normalization support custom `eps` by the initializer"
-msgstr "バッチ正規化が`eps`を独自に指定できるようになった"
+#: ../../release_note.rst:31
+msgid ""
+"**(Breaking)** :class:`marquetry.layers.BiLSTM` is reworked into a true "
+"bidirectional LSTM over ``(batch, time, features)`` sequences. The previous "
+"implementation reversed the feature axis, which was a no-op for the "
+"documented usage"
+msgstr ""
+"**(破壊的変更)** :class:`marquetry.layers.BiLSTM` を ``(batch, time, features)`` "
+"のシーケンスを処理する本来の双方向LSTMに作り直しました。従来の実装は特徴軸を反転しており、ドキュメントに記載の使い方では実質的に何もしていませんでした"
 
 #: ../../release_note.rst:34
 msgid ""
-"split function support section split and the argument is renamed as "
-"``indices_or_sections``"
+"**(Breaking)** :class:`marquetry.functions.MaxPooling2D` now pads with the "
+"lowest value instead of zero, following the standard max pooling semantics "
+"(PyTorch/Chainer/ONNX). Outputs change when ``pad > 0`` and a window "
+"contains only negative values; gradients no longer leak into padding cells"
 msgstr ""
-"split関数がセクション分割をサポートするようになり、引数名が ``indices_or_sections`` に変更された"
+"**(破壊的変更)** :class:`marquetry.functions.MaxPooling2D` "
+"のパディングがゼロ埋めから最小値埋めに変わり、標準的な max pooling "
+"のセマンティクス(PyTorch/Chainer/ONNX)に従うようになりました。``pad > 0`` "
+"かつウィンドウ内が負値のみの場合に出力が変わります。勾配がパディングセルに漏れることもなくなりました"
 
-#: ../../release_note.rst:35
-msgid "Learning Rate argument's name is unified as ``lr`` for all optimizers"
-msgstr "最適化関数の学習率の引数名が ``lr`` に統一された"
+#: ../../release_note.rst:38
+msgid ""
+"**(Breaking)** Supported Python versions are now 3.10 - 3.14 (was 3.8+)"
+msgstr "**(破壊的変更)** サポートする Python バージョンは 3.10 - 3.14 になりました(従来は 3.8 以上)"
+
+#: ../../release_note.rst:39
+msgid ""
+":class:`marquetry.dataloaders.DataLoader` now returns the final partial "
+"batch (the PyTorch/Chainer default); ``SeqDataLoader`` keeps floor-based "
+"iteration for its parallel streams"
+msgstr ""
+":class:`marquetry.dataloaders.DataLoader` "
+"は最後の端数バッチも返すようになりました(PyTorch/Chainer のデフォルトと同じ)。``SeqDataLoader`` "
+"は並列ストリームの仕組み上、切り捨てベースのイテレーション数を維持します"
+
+#: ../../release_note.rst:42
+msgid ""
+"Dependency floors are raised to the first NumPy-2-compatible line: "
+"``numpy>=2.0`` / ``pandas>=2.2`` / ``Pillow>=10.4`` / ``scipy>=1.13``"
+msgstr ""
+"依存ライブラリの最低バージョンを NumPy 2 対応の系列に引き上げました: ``numpy>=2.0`` / ``pandas>=2.2`` / "
+"``Pillow>=10.4`` / ``scipy>=1.13``"
+
+#: ../../release_note.rst:44
+msgid ""
+"Weight initialization now respects the declared ``dtype``: "
+":class:`marquetry.layers.Linear`, :class:`marquetry.layers.Convolution2D` "
+"and :class:`marquetry.layers.Deconvolution2D` create float32 weights as "
+"documented (under NumPy 2 they were silently promoted to float64)"
+msgstr ""
+"重みの初期化が宣言された ``dtype`` に従うようになりました: "
+":class:`marquetry.layers.Linear`、:class:`marquetry.layers.Convolution2D`、:class:`marquetry.layers.Deconvolution2D`"
+" はドキュメント通り float32 の重みを生成します(NumPy 2 では暗黙的に float64 へ昇格していました)"
+
+#: ../../release_note.rst:48
+msgid ""
+":class:`marquetry.layers.PReLU` and :class:`marquetry.layers.DynamicSwish` "
+"parameters default to float32 (``dtype`` argument added)"
+msgstr ""
+":class:`marquetry.layers.PReLU` と :class:`marquetry.layers.DynamicSwish` "
+"のパラメータはデフォルトで float32 になりました(``dtype`` 引数を追加)"
+
+#: ../../release_note.rst:50
+msgid ""
+"Hyperparameters are validated across components (``batch_size``, ``decay``, "
+"``epoch``, ``learn_rate``, ``rmax``, ``dmax``, ...)"
+msgstr ""
+"各コンポーネントでハイパーパラメータを検証するようになりました(``batch_size``、``decay``、``epoch``、``learn_rate``、``rmax``、``dmax``"
+" など)"
+
+#: ../../release_note.rst:52
+msgid ""
+"``ColumnNormalize`` / ``ColumnStandardize`` preserve NaNs in zero-variance "
+"columns for downstream imputation"
+msgstr ""
+"``ColumnNormalize`` / ``ColumnStandardize`` は分散ゼロの列でも NaN "
+"を保持し、後段の欠損値補完に委ねるようになりました"
+
+#: ../../release_note.rst:54
+msgid ""
+"Remove the ``pre_implemetation`` directory (its drafts graduated to "
+":mod:`marquetry.ml` and :mod:`marquetry.functions`)"
+msgstr ""
+"``pre_implemetation`` ディレクトリを削除しました(ドラフトは :mod:`marquetry.ml` と "
+":mod:`marquetry.functions` に昇格)"
+
+#: ../../release_note.rst:56
+msgid ""
+"The test suite grew from 318 to 613 tests and runs on Python 3.10 - 3.14 in "
+"CI"
+msgstr "テストスイートは318件から613件に拡充され、CI で Python 3.10 - 3.14 上で実行されます"
 
 #: ../../release_note.rst
 msgid "bug fixes"
 msgstr "バグ修正"
 
-#: ../../release_note.rst:38
+#: ../../release_note.rst:60
+msgid "**Autodiff engine**"
+msgstr "**自動微分エンジン**"
+
+#: ../../release_note.rst:62
+msgid "``Container.__gt__`` compared in the inverted direction"
+msgstr "``Container.__gt__`` の比較の向きが逆になっていました"
+
+#: ../../release_note.rst:63
+msgid ""
+"Non-inplace ``Container.astype`` returned a raw ndarray instead of a "
+"Container"
+msgstr "非インプレースの ``Container.astype`` が Container ではなく生の ndarray を返していました"
+
+#: ../../release_note.rst:64
+msgid ""
+"``Container.unchain_backward`` left the starting container chained and "
+"crashed on leaf containers"
+msgstr ""
+"``Container.unchain_backward`` が起点のコンテナを切断しないままにし、葉のコンテナに対してはクラッシュしていました"
+
+#: ../../release_note.rst:66
+msgid ""
+":meth:`marquetry.random_int` couldn't omit the ``high`` argument as "
+"documented"
+msgstr ":meth:`marquetry.random_int` でドキュメントに記載されている ``high`` 引数の省略ができませんでした"
+
+#: ../../release_note.rst:67
+msgid ""
+"Python-scalar operands silently upcast float32 data to float64 under NumPy 2"
+" (weak-scalar promotion is now preserved)"
+msgstr ""
+"NumPy 2 環境で Python スカラーとの演算が float32 データを暗黙的に float64 へ昇格させていました(weak-scalar"
+" promotion を保持するようになりました)"
+
+#: ../../release_note.rst:70
+msgid "**Gradients**"
+msgstr "**勾配**"
+
+#: ../../release_note.rst:72
+msgid ""
+"``MeanSquaredError`` backward multiplied the upstream gradient twice into "
+"one input"
+msgstr "``MeanSquaredError`` の backward が一方の入力に対して上流勾配を二重に乗算していました"
+
+#: ../../release_note.rst:73
+msgid ""
+"``Dropout`` backward dropped the ``1/(1-rate)`` scale; eval-mode backward "
+"now passes gradients through"
+msgstr ""
+"``Dropout`` の backward に ``1/(1-rate)`` のスケールが抜けていました。また評価モードの backward "
+"は勾配をそのまま通すようになりました"
+
+#: ../../release_note.rst:75
+msgid ""
+"``BatchNormalization`` 4D backward divided by ``N`` instead of ``N*H*W``; "
+"eval-mode backward used stale statistics"
+msgstr ""
+"``BatchNormalization`` の4次元入力時の backward が ``N*H*W`` ではなく ``N`` "
+"で除算していました。また評価モードの backward が古い統計量を使用していました"
+
+#: ../../release_note.rst:77
+msgid "``Conv2DGradW`` double-backward ignored the upstream gradient"
+msgstr "``Conv2DGradW`` の二階微分が上流勾配を無視していました"
+
+#: ../../release_note.rst:78
+msgid ""
+"``softmax_cross_entropy`` backward built the one-hot matrix with the integer"
+" target dtype"
+msgstr ""
+"``softmax_cross_entropy`` の backward が整数のターゲット dtype で one-hot 行列を生成していました"
+
+#: ../../release_note.rst:79
+msgid ""
+"Max pooling gradients routed into padding cells were silently dropped (fixed"
+" by the lowest-value padding change)"
+msgstr "パディングセルに流れた max pooling の勾配が暗黙的に破棄されていました(最小値埋めへの変更により修正)"
+
+#: ../../release_note.rst:81
+msgid ""
+":class:`marquetry.functions.GELU` (``none`` / ``tanh``) upcast float32 "
+"inputs to float64"
+msgstr ""
+":class:`marquetry.functions.GELU` (``none`` / ``tanh``) が float32 入力を "
+"float64 へ昇格させていました"
+
+#: ../../release_note.rst:83
+msgid "**Optimizers / Layers**"
+msgstr "**オプティマイザ / レイヤー**"
+
+#: ../../release_note.rst:85
+msgid "``MomentumSGD`` never used its learning rate"
+msgstr "``MomentumSGD`` が学習率を一切使用していませんでした"
+
+#: ../../release_note.rst:86
+msgid "``GRU`` skipped the update gate on the first step"
+msgstr "``GRU`` が最初のステップで update gate をスキップしていました"
+
+#: ../../release_note.rst:87
+msgid ""
+"``Embedding.set_embedding_vector`` broke ``save_params`` while freezing the "
+"vectors"
+msgstr ""
+"``Embedding.set_embedding_vector`` でベクトルを固定すると ``save_params`` が壊れていました"
+
+#: ../../release_note.rst:89
+msgid "**Preprocesses / ML / Misc**"
+msgstr "**前処理 / ML / その他**"
+
+#: ../../release_note.rst:91
+msgid "``MissImputation`` used the category statistic for numeric columns"
+msgstr "``MissImputation`` が数値列にカテゴリ用の統計量を使用していました"
+
+#: ../../release_note.rst:92
+msgid ""
+"``ColumnStandardize`` swapped min/max (inverted scaling); zero-division "
+"guards added to normalize/standardize"
+msgstr ""
+"``ColumnStandardize`` の min/max が入れ替わっていました(スケーリングが反転)。normalize/standardize"
+" にゼロ除算ガードを追加しました"
+
+#: ../../release_note.rst:94
+msgid ""
+"``LabelEncode`` / ``OneHotEncode`` treated subset categories at inference as"
+" unknown, and no longer emit pandas ``FutureWarning`` about ``replace`` "
+"downcasting on pandas 2.x"
+msgstr ""
+"``LabelEncode`` / ``OneHotEncode`` が推論時に訓練時カテゴリの部分集合を未知カテゴリとして扱っていました。また "
+"pandas 2.x で ``replace`` のダウンキャストに関する ``FutureWarning`` を出さなくなりました"
+
+#: ../../release_note.rst:96
+msgid "``Compose()`` crashed with the default argument"
+msgstr "``Compose()`` がデフォルト引数でクラッシュしていました"
+
+#: ../../release_note.rst:97
+msgid ""
+"``RandomForest`` used class labels as column indexes and the same seed for "
+"every tree"
+msgstr "``RandomForest`` がクラスラベルを列インデックスとして使用し、すべての木に同一のシードを渡していました"
+
+#: ../../release_note.rst:98
+msgid ""
+"Multi-class metrics rejected two-class logits; single-class evaluation "
+"batches are supported with proper zero-denominator handling"
+msgstr "マルチクラス用メトリクスが2クラスのロジットを拒否していました。単一クラスのみの評価バッチも適切なゼロ除算ハンドリングでサポートされます"
+
+#: ../../release_note.rst:100
+msgid "``get_file`` failed on nested cache directories"
+msgstr "``get_file`` が入れ子のキャッシュディレクトリで失敗していました"
+
+#: ../../release_note.rst:103
+msgid "Version 0.2.0 (Released: 2023/10/22)"
+msgstr "バージョン0.2.0 (2023/10/22 リリース)"
+
+#: ../../release_note.rst:107
+msgid ""
+"Add Layer Normalizer (:meth:`marquetry.functions.layer_normalization` and "
+":class:`marquetry.layers.LayerNormalization`)"
+msgstr ""
+"レイヤー正規化を追加 (:meth:`marquetry.functions.layer_normalization` と "
+":class:`marquetry.layers.LayerNormalization` )"
+
+#: ../../release_note.rst:108
+msgid "Add L2 Normalizer (:class:`marquetry.functions.l2_normalization`)"
+msgstr "L2ノルム正規化を追加 (:class:`marquetry.functions.l2_normalization`)"
+
+#: ../../release_note.rst:109
+msgid "Add new activation functions"
+msgstr "新たに活性化関数を追加"
+
+#: ../../release_note.rst:110
+msgid "GELU (Gaussian Error Linear Units)"
+msgstr "GELU (ガウス誤差線形ユニット)"
+
+#: ../../release_note.rst:111
+msgid "GLU (Gated Linear Units)"
+msgstr "GLU (ゲート付き線形ユニット)"
+
+#: ../../release_note.rst:112
+msgid "Mish (https://arxiv.org/abs/1908.08681 )"
+msgstr "Mish (https://arxiv.org/abs/1908.08681 )"
+
+#: ../../release_note.rst:113
+msgid "Swish (https://arxiv.org/abs/1710.05941 )"
+msgstr "Swish (https://arxiv.org/abs/1710.05941 )"
+
+#: ../../release_note.rst:114
+msgid "PReLU (Parametric Rectified Linear Units)"
+msgstr "PReLU (パラメータ型正規化線形ユニット)"
+
+#: ../../release_note.rst:115
+msgid "Softplus"
+msgstr "Softplus"
+
+#: ../../release_note.rst:116
+msgid "Add new optimizer functions"
+msgstr "新たな最適化関数を追加"
+
+#: ../../release_note.rst:117
+msgid "AdaDelta"
+msgstr "AdaDelta"
+
+#: ../../release_note.rst:118
+msgid "AdamW"
+msgstr "AdamW"
+
+#: ../../release_note.rst:119
+msgid "AdaMax"
+msgstr "AdaMax"
+
+#: ../../release_note.rst:120
+msgid "Lion (EvoLved Sign Momentum https://arxiv.org/abs/2302.06675 )"
+msgstr "Lion (EvoLved Sign Momentum https://arxiv.org/abs/2302.06675 )"
+
+#: ../../release_note.rst:121
+msgid "NAdam (Nesterov Adoptive Moment Estimation)"
+msgstr "NAdam (Nesterov Adoptive Moment Estimation)"
+
+#: ../../release_note.rst:122
+msgid "Nesterov (Nesterov Accelerate Gradient Descent)"
+msgstr "Nesterov (Nesterov Accelerate Gradient Descent)"
+
+#: ../../release_note.rst:123
+msgid "Add new mathmatics functions"
+msgstr "新たに関数を追加"
+
+#: ../../release_note.rst:124
+msgid "Square (:class:`marquetry.functions.square`)"
+msgstr "Square (:class:`marquetry.functions.square`)"
+
+#: ../../release_note.rst:125
+msgid "Sqrt (:class:`marquetry.functions.sqrt`)"
+msgstr "Sqrt (:class:`marquetry.functions.sqrt`)"
+
+#: ../../release_note.rst:126
+msgid "Support custom csv file import (Beta)"
+msgstr "カスタムCSVの読み込みをサポート (ベータ実装)"
+
+#: ../../release_note.rst:127
+msgid "CsvLoader (:class:`marquetry.datasets.CsvLoader`)"
+msgstr "CsvLoader (:class:`marquetry.datasets.CsvLoader`)"
+
+#: ../../release_note.rst:128
+msgid "CustomDataset (:class:`marquetry.datasets.CustomDataset`)"
+msgstr "CustomDataset (:class:`marquetry.datasets.CustomDataset`)"
+
+#: ../../release_note.rst:131
+msgid "Batch Normalization support custom `eps` by the initializer"
+msgstr "バッチ正規化が`eps`を独自に指定できるようになった"
+
+#: ../../release_note.rst:132
+msgid ""
+"split function support section split and the argument is renamed as "
+"``indices_or_sections``"
+msgstr "split関数がセクション分割をサポートするようになり、引数名が ``indices_or_sections`` に変更された"
+
+#: ../../release_note.rst:133
+msgid "Learning Rate argument's name is unified as ``lr`` for all optimizers"
+msgstr "最適化関数の学習率の引数名が ``lr`` に統一された"
+
+#: ../../release_note.rst:136
 msgid ":meth:`marquetry.array` can't work when input `None`"
 msgstr ":meth:`marquetry.array` が `None` を入力するとエラーになる"
 
-#: ../../release_note.rst:39
+#: ../../release_note.rst:137
 msgid ":class:`marquetry.preprocesses.MissImputation` raise FutureWarning"
-msgstr ":class:`marquetry.preprocesses.MissImputation` がFutureWarningを発する実装になっている"
+msgstr ""
+":class:`marquetry.preprocesses.MissImputation` がFutureWarningを発する実装になっている"
 
-#: ../../release_note.rst:42
+#: ../../release_note.rst:140
 msgid "Version 0.1.0 (Released: 2023/10/05)"
 msgstr "バージョン0.1.0 (2023/10/05リリース)"
 
-#: ../../release_note.rst:46
+#: ../../release_note.rst:144
 msgid "Release Official docs"
 msgstr "公式ドキュメントのリリース"
 
-#: ../../release_note.rst:47
+#: ../../release_note.rst:145
 msgid ""
 "Support directly set :class:`list`, :class:`int`, :class:`float` to "
 "container by :meth:`marquetry.array`"
 msgstr ""
-":class:`list` や :class:`int` 、 :class:`float` といったデータを直接 ``Container`` "
-"に代入する :meth:`marquetry.array` を実装"
+":class:`list` や :class:`int` 、 :class:`float` といったデータを直接 ``Container`` に代入する"
+" :meth:`marquetry.array` を実装"
 
-#: ../../release_note.rst:48
+#: ../../release_note.rst:146
 msgid ""
 "Support random generator using :meth:`marquetry.random`, "
 ":meth:`marquetry.random_int`, and :meth:`marquetry.random_gen`"
@@ -178,267 +506,265 @@ msgstr ""
 ":meth:`marquetry.random` 、 :meth:`marquetry.random_int` 、 "
 ":meth:`marquetry.random_gen` を使用した乱数生成をサポート"
 
-#: ../../release_note.rst:49
+#: ../../release_note.rst:147
 msgid "Support tree model in :mod:`ml.tree`"
 msgstr ":mod:`ml.tree` に木モデルを実装"
 
-#: ../../release_note.rst:50
+#: ../../release_note.rst:148
 msgid "Add :class:`Spiral` dataset"
 msgstr ":class:`Spiral` データセットが追加"
 
-#: ../../release_note.rst:53
+#: ../../release_note.rst:149
 msgid "Support functions for helping the calculation"
 msgstr "計算を補助する以下の関数の実装"
 
-#: ../../release_note.rst:52
+#: ../../release_note.rst:150
 msgid ":meth:`absolute`"
-msgstr ""
+msgstr ":meth:`absolute`"
 
-#: ../../release_note.rst:53
+#: ../../release_note.rst:151
 msgid ":meth:`tan`"
-msgstr ""
+msgstr ":meth:`tan`"
 
-#: ../../release_note.rst:54
+#: ../../release_note.rst:152
 msgid ":meth:`clip`"
-msgstr ""
+msgstr ":meth:`clip`"
 
-#: ../../release_note.rst:56
+#: ../../release_note.rst:153
 msgid "Add evaluation functions"
 msgstr "評価関数を追加"
 
-#: ../../release_note.rst:56
+#: ../../release_note.rst:154
 msgid ""
-"For classification, ``accuracy, classification_error, f_score, precision,"
-" recall``"
-msgstr "分類問題向け: ``accuracy, classification_error, f_score, precision, recall`` "
+"For classification, ``accuracy, classification_error, f_score, precision, "
+"recall``"
+msgstr ""
+"分類問題向け: ``accuracy, classification_error, f_score, precision, recall`` "
 
-#: ../../release_note.rst:57
+#: ../../release_note.rst:155
 msgid ""
 "For regression, ``mean_absolute_error, mean_squared_error, r2_score, "
-"relative_absolute_error, relative_squared_error, "
-"root_mean_squared_error``"
+"relative_absolute_error, relative_squared_error, root_mean_squared_error``"
 msgstr ""
 "回帰問題向け: ``mean_absolute_error, mean_squared_error, r2_score, "
-"relative_absolute_error, relative_squared_error, "
-"root_mean_squared_error``"
+"relative_absolute_error, relative_squared_error, root_mean_squared_error``"
 
-#: ../../release_note.rst:58
+#: ../../release_note.rst:156
 msgid "Add loss functions for regression"
 msgstr "回帰問題向けの新たな損失関数を追加"
 
-#: ../../release_note.rst:59
+#: ../../release_note.rst:157
 msgid ":meth:`mean_absolute_error`"
-msgstr ""
+msgstr ":meth:`mean_absolute_error`"
 
-#: ../../release_note.rst:60
+#: ../../release_note.rst:158
 msgid "Add docstring for all functions and classes"
 msgstr "全ての関数とクラスにdocstringを追加"
 
-#: ../../release_note.rst:61
+#: ../../release_note.rst:159
 msgid ""
 "Memory usage reducing mechanism called as \"Aggressive Buffer Release\" "
 "installing to the Container and the Function"
 msgstr "\"Aggressive Buffer Release\"として知られるメモリ最適化機構をContainerとFunctionに導入"
 
-#: ../../release_note.rst:62
+#: ../../release_note.rst:160
 msgid "Support user managed vector for :class:`Embedding` class"
 msgstr ":class:`Embedding` がユーザ提供のベクトルに対応"
 
-#: ../../release_note.rst:63
+#: ../../release_note.rst:161
 msgid ""
-":class:`RNN` and :class:`LSTM`, and :class:`GRU` supports setting the "
-"hidden state via :meth:`set_state`"
+":class:`RNN` and :class:`LSTM`, and :class:`GRU` supports setting the hidden"
+" state via :meth:`set_state`"
 msgstr ""
 ":class:`RNN` や :class:`LSTM` 、 :class:`GRU` が :meth:`set_state` "
 "を通じて任意の隠れ状態を設定することに対応"
 
-#: ../../release_note.rst:64
+#: ../../release_note.rst:162
 msgid ""
-"ML model and Preprocess functions inherits their base class (in 0.0.1, "
-"these don't have base class)"
+"ML model and Preprocess functions inherits their base class (in 0.0.1, these"
+" don't have base class)"
 msgstr "MLモデルと前処理がそれぞれの基底クラスを継承するようになった (v0.0.1では基底クラスが存在していなかった)"
 
-#: ../../release_note.rst:68
+#: ../../release_note.rst:166
 msgid ""
-"Refactoring the source code to more clear directory structure from the "
-"one sheet implementation"
+"Refactoring the source code to more clear directory structure from the one "
+"sheet implementation"
 msgstr "ソースコードを一枚実装からより明確なディレクトリ構造にリファクタリング"
 
-#: ../../release_note.rst:69
+#: ../../release_note.rst:167
 msgid ""
 "The marquetry defined variable :class:`Variable` was renamed as "
 ":class:`Container`"
 msgstr "Marquetryが定義する変数である :class:`Variable` は :class:`Container` に変更"
 
-#: ../../release_note.rst:70
+#: ../../release_note.rst:168
 msgid ""
 "Titanic can use without considering the past statistic file (delete the "
 "``remove_old_static`` argument)"
 msgstr "Titanicデータセットが過去の統計情報ファイルをユーザで考慮する必要がなくなった"
 
-#: ../../release_note.rst:71
+#: ../../release_note.rst:169
 msgid ":class:`SinCurve` dataset was renamed to :class:`TrigonometricCurve`"
 msgstr ":class:`SinCurve` データセットは :class:`TrigonometricCurve` に変更"
 
-#: ../../release_note.rst:72
-msgid ":mod:`marquetry.preprocess` was renamed to :mod:`marquetry.preprocesses`"
+#: ../../release_note.rst:170
+msgid ""
+":mod:`marquetry.preprocess` was renamed to :mod:`marquetry.preprocesses`"
 msgstr ":mod:`marquetry.preprocess` は :mod:`marquetry.preprocesses` に変更"
 
-#: ../../release_note.rst:73
+#: ../../release_note.rst:171
 msgid ""
 "Preprocess functions improve user experience (auto detect the changing "
 "prerequisite in the same dataset and so)"
 msgstr "前処理の面倒な処理をフレームワーク側で吸収"
 
-#: ../../release_note.rst:74
+#: ../../release_note.rst:172
 msgid "Rename :meth:`logsumexp` to :meth:`log_sum_exp`"
 msgstr ":meth:`logsumexp` は :meth:`log_sum_exp` に変更"
 
-#: ../../release_note.rst:75
+#: ../../release_note.rst:173
 msgid ""
 ":meth:`repeat` support multi axis and ``repeat_num`` was renamed to "
 "``repeats``"
 msgstr ":meth:`repeat` は多軸をサポートし、 ``repeat_num`` は ``repeats`` に変更"
 
-#: ../../release_note.rst:76
+#: ../../release_note.rst:174
 msgid ""
-":class:`MatMul` and :meth:`matmul`'s arguments was renamed to `x0` and "
-"`x1` from `x1` and `x2`"
+":class:`MatMul` and :meth:`matmul`'s arguments was renamed to `x0` and `x1` "
+"from `x1` and `x2`"
 msgstr ":class:`MatMul` と :meth:`matmul` の引数は `x1` と `x2` から `x0` と `x1` に変更"
 
-#: ../../release_note.rst:77
+#: ../../release_note.rst:175
 msgid ""
-":class:`Layer`'s save/load params method was renamed to "
-":meth:`save_params` and :meth:`load_params`"
+":class:`Layer`'s save/load params method was renamed to :meth:`save_params` "
+"and :meth:`load_params`"
 msgstr ""
-":class:`Layer` のパラメータの保存と読込のメソッドを :meth:`save_params` と "
-":meth:`load_params` に変更"
+":class:`Layer` のパラメータの保存と読込のメソッドを :meth:`save_params` と :meth:`load_params` "
+"に変更"
 
-#: ../../release_note.rst:78
+#: ../../release_note.rst:176
 msgid ""
 "Configurations are managed in :class:`Config`, and support the cache "
 "directory(default is ``~/.marquetry``) changing by user."
 msgstr ""
-"設定値は :class:`Config` "
-"によって管理されるようになり、キャッシュディレクトリをユーザーが指定することができるようになった(デフォルトは ``~/.marquetry`` "
-")"
+"設定値は :class:`Config` によって管理されるようになり、キャッシュディレクトリをユーザーが指定することができるようになった(デフォルトは"
+" ``~/.marquetry`` )"
 
-#: ../../release_note.rst:79
+#: ../../release_note.rst:177
 msgid ""
-"Change the module name for conventional_ml models from "
-"``conventional_ml`` to ``ml``"
+"Change the module name for conventional_ml models from ``conventional_ml`` "
+"to ``ml``"
 msgstr "``convolutional_ml`` は ``ml`` に変更された"
 
-#: ../../release_note.rst:80
+#: ../../release_note.rst:178
 msgid ""
 "ML model like :class:`RegressionTree`'s score method changed from the "
 "evaluator is only accuracy to user defined method."
 msgstr "回帰木( :class:`RegressionTree` )などでは精度評価にユーザが指定した指標を使うことができるようになった"
 
-#: ../../release_note.rst:84
+#: ../../release_note.rst:182
 msgid "Normalize implementation wasn't correct"
 msgstr "標準化の実装が正しくなかった"
 
-#: ../../release_note.rst:85
+#: ../../release_note.rst:183
 msgid ""
 ":class:`UnSqueeze` doesn't work expectedly when the axis is specified "
 "multiple type (tuple or list)"
 msgstr ":class:`UnSqueeze` のaxisに複数値を指定すると正しく動作しない"
 
-#: ../../release_note.rst:86
+#: ../../release_note.rst:184
 msgid ""
-":class:`Max` (and :class:`Min` which inherits the :class:`Max`) returns a"
-" strange form of values' array it can't compare with the native numpy "
-"ndarray"
+":class:`Max` (and :class:`Min` which inherits the :class:`Max`) returns a "
+"strange form of values' array it can't compare with the native numpy ndarray"
 msgstr ""
-":class:`Max` とこの :class:`Max` を継承する :class:`Min` "
-"はndarrayと比較することのできない形式の値を返す"
+":class:`Max` とこの :class:`Max` を継承する :class:`Min` はndarrayと比較することのできない形式の値を返す"
 
-#: ../../release_note.rst:89
+#: ../../release_note.rst:187
 msgid "Initial Version (Not official release)"
 msgstr "初期バージョン (正式リリースなし)"
 
-#: ../../release_note.rst:93
+#: ../../release_note.rst:191
 msgid "Variable which is the base class holding the values"
 msgstr "``Variable`` という値を保持するクラスを実装"
 
-#: ../../release_note.rst:94
+#: ../../release_note.rst:192
 msgid "Functions which are basic for deep learning"
 msgstr "``functions`` というディープラーニングの基本の処理群を実装"
 
-#: ../../release_note.rst:95
+#: ../../release_note.rst:193
 msgid "Layers which are wrapping parameters of the layer"
 msgstr "レイヤーのパラメータを含めた ``layers`` という関数のラッパーを実装"
 
-#: ../../release_note.rst:99
+#: ../../release_note.rst:194
 msgid "Built-in Datasets"
 msgstr "ビルトインのデータベースを実装"
 
-#: ../../release_note.rst:97
+#: ../../release_note.rst:195
 msgid "MNIST"
-msgstr ""
+msgstr "MNIST"
 
-#: ../../release_note.rst:98
+#: ../../release_note.rst:196
 msgid "FashionMNIST"
-msgstr ""
+msgstr "FashionMNIST"
 
-#: ../../release_note.rst:99
+#: ../../release_note.rst:197
 msgid "SinCurve"
-msgstr ""
+msgstr "SinCurve"
 
-#: ../../release_note.rst:100
+#: ../../release_note.rst:198
 msgid "Titanic"
-msgstr ""
+msgstr "Titanic"
 
-#: ../../release_note.rst:101
+#: ../../release_note.rst:199
 msgid "CUDA support using :mod:`CuPy`"
 msgstr ":mod:`CuPy` によってCUDAをサポート"
 
-#: ../../release_note.rst:104
+#: ../../release_note.rst:200
 msgid "Models"
-msgstr ""
+msgstr "モデル"
 
-#: ../../release_note.rst:103
+#: ../../release_note.rst:201
 msgid "Sequential which helps a user create own model"
 msgstr "ユーザが独自のモデルを生成することを助ける ``Sequential``"
 
-#: ../../release_note.rst:104
+#: ../../release_note.rst:202
 msgid "MLP (Multi Layer Perceptron)"
 msgstr "MLP (多層パーセプトロン)"
 
-#: ../../release_note.rst:105
+#: ../../release_note.rst:203
 msgid "CNN"
-msgstr ""
+msgstr "CNN"
 
-#: ../../release_note.rst:111
+#: ../../release_note.rst:204
 msgid "Optimizers"
-msgstr ""
+msgstr "オプティマイザ"
 
-#: ../../release_note.rst:107
+#: ../../release_note.rst:205
 msgid "SGD"
-msgstr ""
+msgstr "SGD"
 
-#: ../../release_note.rst:108
+#: ../../release_note.rst:206
 msgid "MomentumSGD"
-msgstr ""
+msgstr "MomentumSGD"
 
-#: ../../release_note.rst:109
+#: ../../release_note.rst:207
 msgid "AdaGrad"
-msgstr ""
+msgstr "AdaGrad"
 
-#: ../../release_note.rst:110
+#: ../../release_note.rst:208
 msgid "RMSProp"
-msgstr ""
+msgstr "RMSProp"
 
-#: ../../release_note.rst:111
+#: ../../release_note.rst:209
 msgid "Adam"
-msgstr ""
+msgstr "Adam"
 
-#: ../../release_note.rst:113
-msgid "And other of the Marquetry components. This is the first of the Marquetry."
+#: ../../release_note.rst:211
+msgid ""
+"And other of the Marquetry components. This is the first of the Marquetry."
 msgstr "その他、様々なMarquetryの要素。ここがMarquetryの始まりです。"
 
-#: ../../release_note.rst:116 ../../release_note.rst:119
+#: ../../release_note.rst:214 ../../release_note.rst:217
 msgid "N/A"
 msgstr "なし"
 
@@ -450,4 +776,3 @@ msgstr "なし"
 
 #~ msgid "Lion (EvoLved Sign Momentum :ref:`https://arxiv.org/abs/2302.06675`)"
 #~ msgstr ""
-

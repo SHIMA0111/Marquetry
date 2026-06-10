@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../layers/recurrents/lstm.rst:3
 msgid "LSTM (Long-Short Term Memory RNN)"
-msgstr ""
-
-#: marquetry.layers.recurrent.lstm.LSTM:1 of
-msgid "Bases: :py:class:`~marquetry.layer.Layer`"
 msgstr ""
 
 #: marquetry.layers.recurrent.lstm.LSTM:1 of
@@ -38,9 +34,7 @@ msgid ""
 "dependencies in sequential data and is a variation of the standard RNN."
 msgstr ""
 
-#: marquetry.layers.recurrent.lstm.LSTM
-#: marquetry.layers.recurrent.lstm.LSTM.forward
-#: marquetry.layers.recurrent.lstm.LSTM.set_state of
+#: ../../layers/recurrents/lstm.rst
 msgid "Parameters"
 msgstr ""
 
@@ -52,7 +46,7 @@ msgstr ""
 msgid "The size of the input data."
 msgstr ""
 
-#: marquetry.layers.recurrent.lstm.LSTM:14 of
+#: marquetry.layers.recurrent.lstm.LSTM:13 of
 msgid "in_size:"
 msgstr ""
 
@@ -93,7 +87,7 @@ msgstr ""
 msgid "Input data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.lstm.LSTM.forward of
+#: ../../layers/recurrents/lstm.rst
 msgid "Returns"
 msgstr ""
 
@@ -101,7 +95,7 @@ msgstr ""
 msgid "Output data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.lstm.LSTM.forward of
+#: ../../layers/recurrents/lstm.rst
 msgid "Return type"
 msgstr ""
 
@@ -134,4 +128,7 @@ msgid ""
 "and it should be managed automatically. If you don't have any special "
 "reason, you should set only hidden state."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+#~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/math/reciprocal.rst:3
 msgid "Reciprocal"
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Calculate the reciprocal of the input tensor."
 msgstr ""
 
-#: marquetry.functions.math.reciprocal.reciprocal:4 of
+#: marquetry.functions.math.reciprocal.reciprocal:3 of
 msgid "Reciprocal is calculated as:"
 msgstr ""
 
@@ -36,8 +36,7 @@ msgstr ""
 msgid "reciprocal = 1 / x"
 msgstr ""
 
-#: marquetry.functions.math.reciprocal.Reciprocal.backward
-#: marquetry.functions.math.reciprocal.Reciprocal.forward
+#: ../../functions/math/reciprocal.rst
 #: marquetry.functions.math.reciprocal.reciprocal of
 msgid "Parameters"
 msgstr ""
@@ -46,8 +45,7 @@ msgstr ""
 msgid "The input tensor."
 msgstr ""
 
-#: marquetry.functions.math.reciprocal.Reciprocal.backward
-#: marquetry.functions.math.reciprocal.Reciprocal.forward
+#: ../../functions/math/reciprocal.rst
 #: marquetry.functions.math.reciprocal.reciprocal of
 msgid "Returns"
 msgstr ""
@@ -56,8 +54,7 @@ msgstr ""
 msgid "The reciprocal of the input tensor."
 msgstr ""
 
-#: marquetry.functions.math.reciprocal.Reciprocal.backward
-#: marquetry.functions.math.reciprocal.Reciprocal.forward
+#: ../../functions/math/reciprocal.rst
 #: marquetry.functions.math.reciprocal.reciprocal of
 msgid "Return type"
 msgstr ""
@@ -68,10 +65,6 @@ msgstr ""
 
 #: marquetry.functions.math.reciprocal.reciprocal:13 of
 msgid "Examples"
-msgstr ""
-
-#: marquetry.functions.math.reciprocal.Reciprocal:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.math.reciprocal.Reciprocal:5 of
@@ -116,4 +109,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

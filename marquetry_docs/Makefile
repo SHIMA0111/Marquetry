@@ -8,7 +8,7 @@ SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = _build
 
-VERSION		  = 0.2.0
+VERSION		  = 0.3.0
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -17,12 +17,12 @@ help:
 .PHONY: help Makefile
 
 setup:
-	@pip install sphinx==7.2.5 sphinx_rtd_theme sphinx-intl sphinx_design
+	@pip install sphinx furo sphinx-intl sphinx_design onnx
 	@mkdir -p $BUILDDIR _static _templates
 
 setup-pdf: setup
 	@echo "Installing LaTeX dependencies for PDF generation..."
-	@pip install -U sphinx-rtd-theme sphinx_design
+	@pip install -U furo sphinx_design
 	@echo "Note: You need to have LaTeX installed on your system to build PDFs."
 	@echo "For Ubuntu/Debian: apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex fonts-ipaexfont"
 	@echo "For macOS: Install MacTeX from http://www.tug.org/mactex/ and ensure /Library/TeX/texbin is in your PATH"

@@ -17,6 +17,7 @@ API Reference
    functions
    layers
    models
+   export
    ml
    utils
    base_classes
@@ -76,6 +77,11 @@ API Reference
 
    .. grid-item-card:: Models
       :link: models
+      :link-type: doc
+      :text-align: center
+
+   .. grid-item-card:: Model Export
+      :link: export
       :link-type: doc
       :text-align: center
 

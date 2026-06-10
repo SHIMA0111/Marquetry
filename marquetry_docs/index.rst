@@ -9,7 +9,7 @@ Welcome to Marquetry |version|!
 Marquetry
 ~~~~~~~~~~
 Marquetry is developed by only Python!
-If you want to see the source code, let's see `GitHub <https://github.com/little-tabby/Marquetry>`_!
+If you want to see the source code, let's see `GitHub <https://github.com/SHIMA0111/Marquetry>`_!
 
 The source code can read easy if you are familiar with Python.
 

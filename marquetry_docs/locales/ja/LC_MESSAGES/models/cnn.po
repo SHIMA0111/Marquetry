@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../models/cnn.rst:3
 msgid "Convolution Neural Network (CNN)"
-msgstr ""
-
-#: marquetry.models.cnn.cnn.CNN:1 of
-msgid "Bases: :py:class:`~marquetry.model.Model`"
 msgstr ""
 
 #: marquetry.models.cnn.cnn.CNN:1 of
@@ -39,7 +35,7 @@ msgid ""
 "layers, and pooling layers."
 msgstr ""
 
-#: marquetry.models.cnn.cnn.CNN marquetry.models.cnn.cnn.CNN.forward of
+#: ../../models/cnn.rst
 msgid "Parameters"
 msgstr ""
 
@@ -61,7 +57,7 @@ msgid ""
 "automatically."
 msgstr ""
 
-#: marquetry.models.cnn.cnn.CNN:28 of
+#: marquetry.models.cnn.cnn.CNN:14 of
 msgid "Architecture:"
 msgstr ""
 
@@ -109,7 +105,7 @@ msgstr ""
 msgid "Applies dropout with a probability of 0.5."
 msgstr ""
 
-#: marquetry.models.cnn.cnn.CNN:28 of
+#: marquetry.models.cnn.cnn.CNN:27 of
 msgid "Fully Connected Layer 2 (Output Layer):"
 msgstr ""
 
@@ -131,7 +127,7 @@ msgstr ""
 msgid "Input data arrays."
 msgstr ""
 
-#: marquetry.models.cnn.cnn.CNN.forward of
+#: ../../models/cnn.rst
 msgid "Returns"
 msgstr ""
 
@@ -139,7 +135,7 @@ msgstr ""
 msgid "Output data arrays."
 msgstr ""
 
-#: marquetry.models.cnn.cnn.CNN.forward of
+#: ../../models/cnn.rst
 msgid "Return type"
 msgstr ""
 
@@ -148,4 +144,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called by `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.model.Model`"
+#~ msgstr ""
 

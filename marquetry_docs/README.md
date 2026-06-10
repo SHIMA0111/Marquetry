@@ -12,7 +12,7 @@ To set up the documentation build environment:
 make setup
 ```
 
-This will install the necessary Python packages (Sphinx, sphinx_rtd_theme, sphinx-intl, sphinx_design) for building the documentation.
+This will install the necessary Python packages (Sphinx, furo, sphinx-intl, sphinx_design, onnx) for building the documentation.
 
 ### Building HTML Documentation
 
@@ -34,7 +34,7 @@ To set up the environment for PDF generation:
 make setup-pdf
 ```
 
-This will install the necessary Python packages (Sphinx, sphinx_rtd_theme, sphinx-intl, sphinx_design) and provide instructions for installing LaTeX and required fonts.
+This will install the necessary Python packages (Sphinx, furo, sphinx-intl, sphinx_design, onnx) and provide instructions for installing LaTeX and required fonts.
 
 ### Building PDF Documentation
 

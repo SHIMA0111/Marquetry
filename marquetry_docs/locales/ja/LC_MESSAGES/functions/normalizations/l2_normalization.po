@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-20 11:24+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/normalizations/l2_normalization.rst:3
 msgid "L2 Normalization"
@@ -44,9 +44,7 @@ msgid ""
 "deep learning tasks."
 msgstr ""
 
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.backward
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.forward
-#: marquetry.functions.normalization.l2_normalization.l2_normalization of
+#: ../../functions/normalizations/l2_normalization.rst
 msgid "Parameters"
 msgstr ""
 
@@ -62,9 +60,7 @@ msgstr ""
 msgid "Axis or Axes for computing the L2 norm"
 msgstr ""
 
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.backward
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.forward
-#: marquetry.functions.normalization.l2_normalization.l2_normalization of
+#: ../../functions/normalizations/l2_normalization.rst
 msgid "Returns"
 msgstr ""
 
@@ -72,14 +68,8 @@ msgstr ""
 msgid "The normalized input container."
 msgstr ""
 
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.backward
-#: marquetry.functions.normalization.l2_normalization.L2Normalization.forward
-#: marquetry.functions.normalization.l2_normalization.l2_normalization of
+#: ../../functions/normalizations/l2_normalization.rst
 msgid "Return type"
-msgstr ""
-
-#: marquetry.functions.normalization.l2_normalization.L2Normalization:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.normalization.l2_normalization.L2Normalization.backward:1
@@ -126,4 +116,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

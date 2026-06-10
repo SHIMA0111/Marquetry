@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../layers/recurrents/rnn.rst:3
 msgid "RNN (Recurrent Neural Network)"
-msgstr ""
-
-#: marquetry.layers.recurrent.rnn.RNN:1 of
-msgid "Bases: :py:class:`~marquetry.layer.Layer`"
 msgstr ""
 
 #: marquetry.layers.recurrent.rnn.RNN:1 of
@@ -38,9 +34,7 @@ msgid ""
 "maintain hidden states and capture dependencies across time steps."
 msgstr ""
 
-#: marquetry.layers.recurrent.rnn.RNN
-#: marquetry.layers.recurrent.rnn.RNN.forward
-#: marquetry.layers.recurrent.rnn.RNN.set_state of
+#: ../../layers/recurrents/rnn.rst
 msgid "Parameters"
 msgstr ""
 
@@ -52,7 +46,7 @@ msgstr ""
 msgid "The size of the input data."
 msgstr ""
 
-#: marquetry.layers.recurrent.rnn.RNN:15 of
+#: marquetry.layers.recurrent.rnn.RNN:14 of
 msgid "in_size:"
 msgstr ""
 
@@ -88,7 +82,7 @@ msgstr ""
 msgid "Input data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.rnn.RNN.forward of
+#: ../../layers/recurrents/rnn.rst
 msgid "Returns"
 msgstr ""
 
@@ -96,7 +90,7 @@ msgstr ""
 msgid "Output data arrays."
 msgstr ""
 
-#: marquetry.layers.recurrent.rnn.RNN.forward of
+#: ../../layers/recurrents/rnn.rst
 msgid "Return type"
 msgstr ""
 
@@ -117,4 +111,7 @@ msgstr ""
 #: marquetry.layers.recurrent.rnn.RNN.set_state:3 of
 msgid "The new hidden state."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.layer.Layer`"
+#~ msgstr ""
 

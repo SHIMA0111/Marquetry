@@ -7,6 +7,7 @@ Normalization
    :hidden:
 
    normalizations/batch_normalization
+   normalizations/batch_renormalization
    normalizations/l2_normalization
    normalizations/layer_normalization
 
@@ -15,6 +16,11 @@ Normalization
 
    .. grid-item-card:: Batch Normalization
       :link: normalizations/batch_normalization
+      :link-type: doc
+      :text-align: center
+
+   .. grid-item-card:: Batch Renormalization
+      :link: normalizations/batch_renormalization
       :link-type: doc
       :text-align: center
 

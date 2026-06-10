@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.2.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-22 07:49+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,14 +17,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../datasets/csv_loader/custom_dataset.rst:3
 msgid "Dataset from loaded by `CscLoader`"
-msgstr ""
-
-#: marquetry.datasets.csv_loader.CustomDataset:1 of
-msgid "Bases: :py:class:`~marquetry.dataset.Dataset`"
 msgstr ""
 
 #: marquetry.datasets.csv_loader.CustomDataset:1 of
@@ -40,7 +36,7 @@ msgid ""
 "encoding, one-hot encoding, imputation, and data type conversion."
 msgstr ""
 
-#: marquetry.datasets.csv_loader.CustomDataset of
+#: ../../datasets/csv_loader/custom_dataset.rst
 msgid "Parameters"
 msgstr ""
 
@@ -115,4 +111,7 @@ msgid ""
 "The test data must have the same construction(\"column name\" and "
 "\"column order\") as the train data exept for the target column."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.dataset.Dataset`"
+#~ msgstr ""
 

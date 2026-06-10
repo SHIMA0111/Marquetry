@@ -4,16 +4,22 @@ Install Marquetry to your machine
 
 Requirements
 -------------
- - Python: 3.8 or later
+ - Python: 3.10 or later
  - Dependencies:
-     - `Graphviz <https://graphviz.org>`_ : To generate compute graph and convert it to image.
-     - `NumPy <https://numpy.org/ja/>`_ : **Python package** Scientific mathmatics library.
-     - `Pandas <https://pandas.pydata.org>`_ : **Python package** Data analysis library.
-     - `pillow <https://pillow.readthedocs.io/en/stable/>`_ : **Python package** Python image library.
+     - `NumPy <https://numpy.org>`_ >= 2.0 : **Python package** Scientific mathmatics library.
+     - `Pandas <https://pandas.pydata.org>`_ >= 2.2 : **Python package** Data analysis library.
+     - `pillow <https://pillow.readthedocs.io/en/stable/>`_ >= 10.4 : **Python package** Python image library.
+     - `SciPy <https://scipy.org>`_ >= 1.13 : **Python package** Scientific computing library.
 
 Options
 --------
+ - `Graphviz <https://graphviz.org>`_ :
+    To generate compute graph and convert it to image (:meth:`marquetry.Model.plot`).
  - Python Packages:
+     - `onnx <https://onnx.ai>`_ :
+        Needed for the ONNX export (:meth:`marquetry.Model.export_onnx`).
+        You can install it together with Marquetry by ``pip install "marquetry[onnx]"``.
+        `onnxruntime <https://onnxruntime.ai>`_ is also useful to run the exported models.
      - `CuPy <https://cupy.dev>`_ :
         CuPy is NumPy compatible scientific mathmatics library working on CUDA GPU.
            - CuPy requires a machine installing CUDA GPU, if your machine doesn't have CUDA you can't install CuPy.
@@ -22,7 +28,7 @@ Options
 
 Install
 ------------------
- 1. Install Graphviz in your computer
+ 1. (Option) Install Graphviz in your computer (needed only for :meth:`marquetry.Model.plot`)
 
     .. dropdown:: Mac (Homebrew)
 

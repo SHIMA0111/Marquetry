@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Marquetry v0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-07 21:15+0900\n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../functions/evaluations/multi_f_score.rst:3
 msgid "Multi F-Score"
@@ -38,7 +38,7 @@ msgid ""
 " the harmonic mean of the model’s precision and recall."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.f_score.multi_f_score:9 of
+#: marquetry.functions.evaluation.classification.f_score.multi_f_score:8 of
 msgid "F-score is calculated as:"
 msgstr ""
 
@@ -52,8 +52,7 @@ msgid ""
 ":meth:`marquetry.functions.multi_recall`."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.f_score.MultiFScore.forward
-#: marquetry.functions.evaluation.classification.f_score.multi_f_score of
+#: ../../functions/evaluations/multi_f_score.rst
 msgid "Parameters"
 msgstr ""
 
@@ -77,8 +76,7 @@ msgid ""
 "value."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.f_score.MultiFScore.forward
-#: marquetry.functions.evaluation.classification.f_score.multi_f_score of
+#: ../../functions/evaluations/multi_f_score.rst
 msgid "Returns"
 msgstr ""
 
@@ -96,17 +94,12 @@ msgstr ""
 msgid "based on the true labels and predicted values."
 msgstr ""
 
-#: marquetry.functions.evaluation.classification.f_score.MultiFScore.forward
-#: marquetry.functions.evaluation.classification.f_score.multi_f_score of
+#: ../../functions/evaluations/multi_f_score.rst
 msgid "Return type"
 msgstr ""
 
 #: marquetry.functions.evaluation.classification.f_score.multi_f_score:28 of
 msgid ":class:`marquetry.Container`"
-msgstr ""
-
-#: marquetry.functions.evaluation.classification.f_score.MultiFScore:1 of
-msgid "Bases: :py:class:`~marquetry.function.Function`"
 msgstr ""
 
 #: marquetry.functions.evaluation.classification.f_score.MultiFScore:3 of
@@ -149,4 +142,7 @@ msgid ""
 "Generally, this class shouldn't be called by manually because `forward` "
 "is called via `__call__`."
 msgstr ""
+
+#~ msgid "Bases: :py:class:`~marquetry.function.Function`"
+#~ msgstr ""
 

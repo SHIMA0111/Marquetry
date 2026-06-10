@@ -10,7 +10,9 @@ from marquetry.transformers import Flatten
 class MNIST(dataset.Dataset):
     """Get the MNIST dataset.
 
-        This dataset is sourced from http://yann.lecun.com/exdb/mnist/.
+        This dataset is the MNIST handwritten digits by Yann LeCun et al.,
+        downloaded from the https://ossci-datasets.s3.amazonaws.com/mnist/ mirror
+        (the original http://yann.lecun.com/exdb/mnist/ no longer serves the files).
 
         The MNIST database of handwritten digits has a training set of 60,000 examples,
         and a test set of 10,000 examples.
@@ -30,7 +32,9 @@ class MNIST(dataset.Dataset):
         super().__init__(train, transform, target_transform)
 
     def _set_data(self):
-        url = "http://yann.lecun.com/exdb/mnist/"
+        # yann.lecun.com stopped serving the files (404), so use the stable
+        # mirror that torchvision also relies on
+        url = "https://ossci-datasets.s3.amazonaws.com/mnist/"
 
         train_files = {
             "source": "train-images-idx3-ubyte.gz",

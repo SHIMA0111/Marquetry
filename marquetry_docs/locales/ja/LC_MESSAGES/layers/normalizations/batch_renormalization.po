@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023-2026, SHIMA0111
+# This file is distributed under the same license as the Marquetry package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Marquetry v0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-11 00:13+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: ../../layers/normalizations/batch_renormalization.rst:3
+msgid "Batch Renormalization"
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:1 of
+msgid "Batch renormalization layer."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:3 of
+msgid ""
+"Batch renormalization extends batch normalization so that train-time "
+"normalization stays close to the inference-time normalization even with "
+"small or non-i.i.d. mini-batches. The batch statistics are corrected "
+"toward the running statistics by the clipped factors ``r`` and ``d``."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:8 of
+msgid ""
+"With ``rmax=1`` and ``dmax=0`` (default), the behavior is identical to "
+":class:`marquetry.layers.BatchNormalization`. The paper suggests starting"
+" the training with the defaults and gradually relaxing the bounds (e.g. "
+"``rmax`` toward 3 and ``dmax`` toward 5)."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization of
+msgid "Parameters"
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:13 of
+msgid ""
+"The clipping bound of the std correction factor ``r``. Default is 1.0 (no"
+" correction)."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:16 of
+msgid ""
+"The clipping bound of the mean correction factor ``d``. Default is 0.0 "
+"(no correction)."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:19 of
+msgid ""
+"The weighting factor for the moving averages of mean and variance. "
+"Default is 0.9."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:22 of
+msgid "A small constant value preventing zero-division. Default is 1e-15."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:28 of
+msgid "The gamma parameter used for scaling."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization of
+msgid "type"
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:30
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:36
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:42
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:48 of
+msgid "marquetry.Parameter"
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:34 of
+msgid "The beta parameter used for shifting."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:40 of
+msgid "The moving average of the mean."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:46 of
+msgid "The moving average of the variance."
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:51 of
+msgid "References"
+msgstr ""
+
+#: marquetry.layers.normalize.batch_renormalization.BatchRenormalization:52 of
+msgid ""
+"Batch Renormalization: Towards Reducing Minibatch Dependence in Batch-"
+"Normalized Models (https://arxiv.org/abs/1702.03275)"
+msgstr ""
+
