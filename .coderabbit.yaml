@@ -10,3 +10,4 @@ reviews:
     # All PRs should be automatically reviewed
     base_branches:
       - ".*"
+  collapse_walkthrough: false
