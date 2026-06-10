@@ -33,6 +33,8 @@ class MaxPooling2D(Function):
         # following the standard max pooling semantics (PyTorch/Chainer/ONNX).
         if x.dtype.kind == "f":
             pad_value = -xp.inf
+        elif x.dtype.kind == "b":
+            pad_value = False
         else:
             pad_value = xp.iinfo(x.dtype).min
 

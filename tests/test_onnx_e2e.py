@@ -25,7 +25,12 @@ class FuncModel(Model):
 def run_onnx(proto, inputs):
     session = onnxruntime.InferenceSession(
         proto.SerializeToString(), providers=["CPUExecutionProvider"])
-    feeds = {meta.name: np.asarray(data) for meta, data in zip(session.get_inputs(), inputs)}
+    input_metas = session.get_inputs()
+    if len(input_metas) != len(inputs):
+        raise AssertionError(
+            "the exported model expects {} inputs, but {} were provided."
+            .format(len(input_metas), len(inputs)))
+    feeds = {meta.name: np.asarray(data) for meta, data in zip(input_metas, inputs)}
 
     return session.run(None, feeds)
 
