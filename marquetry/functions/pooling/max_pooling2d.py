@@ -28,7 +28,16 @@ class MaxPooling2D(Function):
         self.input_shape = x.shape
         self.input_dtype = x.dtype
 
-        col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
+        xp = cuda_backend.get_array_module(x)
+        # Pad with the lowest value so that padding never wins over real values,
+        # following the standard max pooling semantics (PyTorch/Chainer/ONNX).
+        if x.dtype.kind == "f":
+            pad_value = -xp.inf
+        else:
+            pad_value = xp.iinfo(x.dtype).min
+
+        col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad,
+                                 to_matrix=False, pad_value=pad_value)
         batch_size, channels, kernel_height, kernel_weight, out_height, out_width = col.shape
         col = col.reshape((batch_size, channels, kernel_height * kernel_weight, out_height, out_width))
 

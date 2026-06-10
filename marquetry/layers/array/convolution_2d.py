@@ -71,7 +71,7 @@ class Convolution2D(Layer):
         kernel_height, kernel_width = utils.pair(self.kernel_size)
 
         scale = xp.sqrt(1 / (channels * kernel_height * kernel_width))
-        w_data = xp.random.randn(output_channels, channels, kernel_height, kernel_width).astype(self.dtype) * scale
+        w_data = (xp.random.randn(output_channels, channels, kernel_height, kernel_width) * scale).astype(self.dtype)
 
         self.w.data = w_data
 

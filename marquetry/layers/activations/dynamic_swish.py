@@ -40,10 +40,10 @@ class DynamicSwish(Layer):
 
     """
 
-    def __init__(self, init_beta=1.):
+    def __init__(self, init_beta=1., dtype=np.float32):
         super().__init__()
 
-        self.beta = Parameter(np.array(init_beta))
+        self.beta = Parameter(np.array(init_beta, dtype=dtype))
         self.init_check = False
 
     def forward(self, x):
