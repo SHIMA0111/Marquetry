@@ -35,6 +35,7 @@ class Embedding(Layer):
     def __init__(self, vocab_size, embed_size):
         super().__init__()
         self.w = Parameter(np.random.randn(vocab_size, embed_size))
+        self._fixed_embedding = False
 
     def __call__(self, x):
         if cuda_backend.get_array_module(x) is not np:
@@ -43,6 +44,11 @@ class Embedding(Layer):
         y = self.w[x]
 
         return y
+
+    def params(self):
+        """Yield learnable parameters (nothing if the embedding vector is fixed)."""
+        if not self._fixed_embedding:
+            yield from super().params()
 
     def set_embedding_vector(self, vector):
         """Set custom embedding vectors for the layer.
@@ -68,4 +74,4 @@ class Embedding(Layer):
             vector = vector.data
 
         self.w.data = vector
-        self._params = set()
+        self._fixed_embedding = True

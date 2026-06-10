@@ -126,9 +126,10 @@ class OneHotEncode(Preprocess):
 
             statistic_set = set(pd.Series(self._statistic_data[column]).keys())
 
-            if unique_set != statistic_set and not self._unknown_value:
+            unknown_set = unique_set - statistic_set
+            if len(unknown_set) > 0 and not self._unknown_value:
                 raise ValueError("statistic data doesn't have {} category in '{}' but the input has it. "
-                                 .format(",".join(sorted(list(unique_set - statistic_set))), column) + self._msg)
+                                 .format(",".join(sorted(list(unknown_set))), column) + self._msg)
 
         return
 

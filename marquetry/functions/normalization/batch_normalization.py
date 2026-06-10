@@ -26,6 +26,7 @@ class BatchNormalization(Function):
         self.eps = eps
 
         self.inv_std = None
+        self._train_mode = None
 
     def forward(self, x, gamma, beta):
         assert x.ndim in (2, 4)
@@ -38,7 +39,8 @@ class BatchNormalization(Function):
 
         xp = cuda_backend.get_array_module(x)
 
-        if configuration.config.train:
+        self._train_mode = configuration.config.train
+        if self._train_mode:
             mean = x.mean(axis=0)
             var = x.var(axis=0)
             inv_std = 1 / xp.sqrt(var + self.eps)
@@ -57,6 +59,7 @@ class BatchNormalization(Function):
         else:
             inv_std = 1 / xp.sqrt(self.avg_var + self.eps)
             normed_x = (x - self.avg_mean) * inv_std
+            self.inv_std = inv_std
 
         y = gamma * normed_x + beta
 
@@ -77,20 +80,29 @@ class BatchNormalization(Function):
             grad_y = grad_y.transpose(0, 2, 3, 1).reshape(-1, channels)
 
         x, gamma, _ = inputs
-        batch_size = len(x)
 
         if x.ndim == 4:
             batch_size, channels, height, width = x.shape
             x = x.transpose(0, 2, 3, 1).reshape(-1, channels)
 
-        mean = x.sum(axis=0) / batch_size
-        xc = (x - mean) * self.inv_std
+        batch_size = len(x)
 
-        grad_beta = functions.sum(grad_y, axis=0)
-        grad_gamma = functions.sum(xc * grad_y, axis=0)
+        if self._train_mode:
+            mean = x.sum(axis=0) / batch_size
+            xc = (x - mean) * self.inv_std
 
-        grad_x = grad_y - grad_beta / batch_size - xc * grad_gamma / batch_size
-        grad_x *= gamma * self.inv_std
+            grad_beta = functions.sum(grad_y, axis=0)
+            grad_gamma = functions.sum(xc * grad_y, axis=0)
+
+            grad_x = grad_y - grad_beta / batch_size - xc * grad_gamma / batch_size
+            grad_x *= gamma * self.inv_std
+        else:
+            xc = (x - self.avg_mean) * self.inv_std
+
+            grad_beta = functions.sum(grad_y, axis=0)
+            grad_gamma = functions.sum(xc * grad_y, axis=0)
+
+            grad_x = grad_y * (gamma * self.inv_std)
 
         if gy_ndim == 4:
             batch_size, channels, height, width = gy_shape

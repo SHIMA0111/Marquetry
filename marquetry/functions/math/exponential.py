@@ -1,3 +1,5 @@
+import math
+
 from marquetry import cuda_backend
 from marquetry import Function
 
@@ -108,7 +110,7 @@ class Log2(Function):
         return y
 
     def backward(self, x, grad_y):
-        grad_x = grad_y[0] / (x[0] * log(2))
+        grad_x = grad_y[0] / (x[0] * math.log(2))
 
         return grad_x
 
@@ -150,7 +152,7 @@ class Log10(Function):
         return y
 
     def backward(self, x, grad_y):
-        grad_x = grad_y[0] / (x[0] * log(10))
+        grad_x = grad_y[0] / (x[0] * math.log(10))
 
         return grad_x
 

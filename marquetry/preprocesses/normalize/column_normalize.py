@@ -71,8 +71,11 @@ class ColumnNormalize(Preprocess):
         for column in self._norm_target_column:
             tmp_dict = self._statistic_data[column]
 
-            normalized_data.loc[:, column] = (
-                    (data.loc[:, column] - tmp_dict["average_value"]) / tmp_dict["standard_deviation"])
+            std_value = tmp_dict["standard_deviation"]
+            if std_value == 0:
+                normalized_data.loc[:, column] = 0.0
+            else:
+                normalized_data.loc[:, column] = (data.loc[:, column] - tmp_dict["average_value"]) / std_value
 
         return normalized_data
 

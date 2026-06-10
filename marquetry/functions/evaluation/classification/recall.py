@@ -85,7 +85,7 @@ class MultiRecall(Function):
     def forward(self, y, t):
         xp = cuda_backend.get_array_module(y)
 
-        assert len(xp.unique(t)) > 2
+        assert len(xp.unique(t)) >= 2
 
         if y.size != t.size:
             pred = xp.argmax(y, axis=1).reshape(t.shape)

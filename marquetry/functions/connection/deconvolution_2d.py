@@ -22,8 +22,6 @@ class Deconvolution2D(Function):
         self.pad = utils.pair(pad)
         self.out_size = out_size
 
-        self.no_bias = False
-
     def forward(self, x, w, b):
         xp = cuda_backend.get_array_module(x)
 
@@ -47,7 +45,6 @@ class Deconvolution2D(Function):
             grad_col, img_shape, (kernel_height, kernel_width), self.stride, self.pad, to_matrix=False)
 
         if b is not None:
-            self.no_bias = True
             y += b.reshape((1, b.size, 1, 1))
 
         return y

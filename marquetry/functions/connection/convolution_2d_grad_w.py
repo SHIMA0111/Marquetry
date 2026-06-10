@@ -19,16 +19,15 @@ class Conv2DGradW(Function):
         col = utils.im2col_array(x, self.kernel_size, self.stride, self.pad, to_matrix=False)
         grad_w = xp.tensordot(grad_y, col, ((0, 2, 3), (0, 4, 5)))
 
-        self.retain_outputs((0,))
         return grad_w
 
     def backward(self, inputs, grad_ys):
         x, grad_y = inputs
-        grad_w, = self.output_data
+        grad_grad_w = grad_ys[0]
 
         x_height, x_width = x.shape[2:]
         grad_x = functions.deconvolution_2d(
-            grad_y, grad_w, stride=self.stride, pad=self.pad, out_size=(x_height, x_width))
-        grad_grad_y = functions.convolution_2d(x, grad_w, stride=self.stride, pad=self.pad)
+            grad_y, grad_grad_w, stride=self.stride, pad=self.pad, out_size=(x_height, x_width))
+        grad_grad_y = functions.convolution_2d(x, grad_grad_w, stride=self.stride, pad=self.pad)
 
         return grad_x, grad_grad_y

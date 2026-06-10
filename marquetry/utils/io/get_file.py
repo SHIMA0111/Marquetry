@@ -24,8 +24,7 @@ def get_file(url, file_name=None):
 
     file_path = os.path.join(config.CACHE_DIR, file_name)
 
-    if not os.path.exists(config.CACHE_DIR):
-        os.mkdir(config.CACHE_DIR)
+    os.makedirs(config.CACHE_DIR, exist_ok=True)
 
     if os.path.exists(file_path):
         return file_path

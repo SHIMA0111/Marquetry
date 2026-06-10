@@ -26,10 +26,10 @@ class ColumnStandardize(Preprocess):
             >>> standardized_data = standardizer(data)
             >>> print(standardized_data)
                FeatureA  FeatureB
-            0  1.000000  1.000000
-            1  0.666667  0.666667
-            2  0.333333  0.333333
-            3 -0.000000 -0.000000
+            0  0.000000  0.000000
+            1  0.333333  0.333333
+            2  0.666667  0.666667
+            3  1.000000  1.000000
 
         Note:
             ColumnStandardize scales the values in the specified columns to have a minimum of 0 and a maximum of 1.
@@ -70,8 +70,11 @@ class ColumnStandardize(Preprocess):
         for column in self._std_target_column:
             tmp_dict = self._statistic_data[column]
 
-            standardized_data.loc[:, column] = (
-                    (data.loc[:, column] - tmp_dict["min_value"]) / (tmp_dict["max_value"] - tmp_dict["min_value"]))
+            value_range = tmp_dict["max_value"] - tmp_dict["min_value"]
+            if value_range == 0:
+                standardized_data.loc[:, column] = 0.0
+            else:
+                standardized_data.loc[:, column] = (data.loc[:, column] - tmp_dict["min_value"]) / value_range
 
         return standardized_data
 
@@ -100,8 +103,8 @@ class ColumnStandardize(Preprocess):
                 raise ValueError("input data has null value, but it can't be skipped by user configure "
                                  "so the normalize can't be done expected.")
 
-            tmp_max = min_data[column]
-            tmp_min = max_data[column]
+            tmp_max = max_data[column]
+            tmp_min = min_data[column]
 
             tmp_dict = {
                 "max_value": tmp_max,

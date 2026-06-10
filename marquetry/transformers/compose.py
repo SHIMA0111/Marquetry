@@ -14,7 +14,7 @@ class Compose(object):
     """
 
     def __init__(self, transforms: list = None):
-        self.transforms = transforms if len(transforms) != 0 else []
+        self.transforms = transforms if transforms else []
 
     def __call__(self, data):
         if not self.transforms:

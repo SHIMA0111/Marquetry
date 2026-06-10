@@ -45,7 +45,7 @@ class MomentumSGD(Optimizer):
 
         pre_vector = self.momentum_vector[v_key]
         pre_vector *= self.momentum
-        pre_vector -= (1 - self.momentum) * param.grad.data
+        pre_vector -= self.lr * param.grad.data
 
         param.data += pre_vector
 

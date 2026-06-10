@@ -73,7 +73,8 @@ class RandomForest(MachineLearning):
             self.unique_classes = np.unique(t)
         bootstrap_x, bootstrap_t = self._bootstrap_sampling(x, t)
         for i, (x_data, t_data) in enumerate(zip(bootstrap_x, bootstrap_t)):
-            tree = self.tree(self.max_depth, self.min_split_samples, self.criterion, self.seed)
+            tree_seed = self.seed if self.seed is None else self.seed + i
+            tree = self.tree(self.max_depth, self.min_split_samples, self.criterion, tree_seed)
             tree.fit(x_data, t_data)
             self.forest.append(tree)
 
@@ -86,9 +87,10 @@ class RandomForest(MachineLearning):
         if self.target_type == "classification":
             predict = np.zeros((len(x), len(self.unique_classes)))
             for vote in predict_vote:
-                predict[np.arange(len(vote)), vote.data] += 1
+                class_indexes = np.searchsorted(self.unique_classes, vote.data)
+                predict[np.arange(len(class_indexes)), class_indexes] += 1
 
-            predict_result = np.argmax(predict, axis=1)
+            predict_result = self.unique_classes[np.argmax(predict, axis=1)]
         else:
             predict_result = None
             for vote in predict_vote:

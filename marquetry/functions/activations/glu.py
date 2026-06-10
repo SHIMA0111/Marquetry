@@ -50,7 +50,7 @@ class GLU(Function):
 
 
 def glu(x, axis=-1):
-    """Gated Linear Units (GLU) Function.
+    r"""Gated Linear Units (GLU) Function.
 
         This function implements the Gated Linear Units activation function,
         which is used in neural networks.

@@ -103,7 +103,7 @@ class MissImputation(Preprocess):
                     raise TypeError("{} has no '{}' statistic due to the value can't convert Numeric value"
                                     .format(column, self._numeric_method))
 
-                tmp_data = data.loc[:, column].fillna(self._statistic_data[column][self._category_method])
+                tmp_data = data.loc[:, column].fillna(self._statistic_data[column][self._numeric_method])
                 imputation_data[column] = tmp_data
             else:
                 continue

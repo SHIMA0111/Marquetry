@@ -130,11 +130,12 @@ class LabelEncode(Preprocess):
 
             statistic_set = set(pd.Series(self._statistic_data[column]).keys())
 
-            diff_statistic_target = True if unique_set != statistic_set else False
+            unknown_set = unique_set - statistic_set
+            diff_statistic_target = diff_statistic_target or len(unknown_set) > 0
 
-            if unique_set != statistic_set and self._treat_unknown == "raise_error":
+            if len(unknown_set) > 0 and self._treat_unknown == "raise_error":
                 raise ValueError("statistic data doesn't have {} category in '{}' but the input has it. "
-                                 .format(",".join(sorted(list(unique_set - statistic_set))), column) + self._msg)
+                                 .format(",".join(sorted(list(unknown_set))), column) + self._msg)
 
         return diff_statistic_target
 
