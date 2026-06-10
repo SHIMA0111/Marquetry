@@ -4,6 +4,7 @@ import unittest
 
 import numpy as np
 import onnx
+from onnx import numpy_helper
 
 import marquetry
 import marquetry.functions as funcs
@@ -129,6 +130,25 @@ class TestDynamicBatch(unittest.TestCase):
 
         input_dim = proto.graph.input[0].type.tensor_type.shape.dim
         self.assertEqual(input_dim[0].dim_value, 4)
+
+    def test_flatten_reshape_keeps_batch_dynamic(self):
+        model = FuncModel(funcs.flatten)
+        proto = export_onnx(model, random_array(2, 3, 4))
+
+        shape_tensors = [tensor for tensor in proto.graph.initializer
+                         if tensor.name.startswith("reshape_shape")]
+        self.assertEqual(list(numpy_helper.to_array(shape_tensors[0])), [0, -1])
+
+    def test_coincidental_batch_sized_reshape_stays_literal(self):
+        # After the transpose, the leading axis is no longer the batch axis,
+        # so the literal 2 must not be rewritten even though it equals the
+        # traced batch size.
+        model = FuncModel(lambda x: funcs.reshape(funcs.transpose(x), (2, 12)))
+        proto = export_onnx(model, random_array(2, 12))
+
+        shape_tensors = [tensor for tensor in proto.graph.initializer
+                         if tensor.name.startswith("reshape_shape")]
+        self.assertEqual(list(numpy_helper.to_array(shape_tensors[0])), [2, 12])
 
 
 class TestExportInterface(unittest.TestCase):

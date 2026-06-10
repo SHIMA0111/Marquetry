@@ -157,10 +157,16 @@ def _convert_reshape(func, in_names, out_names, ctx):
         shape = (shape,)
     shape = [int(dim) for dim in shape]
 
-    # Keep the batch axis dynamic: a leading dim traced as the concrete batch size
-    # (e.g. flatten's `(batch, -1)`) is emitted as 0, which ONNX Reshape resolves
-    # to "copy the input dim" when allowzero=0.
-    if ctx.dynamic_batch and ctx.batch_size is not None and shape and shape[0] == ctx.batch_size:
+    # Keep the batch axis dynamic: substitute the leading dim with 0 ("copy the
+    # input dim") only when both the traced input and the target keep the batch
+    # extent in front, e.g. flatten's `(batch, -1)`. A reshape whose leading dim
+    # merely coincides with the batch size stays literal. Tracing with a batch
+    # size that doesn't collide with fixed reshape dims avoids the remaining
+    # ambiguity entirely.
+    x_shape = func.x_shape
+    if (ctx.dynamic_batch and ctx.batch_size is not None
+            and shape and shape[0] == ctx.batch_size
+            and x_shape is not None and len(x_shape) >= 1 and x_shape[0] == ctx.batch_size):
         shape[0] = 0
 
     shape_name = ctx.constant(np.asarray(shape, dtype=np.int64), "reshape_shape")
@@ -433,17 +439,78 @@ def _convert_softplus(func, in_names, out_names, ctx):
 
 @register("GELU")
 def _convert_gelu(func, in_names, out_names, ctx):
-    if func.approximate in ("none", "tanh"):
+    # The Gelu operator only exists since opset 20; decompose below that.
+    if func.approximate in ("none", "tanh") and ctx.opset_version >= 20:
         ctx.add_node("Gelu", in_names, out_names, approximate=func.approximate)
-        return
+    elif func.approximate == "none":
+        _emit_gelu_erf(func, in_names, out_names, ctx)
+    elif func.approximate == "tanh":
+        _emit_gelu_tanh(func, in_names, out_names, ctx)
+    else:
+        # The sigmoid approximation has no ONNX counterpart: x * sigmoid(1.702 * x)
+        scale_name = ctx.constant(np.asarray(1.702, dtype=_input_dtype(func)), "gelu_scale")
+        scaled = ctx.intermediate("gelu_scaled")
+        ctx.add_node("Mul", [in_names[0], scale_name], [scaled])
+        gate = ctx.intermediate("gelu_gate")
+        ctx.add_node("Sigmoid", [scaled], [gate])
+        ctx.add_node("Mul", [in_names[0], gate], out_names)
 
-    # The sigmoid approximation has no ONNX counterpart: x * sigmoid(1.702 * x)
-    scale_name = ctx.constant(np.asarray(1.702, dtype=_input_dtype(func)), "gelu_scale")
-    scaled = ctx.intermediate("gelu_scaled")
-    ctx.add_node("Mul", [in_names[0], scale_name], [scaled])
+
+def _emit_gelu_erf(func, in_names, out_names, ctx):
+    """Exact GELU as primitives: 0.5 * x * (1 + erf(x / sqrt(2)))."""
+    dtype = _input_dtype(func)
+
+    root_two = ctx.constant(np.asarray(np.sqrt(2.0), dtype=dtype), "gelu_root_two")
+    erf_input = ctx.intermediate("gelu_erf_input")
+    ctx.add_node("Div", [in_names[0], root_two], [erf_input])
+
+    erf = ctx.intermediate("gelu_erf")
+    ctx.add_node("Erf", [erf_input], [erf])
+
+    one = ctx.constant(np.asarray(1.0, dtype=dtype), "gelu_one")
     gate = ctx.intermediate("gelu_gate")
-    ctx.add_node("Sigmoid", [scaled], [gate])
-    ctx.add_node("Mul", [in_names[0], gate], out_names)
+    ctx.add_node("Add", [erf, one], [gate])
+
+    half = ctx.constant(np.asarray(0.5, dtype=dtype), "gelu_half")
+    half_x = ctx.intermediate("gelu_half_x")
+    ctx.add_node("Mul", [in_names[0], half], [half_x])
+
+    ctx.add_node("Mul", [half_x, gate], out_names)
+
+
+def _emit_gelu_tanh(func, in_names, out_names, ctx):
+    """Tanh-approximated GELU as primitives:
+        0.5 * x * (1 + tanh(sqrt(2 / pi) * (x + 0.044715 * x^3)))
+    """
+    dtype = _input_dtype(func)
+
+    three = ctx.constant(np.asarray(3.0, dtype=dtype), "gelu_three")
+    cubed = ctx.intermediate("gelu_cubed")
+    ctx.add_node("Pow", [in_names[0], three], [cubed])
+
+    cubic_coeff = ctx.constant(np.asarray(0.044715, dtype=dtype), "gelu_cubic_coeff")
+    scaled_cube = ctx.intermediate("gelu_scaled_cube")
+    ctx.add_node("Mul", [cubed, cubic_coeff], [scaled_cube])
+
+    inner_sum = ctx.intermediate("gelu_inner_sum")
+    ctx.add_node("Add", [in_names[0], scaled_cube], [inner_sum])
+
+    coeff = ctx.constant(np.asarray(np.sqrt(2.0 / np.pi), dtype=dtype), "gelu_coeff")
+    inner = ctx.intermediate("gelu_inner")
+    ctx.add_node("Mul", [inner_sum, coeff], [inner])
+
+    tanh = ctx.intermediate("gelu_tanh")
+    ctx.add_node("Tanh", [inner], [tanh])
+
+    one = ctx.constant(np.asarray(1.0, dtype=dtype), "gelu_one")
+    gate = ctx.intermediate("gelu_gate")
+    ctx.add_node("Add", [tanh, one], [gate])
+
+    half = ctx.constant(np.asarray(0.5, dtype=dtype), "gelu_half")
+    half_x = ctx.intermediate("gelu_half_x")
+    ctx.add_node("Mul", [in_names[0], half], [half_x])
+
+    ctx.add_node("Mul", [half_x, gate], out_names)
 
 
 @register("GLU")

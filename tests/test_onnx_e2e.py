@@ -186,6 +186,12 @@ class TestActivations(unittest.TestCase):
     def test_gelu_sigmoid(self):
         self._check(lambda x: funcs.gelu(x, approximate="sigmoid"))
 
+    def test_gelu_exact_decomposed_for_opset18(self):
+        self._check(lambda x: funcs.gelu(x, approximate="none"), opset_version=18)
+
+    def test_gelu_tanh_decomposed_for_opset18(self):
+        self._check(lambda x: funcs.gelu(x, approximate="tanh"), opset_version=18)
+
     def test_glu(self):
         self._check(funcs.glu)
 
