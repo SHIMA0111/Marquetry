@@ -11,6 +11,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: pytest (Python ${{ matrix.python-version }})
