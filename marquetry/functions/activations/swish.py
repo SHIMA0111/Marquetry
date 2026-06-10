@@ -69,7 +69,7 @@ class DynamicSwish(Function):
 
 
 def swish(x, beta=1):
-    """Swish Function.
+    r"""Swish Function.
 
         This function implements the Swish activation function,
         which is also known as ``SiLU (Sigmoid-weighted Linear Unit)``.
@@ -117,7 +117,7 @@ def swish(x, beta=1):
 
 
 def dynamic_swish(x, beta):
-    """Dynamic Swish Function.
+    r"""Dynamic Swish Function.
 
         This function implements the Swish activation function with learnable `beta`.
 

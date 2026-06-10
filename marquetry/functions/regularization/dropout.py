@@ -19,13 +19,17 @@ class Dropout(Function):
         self.dropout_rate = dropout_rate
 
         self.mask = None
+        self.scale = None
+        self._train_mode = None
 
     def forward(self, x):
-        if marquetry.configuration.config.train:
+        self._train_mode = configuration.config.train
+        if self._train_mode:
             xp = cuda_backend.get_array_module(x)
             mask = xp.random.rand(*x.shape) > self.dropout_rate
             self.mask = mask
             scale = xp.array(1.0 - self.dropout_rate).astype(x.dtype)
+            self.scale = scale
             y = x * mask / scale
         else:
             y = x
@@ -35,10 +39,10 @@ class Dropout(Function):
         return y
 
     def backward(self, x, grad_y):
-        if configuration.config.train:
-            grad_x = grad_y[0] * self.mask
+        if self._train_mode:
+            grad_x = grad_y[0] * (self.mask / self.scale)
         else:
-            raise Exception("You execute non-train mode so you can't do backward.")
+            grad_x = grad_y[0]
 
         return grad_x
 

@@ -29,9 +29,9 @@ class Softplus(Function):
 
 
 def softplus(x, beta=1):
-    """Softplus function.
+    r"""Softplus function.
 
-        :math:`f(x) = \\frac {1}{ \\beta} \log (1 + exp( \\beta \cdot x))`
+        :math:`f(x) = \frac {1}{ \beta} \log (1 + exp( \beta \cdot x))`
 
         Args:
             x (:class:`marquetry.Container` or :class:`numpy.ndarray` or :class:`cupy.ndarray`):

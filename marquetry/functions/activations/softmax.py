@@ -33,7 +33,7 @@ class Softmax(Function):
 
 
 def softmax(x, axis=1):
-    """Softmax function.
+    r"""Softmax function.
 
         :math:`f(x) = exp(x) / \Sigma exp(x)`
 

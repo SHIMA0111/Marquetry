@@ -26,7 +26,7 @@ class Absolute(Function):
 
         grad_y = grad_y[0]
         if mask.shape != grad_y.shape:
-            marquetry.functions.broadcast_to(grad_y, x[0].shape)
+            grad_y = marquetry.functions.broadcast_to(grad_y, x[0].shape)
 
         grad_x = grad_y * mask
 

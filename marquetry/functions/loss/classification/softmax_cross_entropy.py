@@ -38,7 +38,7 @@ class SoftmaxCrossEntropy(Function):
         xp = cuda_backend.get_array_module(t)
         if y.size != t.size:
             # convert class num to one-hot
-            t_onehot = xp.eye(data_dim, dtype=t.dtype)[t]
+            t_onehot = xp.eye(data_dim, dtype=x.dtype)[t]
         else:
             t_onehot = t
 

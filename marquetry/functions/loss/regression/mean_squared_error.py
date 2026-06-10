@@ -22,7 +22,7 @@ class MeanSquaredError(Function):
         x0, x1 = inputs
         diff = x0 - x1
         grad_x0 = 2. * diff / diff.size * grad_y[0]
-        grad_x1 = -grad_x0 * grad_y[0]
+        grad_x1 = -grad_x0
 
         return grad_x0, grad_x1
 

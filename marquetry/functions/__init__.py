@@ -124,6 +124,8 @@ from marquetry.functions.math.trigonometric import Tan
 
 from marquetry.functions.normalization.batch_normalization import batch_normalization
 from marquetry.functions.normalization.batch_normalization import BatchNormalization
+from marquetry.functions.normalization.batch_renormalization import batch_renormalization
+from marquetry.functions.normalization.batch_renormalization import BatchRenormalization
 from marquetry.functions.normalization.l2_normalization import l2_normalization
 from marquetry.functions.normalization.l2_normalization import L2Normalization
 from marquetry.functions.normalization.layer_normalization import layer_normalization

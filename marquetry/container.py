@@ -336,7 +336,7 @@ class Container(object):
         seen_set = set()
 
         def add_func(f):
-            if f not in seen_set:
+            if f is not None and f not in seen_set:
                 funcs.append(f)
                 seen_set.add(f)
 
@@ -347,7 +347,7 @@ class Container(object):
             for x in f.inputs:
                 if x.creator is not None:
                     add_func(x.creator)
-                    x.unchain()
+            f.unchain()
 
     def retain_data(self):
         """Retain the data of this container within its corresponding ContainerNode.
@@ -558,11 +558,9 @@ class Container(object):
         """
 
         if inplace:
-            self._data = self._data.astype(dtype)
+            self.data = self._data.astype(dtype)
         else:
-            data = self.copy()
-            data = data._data.astype(dtype)
-            return data
+            return Container(self._data.astype(dtype), name=self._name)
 
     def copy(self):
         """Create a copy of this container.
@@ -886,6 +884,18 @@ class Container(object):
             if node.data is not None:
                 node.retain_data()
 
+    def _as_operand(self, other):
+        """Convert a Python scalar operand to an ndarray keeping NumPy's weak-scalar promotion.
+
+            NumPy 2 treats 0-dim arrays as ordinary arrays in type promotion,
+            so wrapping a scalar with ``array()`` would silently upcast float32 data to float64.
+        """
+        if isinstance(other, (int, float)) and not isinstance(other, bool):
+            xp = marquetry.cuda_backend.get_array_module(self.data)
+            return xp.asarray(other, dtype=np.result_type(self.data.dtype, other))
+
+        return other
+
     def __matmul__(self, other):
         return marquetry.functions.matmul(self, other)
 
@@ -899,43 +909,43 @@ class Container(object):
         return "container(" + p + ")"
 
     def __add__(self, other):
-        return marquetry.functions.add(self, other)
+        return marquetry.functions.add(self, self._as_operand(other))
 
     def __radd__(self, other):
-        return marquetry.functions.add(self, other)
+        return marquetry.functions.add(self, self._as_operand(other))
 
     def __iadd__(self, other):
-        return marquetry.functions.add(self, other)
+        return marquetry.functions.add(self, self._as_operand(other))
 
     def __sub__(self, other):
-        return marquetry.functions.sub(self, other)
+        return marquetry.functions.sub(self, self._as_operand(other))
 
     def __rsub__(self, other):
-        return marquetry.functions.rsub(self, other)
+        return marquetry.functions.rsub(self, self._as_operand(other))
 
     def __isub__(self, other):
-        return marquetry.functions.sub(self, other)
+        return marquetry.functions.sub(self, self._as_operand(other))
 
     def __mul__(self, other):
-        return marquetry.functions.mul(self, other)
+        return marquetry.functions.mul(self, self._as_operand(other))
 
     def __rmul__(self, other):
-        return marquetry.functions.mul(self, other)
+        return marquetry.functions.mul(self, self._as_operand(other))
 
     def __imul__(self, other):
-        return marquetry.functions.mul(self, other)
+        return marquetry.functions.mul(self, self._as_operand(other))
 
     def __neg__(self):
         return marquetry.functions.neg(self)
 
     def __truediv__(self, other):
-        return marquetry.functions.div(self, other)
+        return marquetry.functions.div(self, self._as_operand(other))
 
     def __rtruediv__(self, other):
-        return marquetry.functions.rdiv(self, other)
+        return marquetry.functions.rdiv(self, self._as_operand(other))
 
     def __itruediv__(self, other):
-        return marquetry.functions.div(self, other)
+        return marquetry.functions.div(self, self._as_operand(other))
 
     def __pow__(self, power):
         return marquetry.functions.pow(self, power)
@@ -967,7 +977,7 @@ class Container(object):
     def __gt__(self, other):
         xp = marquetry.cuda_backend.get_array_module(self)
         other = as_container(as_array(other, marquetry.cuda_backend.get_array_module(self.data)))
-        array_data = xp.asarray(self.data < other.data)
+        array_data = xp.asarray(self.data > other.data)
 
         return Container(array_data)
 
@@ -1174,7 +1184,7 @@ def random_int(low, high=None, size=None, name=None, dtype=None):
 
     if not isinstance(low, int):
         raise ValueError("low expects `int`, but got {}.".format(type(low)))
-    if not isinstance(high, int):
+    if high is not None and not isinstance(high, int):
         raise ValueError("high expects `int`, but got {}.".format(type(high)))
 
     if size is None:

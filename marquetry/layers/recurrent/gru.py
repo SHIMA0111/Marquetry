@@ -67,7 +67,8 @@ class GRU(Layer):
 
     def forward(self, x):
         if self.h is None:
-            new_h = functions.tanh(self.x2h(x))
+            update_gate = functions.sigmoid(self.x2u(x))
+            new_h = (1 - update_gate) * functions.tanh(self.x2h(x))
 
         else:
             reset_gate = functions.sigmoid(self.x2r(x) + self.h2r(self.h))

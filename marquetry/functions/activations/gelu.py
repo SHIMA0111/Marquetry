@@ -81,7 +81,7 @@ class GELU(Function):
 
 
 def gelu(x, approximate="none"):
-    """Gaussian Error Linear Units (GELU) Function.
+    r"""Gaussian Error Linear Units (GELU) Function.
 
         This function implements the Gaussian Error Linear Units activation function,
         which is used in neural networks.
