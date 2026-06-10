@@ -165,6 +165,9 @@ def contains_batch_dim(value):
     """Check whether a decoded attribute value contains the batch sentinel."""
     if value is BATCH_DIM:
         return True
+    if isinstance(value, slice):
+        return any(contains_batch_dim(part)
+                   for part in (value.start, value.stop, value.step))
     if isinstance(value, (tuple, list)):
         return any(contains_batch_dim(item) for item in value)
 
@@ -175,6 +178,10 @@ def resolve_batch_dim(value, batch_size):
     """Replace every batch sentinel in a decoded attribute value with ``batch_size``."""
     if value is BATCH_DIM:
         return batch_size
+    if isinstance(value, slice):
+        return slice(resolve_batch_dim(value.start, batch_size),
+                     resolve_batch_dim(value.stop, batch_size),
+                     resolve_batch_dim(value.step, batch_size))
     if isinstance(value, tuple):
         return tuple(resolve_batch_dim(item, batch_size) for item in value)
     if isinstance(value, list):

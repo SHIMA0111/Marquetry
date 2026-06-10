@@ -156,8 +156,8 @@ def export_onnx(model, inputs, file_path=None, *, opset_version=DEFAULT_OPSET_VE
     functions = graph_tracer.topological_functions(outputs)
     if not functions and not output_aliases:
         raise ONNXExportError(
-            "no computation graph is recorded from the model outputs. "
-            "The export needs to run under back-propagation enabled mode.")
+            "no computation graph was recorded from the model outputs. "
+            "The outputs must be produced by marquetry functions applied to the sample inputs.")
 
     for function in functions:
         in_names = [_resolve_input_name(node, context, parameter_lookup)

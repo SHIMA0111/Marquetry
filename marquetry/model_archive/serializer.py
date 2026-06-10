@@ -102,8 +102,8 @@ def save_archive(model, inputs, file_path, *, dynamic_batch=True):
 
     if not functions and not output_aliases:
         raise ArchiveError(
-            "no computation graph is recorded from the model outputs. "
-            "The save needs to run under back-propagation enabled mode.")
+            "no computation graph was recorded from the model outputs. "
+            "The outputs must be produced by marquetry functions applied to the sample inputs.")
 
     nodes = []
     for function in functions:

@@ -203,6 +203,9 @@ class TestModelRoundTrip(unittest.TestCase):
 class TestRestoredModelBehavior(unittest.TestCase):
 
     def test_parameters_are_trainable(self):
+        # Deterministic data: with a fixed seed, every parameter tensor receives a
+        # non-zero gradient, so asserting that all of them change is stable.
+        np.random.seed(0)
         restored = roundtrip(MLP([8, 4], activation=funcs.relu, is_dropout=False),
                              random_array(4, 6))
 
@@ -297,6 +300,13 @@ class TestArchiveFile(unittest.TestCase):
 
             with self.assertRaises(ArchiveError):
                 load_archive(tampered)
+
+    def test_batch_dim_detected_and_resolved_inside_slice(self):
+        from marquetry.model_archive import spec
+
+        value = (slice(spec.BATCH_DIM, None, None), 3)
+        self.assertTrue(spec.contains_batch_dim(value))
+        self.assertEqual(spec.resolve_batch_dim(value, 8), (slice(8, None, None), 3))
 
     def test_not_an_archive_rejected(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
