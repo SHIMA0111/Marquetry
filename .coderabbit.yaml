@@ -132,3 +132,17 @@ reviews:
         - If a PR changes core tensor semantics but only updates happy-path tests, flag it.
         - Prefer property-based tests or randomized reference checks for shape/dtype/device combinations when appropriate.
         - Check that tests are deterministic and do not depend on execution order, device timing, or global mutable state.
+
+    - path: "{**/Cargo.toml,**/Cargo.lock,**/pyproject.toml,**/setup.py,rust-toolchain*,.github/workflows/**}"
+      instructions: |
+        Build, packaging, and CI configuration for a hybrid Rust + Python project. The normative stack decisions live in REPLACE_TO_RUST_ENGINE.md — flag any contradiction with that document.
+
+        Checks:
+        - Dependency changes must be justified. Version floors should state why (e.g., NumPy >= 2 for NEP 50 semantics). New dependencies must be weighed against the lightweight-footprint goal.
+        - Version bumps of breaking-release-prone crates (faer, wgpu, PyO3, rust-numpy) need migration notes; verify the thin internal wrapper layer absorbs the change instead of leaking it across the codebase.
+        - Feature flags must stay consistent across workspace crates. In particular: rayon and other threading/std-dependent features must remain optional so marquetry-core keeps building for wasm32; GPU backends must be behind non-default features.
+        - PyO3 / rust-numpy / maturin versions must be mutually compatible (rust-numpy tracks PyO3 versions).
+        - abi3 and free-threading (gil_used / cp31Xt wheels) build settings must stay consistent with the documented wheel matrix.
+        - MSRV must be consistent across Cargo.toml, CI toolchain pins, and documentation.
+        - CI: new features, targets, or backends must actually be exercised by a CI job; do not let untested configurations ship. GitHub Actions must remain pinned to commit SHAs.
+        - Wheel/release workflow changes must preserve the duplicate-release and version-validation safeguards.
