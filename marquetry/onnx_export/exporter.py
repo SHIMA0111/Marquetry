@@ -6,6 +6,7 @@ from onnx import numpy_helper
 
 import marquetry
 from marquetry import cuda_backend
+from marquetry import graph_tracer
 from marquetry.onnx_export import converters
 from marquetry.onnx_export.converters import ONNXExportError
 
@@ -128,22 +129,8 @@ def export_onnx(model, inputs, file_path=None, *, opset_version=DEFAULT_OPSET_VE
             "opset_version {} isn't supported by the installed onnx package (max: {})."
             .format(opset_version, onnx.defs.onnx_opset_version()))
 
-    input_list = list(inputs) if isinstance(inputs, (tuple, list)) else [inputs]
-    if not input_list:
-        raise ValueError("at least one sample input is needed to trace the model.")
-
-    input_containers = []
-    for sample in input_list:
-        container = marquetry.as_container(sample)
-        if container.data is None:
-            raise ValueError("sample inputs should hold data, but got an empty container.")
-        input_containers.append(container)
-
-    with marquetry.using_config("train", False):
-        with marquetry.using_config("enable_backprop", True):
-            with marquetry.using_config("retain_graph_inputs", True):
-                outputs = model(*input_containers)
-    outputs = tuple(outputs) if isinstance(outputs, (tuple, list)) else (outputs,)
+    input_containers = graph_tracer.normalize_sample_inputs(inputs)
+    outputs = graph_tracer.trace_forward(model, input_containers)
 
     first_input = input_containers[0]
     batch_size = first_input.shape[0] if first_input.ndim >= 1 else None
@@ -164,9 +151,9 @@ def export_onnx(model, inputs, file_path=None, *, opset_version=DEFAULT_OPSET_VE
         else:
             context.set_name(container.node, name)
 
-    parameter_lookup = _build_parameter_lookup(model)
+    parameter_lookup = graph_tracer.build_parameter_lookup(model)
 
-    functions = _topological_functions(outputs)
+    functions = graph_tracer.topological_functions(outputs)
     if not functions and not output_aliases:
         raise ONNXExportError(
             "no computation graph is recorded from the model outputs. "
@@ -237,44 +224,6 @@ def _default_io_names(names, count, prefix):
             "{} names are needed for {} tensors, but got {}.".format(prefix, count, len(names)))
 
     return names
-
-
-def _build_parameter_lookup(model):
-    lookup = {}
-    if not hasattr(model, "_flatten_params"):
-        return lookup
-
-    params_dict = {}
-    model._flatten_params(params_dict)
-    for key, param in params_dict.items():
-        if param is None or param.data is None:
-            continue
-        lookup[id(param.node)] = (key, param.data)
-
-    return lookup
-
-
-def _topological_functions(outputs):
-    functions = []
-    seen = set()
-
-    stack = [output.creator for output in outputs if output.creator is not None]
-    while stack:
-        function = stack.pop()
-        if function in seen:
-            continue
-        seen.add(function)
-        functions.append(function)
-
-        for in_node in function.inputs:
-            if in_node.creator is not None:
-                stack.append(in_node.creator)
-
-    # The generation number strictly increases along every edge,
-    # so sorting by it yields a valid topological (executable) order.
-    functions.sort(key=lambda recorded: recorded.generation)
-
-    return functions
 
 
 def _resolve_input_name(container_node, context, parameter_lookup):
