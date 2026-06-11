@@ -104,11 +104,20 @@ while keeping the Python-facing API as the primary user surface.
   cross-device f16/bf16 parity is tolerance-based by design (gated by the Phase 5 per-dtype
   budgets). The Python engine never exposed f16/bf16, so this surface is new and carries no v0.3
   compatibility contract.
+- **Gradient dtype policy:** a gradient always has the dtype of its tensor — this is both the
+  v0.3 contract (pinned by `tests/test_bug_regressions.py::TestSoftmaxCrossEntropyGradDtype`,
+  which exists because a backward pass once silently promoted f32 grads to f64) and the PyTorch
+  invariant. Gradient accumulation (`grad = grad + new_grad`) runs in that dtype under the same
+  per-op round-back rule, so long f16/bf16 accumulation chains can underflow — a documented
+  limitation, not a bug. f32 master-weight mixed-precision training is a possible post-1.0
+  feature, never implicit behavior.
 - **Operator set:** a small primitive core (elementwise unary/binary, reductions, matmul, index/gather,
   shape ops, compare/select) with composite ops (softmax, layer-norm, GELU, …) defined by composition
   first, fused later only where profiling justifies it.
 - **Convolution:** im2col + GEMM everywhere initially (delegates the hard part to GEMM libraries,
   consistent with Principle #1). cuDNN (via cudarc) is the upgrade path on CUDA; MPSCNN on Metal.
+  Either switch is gated by the standing parity suites (see the §4 preamble rule on permanent
+  suites).
 
 ### 3.2 Backend abstraction
 
@@ -136,6 +145,7 @@ marquetry-core
 Every ✗ in this matrix gates through the same unsupported-dtype mechanism and is exercised by the
 Phase 5 capability suite (reused by Phases 6–7); this matrix is the canonical reference for those
 tests.
+
 - **GPU memory management:** the industry-convergent pattern — ref-counted buffer handles,
   per-stream/command-buffer pools (size-bucketed caching allocator), and in-flight work retaining
   buffer references so user-side drop is just "return to pool".
@@ -148,6 +158,12 @@ tests.
   (`Container`, functions, layers, optimizers, …) is preserved as closely as practical; the test
   suite defines parity. Intentional breaks are allowed only at the 1.0 boundary and must be documented.
 - NumPy in/out via rust-numpy zero-copy views; everything else stays device-side behind handles.
+- **Cross-device policy:** an op whose tensor operands live on different devices raises a
+  deterministic device-mismatch error — never an implicit transfer (implicit copies hide
+  performance cliffs; PyTorch precedent). Transfers are always explicit: a `.to(device)`-style
+  API whose final names are decided in Phase 3, generalizing the v0.3 engine's
+  `to_cpu()` / `to_gpu()`. Host scalars (Python / NumPy scalars) are not device-bound — they join
+  ops under NEP 50 promotion, subject to the §3.2 dtype gating.
 - DLPack interop (PyTorch/JAX/CuPy exchange) is a post-1.0 add-on (e.g. `dlpark`).
 
 ### 3.4 Repository layout (target)
@@ -171,12 +187,18 @@ becomes the Rust-engine line.
 
 ## 4. Migration Phases
 
-Sequenced by dependency. Each phase ends with its exit criteria green on CI.
+Sequenced by dependency. Each phase ends with its exit criteria green on CI. Suites introduced by
+a phase **stay in CI permanently** after that phase exits: swapping an internal kernel provider
+later (conv im2col+GEMM → cuDNN or MPSCNN per §3.1, MPS → MLX-derived GEMM per Open Question #1,
+a faer/wgpu version bump) must keep every standing suite green within the pinned budgets — a
+provider swap is not a semantic change and is no license to loosen tolerances.
 
 **Phase 0 — Scaffolding.**
-Cargo workspace, maturin + uv wiring, CI matrix (Rust tests; Python 3.11–3.14 incl. a free-threaded
-job; wheel builds), benchmark harness skeleton.
-*Exit: `pip install` of a dev wheel exposes `marquetry._native.hello()` on all platforms.*
+Cargo workspace, maturin + uv wiring, CI matrix (Rust tests; Python 3.11–3.14 incl. free-threaded
+jobs; wheel builds), benchmark harness skeleton.
+*Exit: CI builds wheels and `import marquetry._native` + `hello()` succeeds across the support
+matrix — macOS (arm64, x86_64), Linux (x86_64, aarch64), Windows (x86_64) — on Python 3.11–3.14
+plus one free-threaded (3.14t) job per platform. This matrix is also the release wheel target set.*
 
 **Phase 1 — CPU tensor core.**
 Strided tensor + views + broadcasting, DType enum + dispatch macro, primitive op set on CPU
@@ -190,7 +212,12 @@ promotion) operands, extending the contract fixed by
 Property tests sweep all supported dtypes; for f16/bf16 they verify the §3.1 per-op round-back
 semantics including chained-op cases (where skipped rounding is observable as value divergence —
 a single-op test cannot detect it). bf16 is checked against `ml_dtypes` as a test-only reference,
-since NumPy has no native bfloat16.*
+since NumPy has no native bfloat16. Error paths — invalid shapes, incompatible broadcasts,
+unsupported dtype combinations — return deterministic, actionable Rust errors, never panics or
+silent corruption (mapping them to NumPy-matching Python exceptions is Phase 3's contract). CPU
+ops are bitwise-reproducible across runs given identical inputs and thread count — reduction
+order under rayon is fixed by design — establishing CPU as the deterministic reference that the
+Phase 5 GPU determinism tests compare against.*
 
 **Phase 2 — Autograd in Rust.**
 Arena/index tape, backward for all primitives, generation-ordered traversal (current engine
@@ -202,7 +229,10 @@ gradients (note: this is DeZero-style `retain_grad`, not PyTorch's `retain_graph
 `unchain` / `unchain_backward` cut the graph; the in-place mutation policy for saved tensors
 (Open Question #8) is decided, implemented, and tested — a test mutates a tensor after it has
 been saved for backward, then calls backward(), and the chosen behavior (forbid / copy-on-save /
-version-check) is what actually happens; MLP trains on spiral dataset in pure Rust.*
+version-check) is what actually happens; gradients carry their tensor's dtype across all
+supported dtypes (§3.1 gradient dtype policy — extending the
+`TestSoftmaxCrossEntropyGradDtype` contract), with an f16 accumulation test pinning the
+documented round-back/underflow behavior; MLP trains on spiral dataset in pure Rust.*
 
 **Phase 3 — Python API layer.**
 `Container` and `functions/` re-bound onto `_native` handles; zero-copy NumPy boundary;
@@ -232,10 +262,10 @@ capability gating tests (per the §3.2 matrix) verify that creating a tensor of 
 dtype on the device, transferring one to it, or an NEP 50 promotion whose result dtype is
 unsupported (e.g., f32 tensor × f64 NumPy scalar → f64 on Metal — the f64 operand arrives from
 the host, since no f64 tensor can exist on the device) all raise the documented
-unsupported-dtype error —
-never a silent downcast, integer narrowing, or bit reinterpretation; CNN training on Metal beats
-CPU. The parity + determinism + capability
-suite defined here is reused by Phases 6–7.*
+unsupported-dtype error — never a silent downcast, integer narrowing, or bit reinterpretation;
+cross-device mismatch tests verify that an op mixing a CPU tensor and a Metal tensor raises the
+documented device-mismatch error (§3.3 — no implicit transfer); CNN training on Metal beats CPU.
+The parity + determinism + capability suite defined here is reused by Phases 6–7.*
 
 **Phase 6 — CUDA backend.**
 cudarc plumbing, cuBLAS GEMM, PTX kernel pipeline (build.rs / cudaforge), stream-ordered pooling.
@@ -259,13 +289,16 @@ construction) and (b) the GEMM-vs-native ratio recorded and pinned at this exit 
 Cross-cutting rules.*
 
 **Phase 8 — Ecosystem features & 1.0.**
-Model archive (`.mq`) format vN+1 over the Rust graph — checkpoints are device-portable in the
-format sense: serialization is device-agnostic (the same parameter values produce identical bytes
-on any device), save → load → re-save is bit-identical, and a GPU-trained checkpoint loads on CPU
-losslessly. This is format fidelity only — it does not claim that training on different devices
-produces identical values; computation parity stays tolerance-based (§3.1) — ONNX export adapted (stays in
-Python, introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in
-Rust, docs refresh (per roadmap), benchmark publication.
+Model archive (`.mq`) format vN+1 over the Rust graph. Checkpoints are device-portable in the
+format sense: the format defines canonical, dtype-tagged on-disk representations (e.g., Bool is
+one byte per element), so backends whose runtime storage differs (wgpu's widened Bool, §3.2)
+normalize on save/load and the same parameter values produce identical bytes on any device;
+save → load → re-save is bit-identical, and a GPU-trained checkpoint loads on CPU losslessly.
+This is format fidelity only — training on different devices still produces different values
+within the tolerance budgets (§3.1); the full dtype → on-disk mapping lives in the format spec
+itself (a Phase 8 deliverable). Also in this phase: ONNX export adapted (stays in Python,
+introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in Rust,
+docs refresh (per roadmap), benchmark publication.
 *Exit: v1.0.0 — Rust engine at full feature parity, Metal + CUDA + wgpu shipped, wheels
 (abi3 + cp31Xt, abi3t when toolchain allows) on PyPI.*
 
