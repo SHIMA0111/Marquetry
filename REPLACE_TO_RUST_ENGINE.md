@@ -239,7 +239,12 @@ documented round-back/underflow behavior; MLP trains on spiral dataset in pure R
 free-threading-safe handle semantics.
 *Exit: existing tensor/function/autograd test files pass against the Rust engine **unmodified** —
 any test change (including tolerance adjustments) requires a documented, intentional semantic
-change per Guiding Principle #6.*
+change per Guiding Principle #6. Free-threading safety is exercised, not just declared
+(Principle #5): stress tests on Python 3.14t run concurrent read-only ops on shared tensors,
+concurrent tensor creation/destruction, and concurrent independent autograd graphs across
+threads, verifying correct results with no crashes or races; marquetry-core's pure-Rust tests
+run under Miri in CI (Miri cannot execute FFI, so the Python-level coverage comes from the
+stress tests; ThreadSanitizer builds where practical).*
 
 **Phase 4 — Layers, models, optimizers.**
 `Layer`/`Model` parameter management, all 11 optimizers (SGD, MomentumSGD, Nesterov, AdaGrad,
@@ -264,8 +269,11 @@ unsupported (e.g., f32 tensor × f64 NumPy scalar → f64 on Metal — the f64 o
 the host, since no f64 tensor can exist on the device) all raise the documented
 unsupported-dtype error — never a silent downcast, integer narrowing, or bit reinterpretation;
 cross-device mismatch tests verify that an op mixing a CPU tensor and a Metal tensor raises the
-documented device-mismatch error (§3.3 — no implicit transfer); CNN training on Metal beats CPU.
-The parity + determinism + capability suite defined here is reused by Phases 6–7.*
+documented device-mismatch error (§3.3 — no implicit transfer); concurrency tests drive the
+backend from multiple free-threaded Python threads simultaneously, putting the pipeline cache
+and buffer pools under contention (extending the Phase 3 stress tests to device state); CNN
+training on Metal beats CPU. The parity + determinism + capability suite defined here is reused
+by Phases 6–7.*
 
 **Phase 6 — CUDA backend.**
 cudarc plumbing, cuBLAS GEMM, PTX kernel pipeline (build.rs / cudaforge), stream-ordered pooling.
