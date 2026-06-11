@@ -96,7 +96,12 @@ while keeping the Python-facing API as the primary user surface.
   Views (transpose / slice / broadcast / reshape-when-contiguous) are zero-copy.
 - **Type promotion:** NumPy NEP 50 semantics (matching the v0.3 Python behavior on NumPy 2).
 - **F16/BF16 are in the dtype enum and storage design from day one** because GPU performance depends
-  on them. CPU kernels may initially compute via f32 upcast.
+  on them. CPU semantics are defined explicitly: compute internally in f32 and round back to the
+  storage dtype at every op boundary (the NumPy / PyTorch-CPU precedent for half precision). This
+  is deterministic and dtype-faithful, but not bit-identical to native-half GPU arithmetic —
+  cross-device f16/bf16 parity is tolerance-based by design (gated by the Phase 5 per-dtype
+  budgets). The Python engine never exposed f16/bf16, so this surface is new and carries no v0.3
+  compatibility contract.
 - **Operator set:** a small primitive core (elementwise unary/binary, reductions, matmul, index/gather,
   shape ops, compare/select) with composite ops (softmax, layer-norm, GELU, …) defined by composition
   first, fused later only where profiling justifies it.
@@ -171,28 +176,51 @@ job; wheel builds), benchmark harness skeleton.
 **Phase 1 — CPU tensor core.**
 Strided tensor + views + broadcasting, DType enum + dispatch macro, primitive op set on CPU
 (faer GEMM, rayon), NEP 50 promotion.
-*Exit: Rust-side unit tests; NumPy-checked property tests for every primitive op.*
+*Exit: Rust-side unit tests; NumPy-checked property tests for every primitive op, explicitly
+covering view-vs-copy and aliasing semantics, non-contiguous layouts and offsets, zero-sized and
+0-d (scalar) tensors, NaN/Inf propagation, dtype-boundary overflow/underflow, and NEP 50
+promotion — result dtypes checked against NumPy 2 for mixed-dtype and Python-scalar (weak
+promotion) operands, extending the contract fixed by
+`tests/test_bug_regressions.py::TestScalarPromotion` — all compared against NumPy behavior.*
 
 **Phase 2 — Autograd in Rust.**
 Arena/index tape, backward for all primitives, generation-ordered traversal (current engine
 semantics), `no_backprop_mode` / `test_mode` equivalents.
-*Exit: gradient checks (numerical vs analytical) for all ops; MLP trains on spiral dataset in pure Rust.*
+*Exit: gradient checks (numerical vs analytical) for all ops; behavioral parity tests for the
+current engine's autograd semantics — `no_backprop_mode` / `test_mode` build no graph, gradients
+accumulate on shared inputs (`grad = grad + new_grad`), `retain_grad=False` clears intermediate
+gradients (note: this is DeZero-style `retain_grad`, not PyTorch's `retain_graph`), and
+`unchain` / `unchain_backward` cut the graph; MLP trains on spiral dataset in pure Rust.*
 
 **Phase 3 — Python API layer.**
 `Container` and `functions/` re-bound onto `_native` handles; zero-copy NumPy boundary;
 free-threading-safe handle semantics.
-*Exit: existing tensor/function/autograd test files pass against the Rust engine.*
+*Exit: existing tensor/function/autograd test files pass against the Rust engine **unmodified** —
+any test change (including tolerance adjustments) requires a documented, intentional semantic
+change per Guiding Principle #6.*
 
 **Phase 4 — Layers, models, optimizers.**
 `Layer`/`Model` parameter management, all 11 optimizers (SGD, MomentumSGD, Nesterov, AdaGrad,
 AdaDelta, RMSProp, Adam, AdamW, AdaMax, Nadam, Lion — as Rust kernels; optimizer steps are
 hot loops), Conv2D/pooling (im2col+GEMM), recurrent layers, normalization layers.
-*Exit: full v0.3 test suite passes; Fashion-MNIST CNN + LSTM samples train end-to-end.*
+*Exit: full v0.3 test suite passes; Conv2D/Deconv2D parity against the torch reference used by
+`tests/test_conv2d.py` is extended to degenerate geometries — stride > kernel (both and single
+dims), pad ≥ kernel including asymmetric pads, forward and backward — and geometries whose output
+spatial size would be non-positive raise a deterministic, actionable shape error (torch raises
+here; never a silent empty result); Fashion-MNIST CNN + LSTM samples train end-to-end.*
 
 **Phase 5 — Metal backend** *(first GPU target — primary dev machine).*
 objc2-metal device/queue/pool plumbing, MSL elementwise/reduction kernels, MPS GEMM,
 buffer pooling, pipeline cache, dtype capability gating (no f64).
-*Exit: GPU parity tests vs CPU (tolerance-based) for all ops; CNN training on Metal beats CPU.*
+*Exit: GPU parity tests vs CPU for all ops, with per-op-class and per-dtype tolerance budgets
+(f16 wider than f32) justified and pinned in the test harness when the kernels land — not
+prescribed in this plan; a determinism test verifies same-device run-to-run reproducibility for
+all ops — bitwise, or with explicitly documented and opt-in nondeterministic exceptions; dtype
+capability gating tests (per the §3.2 matrix) verify that creating a tensor of an unsupported
+dtype on the device, transferring one to it, or an NEP 50 promotion whose result dtype is
+unsupported (e.g., f32 × f64 → f64 on Metal) all raise the documented unsupported-dtype error —
+never a silent downcast; CNN training on Metal beats CPU. The parity + determinism + capability
+suite defined here is reused by Phases 6–7.*
 
 **Phase 6 — CUDA backend.**
 cudarc plumbing, cuBLAS GEMM, PTX kernel pipeline (build.rs / cudaforge), stream-ordered pooling.
@@ -203,18 +231,28 @@ WGSL kernel set; GEMM via a kernel **generator** (workgroup tiling + register bl
 per dtype/tile config, autotuned — following burn's published multiplatform-matmul techniques and the
 TFJS/ORT WebGPU kernel designs, not a naive shader); buffer-limit handling, readback ergonomics;
 `wasm32` build of marquetry-core + browser smoke test.
-*Exit: parity suite green on Vulkan (AMD) and Metal-via-wgpu; a demo training loop runs in a browser.*
+*Exit: parity suite green on Vulkan (AMD) and Metal-via-wgpu; a wasm32 build of marquetry-core
+(rayon disabled) gates CI; a demo training loop runs in a browser, exercising async readback and
+the documented error paths for buffer limits and unsupported dtypes (e.g., f64 on wgpu).*
 
 **Phase 8 — Ecosystem features & 1.0.**
-Model archive (`.mq`) format vN+1 over the Rust graph, ONNX export adapted (stays in Python,
-introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in Rust,
-docs refresh (per roadmap), benchmark publication.
+Model archive (`.mq`) format vN+1 over the Rust graph — checkpoints are device-portable:
+parameter bytes are identical regardless of the producing device, so train-on-GPU → load-on-CPU
+round-trips bitwise (computation parity stays tolerance-based) — ONNX export adapted (stays in
+Python, introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in
+Rust, docs refresh (per roadmap), benchmark publication.
 *Exit: v1.0.0 — Rust engine at full feature parity, Metal + CUDA + wgpu shipped, wheels
 (abi3 + cp31Xt, abi3t when toolchain allows) on PyPI.*
 
-**Cross-cutting (all phases):** benchmark suite tracked in CI — target ≥10× v0.3 pure-Python on
-CPU training workloads and same-order-of-magnitude as NumPy for elementwise ops; performance
-regressions gate merges once baselines exist.
+**Cross-cutting (all phases):** benchmark suite tracked in CI. The Phase 0 benchmark harness
+defines the named workloads: training (Fashion-MNIST MLP/CNN, LSTM curve forecast — the existing
+samples) and microbenchmarks (elementwise / reduction / GEMM across a size sweep, including
+small-tensor sizes where FFI overhead dominates). The headline targets — ≥10× v0.3 pure-Python on
+CPU training, same order of magnitude as NumPy for large-array elementwise ops — are directional
+until first baselines are measured; at that point concrete per-workload thresholds are pinned in
+the benchmark config and regressions against them gate merges. No vs-vendor GEMM target applies to
+the native GPU backends (their GEMM *is* the vendor library); the wgpu GEMM generator is tracked
+as a ratio against the native backends on the same hardware.
 
 ---
 
@@ -245,6 +283,10 @@ regressions gate merges once baselines exist.
 6. **wgpu cooperative-matrix:** experimental in wgpu v29 (Vulkan/Metal targets only, API unstable) —
    adopt in the WGSL GEMM generator once stabilized.
 7. **Crates.io publication** of marquetry-core as a standalone Rust library: post-1.0 decision.
+8. **In-place mutation policy for saved tensors:** the Python engine has no version counters, but
+   zero-copy views in the Rust engine make mutation of a tensor saved for backward observable.
+   Decide in Phase 2 whether to forbid, copy-on-save, or version-check — and test the chosen
+   behavior.
 
 ---
 
