@@ -237,7 +237,7 @@ semantics), `no_backprop_mode` / `test_mode` equivalents.
 *Exit: gradient checks (numerical vs analytical) for all ops; behavioral parity tests for the
 current engine's autograd semantics — `no_backprop_mode` / `test_mode` build no graph, gradients
 accumulate on shared inputs (`grad = grad + new_grad`), `retain_grad=False` clears intermediate
-gradients (note: this is DeZero-style `retain_grad`, not PyTorch's `retain_graph`), and
+gradients (note: this is Chainer-style `retain_grad`, not PyTorch's `retain_graph`), and
 `unchain` / `unchain_backward` cut the graph; the in-place mutation policy for saved tensors
 (Open Question #8) is decided, implemented, and tested — a test mutates a tensor after it has
 been saved for backward, then calls backward(), and the chosen behavior (forbid / copy-on-save /
