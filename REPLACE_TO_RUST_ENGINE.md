@@ -279,6 +279,10 @@ dtype on the device, transferring one to it, or an NEP 50 promotion whose result
 unsupported (e.g., f32 tensor × f64 NumPy scalar → f64 on Metal — the f64 operand arrives from
 the host, since no f64 tensor can exist on the device) all raise the documented
 unsupported-dtype error — never a silent downcast, integer narrowing, or bit reinterpretation;
+op-level dtype exceptions (§3.1 — currently integer matmul) are tested at their own error
+surface: invoking matmul on an integer tensor that legitimately lives on the device raises the
+documented unsupported-op error at op dispatch — a path distinct from creation/transfer gating —
+and never falls back silently to CPU;
 cross-device mismatch tests verify that an op mixing a CPU tensor and a Metal tensor raises the
 documented device-mismatch error (§3.3 — no implicit transfer); concurrency tests drive the
 backend from multiple free-threaded Python threads simultaneously, putting the pipeline cache
