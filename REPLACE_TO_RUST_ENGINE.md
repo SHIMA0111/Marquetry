@@ -215,9 +215,12 @@ a single-op test cannot detect it). bf16 is checked against `ml_dtypes` as a tes
 since NumPy has no native bfloat16. Error paths — invalid shapes, incompatible broadcasts,
 unsupported dtype combinations — return deterministic, actionable Rust errors, never panics or
 silent corruption (mapping them to NumPy-matching Python exceptions is Phase 3's contract). CPU
-ops are bitwise-reproducible across runs given identical inputs and thread count — reduction
-order under rayon is fixed by design — establishing CPU as the deterministic reference that the
-Phase 5 GPU determinism tests compare against.*
+ops are bitwise-reproducible given identical inputs, **independent of thread count**: the
+reduction tree shape is a function of input size only (fixed chunking with ordered combine —
+never rayon's adaptive, work-stealing-dependent splitting), and the determinism test verifies
+this by running at several thread counts (e.g., RAYON_NUM_THREADS=1, 4, and max) and asserting
+bitwise-identical results. This makes the CPU reference stable across machines — the property
+the Phase 5 GPU determinism and parity tests depend on.*
 
 **Phase 2 — Autograd in Rust.**
 Arena/index tape, backward for all primitives, generation-ordered traversal (current engine
