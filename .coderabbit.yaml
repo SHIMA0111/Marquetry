@@ -2,8 +2,8 @@
 early_access: false
 tone_instructions: "Be direct, rigorous, and evidence-based. Prioritize correctness, safety, numerical behavior, API compatibility, and test gaps. Avoid praise and style-only nitpicks unless they affect correctness or maintainability."
 reviews:
-  # From 0.4.0, this project will be more difficult because we create a Rust-based engine for autograd.
-  # So, we use more strict review rules.
+  # From 0.4.0, the core engine is implemented in Rust, which requires strict review rules
+  # to maintain correctness, safety, and compatibility across all future changes.
   profile: assertive
   # enable automatic review and approval workflow
   request_changes_workflow: true
@@ -140,9 +140,10 @@ reviews:
         Checks:
         - Dependency changes must be justified. Version floors should state why (e.g., NumPy >= 2 for NEP 50 semantics). New dependencies must be weighed against the lightweight-footprint goal.
         - Version bumps of breaking-release-prone crates (faer, wgpu, PyO3, rust-numpy) need migration notes; verify the thin internal wrapper layer absorbs the change instead of leaking it across the codebase.
-        - Feature flags must stay consistent across workspace crates. In particular: rayon and other threading/std-dependent features must remain optional so marquetry-core keeps building for wasm32; GPU backends must be behind non-default features.
+        - Feature flags must stay consistent across workspace crates. In particular: rayon is feature-gated and must remain optional, and no feature or dependency may break the wasm32 build of marquetry-core (REPLACE_TO_RUST_ENGINE.md requires a wasm32-compatible core).
         - PyO3 / rust-numpy / maturin versions must be mutually compatible (rust-numpy tracks PyO3 versions).
         - abi3 and free-threading (gil_used / cp31Xt wheels) build settings must stay consistent with the documented wheel matrix.
         - MSRV must be consistent across Cargo.toml, CI toolchain pins, and documentation.
-        - CI: new features, targets, or backends must actually be exercised by a CI job; do not let untested configurations ship. GitHub Actions must remain pinned to commit SHAs.
-        - Wheel/release workflow changes must preserve the duplicate-release and version-validation safeguards.
+        - CI: new features, targets, or backends must actually be exercised by a CI job; do not let untested configurations ship.
+        - GitHub Actions must remain pinned to full commit SHAs to mitigate tag-hijacking and unvetted upstream changes (mutable tags can be repointed; SHAs cannot). The existing convention pairs each SHA with a trailing version comment (e.g., `# v6.0.3`); when a pin changes, verify the comment was updated in sync and the new SHA matches the claimed upstream release. SHA updates are currently manual — flag any unpinned `uses:` or stale version comment.
+        - Wheel/release workflow changes must preserve the duplicate-release and version-validation safeguards (currently the "Resolve released version" step — wheel presence + version-string validation — and the "Create tag and release" step — skip when the release already exists — in .github/workflows/release.yml). The invariant is what matters: flag any change that weakens these guarantees, even if the step names change.

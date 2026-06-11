@@ -82,10 +82,10 @@ while keeping the Python-facing API as the primary user surface.
 | Metal | **objc2-metal** (metal-rs is deprecated); MSL kernels embedded + runtime JIT + pipeline cache; GEMM via **MPS first**, evaluate MLX-derived MSL kernels if MPS limits us | metal-rs, mlx-rs |
 | CUDA | **cudarc**; GEMM via **cuBLAS/cuBLASLt**; custom elementwise kernels as CUDA C → PTX embedded; conv may adopt cuDNN | Rust-CUDA / cuda-oxide (both alpha as of 2026) |
 | AMD | **Via the wgpu (Vulkan) backend** — llama.cpp benchmarks show Vulkan ≈ ROCm-native on RDNA3 for many workloads. Native HIP backend reconsidered when the Rust ROCm ecosystem matures | rocm-rs / cubecl-hip-sys raw FFI (Linux-only, immature) |
-| Portable GPU / Web | **wgpu** (WGSL kernels) — covers AMD, Windows, Intel, and browsers (WebGPU shipped in Chrome/Edge/Safari 26/Firefox 147) | Vulkan via ash + MoltenVK (loses coopmat on macOS; ash release stagnation) |
+| Portable GPU / Web | **wgpu** (WGSL kernels) — covers AMD, Windows, Intel, and browsers (WebGPU shipped in Chrome/Edge 113+, Safari 26, Firefox 141+ — Windows first, macOS from 145–147; Firefox Linux still pending) | Vulkan via ash + MoltenVK (loses coopmat on macOS; ash release stagnation) |
 | Python bindings | **PyO3 (0.28+) + rust-numpy** (zero-copy NumPy views at the boundary) | HPy (dormant), rust-cpython (dead), UniFFI (no array story) |
 | Packaging | **maturin**, mixed layout: pure-Python package `marquetry` + extension `marquetry._native`; **uv** for dev workflow | setuptools-rust |
-| Wheels | abi3 (`cp311-abi3`) + `cp314t` free-threaded wheels; adopt **abi3t** (PEP 803) once PyO3 0.29 + maturin 1.14 are out | per-version wheels only |
+| Wheels | abi3 (`cp311-abi3`) + `cp314t` free-threaded wheels. **abi3t** (PEP 803, targets Python 3.15) is a future upgrade, conditional on PyO3 0.29 / maturin 1.14 — both unreleased as of 2026-06; the strategy does not depend on it | per-version wheels only |
 | Python support | **Python ≥ 3.11** (3.10 EOL 2026-10; abi3 buffer protocol needs 3.11+) | keeping 3.10 |
 | Repo layout | **Monorepo**, Cargo workspace in this repository | separate engine repo (pydantic-core retreated from this in 2026) |
 | Versioning | **Lockstep, single tag** (safetensors style); Rust crates not published to crates.io initially | independent rs-/py- versioning (polars style — only useful when the Rust API is a public product) |
@@ -184,7 +184,8 @@ free-threading-safe handle semantics.
 *Exit: existing tensor/function/autograd test files pass against the Rust engine.*
 
 **Phase 4 — Layers, models, optimizers.**
-`Layer`/`Model` parameter management, all 12 optimizers (as Rust kernels — optimizer steps are
+`Layer`/`Model` parameter management, all 11 optimizers (SGD, MomentumSGD, Nesterov, AdaGrad,
+AdaDelta, RMSProp, Adam, AdamW, AdaMax, Nadam, Lion — as Rust kernels; optimizer steps are
 hot loops), Conv2D/pooling (im2col+GEMM), recurrent layers, normalization layers.
 *Exit: full v0.3 test suite passes; Fashion-MNIST CNN + LSTM samples train end-to-end.*
 
@@ -224,7 +225,7 @@ regressions gate merges once baselines exist.
 | candle / burn / tch / tract as foundation | Rejected | Marquetry would become a wrapper; contradicts project philosophy |
 | nalgebra as numerical base | Rejected | No internal parallelism, no blocked decompositions, geometry-oriented; not built for large dynamic matrices |
 | ndarray as the tensor foundation | Rejected (kept as reference) | Healthy again (0.17.x), but owning the strided layer is the point of this project; faer interop lag (faer-ext) adds friction |
-| dfdx-style const-generic shapes | Rejected | Incompatible with a dynamic Python frontend; the approach's flagship is dormant since 2024 |
+| dfdx-style const-generic shapes | Rejected | Incompatible with a dynamic Python frontend; the approach's flagship (dfdx) is still pre-alpha and dormant — last release 2023-07, last commit activity 2024-07, none since |
 | CubeCL for GPU kernels | Rejected | Technically excellent (cuBLAS-level matmul) but single-vendor governance, lockstep with burn releases |
 | Native ROCm/HIP backend now | Deferred | No mature safe Rust wrapper (Linux-only raw FFI); Vulkan path delivers comparable performance on consumer RDNA3 |
 | ash + MoltenVK instead of wgpu | Rejected | Loses cooperative-matrix on macOS, ash crates.io stagnation, no browser story |
