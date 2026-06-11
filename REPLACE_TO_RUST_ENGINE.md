@@ -30,7 +30,7 @@ while keeping the Python-facing API as the primary user surface.
 
 - Building on top of existing tensor runtimes (**candle / burn / tch / tract are explicitly rejected** —
   they would reduce Marquetry to a wrapper, which contradicts the project philosophy).
-- Hand-optimizing GEMM-class microkernels (see Guiding Principle #2).
+- Hand-optimizing GEMM-class microkernels (see Guiding Principle #1).
 - Distributed training, quantization, and training-scale LLM features (out of scope for v1.0).
 
 ---
@@ -126,11 +126,14 @@ marquetry-core
 
 | | F16 | BF16 | F32 | F64 | notes |
 |---|---|---|---|---|---|
-| CPU | ✓ (upcast at first) | ✓ (upcast at first) | ✓ | ✓ | faer GEMM f32/f64 |
+| CPU | ✓ (f32 compute + per-op round-back, §3.1) | ✓ (same) | ✓ | ✓ | faer GEMM f32/f64 |
 | Metal | ✓ | ✓ | ✓ | ✗ (MSL has no f64) | f64 raises explicit unsupported-dtype error (PyTorch MPS precedent) |
 | CUDA | ✓ | ✓ | ✓ | ✓ | |
 | Wgpu | feature-detect (`shader-f16`) | ✗ | ✓ | ✗ (no f64 in WGSL) | browser limits apply (buffer sizes etc.) |
 
+- **Integer dtypes (I32 / I64 / Bool):** available on all backends except that **WGSL has no
+  64-bit integers**, so I64 is unsupported on the wgpu backend and gates exactly like f64 there
+  (per the same capability mechanism).
 - **GPU memory management:** the industry-convergent pattern — ref-counted buffer handles,
   per-stream/command-buffer pools (size-bucketed caching allocator), and in-flight work retaining
   buffer references so user-side drop is just "return to pool".
@@ -181,7 +184,11 @@ covering view-vs-copy and aliasing semantics, non-contiguous layouts and offsets
 0-d (scalar) tensors, NaN/Inf propagation, dtype-boundary overflow/underflow, and NEP 50
 promotion — result dtypes checked against NumPy 2 for mixed-dtype and Python-scalar (weak
 promotion) operands, extending the contract fixed by
-`tests/test_bug_regressions.py::TestScalarPromotion` — all compared against NumPy behavior.*
+`tests/test_bug_regressions.py::TestScalarPromotion` — all compared against NumPy behavior.
+Property tests sweep all supported dtypes; for f16/bf16 they verify the §3.1 per-op round-back
+semantics including chained-op cases (where skipped rounding is observable as value divergence —
+a single-op test cannot detect it). bf16 is checked against `ml_dtypes` as a test-only reference,
+since NumPy has no native bfloat16.*
 
 **Phase 2 — Autograd in Rust.**
 Arena/index tape, backward for all primitives, generation-ordered traversal (current engine
@@ -190,7 +197,10 @@ semantics), `no_backprop_mode` / `test_mode` equivalents.
 current engine's autograd semantics — `no_backprop_mode` / `test_mode` build no graph, gradients
 accumulate on shared inputs (`grad = grad + new_grad`), `retain_grad=False` clears intermediate
 gradients (note: this is DeZero-style `retain_grad`, not PyTorch's `retain_graph`), and
-`unchain` / `unchain_backward` cut the graph; MLP trains on spiral dataset in pure Rust.*
+`unchain` / `unchain_backward` cut the graph; the in-place mutation policy for saved tensors
+(Open Question #8) is decided, implemented, and tested — a test mutates a tensor after it has
+been saved for backward, then calls backward(), and the chosen behavior (forbid / copy-on-save /
+version-check) is what actually happens; MLP trains on spiral dataset in pure Rust.*
 
 **Phase 3 — Python API layer.**
 `Container` and `functions/` re-bound onto `_native` handles; zero-copy NumPy boundary;
@@ -218,20 +228,24 @@ prescribed in this plan; a determinism test verifies same-device run-to-run repr
 all ops — bitwise, or with explicitly documented and opt-in nondeterministic exceptions; dtype
 capability gating tests (per the §3.2 matrix) verify that creating a tensor of an unsupported
 dtype on the device, transferring one to it, or an NEP 50 promotion whose result dtype is
-unsupported (e.g., f32 × f64 → f64 on Metal) all raise the documented unsupported-dtype error —
+unsupported (e.g., f32 tensor × f64 NumPy scalar → f64 on Metal — the f64 operand arrives from
+the host, since no f64 tensor can exist on the device) all raise the documented
+unsupported-dtype error —
 never a silent downcast; CNN training on Metal beats CPU. The parity + determinism + capability
 suite defined here is reused by Phases 6–7.*
 
 **Phase 6 — CUDA backend.**
 cudarc plumbing, cuBLAS GEMM, PTX kernel pipeline (build.rs / cudaforge), stream-ordered pooling.
-*Exit: same parity suite green on CUDA; CI strategy documented (self-hosted or vendor CI).*
+*Exit: the Phase 5 parity + determinism + capability suite green on CUDA; CI strategy documented
+(self-hosted or vendor CI).*
 
 **Phase 7 — wgpu backend (AMD / Windows / Intel / Web).**
 WGSL kernel set; GEMM via a kernel **generator** (workgroup tiling + register blocking, specialization
 per dtype/tile config, autotuned — following burn's published multiplatform-matmul techniques and the
 TFJS/ORT WebGPU kernel designs, not a naive shader); buffer-limit handling, readback ergonomics;
 `wasm32` build of marquetry-core + browser smoke test.
-*Exit: parity suite green on Vulkan (AMD) and Metal-via-wgpu; a wasm32 build of marquetry-core
+*Exit: the Phase 5 parity + determinism + capability suite green on Vulkan (AMD) and
+Metal-via-wgpu; a wasm32 build of marquetry-core
 (rayon disabled) gates CI; a demo training loop runs in a browser, exercising async readback and
 the documented error paths for buffer limits and unsupported dtypes (e.g., f64 on wgpu).*
 
@@ -273,7 +287,7 @@ as a ratio against the native backends on the same hardware.
 
 ---
 
-## 6. Open Questions (tracked, not blocking)
+## 6. Open Questions (tracked; non-blocking except where noted)
 
 1. **Metal GEMM:** MPS first vs MLX-derived MSL kernels — decide with benchmarks in Phase 5.
 2. **Higher-order differentiation** (grad-of-grad): the tape design must not preclude it; scheduling TBD.
@@ -285,8 +299,9 @@ as a ratio against the native backends on the same hardware.
 7. **Crates.io publication** of marquetry-core as a standalone Rust library: post-1.0 decision.
 8. **In-place mutation policy for saved tensors:** the Python engine has no version counters, but
    zero-copy views in the Rust engine make mutation of a tensor saved for backward observable.
-   Decide in Phase 2 whether to forbid, copy-on-save, or version-check — and test the chosen
-   behavior.
+   Decide whether to forbid, copy-on-save, or version-check — and test the chosen behavior.
+   Unlike the other open questions, this one **gates the Phase 2 exit** (an autograd tape that
+   saves tensors is not sound without a defined answer).
 
 ---
 
