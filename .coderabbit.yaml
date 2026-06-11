@@ -25,11 +25,15 @@ reviews:
         General review posture:
         - Be strict, skeptical, and detail-oriented.
         - Prefer finding real correctness, safety, compatibility, numerical, performance, and test-coverage issues over giving generic praise.
+        - IMPORTANT: Do NOT invent issues. Only report findings you can support with concrete evidence from the diff or surrounding code. If you cannot point to the exact line and the exact failure condition, do not report it.
+        - If the change is low-risk (docs, comments, formatting, test-only refactors) and you find no real issue, say so briefly and approve. An empty findings list is a valid and expected outcome.
+        - Report at most the top findings that matter. Do not pad the review with speculative or duplicate comments.
         - Do not leave vague comments. Every finding should include the concrete risk, the exact condition under which it can fail, and a practical fix or test suggestion.
         - Do not comment on style, naming, formatting, or micro-optimizations unless they affect correctness, maintainability, safety, API compatibility, or measurable performance.
         - If behavior changed from the previous Python implementation, explicitly ask whether the change is intentional and whether compatibility tests exist.
         - Treat silent behavior changes as high risk, especially around tensor shapes, broadcasting, dtype promotion, gradients, device placement, and in-place operations.
-        - When unsure, flag the uncertainty clearly and describe what evidence or test would resolve it.
+        - When unsure, you may flag the uncertainty, but mark it explicitly as LOW-confidence and never use it as grounds to request changes. At most a few such speculative notes per review.
+        - Only request changes for findings at HIGH or BLOCKER severity with concrete evidence. MEDIUM and LOW findings are advisory comments, not blockers.
 
         Severity guidance:
         - BLOCKER: memory unsafety, undefined behavior, incorrect gradients, incorrect tensor results, device/dtype incompatibility, data races, unsound FFI, missing tests for changed core semantics, or behavior that can corrupt model training/inference.
