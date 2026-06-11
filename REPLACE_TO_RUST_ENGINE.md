@@ -124,16 +124,16 @@ marquetry-core
 
 **Backend capability matrix (planned):**
 
-| | F16 | BF16 | F32 | F64 | notes |
-|---|---|---|---|---|---|
-| CPU | ✓ (f32 compute + per-op round-back, §3.1) | ✓ (same) | ✓ | ✓ | faer GEMM f32/f64 |
-| Metal | ✓ | ✓ | ✓ | ✗ (MSL has no f64) | f64 raises explicit unsupported-dtype error (PyTorch MPS precedent) |
-| CUDA | ✓ | ✓ | ✓ | ✓ | |
-| Wgpu | feature-detect (`shader-f16`) | ✗ | ✓ | ✗ (no f64 in WGSL) | browser limits apply (buffer sizes etc.) |
+| | F16 | BF16 | F32 | F64 | I32 | I64 | Bool | notes |
+|---|---|---|---|---|---|---|---|---|
+| CPU | ✓ (f32 compute + per-op round-back, §3.1) | ✓ (same) | ✓ | ✓ | ✓ | ✓ | ✓ | faer GEMM f32/f64 |
+| Metal | ✓ | ✓ | ✓ | ✗ (MSL has no f64) | ✓ | ✓ | ✓ | unsupported dtypes raise explicit errors (PyTorch MPS precedent) |
+| CUDA | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | |
+| Wgpu | feature-detect (`shader-f16`) | ✗ | ✓ | ✗ (no f64 in WGSL) | ✓ | ✗ (WGSL has no 64-bit integers) | ✓ (widened storage — WGSL bool is not host-shareable and has no 8-bit types) | browser limits apply (buffer sizes etc.) |
 
-- **Integer dtypes (I32 / I64 / Bool):** available on all backends except that **WGSL has no
-  64-bit integers**, so I64 is unsupported on the wgpu backend and gates exactly like f64 there
-  (per the same capability mechanism).
+Every ✗ in this matrix gates through the same unsupported-dtype mechanism and is exercised by the
+Phase 5 capability suite (reused by Phases 6–7); this matrix is the canonical reference for those
+tests.
 - **GPU memory management:** the industry-convergent pattern — ref-counted buffer handles,
   per-stream/command-buffer pools (size-bucketed caching allocator), and in-flight work retaining
   buffer references so user-side drop is just "return to pool".
@@ -231,7 +231,8 @@ dtype on the device, transferring one to it, or an NEP 50 promotion whose result
 unsupported (e.g., f32 tensor × f64 NumPy scalar → f64 on Metal — the f64 operand arrives from
 the host, since no f64 tensor can exist on the device) all raise the documented
 unsupported-dtype error —
-never a silent downcast; CNN training on Metal beats CPU. The parity + determinism + capability
+never a silent downcast, integer narrowing, or bit reinterpretation; CNN training on Metal beats
+CPU. The parity + determinism + capability
 suite defined here is reused by Phases 6–7.*
 
 **Phase 6 — CUDA backend.**
@@ -247,12 +248,20 @@ TFJS/ORT WebGPU kernel designs, not a naive shader); buffer-limit handling, read
 *Exit: the Phase 5 parity + determinism + capability suite green on Vulkan (AMD) and
 Metal-via-wgpu; a wasm32 build of marquetry-core
 (rayon disabled) gates CI; a demo training loop runs in a browser, exercising async readback and
-the documented error paths for buffer limits and unsupported dtypes (e.g., f64 on wgpu).*
+the documented error paths for buffer limits and unsupported dtypes (e.g., f64 on wgpu); the GEMM
+kernel generator is verified to implement the declared techniques (the Principle #1 exception:
+workgroup shared-memory tiling, register blocking, dtype/tile specialization, autotuning) — the
+required evidence is (a) the autotuner demonstrably selecting among multiple generated variants
+across the benchmark size sweep (a naive single-variant shader cannot satisfy this by
+construction) and (b) the GEMM-vs-native ratio recorded and pinned at this exit per the
+Cross-cutting rules.*
 
 **Phase 8 — Ecosystem features & 1.0.**
-Model archive (`.mq`) format vN+1 over the Rust graph — checkpoints are device-portable:
-parameter bytes are identical regardless of the producing device, so train-on-GPU → load-on-CPU
-round-trips bitwise (computation parity stays tolerance-based) — ONNX export adapted (stays in
+Model archive (`.mq`) format vN+1 over the Rust graph — checkpoints are device-portable in the
+format sense: serialization is device-agnostic (the same parameter values produce identical bytes
+on any device), save → load → re-save is bit-identical, and a GPU-trained checkpoint loads on CPU
+losslessly. This is format fidelity only — it does not claim that training on different devices
+produces identical values; computation parity stays tolerance-based (§3.1) — ONNX export adapted (stays in
 Python, introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in
 Rust, docs refresh (per roadmap), benchmark publication.
 *Exit: v1.0.0 — Rust engine at full feature parity, Metal + CUDA + wgpu shipped, wheels
@@ -263,8 +272,11 @@ defines the named workloads: training (Fashion-MNIST MLP/CNN, LSTM curve forecas
 samples) and microbenchmarks (elementwise / reduction / GEMM across a size sweep, including
 small-tensor sizes where FFI overhead dominates). The headline targets — ≥10× v0.3 pure-Python on
 CPU training, same order of magnitude as NumPy for large-array elementwise ops — are directional
-until first baselines are measured; at that point concrete per-workload thresholds are pinned in
-the benchmark config and regressions against them gate merges. No vs-vendor GEMM target applies to
+until first baselines are measured. Pinning is phase-anchored, not open-ended: CPU microbenchmark
+thresholds are pinned at Phase 1 exit; CPU training-workload thresholds (vs v0.3) at Phase 4 exit
+(the first point where the named samples run end-to-end on the Rust engine); each GPU backend's
+thresholds at its own phase exit (5 / 6 / 7). From each pinning point onward, regressions against
+the pinned thresholds gate merges. No vs-vendor GEMM target applies to
 the native GPU backends (their GEMM *is* the vendor library); the wgpu GEMM generator is tracked
 as a ratio against the native backends on the same hardware.
 
