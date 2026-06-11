@@ -118,6 +118,13 @@ while keeping the Python-facing API as the primary user surface.
   consistent with Principle #1). cuDNN (via cudarc) is the upgrade path on CUDA; MPSCNN on Metal.
   Either switch is gated by the standing parity suites (see the §4 preamble rule on permanent
   suites).
+- **Integer matmul:** required on CPU — the v0.3 suite already exercises it
+  (`tests/test_tensor_calc2.py` matmuls dtype-unspecified integer arrays, i.e. int64), and NumPy
+  semantics (wrapping overflow) apply. No vendor GEMM library covers integer matmul
+  (faer / cuBLAS / MPS are float-only), so the CPU kernel is a simple blocked loop we own — the
+  same no-library-exists exception as the WGSL generator, and performance is explicitly not a
+  target. On GPU backends integer matmul is gated as an unsupported op × dtype combination
+  (PyTorch precedent: CUDA raises for integer matmul).
 
 ### 3.2 Backend abstraction
 
@@ -144,7 +151,8 @@ marquetry-core
 
 Every ✗ in this matrix gates through the same unsupported-dtype mechanism and is exercised by the
 Phase 5 capability suite (reused by Phases 6–7); this matrix is the canonical reference for those
-tests.
+tests. The matrix is per-dtype; op-level exceptions are documented individually and gate through
+the same mechanism — currently one exists: matmul on integer dtypes is CPU-only (§3.1).
 
 - **GPU memory management:** the industry-convergent pattern — ref-counted buffer handles,
   per-stream/command-buffer pools (size-bucketed caching allocator), and in-flight work retaining
