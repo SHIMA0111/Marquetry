@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 early_access: false
+enable_free_tier: false
 tone_instructions: "Be direct, rigorous, and evidence-based. Prioritize correctness, safety, numerical behavior, API compatibility, and test gaps. Avoid praise and style-only nitpicks unless they affect correctness or maintainability."
 reviews:
   # From 0.4.0, the core engine is implemented in Rust, which requires strict review rules
