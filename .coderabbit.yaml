@@ -1,6 +1,11 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 early_access: false
+enable_free_tier: false
+tone_instructions: "Be direct, rigorous, and evidence-based. Prioritize correctness, safety, numerical behavior, API compatibility, and test gaps. Avoid praise and style-only nitpicks unless they affect correctness or maintainability."
 reviews:
+  # From 0.4.0, the core engine is implemented in Rust, which requires strict review rules
+  # to maintain correctness, safety, and compatibility across all future changes.
+  profile: assertive
   # enable automatic review and approval workflow
   request_changes_workflow: true
   # related_prs sometimes displays PRs that have a low-related PR
@@ -10,4 +15,141 @@ reviews:
     # All PRs should be automatically reviewed
     base_branches:
       - ".*"
+    auto_pause_after_reviewed_commits: 0
   collapse_walkthrough: false
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        This repository is undergoing a high-risk migration of a pure-Python deep learning framework core engine to Rust, with GPU backend support. Review all changes as correctness-critical infrastructure. Small mistakes in tensor semantics, autograd, dtype/device behavior, memory ownership, or GPU synchronization can become severe production bugs.
+
+        General review posture:
+        - Be strict, skeptical, and detail-oriented.
+        - Prefer finding real correctness, safety, compatibility, numerical, performance, and test-coverage issues over giving generic praise.
+        - IMPORTANT: Do NOT invent issues. Only report findings you can support with concrete evidence from the diff or surrounding code. If you cannot point to the exact line and the exact failure condition, do not report it.
+        - If the change is low-risk (docs, comments, formatting, test-only refactors) and you find no real issue, say so briefly and approve. An empty findings list is a valid and expected outcome.
+        - Report at most the top findings that matter. Do not pad the review with speculative or duplicate comments.
+        - Do not leave vague comments. Every finding should include the concrete risk, the exact condition under which it can fail, and a practical fix or test suggestion.
+        - Do not comment on style, naming, formatting, or micro-optimizations unless they affect correctness, maintainability, safety, API compatibility, or measurable performance.
+        - If behavior changed from the previous Python implementation, explicitly ask whether the change is intentional and whether compatibility tests exist.
+        - Treat silent behavior changes as high risk, especially around tensor shapes, broadcasting, dtype promotion, gradients, device placement, and in-place operations.
+        - When unsure, you may flag the uncertainty, but mark it explicitly as LOW-confidence and never use it as grounds to request changes. At most a few such speculative notes per review.
+        - Only request changes for findings at HIGH or BLOCKER severity with concrete evidence. MEDIUM and LOW findings are advisory comments, not blockers.
+
+        Severity guidance:
+        - BLOCKER: memory unsafety, undefined behavior, incorrect gradients, incorrect tensor results, device/dtype incompatibility, data races, unsound FFI, missing tests for changed core semantics, or behavior that can corrupt model training/inference.
+        - HIGH: likely compatibility regression, numerical instability, incorrect edge-case behavior, GPU synchronization bug, missing error propagation, panic across FFI, or performance regression in hot paths.
+        - MEDIUM: maintainability issue in core abstractions, incomplete validation, insufficient tests for risky code, ambiguous API behavior.
+        - LOW: minor clarity or documentation issue that may confuse future maintainers.
+
+        Always check these invariants:
+        - Tensor shape semantics: rank, dimensions, zero-sized tensors, scalar tensors, reshape/view behavior, squeeze/unsqueeze, transpose, permute, slicing, indexing, and broadcasting.
+        - Stride and layout semantics: contiguous vs non-contiguous tensors, views vs copies, aliasing, negative/irregular strides if supported, memory offsets, and layout preservation.
+        - Dtype semantics: dtype promotion, mixed precision, bool/int/float behavior, NaN/Inf propagation, overflow/underflow, rounding, and parity with the Python implementation.
+        - Device semantics: CPU/GPU placement, cross-device operations, implicit transfers, explicit transfers, pinned memory if used, and errors for unsupported device combinations.
+        - Autograd semantics: graph construction, saved tensors, gradient accumulation, detach/no-grad behavior, in-place mutation, versioning, retain graph behavior, and backward correctness.
+        - Error semantics: invalid shape/device/dtype errors should be deterministic, actionable, and compatible with existing Python-facing behavior where compatibility is expected.
+        - Determinism: check nondeterministic GPU behavior, atomics, reduction order, parallel floating-point differences, and whether tests tolerate only acceptable numerical variance.
+        - Performance: check accidental host-device sync, unnecessary copies, repeated allocations, lock contention, boxing/dynamic dispatch in hot paths, and avoidable Python/Rust boundary crossings.
+        - Test coverage: every semantic change should have tests comparing the new Rust/GPU path against the old Python/CPU reference where feasible.
+
+        Review output requirements:
+        - For each serious finding, include:
+          1. Why this is risky.
+          2. The specific code path or input shape/dtype/device that may fail.
+          3. The expected behavior.
+          4. The likely actual behavior.
+          5. A concrete fix or a precise test case.
+        - Prefer comments that can be acted on immediately.
+        - If a PR is too large to review safely, say so and identify the highest-risk files or areas that need human review.
+
+    - path: "**/*.rs"
+      instructions: |
+        This is Rust code used as the new core engine for a Python deep learning framework. Review it with special attention to safety, ownership, FFI boundaries, numerical correctness, and hot-path performance.
+
+        Rust-specific checks:
+        - Check for unsafe blocks. Every unsafe block must have a clear safety invariant. Flag unsafe code if the invariant depends on caller behavior that is not enforced.
+        - Check lifetime, ownership, aliasing, and interior mutability assumptions. Tensor storage aliasing is especially risky.
+        - Check Arc/Rc/RefCell/Mutex/RwLock usage for hidden contention, deadlocks, or accidental shared mutable state.
+        - Check Send/Sync correctness for tensor storage, GPU handles, streams, contexts, and autograd graph state.
+        - Check panic behavior. Rust panics must not cross Python FFI or C ABI boundaries unsafely.
+        - Check Result/Error handling. Core engine errors should not be swallowed, converted into misleading Python exceptions, or replaced by panics.
+        - Check numeric code for overflow, unchecked casts, precision loss, integer division surprises, and platform-dependent behavior.
+        - Check indexing math carefully: strides, offsets, flattening, broadcasting, kernel launch dimensions, and bounds checks.
+        - Check that performance-sensitive code avoids unnecessary clones, allocations, dynamic dispatch, synchronization, and Python callbacks.
+        - Check that public Rust APIs preserve clear invariants for tensor metadata, storage ownership, device handles, and autograd state.
+
+        PyO3 / Python interop checks, if applicable:
+        - Verify GIL usage. Do not hold the GIL across heavy computation or blocking GPU operations unless strictly necessary.
+        - Verify Python exceptions map cleanly from Rust errors.
+        - Verify borrowed Python objects do not outlive the GIL-bound context.
+        - Verify zero-copy conversions are sound and do not expose mutable aliasing bugs.
+        - Verify Python-visible behavior remains compatible with the previous pure-Python implementation unless the PR explicitly documents a breaking change.
+        - Verify no Rust panic can escape into Python.
+
+    - path: "**/*.{py,pyi}"
+      instructions: |
+        This Python code is the public-facing layer around a Rust core engine. Review it for API compatibility, semantic parity, and correct delegation to the Rust backend.
+
+        Python compatibility checks:
+        - Compare behavior against the previous pure-Python implementation.
+        - Check public API signatures, default arguments, exceptions, dtype/device defaults, and return types.
+        - Check whether Python tests still validate behavior through the public API, not only through internal Rust functions.
+        - Check lazy/eager execution assumptions if applicable.
+        - Check Python fallback paths and feature flags. CPU/Rust/GPU paths must not silently diverge.
+        - Check that user-facing errors are understandable and not raw Rust/internal errors unless intentional.
+        - Check type hints and stubs when APIs change.
+        - Check serialization/deserialization, checkpoint compatibility, and state_dict-like behavior if applicable.
+
+    - path: "**/*.{wgsl,cu,cuh,metal,cl,cpp,h,hpp}"
+      instructions: |
+        This is GPU or low-level backend code for a deep learning framework. Treat every change as high risk.
+
+        GPU/kernel checks:
+        - Check thread/block/grid indexing for off-by-one errors and out-of-bounds reads/writes.
+        - Check shape, stride, broadcasting, and memory-offset calculations.
+        - Check non-contiguous tensor handling. Do not assume contiguous layout unless enforced.
+        - Check alignment requirements, buffer sizes, element sizes, and dtype-specific paths.
+        - Check race conditions, atomics, barriers, shared memory usage, and write conflicts.
+        - Check reductions for correctness, numerical stability, and deterministic behavior where required.
+        - Check synchronization boundaries. Flag accidental host-device synchronization and missing synchronization before reading results.
+        - Check error propagation from kernel compilation, dispatch, command submission, and device failures.
+        - Check CPU/GPU parity tests for all changed kernels.
+        - Check edge cases: empty tensors, scalar tensors, very large tensors, non-power-of-two sizes, unusual strides, mixed dtypes, and batch dimensions.
+        - Check whether kernel launch parameters are valid across supported devices and backends.
+
+        For numerical operations:
+        - Compare against the Python/CPU reference implementation.
+        - Check tolerance choices in tests. Tolerances should be justified by dtype and operation, not arbitrarily loosened.
+        - Check NaN/Inf behavior and propagation.
+        - Check overflow/underflow and precision loss, especially in fp16/bf16/fp32 mixed paths.
+
+    - path: "**/tests/**"
+      instructions: |
+        Tests are critical for this migration. Review tests as carefully as implementation code.
+
+        Test review requirements:
+        - Tests should compare Rust/GPU behavior against the old Python/CPU reference where feasible.
+        - Tests should cover CPU and GPU paths if both are supported.
+        - Tests should cover multiple dtypes, devices, shapes, ranks, and layout cases.
+        - Tests should include non-contiguous tensors, broadcasting, scalar tensors, empty tensors, and edge-case dimensions.
+        - Autograd tests should validate both forward values and backward gradients.
+        - Numerical tests should use dtype-appropriate tolerances and should not hide real regressions with overly broad tolerances.
+        - Tests should verify error behavior for invalid shape, dtype, device, and unsupported operations.
+        - If a PR changes core tensor semantics but only updates happy-path tests, flag it.
+        - Prefer property-based tests or randomized reference checks for shape/dtype/device combinations when appropriate.
+        - Check that tests are deterministic and do not depend on execution order, device timing, or global mutable state.
+
+    - path: "{**/Cargo.toml,**/Cargo.lock,**/pyproject.toml,**/setup.py,rust-toolchain*,.github/workflows/**}"
+      instructions: |
+        Build, packaging, and CI configuration for a hybrid Rust + Python project. The normative stack decisions live in REPLACE_TO_RUST_ENGINE.md — flag any contradiction with that document.
+
+        Checks:
+        - Dependency changes must be justified. Version floors should state why (e.g., NumPy >= 2 for NEP 50 semantics). New dependencies must be weighed against the lightweight-footprint goal.
+        - Version bumps of breaking-release-prone crates (faer, wgpu, PyO3, rust-numpy) need migration notes; verify the thin internal wrapper layer absorbs the change instead of leaking it across the codebase.
+        - Feature flags must stay consistent across workspace crates. In particular: rayon is feature-gated and must remain optional, and no feature or dependency may break the wasm32 build of marquetry-core (REPLACE_TO_RUST_ENGINE.md requires a wasm32-compatible core).
+        - PyO3 / rust-numpy / maturin versions must be mutually compatible (rust-numpy tracks PyO3 versions).
+        - abi3 and free-threading (gil_used / cp31Xt wheels) build settings must stay consistent with the documented wheel matrix.
+        - MSRV must be consistent across Cargo.toml, CI toolchain pins, and documentation.
+        - CI: new features, targets, or backends must actually be exercised by a CI job; do not let untested configurations ship.
+        - GitHub Actions must remain pinned to full commit SHAs to mitigate tag-hijacking and unvetted upstream changes (mutable tags can be repointed; SHAs cannot). The existing convention pairs each SHA with a trailing version comment (e.g., `# v6.0.3`); when a pin changes, verify the comment was updated in sync and the new SHA matches the claimed upstream release. SHA updates are currently manual — flag any unpinned `uses:` or stale version comment.
+        - Wheel/release workflow changes must preserve the duplicate-release and version-validation safeguards (currently the "Resolve released version" step — wheel presence + version-string validation — and the "Create tag and release" step — skip when the release already exists — in .github/workflows/release.yml). The invariant is what matters: flag any change that weakens these guarantees, even if the step names change.
