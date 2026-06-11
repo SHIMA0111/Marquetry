@@ -62,6 +62,25 @@ reviews:
         - Prefer comments that can be acted on immediately.
         - If a PR is too large to review safely, say so and identify the highest-risk files or areas that need human review.
 
+    - path: "ROADMAP.md"
+      instructions: |
+        This is a vision/direction document, not an engineering specification. The engine-grade
+        review checklists from the global instructions do NOT apply to this file: do not demand
+        tests, exit criteria, benchmarks, tolerance definitions, CI gating, or
+        implementation-level precision for roadmap items. Aspirational, high-level statements
+        without verification mechanisms are acceptable here by design.
+
+        Review this file only for:
+        - Contradictions with REPLACE_TO_RUST_ENGINE.md, which remains the normative engineering
+          plan. If the two disagree, flag the contradiction — do not try to make ROADMAP.md
+          equally rigorous.
+        - Factual errors in objectively verifiable claims (versions, dates, names).
+        - Internal inconsistencies or ambiguity that could genuinely mislead a reader.
+        - Broken links or references to files/sections that do not exist.
+
+        Severity for findings in this file caps at MEDIUM unless a claim contradicts the
+        normative plan.
+
     - path: "**/*.rs"
       instructions: |
         This is Rust code used as the new core engine for a Python deep learning framework. Review it with special attention to safety, ownership, FFI boundaries, numerical correctness, and hot-path performance.
