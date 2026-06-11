@@ -30,7 +30,9 @@ while keeping the Python-facing API as the primary user surface.
 
 - Building on top of existing tensor runtimes (**candle / burn / tch / tract are explicitly rejected** —
   they would reduce Marquetry to a wrapper, which contradicts the project philosophy).
-- Hand-optimizing GEMM-class microkernels (see Guiding Principle #1).
+- Hand-optimizing GEMM-class microkernels where a specialist library exists (faer / cuBLAS / MPS).
+  The WGSL GEMM kernel generator is the documented exception, since no vendor library exists at
+  that layer — see Guiding Principle #1.
 - Distributed training, quantization, and training-scale LLM features (out of scope for v1.0).
 
 ---
