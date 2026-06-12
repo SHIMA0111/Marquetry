@@ -34,6 +34,8 @@ while keeping the Python-facing API as the primary user surface.
   The WGSL GEMM kernel generator is the documented exception, since no vendor library exists at
   that layer — see Guiding Principle #1.
 - Distributed training, quantization, and training-scale LLM features (out of scope for v1.0).
+- Re-implementing the classic ML module (trees / random forest / SVM) in Rust. It is NumPy-based
+  and independent of the autograd engine, so it stays pure Python through 1.0.
 
 ---
 
@@ -202,6 +204,11 @@ later (conv im2col+GEMM → cuDNN or MPSCNN per §3.1, MPS → MLX-derived GEMM 
 a faer/wgpu version bump) must keep every standing suite green within the pinned budgets — a
 provider swap is not a semantic change and is no license to loosen tolerances.
 
+Phases map to public releases (lockstep versioning, §3): Phases 0–4 culminate in **v0.4.0** —
+the Rust CPU engine at full v0.3 feature parity, file formats included; Phases 5 / 6 / 7 ship as
+**v0.5.0 / v0.6.0 / v0.7.0**; Phases 8 / 9 / 10 ship as **v0.8.0 / v0.9.0 / v0.10.0**, and
+**v1.0.0** closes the migration. ROADMAP.md is the product-level view of the same sequence.
+
 **Phase 0 — Scaffolding.**
 Cargo workspace, maturin + uv wiring, CI matrix (Rust tests; Python 3.11–3.14 incl. free-threaded
 jobs; wheel builds), benchmark harness skeleton.
@@ -258,17 +265,30 @@ threads, verifying correct results with no crashes or races; marquetry-core's pu
 run under Miri in CI (Miri cannot execute FFI, so the Python-level coverage comes from the
 stress tests; ThreadSanitizer builds where practical).*
 
-**Phase 4 — Layers, models, optimizers.**
+**Phase 4 — Layers, models, optimizers, file formats** *(ships as **v0.4.0**)*.
 `Layer`/`Model` parameter management, all 11 optimizers (SGD, MomentumSGD, Nesterov, AdaGrad,
 AdaDelta, RMSProp, Adam, AdamW, AdaMax, Nadam, Lion — as Rust kernels; optimizer steps are
 hot loops), Conv2D/pooling (im2col+GEMM), recurrent layers, normalization layers.
-*Exit: full v0.3 test suite passes; Conv2D/Deconv2D parity against the torch reference used by
+File-format parity belongs to this phase, not a later one — the exit's "full v0.3 test suite"
+already includes `test_model_archive.py` and `test_onnx_*.py`, and shipping v0.4.0 with a
+feature regression vs v0.3 is unacceptable: the model archive (`.mq`, format vN+1 over the Rust
+graph) and ONNX export are re-pointed at the Rust graph introspection API (both stay
+Python-side). Checkpoints are device-portable by construction: the format defines canonical,
+dtype-tagged on-disk representations (e.g., Bool is one byte per element), so backends whose
+runtime storage differs (wgpu's widened Bool, §3.2) normalize on save/load and the same
+parameter values produce identical bytes on any device; save → load → re-save is bit-identical.
+This is format fidelity only — computation parity across devices stays tolerance-based (§3.1);
+the GPU round-trip claim becomes testable from Phase 5 on. The full dtype → on-disk mapping
+lives in the format spec, a deliverable of this phase. Classic ML stays pure Python and is
+untouched by the engine swap (see Non-Goals).
+*Exit: full v0.3 test suite passes (model-archive and ONNX tests included); Conv2D/Deconv2D
+parity against the torch reference used by
 `tests/test_conv2d.py` is extended to degenerate geometries — stride > kernel (both and single
 dims), pad ≥ kernel including asymmetric pads, forward and backward — and geometries whose output
 spatial size would be non-positive raise a deterministic, actionable shape error (torch raises
 here; never a silent empty result); Fashion-MNIST CNN + LSTM samples train end-to-end.*
 
-**Phase 5 — Metal backend** *(first GPU target — primary dev machine).*
+**Phase 5 — Metal backend** *(first GPU target — primary dev machine; ships as **v0.5.0**)*.
 objc2-metal device/queue/pool plumbing, MSL elementwise/reduction kernels, MPS GEMM,
 buffer pooling, pipeline cache, dtype capability gating (no f64).
 *Exit: GPU parity tests vs CPU for all ops, with per-op-class and per-dtype tolerance budgets
@@ -291,12 +311,12 @@ and buffer pools under contention (extending the Phase 3 stress tests to device 
 training on Metal beats CPU. The parity + determinism + capability suite defined here is reused
 by Phases 6–7.*
 
-**Phase 6 — CUDA backend.**
+**Phase 6 — CUDA backend** *(ships as **v0.6.0**)*.
 cudarc plumbing, cuBLAS GEMM, PTX kernel pipeline (build.rs / cudaforge), stream-ordered pooling.
 *Exit: the Phase 5 parity + determinism + capability suite green on CUDA; CI strategy documented
 (self-hosted or vendor CI).*
 
-**Phase 7 — wgpu backend (AMD / Windows / Intel / Web).**
+**Phase 7 — wgpu backend (AMD / Windows / Intel / Web)** *(ships as **v0.7.0**)*.
 WGSL kernel set; GEMM via a kernel **generator** (workgroup tiling + register blocking, specialization
 per dtype/tile config, autotuned — following burn's published multiplatform-matmul techniques and the
 TFJS/ORT WebGPU kernel designs, not a naive shader); buffer-limit handling, readback ergonomics;
@@ -312,19 +332,28 @@ across the benchmark size sweep (a naive single-variant shader cannot satisfy th
 construction) and (b) the GEMM-vs-native ratio recorded and pinned at this exit per the
 Cross-cutting rules.*
 
-**Phase 8 — Ecosystem features & 1.0.**
-Model archive (`.mq`) format vN+1 over the Rust graph. Checkpoints are device-portable in the
-format sense: the format defines canonical, dtype-tagged on-disk representations (e.g., Bool is
-one byte per element), so backends whose runtime storage differs (wgpu's widened Bool, §3.2)
-normalize on save/load and the same parameter values produce identical bytes on any device;
-save → load → re-save is bit-identical, and a GPU-trained checkpoint loads on CPU losslessly.
-This is format fidelity only — training on different devices still produces different values
-within the tolerance budgets (§3.1); the full dtype → on-disk mapping lives in the format spec
-itself (a Phase 8 deliverable). Also in this phase: ONNX export adapted (stays in Python,
-introspecting the Rust graph), classic ML (trees / random forest / SVM) re-implemented in Rust,
-docs refresh (per roadmap), benchmark publication.
-*Exit: v1.0.0 — Rust engine at full feature parity, Metal + CUDA + wgpu shipped, wheels
-(abi3 + cp31Xt, abi3t when toolchain allows) on PyPI.*
+**Phase 8 — Cross-backend optimization** *(ships as **v0.8.0**)*.
+The performance push, once all four backends exist: kernel fusion for composite ops where
+profiling justifies it (§3.1), convolution provider upgrades (cuDNN / MPSCNN per §3.1), Metal
+GEMM re-evaluation (Open Question #1), wgpu autotuner maturation and cooperative-matrix adoption
+if stabilized (Open Question #6), allocator and stream tuning.
+*Exit: measured improvements on the pinned benchmark workloads with every standing suite still
+green (per the §4 preamble rule — optimization is no license to change semantics); thresholds
+re-pinned at the improved levels.*
+
+**Phase 9 — Modern operator expansion** *(ships as **v0.9.0**)*.
+Broad addition of modern functions: contemporary activations, optimizers, normalization and
+attention-era building blocks. Every new op enters through the established gates —
+reference-checked property tests, gradient checks, per-backend parity or explicit capability
+gating (§3.2), documentation.
+*Exit: the expanded operator set ships on all four backends or is capability-gated per the §3.2
+rules; all suites and benchmarks green.*
+
+**Phase 10 — Stabilization & 1.0** *(ships as **v0.10.0**, then **v1.0.0**)*.
+Hardening and polish: edge-case fuzzing of shape/dtype/error paths, API freeze, docs refresh
+(per roadmap), benchmark publication.
+*Exit: v1.0.0 — Rust engine at full feature parity and maturity, Metal + CUDA + wgpu shipped,
+wheels (abi3 + cp31Xt, abi3t when toolchain allows) on PyPI.*
 
 **Cross-cutting (all phases):** benchmark suite tracked in CI. The Phase 0 benchmark harness
 defines the named workloads: training (Fashion-MNIST MLP/CNN, LSTM curve forecast — the existing
